@@ -2704,4 +2704,25 @@ main>.key,main>#arc10Stats{display:none!important}
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 </script>
+
+<style id="arc99-mobile-viewport">
+@media (orientation:portrait) and (max-width:699px){
+ html,body{overflow-x:hidden!important}
+ main{padding:2px 2px 8px!important;max-width:100%!important}
+ main>#arc80Stage{grid-template-columns:minmax(0,14%) minmax(0,1fr) minmax(0,17%)!important;gap:2px!important;align-items:start!important;width:100%!important;max-width:100%!important}
+ #arc80Stage>.battle-frame{grid-area:1/2/2/3!important;aspect-ratio:auto!important;height:clamp(470px,72dvh,820px)!important;width:100%!important;max-width:100%!important;overflow:hidden!important}
+ #arc80Stage #portraitBoard{width:100%!important;height:100%!important;aspect-ratio:auto!important;max-height:none!important;object-fit:fill!important;touch-action:none!important}
+ #arc80Stage>.arc96-left #towerDock.tower-dock{gap:2px!important;padding:1px!important}
+ #arc80Stage>.arc96-left #towerDock.tower-dock button{height:clamp(47px,8.5dvh,78px)!important;min-height:0!important;padding:1px 0!important;font-size:clamp(7px,1.85vw,9px)!important}
+ #arc80Stage>.arc96-left #towerDock .tower-glyph{font-size:17px!important}
+ #arc80Stage>.arc96-right{gap:3px!important}
+ #arc80Stage>.arc96-right>.campaign-hud{padding:3px 1px!important}
+ #arc80Stage>.arc96-right #arc23core{padding:3px 1px!important}
+ #arc80Stage>.arc96-right #arcGraphicsControl{padding:2px 1px!important}
+ #arc80Stage>.arc96-right #gameActions button,#arc80Stage>.arc96-right #gameToolbar button{min-height:36px!important}
+}
+@media (orientation:portrait) and (max-width:380px){
+ main>#arc80Stage{grid-template-columns:minmax(0,14%) minmax(0,1fr) minmax(0,17%)!important}
+}
+</style>
 </body></html>
