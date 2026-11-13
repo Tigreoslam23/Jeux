@@ -1438,9 +1438,9 @@ function drawAmbientSerpentinesAndStars(){
   g.restore();
  }
 }
-function draw(){updateDiscovery();g.clearRect(0,0,cv.width,cv.height);
+function draw(){document.body.classList.toggle('arc-wave-announcing',autoWaveCountdown>=0||waveIntroStart>0||revealSweepStart>0);updateDiscovery();g.clearRect(0,0,cv.width,cv.height);
 let bg=g.createLinearGradient(0,0,cv.width,cv.height);bg.addColorStop(0,'#050b15');bg.addColorStop(.5,'#0a1221');bg.addColorStop(1,'#050c15');g.fillStyle=bg;g.fillRect(0,0,cv.width,cv.height);
-if(!(window.matchMedia('(max-width:699px)').matches&&arcGraphicsPreset().trails===0))drawAmbientSerpentinesAndStars();
+drawAmbientSerpentinesAndStars();
 drawConstructionAnchors();
 // Placement feedback: highlight the magnetically snapped construction cell.
 // No board-wide green overlay when a tower is merely selected.
@@ -2880,4 +2880,13 @@ main>.key,main>#arc10Stats{display:none!important}
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
-</script></body></html>
+</script><style id="arc914-playability">
+/* The wave banner is a non-interactive intermission. */
+body.arc-wave-announcing #towerDock{pointer-events:none!important;opacity:.55!important;filter:saturate(.65)}
+body.arc-wave-announcing #dragGhost{display:none!important}
+body.arc-wave-announcing .battle-frame{touch-action:none}
+@media(max-width:699px){
+ #towerDock button{touch-action:none}
+ #dragGhost{pointer-events:none}
+}
+</style></body></html>
