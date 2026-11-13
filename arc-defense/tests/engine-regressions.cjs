@@ -88,4 +88,30 @@ test('one active projectile per tower, without retargeting during flight',()=>{
  assert.equal(c.launchBoomSalve(tower,{x:0,y:0},spec),true);assert.equal(c.launchBoomSalve(tower,{x:0,y:0},spec),false);
  c.monsters[0].y=90;assert.equal(c.boomShots[0].angle,0);assert.equal(c.boomShots.length,1);
 });
+function resultContext(old=null,storageFails=false){
+ const c=context(),nodes=new Map(),saved=new Map(old?[['arc_defense_v1_best',JSON.stringify(old)]]:[]);
+ function element(){const classes=new Set();return {textContent:'',hidden:false,children:[],classList:{add:x=>classes.add(x),contains:x=>classes.has(x)},append(...items){this.children.push(...items)},replaceChildren(){this.children=[]},focus(){this.focused=true}}}
+ c.$=id=>{if(!nodes.has(id))nodes.set(id,element());return nodes.get(id)};
+ c.document={createElement:element};c.localStorage={getItem:key=>{if(storageFails)throw Error('Storage unavailable');return saved.get(key)||null},setItem:(key,value)=>saved.set(key,value)};
+ c.window.arcAudio.mode=()=>{};c.requestAnimationFrame=fn=>fn();c.discoveredPercent=()=>80;c.campaignUpgradeCost=()=>65;
+ Object.assign(c,{waveNumber:16,CAMPAIGN_WAVES:20,CORE_LIVES:20,kills:362,lives:0,energy:120,towers:[{lv:2},{lv:5}]});c.$('level').value='2';
+ vm.runInContext(extract('endCampaign'),c);return {c,nodes,saved};
+}
+test('defeat summary shows actual run values and 20-life core',()=>{
+ const {c,nodes}=resultContext();c.endCampaign(false);
+ assert.equal(nodes.get('endTitle').textContent,'CORE DESTROYED');
+ const values=nodes.get('endSummary').children.map(item=>item.children[1].textContent);
+ assert.deepEqual(values,['16 / 20','362','0 / 20','120 ⚡','2','80%']);
+ assert(nodes.get('endTip').textContent.startsWith('1 tower upgrade was'));
+ assert.equal(nodes.get('endRestart').focused,true);
+});
+test('a weaker result does not overwrite the previous device record',()=>{
+ const previous={won:false,wave:18,lives:0,kills:430};const {c,saved}=resultContext(previous);c.endCampaign(false);
+ assert.deepEqual(JSON.parse(saved.get('arc_defense_v1_best')),previous);
+});
+test('victory can replace a loss and unavailable storage never blocks the dialog',()=>{
+ const {c,saved}=resultContext({won:false,wave:20,lives:0,kills:1000});c.waveNumber=20;c.lives=3;c.endCampaign(true);
+ assert.equal(JSON.parse(saved.get('arc_defense_v1_best')).won,true);
+ const fallback=resultContext(null,true);assert.doesNotThrow(()=>fallback.c.endCampaign(false));assert.equal(fallback.nodes.get('endRecord').hidden,true);
+});
 console.log(count+' regression checks passed');
