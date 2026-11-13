@@ -885,7 +885,7 @@ function modeButtons(){if(!placing){placementHover=null;boomHover=null} $('tower
 function rng(s){let a=s|0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const ctr=p=>({x:OX+(p.x+.5)*C,y:OY+(p.y+.5)*C});
 const pt=(x,y)=>({x,y});
-let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=9;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
+let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
 for(let i=0;i<rows.length;i++){let y=rows[i],start=direction===1?left:right,end=direction===1?right:left;if(i===0){for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}else{let old=rows[i-1];for(let yy=old+1;yy<y;yy++)path.push({x:start,y:yy});for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}direction*=-1;}
 occupied=new Set(path.map(p=>key(p.x,p.y)));turns=[];way=[];
 // A turn is a true 2x2 reserved footprint. Its centerline enters junction 2,
@@ -945,51 +945,34 @@ let acc=0;for(let i=0;i<way.length;i++){if(i)acc+=Math.hypot(way[i].x-way[i-1].x
 // The old square path is replaced by spline samples and two instantaneous jumps.
 // V3.2: seeded variations of the flowing stage. Fixed interfaces remain at
 // the true board boundary; interior control points vary with the seed.
+// ARC 9.14 : lignes douces et motifs équilibrés plutôt que méandres aléatoires.
+// Les trois segments gardent leurs entrées/sorties (warp et trou de ver).
+// Chaque motif possède une composition gauche/droite cohérente, avec faible variation.
 const routeTemplates=[
  [
-  [[8,130],[155,130],[305,120],[410,275],[225,515],[455,555],[685,425],[765,230]],
-  [[510,290],[405,105],[615,130],[830,460],[975,165],[930,2]],
-  [[930,673],[790,545],[925,395],[1030,505],[1112,505]]
+  [[8,185],[170,185],[315,260],[475,400],[635,340],[765,230]],
+  [[510,290],[590,215],[725,140],[870,180],[970,120],[930,2]],
+  [[930,673],[860,590],[775,535],[845,455],[970,475],[1112,505]]
  ],
  [
-  [[8,205],[155,205],[350,120],[570,195],[340,385],[190,540],[500,590],[765,230]],
-  [[510,290],[310,140],[640,95],[820,340],[700,520],[1020,330],[930,2]],
-  [[930,673],[690,550],[900,350],[760,175],[1040,350],[1112,505]]
+  [[8,290],[180,290],[350,195],[515,265],[640,335],[765,230]],
+  [[510,290],[610,215],[735,135],[870,125],[960,95],[930,2]],
+  [[930,673],[825,585],[735,545],[820,430],[970,425],[1112,505]]
  ],
  [
-  [[8,100],[225,115],[470,160],[285,330],[145,510],[460,580],[690,390],[765,230]],
-  [[510,290],[375,155],[590,95],[840,195],[730,480],[1015,380],[930,2]],
-  [[930,673],[760,570],[1010,430],[810,280],[1050,500],[1112,505]]
- ],
- [
-  [[8,360],[210,370],[330,570],[540,525],[590,320],[390,180],[610,95],[765,230]],
-  [[510,290],[250,220],[200,490],[460,610],[750,570],[1010,380],[930,2]],
-  [[930,673],[1050,570],[820,470],[690,270],[970,160],[1112,505]]
- ],
- [
-  [[8,540],[185,510],[355,340],[180,160],[460,95],[690,175],[590,440],[765,230]],
-  [[510,290],[650,115],[850,125],[1030,260],[800,470],[990,575],[930,2]],
-  [[930,673],[720,560],[590,380],[835,190],[1030,340],[1112,505]]
- ],
- [
-  [[8,75],[230,85],[175,330],[360,540],[590,580],[710,385],[500,170],[765,230]],
-  [[510,290],[350,430],[560,610],[800,560],[1000,400],[770,180],[930,2]],
-  [[930,673],[790,540],[1020,390],[720,230],[940,130],[1112,505]]
- ],
- [
-  [[8,270],[155,110],[365,110],[525,310],[350,510],[640,600],[710,370],[765,230]],
-  [[510,290],[320,95],[165,340],[380,580],[730,520],[1030,180],[930,2]],
-  [[930,673],[1030,530],[760,400],[920,210],[680,120],[1112,505]]
+  [[8,375],[175,375],[345,440],[510,320],[630,310],[765,230]],
+  [[510,290],[590,210],[715,150],[875,180],[970,105],[930,2]],
+  [[930,673],[840,580],[750,510],[830,440],[980,465],[1112,505]]
  ]
 ];
 const templateIndex=Math.floor(r()*routeTemplates.length);proceduralVariant=templateIndex+1;
 const routeSegments=routeTemplates[templateIndex].map((segment,si)=>segment.map((point,j)=>{
-  const [x,y]=point;
-  // Preserve all portal mouths, edge warp ends and final exit exactly.
-  if(j===0||j===segment.length-1)return [x,y];
-  const amplitude=si===2?55:72;
-  return [Math.max(75,Math.min(1040,x+(r()-.5)*2*amplitude)),
-          Math.max(70,Math.min(605,y+(r()-.5)*2*amplitude))];
+ const [x,y]=point;
+ if(j===0||j===segment.length-1)return [x,y];
+ // Variations discrètes pour préserver la lisibilité des courbes et les zones constructibles.
+ const amplitude=si===1?12:18;
+ return [Math.max(65,Math.min(1050,x+(r()-.5)*2*amplitude)),
+         Math.max(60,Math.min(615,y+(r()-.5)*2*amplitude))];
 }));
 jumpPairs=[];
 const rebuilt=[];
@@ -1457,7 +1440,7 @@ function drawAmbientSerpentinesAndStars(){
 }
 function draw(){updateDiscovery();g.clearRect(0,0,cv.width,cv.height);
 let bg=g.createLinearGradient(0,0,cv.width,cv.height);bg.addColorStop(0,'#050b15');bg.addColorStop(.5,'#0a1221');bg.addColorStop(1,'#050c15');g.fillStyle=bg;g.fillRect(0,0,cv.width,cv.height);
-drawAmbientSerpentinesAndStars();
+if(!(window.matchMedia('(max-width:699px)').matches&&arcGraphicsPreset().trails===0))drawAmbientSerpentinesAndStars();
 drawConstructionAnchors();
 // Placement feedback: highlight the magnetically snapped construction cell.
 // No board-wide green overlay when a tower is merely selected.
@@ -1823,15 +1806,16 @@ function renderWaveCountdown(){const active=autoWaveCountdown>=0&&!playing&&live
  if(active){if(waveBannerExitTimer){clearTimeout(waveBannerExitTimer);waveBannerExitTimer=null}waveBanner.classList.remove('exiting');waveBanner.classList.add('visible');const sec=Math.max(1,Math.ceil(autoWaveCountdown));if(sec!==autoWaveLastShown){if(autoWaveLastShown===-1)window.arcAudio?.mode('alert');waveBanner.querySelector('.wave-number').textContent=String(waveNumber).padStart(2,'0');waveBanner.querySelector('.wave-sec').textContent=`IN ${sec} S`;autoWaveLastShown=sec}waveBanner.classList.toggle('is-paused',paused);}
  else if(waveBanner.classList.contains('visible')){waveBanner.classList.remove('visible');waveBanner.classList.add('exiting');waveBannerExitTimer=setTimeout(()=>{waveBanner.classList.remove('exiting');waveBannerExitTimer=null},300)}
 }
-function launchWave(isAuto=false){if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Vague ${waveNumber} en cours : résultats à la fin de la vague.`;monsters=[];shots=[];boomShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=waveNumber===1?.55:waveNumber===2?.55:waveNumber===3?.65:waveNumber===4?1.35:waveNumber===5?1.30:Math.max(0.95,1.30-(waveNumber-5)*.025);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
-function animate(ts){if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
+function launchWave(isAuto=false){if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Vague ${waveNumber} en cours : résultats à la fin de la vague.`;monsters=[];shots=[];boomShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
+let arcFrameStamp=0;
+function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrameStamp&&ts-arcFrameStamp<31){if(!window.__arcLabManual)requestAnimationFrame(animate);return}arcFrameStamp=ts;if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
  // Phase 1: announce the discovery before illuminating a single section of the path.
- if(ts-waveIntroStart>=2000){waveIntroStart=0;pathRevealBanner.classList.remove('active');revealSweepStart=ts;last=ts;dt=0}
+ if(ts-waveIntroStart>=900){waveIntroStart=0;pathRevealBanner.classList.remove('active');revealSweepStart=ts;last=ts;dt=0}
  else {draw();if(!window.__arcLabManual)requestAnimationFrame(animate);return}
  }
  if(revealSweepStart>0){
  // Phase 2: only after the banner disappears, sweep the route once.
- if(ts-revealSweepStart>=2000){revealSweepStart=0;last=ts;dt=0}
+ if(ts-revealSweepStart>=900){revealSweepStart=0;last=ts;dt=0}
  else {draw();if(!window.__arcLabManual)requestAnimationFrame(animate);return}
  }
  if(playing&&!paused){dt*=+$('speed').value;elapsed+=dt;spawn+=dt;if(waveSpawned<waveTotal&&spawn>=waveDelay){spawn-=waveDelay;let type=waveKind(waveSpawned,waveNumber),profile=enemyProfiles[type],scale=1+(waveNumber-1)*.22;
@@ -1948,17 +1932,17 @@ s.life=0;break;
 }}
 
 shots=shots.filter(s=>s.life>0);particles.forEach(p=>p.life-=dt);particles=particles.filter(p=>p.life>0);
-let dead=monsters.filter(m=>m.hp<=0);if(dead.length){for(const m of dead){const c=monsterPosition(m);spawnVfx91(c.x,c.y,'vfx91death',null,m.type)}kills+=dead.length;energy+=dead.reduce((sum,m)=>sum+(m.reward??12),0);update()}for(let m of monsters){if(m.hp>0&&m.progress>=way.at(-1).dist){lives=Math.max(0,lives-1);escaped++}}monsters=monsters.filter(m=>m.hp>0&&m.progress<way.at(-1).dist);if(waveSpawned>=waveTotal&&monsters.length===0){playing=false;waveFinished=true;lastWaveReport=`📊 Vague ${waveNumber} (${waveTheme(waveNumber)}) : ${kills-waveStartKills} éliminés sur ${waveTotal} · ${escaped-waveStartEscaped} passés · ${lives} vies restantes · Exploration ${Math.round(discoveredPercent())} % (+${Math.max(0,Math.round(discoveredPercent()-waveStartDiscovery))} pts) · ${energy} ⚡ disponibles.`;$('waveReport').textContent=lastWaveReport;if(lives>0){if(waveNumber>=CAMPAIGN_WAVES){endCampaign(true);waveNumber++}else{energy+=Math.max(25,Math.round(20+waveNumber*4));waveNumber++;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;renderWaveCountdown()}}update()}if(lives<=0){playing=false;endCampaign(false);$('waveReport').textContent=`💔 Base détruite pendant la vague ${waveNumber} : ${kills-waveStartKills} éliminés, ${escaped-waveStartEscaped} passés.`;update()}}draw();if(!window.__arcLabManual)requestAnimationFrame(animate)}
-$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Masquer l’analyse':'🗺️ Analyser les emplacements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Couverture théorique de la tour sélectionnée (hors tunnels) : ${high} cases très couvrantes (≥55 %), ${medium} intermédiaires (35–54 %). Ces pourcentages mesurent la longueur du parcours à portée, pas les chances de victoire.`:'📍 Analyse désactivée : active la carte des emplacements pour comparer la couverture des familles de tours.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='disrupt'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('disruptMode').onclick=()=>{placing=!(placing&&placingType==='disrupt');placingType='disrupt';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Reprendre':'⏸ Pause';update()};$('reset').onclick=()=>{clearEnd();build();$('waveReport').textContent='📊 Partie recommencée : tours, énergie, score, vies et vagues réinitialisés sur la même carte.'};portraitBoard.addEventListener('pointermove',e=>{
- if(!placing)return;
+let dead=monsters.filter(m=>m.hp<=0);if(dead.length){for(const m of dead){const c=monsterPosition(m);spawnVfx91(c.x,c.y,'vfx91death',null,m.type)}kills+=dead.length;energy+=dead.reduce((sum,m)=>sum+(m.reward??12),0);update()}for(let m of monsters){if(m.hp>0&&m.progress>=way.at(-1).dist){lives=Math.max(0,lives-1);escaped++}}monsters=monsters.filter(m=>m.hp>0&&m.progress<way.at(-1).dist);if(waveSpawned>=waveTotal&&monsters.length===0){playing=false;waveFinished=true;lastWaveReport=`📊 Vague ${waveNumber} (${waveTheme(waveNumber)}) : ${kills-waveStartKills} éliminés sur ${waveTotal} · ${escaped-waveStartEscaped} passés · ${lives} vies restantes · Exploration ${Math.round(discoveredPercent())} % (+${Math.max(0,Math.round(discoveredPercent()-waveStartDiscovery))} pts) · ${energy} ⚡ disponibles.`;$('waveReport').textContent=lastWaveReport;if(lives>0){if(waveNumber>=CAMPAIGN_WAVES){endCampaign(true);waveNumber++}else{energy+=Math.max(25,Math.round(20+waveNumber*4));waveNumber++;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;placing=false;placementHover=null;boomHover=null;modeButtons();renderWaveCountdown()}}update()}if(lives<=0){playing=false;endCampaign(false);$('waveReport').textContent=`💔 Base détruite pendant la vague ${waveNumber} : ${kills-waveStartKills} éliminés, ${escaped-waveStartEscaped} passés.`;update()}}draw();if(!window.__arcLabManual)requestAnimationFrame(animate)}
+$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Masquer l’analyse':'🗺️ Analyser les emplacements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Couverture théorique de la tour sélectionnée (hors tunnels) : ${high} cases très couvrantes (≥55 %), ${medium} intermédiaires (35–54 %). Ces pourcentages mesurent la longueur du parcours à portée, pas les chances de victoire.`:'📍 Analyse désactivée : active la carte des emplacements pour comparer la couverture des familles de tours.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='disrupt'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('disruptMode').onclick=()=>{placing=!(placing&&placingType==='disrupt');placingType='disrupt';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;placing=false;placementHover=null;boomHover=null;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');modeButtons();renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Reprendre':'⏸ Pause';update()};$('reset').onclick=()=>{clearEnd();build();$('waveReport').textContent='📊 Partie recommencée : tours, énergie, score, vies et vagues réinitialisés sur la même carte.'};portraitBoard.addEventListener('pointermove',e=>{
+ if(!placing||arcWaveLocked())return;
  let {x,y}=boardPointer(e),gx=Math.floor((x-OX)/C),gy=Math.floor((y-OY)/C);
  placementHover={x,y};
  boomHover=placingType==='boom'&&gx>=0&&gx<W&&gy>=0&&gy<H?{x:gx,y:gy}:null;
- draw();
 });
-portraitBoard.addEventListener('pointerleave',()=>{placementHover=null;boomHover=null;draw()});
-portraitBoard.addEventListener('pointerdown',e=>{if(placing){let {x,y}=boardPointer(e);placementHover={x,y};draw()}});
+portraitBoard.addEventListener('pointerleave',()=>{placementHover=null;boomHover=null});
+portraitBoard.addEventListener('pointerdown',e=>{if(placing&&!arcWaveLocked()){let {x,y}=boardPointer(e);placementHover={x,y}}});
 portraitBoard.addEventListener('click',e=>{
+ if(arcWaveLocked())return;
  if(suppressDropClick){suppressDropClick=false;return}
  const p=boardPointer(e),cell=placing?snapConstruction(p.x,p.y):{x:Math.floor((p.x-OX)/C),y:Math.floor((p.y-OY)/C)};
  if(!cell)return;
@@ -2007,18 +1991,19 @@ try{let best=JSON.parse(localStorage.getItem('arc_defense_v1_best')||'null');if(
 // Mobile-first presentation: reuses the original game engine and its controls.
 const dock=$('towerDock'),actions=$('gameActions'),toolbar=$('gameToolbar'),ctx=$('towerContext');
 const towerChoices=[['towerMode','◈','Cyan',80],['rapidMode','✦','Rapid',90],['pierceMode','◕','Ricochet',125],['disruptMode','⬢','Disruptor',110],['areaMode','✺','Pulse',145],['freezeMode','❄','Freezer',135],['boomMode','❖','Folium',175],['grappleMode','🪝','Grapple',155]];
-for(const [id,glyph,name,cost] of towerChoices){let original=$(id),button=dock.querySelector('[data-tower="'+id+'"]');if(!button)continue;button.title=name;button.onclick=()=>{const type=({towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'})[id];if(!technologyFeedback(type))return;original.click();syncDock();closeContext()}}
+for(const [id,glyph,name,cost] of towerChoices){let original=$(id),button=dock.querySelector('[data-tower="'+id+'"]');if(!button)continue;button.title=name;button.onclick=()=>{const type=({towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'})[id];if(arcWaveLocked()||!technologyFeedback(type))return;original.click();syncDock();closeContext()}}
 function syncDock(){for(const b of dock.children){const types={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};b.classList.toggle('active',placing&&placingType===types[b.dataset.tower])}}
 
 const towerIds={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};
 const towerPrices={precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155};
 let dragging=null,dragSuppressUntil=0;
-function validDrop(x,y,type){return technologyAvailable(type)&&!!snapConstruction(x,y)&&energy>=towerPrices[type]}
-function dropTower(x,y,type){if(!technologyFeedback(type)||!validDrop(x,y,type))return false;let {x:gx,y:gy}=snapConstruction(x,y);let t={x:gx,y:gy,angle:0,cool:0,lv:1,type};if(type==='boom')t.boomAngle=fixedBoomAngle(t);towers.push(t);energy-=towerPrices[type];selected={x:gx,y:gy};selectedRangeSince=performance.now();placing=false;placementHover=null;boomHover=null;modeButtons();update();draw();return true}
+function arcWaveLocked(){return autoWaveCountdown>=0||waveIntroStart>0||revealSweepStart>0}
+function validDrop(x,y,type){return !arcWaveLocked()&&technologyAvailable(type)&&!!snapConstruction(x,y)&&energy>=towerPrices[type]}
+function dropTower(x,y,type){if(arcWaveLocked()||!technologyFeedback(type)||!validDrop(x,y,type))return false;let {x:gx,y:gy}=snapConstruction(x,y);let t={x:gx,y:gy,angle:0,cool:0,lv:1,type};if(type==='boom')t.boomAngle=fixedBoomAngle(t);towers.push(t);energy-=towerPrices[type];selected={x:gx,y:gy};selectedRangeSince=performance.now();placing=false;placementHover=null;boomHover=null;modeButtons();update();draw();return true}
 function screenToBoard(clientX,clientY){const r=portraitBoard.getBoundingClientRect();if(clientX<r.left||clientX>r.right||clientY<r.top||clientY>r.bottom)return null;return {x:(clientY-r.top)*1120/r.height,y:675-(clientX-r.left)*675/r.width}}
-function updateDrag(clientX,clientY){if(!dragging)return;let ghost=$('dragGhost');ghost.style.left=clientX+'px';ghost.style.top=clientY+'px';let p=screenToBoard(clientX,clientY);if(p){placementHover=p;const anchor=snapConstruction(p.x,p.y);boomHover=dragging.type==='boom'&&anchor?anchor:null;ghost.classList.toggle('invalid',!validDrop(p.x,p.y,dragging.type))}else{placementHover=null;boomHover=null;ghost.classList.add('invalid')}draw()}
-function stopDrag(clientX,clientY,cancel=false){if(!dragging)return;let d=dragging;dragging=null;$('dragGhost').style.display='none';let p=!cancel?screenToBoard(clientX,clientY):null;let moved=Math.hypot(clientX-d.startX,clientY-d.startY)>12;let placed=moved&&p&&dropTower(p.x,p.y,d.type);if(!placed){placementHover=null;boomHover=null;if(!cancel&&!moved){placing=true;placingType=d.type}else{placing=false}modeButtons();draw()}dragSuppressUntil=performance.now()+450;syncDock()}
-for(const b of dock.children){b.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse')return;if(e.button!==0)return;e.preventDefault();closeContext();let type=towerIds[b.dataset.tower];if(!technologyFeedback(type))return;if(energy<towerPrices[type]){b.animate([{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'none'}],{duration:180});return}dragging={type,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY};placing=true;placingType=type;modeButtons();syncDock();$('dragGhost').textContent=b.querySelector('.tower-glyph').textContent;$('dragGhost').style.display='flex';updateDrag(e.clientX,e.clientY)});
+function updateDrag(clientX,clientY){if(!dragging||arcWaveLocked())return;let ghost=$('dragGhost');ghost.style.left=clientX+'px';ghost.style.top=clientY+'px';let p=screenToBoard(clientX,clientY);if(p){placementHover=p;const anchor=snapConstruction(p.x,p.y);boomHover=dragging.type==='boom'&&anchor?anchor:null;ghost.classList.toggle('invalid',!validDrop(p.x,p.y,dragging.type))}else{placementHover=null;boomHover=null;ghost.classList.add('invalid')}}
+function stopDrag(clientX,clientY,cancel=false){if(!dragging)return;let d=dragging;dragging=null;$('dragGhost').style.display='none';let p=!cancel?screenToBoard(clientX,clientY):null;let moved=Math.hypot(clientX-d.startX,clientY-d.startY)>12;let placed=moved&&p&&dropTower(p.x,p.y,d.type);if(!placed){placementHover=null;boomHover=null;if(!cancel&&!moved&&!arcWaveLocked()){placing=true;placingType=d.type}else{placing=false}modeButtons();draw()}dragSuppressUntil=performance.now()+450;syncDock()}
+for(const b of dock.children){b.addEventListener('pointerdown',e=>{if(arcWaveLocked())return;if(e.pointerType==='mouse')return;if(e.button!==0)return;e.preventDefault();closeContext();let type=towerIds[b.dataset.tower];if(!technologyFeedback(type))return;if(energy<towerPrices[type]){b.animate([{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'none'}],{duration:180});return}dragging={type,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY};placing=true;placingType=type;modeButtons();syncDock();$('dragGhost').textContent=b.querySelector('.tower-glyph').textContent;$('dragGhost').style.display='flex';updateDrag(e.clientX,e.clientY)});
 
 
 
