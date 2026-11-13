@@ -1092,7 +1092,7 @@ lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.
  update();draw();}
 // Technologies available selon la découverte permanente du parcours.
 const TECH_THRESHOLDS={precision:0,rapid:0,pierce:0,freeze:25,area:50,disrupt:50,boom:75};
-const TECH_NAMES={freeze:'FREEZER',area:'ZONE',disrupt:'ROTATION',boom:'FOLIUM'};
+const TECH_NAMES={freeze:'FREEZER',area:'ZONE',disrupt:'ROTATION',boom:'BOOMERANG'};
 const TECH_IDS={precision:'towerMode',rapid:'rapidMode',pierce:'pierceMode',freeze:'freezeMode',area:'areaMode',disrupt:'disruptMode',boom:'boomMode'};
 let lastTechPercent=0,techBannerTimer=0;
 const techBanner=document.createElement('div');techBanner.id='techUnlockBanner';techBanner.setAttribute('role','status');document.body.appendChild(techBanner);
