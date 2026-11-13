@@ -3,6 +3,6 @@
 <title>ARC DEFENSE · responsive preview</title>
 <style>*{box-sizing:border-box}body{margin:0;background:#192432;color:#def5ff;font:14px system-ui}header{display:flex;align-items:center;gap:12px;justify-content:center;padding:8px}select{padding:5px;background:#132c40;color:white;border:1px solid #456;border-radius:5px}main{display:flex;justify-content:center;padding:0 8px 8px;overflow:auto}iframe{border:0;flex:none;background:#07111d}</style>
 <header><label>Screen <select id="screen"><option value="393,851">Phone 393 × 851</option><option value="360,740">Phone 360 × 740</option><option value="320,568">Small phone 320 × 568</option><option value="800,1100">Tablet 800 × 1100</option><option value="1280,800">Desktop 1280 × 800</option></select></label></header>
-<main><iframe id="game" title="ARC DEFENSE preview" src="./" width="393" height="851"></iframe></main>
+<main><iframe id="game" title="ARC DEFENSE preview" src="./?v=9.19" width="393" height="851"></iframe></main>
 <script>const size=document.getElementById('screen'),frame=document.getElementById('game');size.addEventListener('change',()=>{const[w,h]=size.value.split(',');frame.width=w;frame.height=h});</script>
 </html>
