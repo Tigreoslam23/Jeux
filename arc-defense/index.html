@@ -948,32 +948,43 @@ let acc=0;for(let i=0;i<way.length;i++){if(i)acc+=Math.hypot(way[i].x-way[i-1].x
 // ARC 9.14 : lignes douces et motifs équilibrés plutôt que méandres aléatoires.
 // Les trois segments gardent leurs entrées/sorties (warp et trou de ver).
 // Chaque motif possède une composition gauche/droite cohérente, avec faible variation.
-const routeTemplates=[
+// ARC DEFENSE 9.15 — trois compositions à symétrie centrale exacte.
+// Chaque segment de trajet est construit autour du même centre O=(560 ; 337,5).
+// Un point P et son partenaire 2O-P sont ajoutés ensemble ; les petites variations
+// restent elles aussi symétriques. Le tracé conserve deux téléportations.
+const routeHalfTemplates=[
  [
-  [[8,185],[170,185],[315,260],[475,400],[635,340],[765,230]],
-  [[510,290],[590,215],[725,140],[870,180],[970,120],[930,2]],
-  [[930,673],[860,590],[775,535],[845,455],[970,475],[1112,505]]
+  [[8,165],[180,165],[318,202],[440,278],[560,337.5]],
+  [[1112,78],[955,84],[801,167],[665,230],[560,337.5]],
+  [[8,570],[168,565],[320,477],[443,395],[560,337.5]]
  ],
  [
-  [[8,290],[180,290],[350,195],[515,265],[640,335],[765,230]],
-  [[510,290],[610,215],[735,135],[870,125],[960,95],[930,2]],
-  [[930,673],[825,585],[735,545],[820,430],[970,425],[1112,505]]
+  [[8,250],[168,250],[312,170],[445,244],[560,337.5]],
+  [[1112,125],[940,125],[780,208],[655,267],[560,337.5]],
+  [[8,605],[175,605],[310,505],[465,402],[560,337.5]]
  ],
  [
-  [[8,375],[175,375],[345,440],[510,320],[630,310],[765,230]],
-  [[510,290],[590,210],[715,150],[875,180],[970,105],[930,2]],
-  [[930,673],[840,580],[750,510],[830,440],[980,465],[1112,505]]
+  [[8,125],[190,125],[340,235],[450,290],[560,337.5]],
+  [[1112,215],[948,215],[795,130],[660,255],[560,337.5]],
+  [[8,525],[170,525],[325,440],[430,377],[560,337.5]]
  ]
 ];
-const templateIndex=Math.floor(r()*routeTemplates.length);proceduralVariant=templateIndex+1;
-const routeSegments=routeTemplates[templateIndex].map((segment,si)=>segment.map((point,j)=>{
- const [x,y]=point;
- if(j===0||j===segment.length-1)return [x,y];
- // Variations discrètes pour préserver la lisibilité des courbes et les zones constructibles.
- const amplitude=si===1?12:18;
- return [Math.max(65,Math.min(1050,x+(r()-.5)*2*amplitude)),
-         Math.max(60,Math.min(615,y+(r()-.5)*2*amplitude))];
-}));
+const templateIndex=Math.floor(r()*routeHalfTemplates.length);proceduralVariant=templateIndex+1;
+const centerX=560,centerY=337.5;
+const routeSegments=routeHalfTemplates[templateIndex].map((half,si)=>{
+ const first=half.map(([x,y],i)=>{
+  if(i===0||i===half.length-1)return [x,y];
+  // Variation légère mais appariée : aucune perte de symétrie.
+  const dx=(r()-.5)*18,dy=(r()-.5)*16;
+  return [Math.max(50,Math.min(1070,x+dx)),Math.max(45,Math.min(630,y+dy))];
+ });
+ const mirrored=first.slice(0,-1).reverse().map(([x,y])=>[2*centerX-x,2*centerY-y]);
+ return first.concat(mirrored);
+});
+// Un contrôle géométrique évite toute régression silencieuse des motifs.
+if(routeSegments.some(points=>points.some((p,i)=>Math.abs(p[0]+points[points.length-1-i][0]-2*centerX)>1e-6||
+ Math.abs(p[1]+points[points.length-1-i][1]-2*centerY)>1e-6)))
+ throw new Error('Symétrie centrale du parcours invalide');
 jumpPairs=[];
 const rebuilt=[];
 const cat=(p0,p1,p2,p3,t)=>{let t2=t*t,t3=t2*t;return pt(.5*((2*p1[0])+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),.5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3))};
