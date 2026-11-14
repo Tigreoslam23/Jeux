@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.26**.
+Standalone HTML/JavaScript tower defense. Current version: **9.27**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -15,11 +15,12 @@ while towers, run energy, and core integrity reset. Stage 05 remains planned.
 | 01 | The Relay | 8 | 157 | 340 | Three reinforced Hexions |
 | 02 | Armor Front | 10 | 231 | 520 | Bastion mini-boss |
 | 03 | Swarm Signal | 12 | 417 | 600 | Nexus boss |
-| 04 | Crosscurrent | 12 | 428 | 650 | Four armored elite Hexions |
+| 04 | Crosscurrent | 12 | 428 | 650 | Gemini twin boss |
 
 All stages begin with 20 core. Stage 04 has a distinct crossing route and
-increasingly armored formations; the final four Hexions each have 32 HP
-at Intermediate and six plates. Stage 01–03 wave data remains unchanged.
+increasingly armored formations. Its final wave ends with two 32-HP elite
+Hexions followed by both Gemini guardians. All earlier formations and
+Stage 01–03 wave data remain unchanged.
 
 Freezer unlocks after Stage 01 wave 2, E-Link after wave 4, and
 Magnetar/Boomerang after wave 6. Technologies persist across retries and
@@ -83,6 +84,30 @@ Both receive **three seconds of protection against grapple recapture after
 release**. Normal enemy capture rules remain unchanged. Boss escape defeats
 the core; boss health and phases use the shared HUD.
 
+### Stage 04 — Gemini twin guardians
+
+The last two enemies of wave 12 are **Gemini I and II**, distinct teal/violet
+six-plate guardians rotating in opposite directions. At Intermediate each
+has **220 HP**, **5 HP per plate**, and movement 1.05. Beginner/Advanced apply
+0.82/1.18 to HP and plate durability and 0.94/1.06 to movement. The second
+arrives 2.2 simulation seconds after the first to separate their silhouettes.
+The stage still totals 428 enemies across twelve waves.
+
+Gemini resists **75% of freezing strength** and receives the existing
+three-second grapple recovery after release. Magnetar remains fully effective:
+it can bind both, remove all their plates, and subtract 55 HP each at
+Intermediate. Existing protection and movement rules remain unchanged.
+
+When one guardian dies, the survivor enters **Last Stand**: movement rises
+by **35%**, rotation reaches 1.1 in its original direction, and the boss score
+gains its second-phase arrangement. HP and destroyed plates are not restored.
+Simultaneous destruction avoids this phase. Either guardian escaping defeats
+the core. Both must die to complete the stage; the HUD tracks their combined
+HP and remaining guardian count, including a partner still arriving.
+
+Previous stage results and campaign unlocks are retained. Retry clears the
+encounter and restores the same Crosscurrent route and starting budget.
+
 ## Original 20-wave Challenge and Titan
 
 The original Challenge remains available from the campaign map and Options,
@@ -118,7 +143,9 @@ levels/timing/protection/cancellation, and safe boss-particle rendering.
 
 Real combat simulations use legal purchases and earned energy. The Stage 04
 check first isolates bound targets against all seven other tower families,
-then runs twelve complete waves. Its sample completes 50 Magnetar pairs and
-finishes at 20 core, 428 kills and 743 energy. The earlier Stage 01/02/03
+then runs twelve complete waves. Its sample completes 53 Magnetar pairs, including two that bind both
+Gemini guardians, and finishes at 20 core, 428 kills and 481 energy after
+upgrading both E-Links to level 4 during the encounter. An additional
+actual-loop probe verifies Last Stand after one guardian dies. The earlier Stage 01/02/03
 baselines remain 12/15/20 core. These are reproducible sample strategies,
 not guarantees for other builds or difficulties.

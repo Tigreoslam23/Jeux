@@ -12,13 +12,14 @@ function game(){
  const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search:''},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155}});
  const exports=`
  draw=()=>{};
- const magnetStats={started:0,completed:0,cancelled:0,releases:[]};
+ const magnetStats={started:0,completed:0,cancelled:0,twinPairs:0,releases:[]};
  const originalMagnetStart=beginMagneticPair,originalMagnetEnd=endMagneticPair;
- beginMagneticPair=t=>{const ok=originalMagnetStart(t);if(ok)magnetStats.started++;return ok};
+ beginMagneticPair=t=>{const ok=originalMagnetStart(t);if(ok){magnetStats.started++;const p=magneticPairs.at(-1);if(p.ids.every(id=>monsters.find(m=>m.id===id)?.stageBoss==='gemini'))magnetStats.twinPairs++;}return ok};
  endMagneticPair=(p,complete=false)=>{complete?magnetStats.completed++:magnetStats.cancelled++;const before=p.ids.map(id=>monsters.find(m=>m.id===id)).filter(Boolean);originalMagnetEnd(p,complete);if(complete)magnetStats.releases.push(before.map(m=>({hp:m.hp,maxHp:m.maxHp,armor:m.armor})));};
  globalThis.sim={
  init:()=>{campaignStageNumber=4;campaignProgress.cleared['1']=true;campaignProgress.cleared['2']=true;campaignProgress.cleared['3']=true;unlockCampaignTechnologies(8);build();firstWaveStarted=true;launchWave(true)},
- state:()=>({magnetStats,protected:monsters.filter(isMagnetProtected).map(m=>({id:m.id,pair:m.magnetId,hp:m.hp,progress:m.progress,frozen:m.frozen,grapple:!!m.grapple})),boss:monsters.filter(m=>m.stageBoss==='nexus').map(m=>({hp:m.hp,progress:m.progress,phase:m.phase,guard:m.grappleGuard,captured:!!m.grapple})),wave:waveNumber,playing,lives,kills,energy,unlocked:[...campaignProgress.unlocked],defenses:towers.map(t=>({type:t.type,lv:t.lv})),done:campaignProgress.cleared['4']===true,progress:Math.max(0,...monsters.map(m=>m.progress)),length:way.at(-1).dist}),
+ state:()=>({magnetStats,protected:monsters.filter(isMagnetProtected).map(m=>({id:m.id,pair:m.magnetId,hp:m.hp,progress:m.progress,frozen:m.frozen,grapple:!!m.grapple})),gemini:geminiStatus(),boss:monsters.filter(m=>m.stageBoss==='gemini').map(m=>({twin:m.twin,hp:m.hp,progress:m.progress,phase:m.phase,guard:m.grappleGuard,captured:!!m.grapple})),wave:waveNumber,playing,lives,kills,energy,unlocked:[...campaignProgress.unlocked],defenses:towers.map(t=>({type:t.type,lv:t.lv})),done:campaignProgress.cleared['4']===true,progress:Math.max(0,...monsters.map(m=>m.progress)),length:way.at(-1).dist}),
+ geminiLastStandScenario:()=>{campaignStageNumber=4;build();firstWaveStarted=true;waveIntroStart=revealSweepStart=0;playing=true;paused=false;autoWaveCountdown=-1;waveNumber=12;waveTotal=waveSpawned=2;monsters=[createGemini(0),createGemini(1)];monsters[0].hp=0;monsters[1].hp=100;monsters[1].plates.fill(false);monsters[1].plateHp.fill(0);monsters[1].progress=1000;},
  scenario:()=>{campaignStageNumber=4;build();firstWaveStarted=true;waveIntroStart=revealSweepStart=0;playing=true;paused=false;autoWaveCountdown=-1;waveNumber=4;waveTotal=waveSpawned=3;
  const make=(id,progress,hp=100)=>({id,type:2,progress,hp,maxHp:hp,spin:0,spinSpeed:1,moveSpeed:1,plates:Array(6).fill(true),plateHp:Array(6).fill(4),armor:6});
  monsters=[make(1001,250),make(1002,280)];const magnet={type:'area',x:3,y:3,lv:1,cool:0};towers=[magnet];beginMagneticPair(magnet);monsters.push(make(1003,300,10000));
@@ -36,6 +37,7 @@ function game(){
 const probe=game().sim;probe.scenario();probe.step();let initial=probe.state().protected;assert.equal(initial.length,2);
 for(let i=0;i<20;i++){probe.step();const now=probe.state().protected;assert.equal(now.length,2);for(const m of now){const old=initial.find(a=>a.id===m.id);assert.equal(m.hp,old.hp,'External towers do not damage bound targets');assert(m.progress>old.progress,'Targets keep moving');assert(!m.frozen&&!m.grapple,'External control is excluded');}initial=now;}
 for(let i=0;i<6;i++)probe.step();const released=probe.state().magnetStats.releases[0];assert.equal(released.length,2);assert(released.every(m=>m.hp===75&&m.armor===0));console.log('PASS real combat: moving targets are isolated from all seven other tower families, then stripped and damaged');
+const frenzyProbe=game().sim;frenzyProbe.geminiLastStandScenario();frenzyProbe.step();const survivor=frenzyProbe.state().boss[0];assert.equal(survivor.phase,2);assert.equal(survivor.hp,100);assert.equal(frenzyProbe.state().gemini.alive,1);assert.equal(frenzyProbe.state().done,false,'One surviving guardian blocks victory');console.log('PASS real Gemini loop: one death triggers Last Stand without HP restoration');
 const {sim,saved}=game();sim.init();
 let state=sim.state();assert.equal(state.wave,1);assert.equal(state.energy,650);
 // Visibility samples are for player-visible analysis; reveal them through real movement first.
@@ -58,8 +60,8 @@ for(let i=0;i<40000;i++){
  }
  sim.step();
 }
-state=sim.state();console.log(JSON.stringify({...state,magnetStats:{started:state.magnetStats.started,completed:state.magnetStats.completed,cancelled:state.magnetStats.cancelled}}));console.log({lastBoss});
-assert(state.done,'A legal sample defense can finish Stage 04');assert(state.magnetStats.completed>0,'Magnetar completes real cycles');
+state=sim.state();console.log(JSON.stringify({...state,magnetStats:{started:state.magnetStats.started,completed:state.magnetStats.completed,cancelled:state.magnetStats.cancelled,twinPairs:state.magnetStats.twinPairs}}));console.log({lastBoss});
+assert(state.done,'A legal sample defense can finish Stage 04');assert(state.magnetStats.completed>0,'Magnetar completes real cycles');assert.equal(state.gemini.hp,0,'Both guardians are defeated');assert.equal(state.gemini.alive,0);assert(state.magnetStats.twinPairs>0,'Magnetar binds both guardians together');
 assert.equal(state.kills+20-state.lives,428);
 assert(saved.has('arc_campaign_v1'));assert.equal(saved.has('arc_defense_v1_best'),false);
-console.log('PASS real Stage 04 loop: twelve waves, elite finish and Magnetar, earned budget and isolated progress');
+console.log('PASS real Stage 04 loop: twelve waves, both Gemini guardians and Magnetar, earned budget and isolated progress');

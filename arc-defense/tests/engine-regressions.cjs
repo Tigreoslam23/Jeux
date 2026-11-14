@@ -257,12 +257,12 @@ test('boss music scheduling honors mute and pause',()=>{
 });
 function campaignContext(raw=null){
  const {c,nodes}=titanContext(),saved=new Map(raw?[['arc_campaign_v1',JSON.stringify(raw)]]:[]);
- Object.assign(c,{campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
+ Object.assign(c,{geminiTwins:[],campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
  const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
  const waves2=source.match(/const STAGE_TWO_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_TWO_WAVES='+waves2,c);
  const waves4=source.match(/const STAGE_FOUR_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_FOUR_WAVES='+waves4,c);
  const waves3=source.match(/const STAGE_THREE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_THREE_WAVES='+waves3,c);
- for(const name of ['buildStageFourRoute','campaignStageBudget','createNexus','updateNexusPhase','nexusGeometry','releaseGrapple','advanceGrappleGuard','buildStageThreeRoute','activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
+ for(const name of ['createGemini','updateGeminiEncounter','geminiStatus','nextCampaignSpawnDelay','buildStageFourRoute','campaignStageBudget','createNexus','updateNexusPhase','nexusGeometry','releaseGrapple','advanceGrappleGuard','buildStageThreeRoute','activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
  c.campaignProgress=c.readCampaignProgress();return {c,nodes,saved};
 }
 test('Stage 01 contains exactly eight authored waves and 157 enemies',()=>{
@@ -369,10 +369,30 @@ test('sale, escape, missing partner and tunnels cancel the pair without damage o
 test('upgrades apply to the next pair and cooldown starts only after release',()=>{
  const {c,tower}=magnetContext();c.beginMagneticPair(tower);tower.lv=5;c.prepareMagnetar(2);assert.equal(c.magneticPairs.length,1);c.advanceMagnetar(4);assert.equal(c.monsters[0].hp,100);c.advanceMagnetar(1);assert.equal(tower.cool,2);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,0);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,1);assert.equal(c.magneticPairs[0].compression,1.265625);
 });
-test('Stage 04 has twelve authored waves, 428 enemies and a final four-Hexion elite assault',()=>{
- const {c}=campaignContext();c.campaignStageNumber=4;let total=0,elites=0;for(let w=1;w<=12;w++){const seq=c.stageOneSequence(w);total+=seq.length;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(w,i);assert(!m.boss&&!m.miniBoss);if(m.trait==='bulwark'){assert.equal(w,12);assert(i>=seq.length-4);assert.equal(m.hp,32);elites++;}}}assert.equal(total,428);assert.equal(elites,4);assert.equal(c.campaignStageBudget(),650);
+test('Stage 04 ends with two elite Hexions and both Gemini guardians within its 428 enemies',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=4;let total=0,elites=0,bosses=0;
+ for(let w=1;w<=12;w++){const seq=c.stageOneSequence(w);total+=seq.length;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(w,i);assert(!m.boss);if(m.miniBoss){assert.equal(w,12);assert(i>=seq.length-2);assert.equal(m.stageBoss,'gemini');assert.equal(m.hp,220);bosses++;}else if(m.trait==='bulwark'){assert.equal(w,12);assert(i>=seq.length-4);assert.equal(m.hp,32);elites++;}}}assert.equal(total,428);assert.equal(elites,2);assert.equal(bosses,2);assert.equal(c.campaignStageBudget(),650);
 });
 test('Stage 04 gate, best result and route remain separate from earlier stages',()=>{
  const {c}=campaignContext();assert(!c.canPlayStage(4));for(let n=1;n<=4;n++){c.campaignStageNumber=n;c.lives=21-n;c.recordStageOneVictory();if(n<4)assert(c.canPlayStage(n+1));}const p=c.readCampaignProgress();assert.equal(p.best['4'].lives,17);assert.equal(p.best['3'].lives,18);assert(p.cleared['4']);assert(!c.canPlayStage(5));const r=c.buildStageFourRoute();assert(r.at(-1).dist>2500);for(let i=1;i<r.length;i++){assert(r[i].dist>r[i-1].dist);assert(Math.hypot(r[i].x-r[i-1].x,r[i].y-r[i-1].y)<23);assert(r[i].x>=8&&r[i].x<=1112);assert(r[i].y>80&&r[i].y<600)}
+});
+test('Gemini has two independent durable armor sets, opposite rotation and combined HP by difficulty',()=>{
+ for(const level of [1,2,3]){const {c}=campaignContext();c.level=level;const a=c.createGemini(0),b=c.createGemini(1),hp=220*(level===1?.82:level===3?1.18:1);assert.equal(a.hp,hp);assert.equal(b.hp,hp);assert.equal(c.geminiStatus().maxHp,hp*2);assert.equal(a.plates.length,6);assert.equal(b.plateHp.length,6);assert(a.spinSpeed*b.spinSpeed<0);a.plates[0]=false;assert(b.plates[0]);assert.equal(c.freezeResistance(a),.25);}
+});
+test('Gemini survivor enters last stand once, without restoring HP or stripped armor',()=>{
+ const {c}=campaignContext();const a=c.createGemini(0);a.hp=0;assert.equal(c.updateGeminiEncounter(),false);const b=c.createGemini(1);b.hp=90;b.plates.fill(false);b.plateHp.fill(0);const speed=b.moveSpeed;assert(c.updateGeminiEncounter());assert.equal(b.phase,2);assert.equal(b.hp,90);assert(b.plates.every(p=>!p));assert.equal(b.moveSpeed,speed*1.35);assert.equal(c.updateGeminiEncounter(),false);const status=c.geminiStatus();assert.equal(status.alive,1);assert.equal(status.hp,90);assert(status.frenzy);b.hp=0;assert.equal(c.updateGeminiEncounter(),false);assert.equal(c.geminiStatus().hp,0);
+});
+test('Gemini pending partner does not look defeated and the spawn gap preserves wave totals',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=4;const a=c.createGemini(0);a.hp=0;assert.equal(c.geminiStatus().hp,220);assert.equal(c.geminiStatus().pending,1);assert.equal(c.nextCampaignSpawnDelay(12,39),2.2);assert.equal(c.nextCampaignSpawnDelay(12,38),.46);assert.equal(c.nextCampaignSpawnDelay(11,39),.40);
+});
+test('Magnetar binds both Gemini guardians and removes their durable plates and a quarter of maximum HP',()=>{
+ const {c,tower}=magnetContext();const {c:factory}=campaignContext();const a=factory.createGemini(0),b=factory.createGemini(1);Object.assign(a,{x:40,y:0,progress:100});Object.assign(b,{x:80,y:0,progress:110});c.monsters=[a,b];assert(c.beginMagneticPair(tower));c.advanceMagnetar(5);assert.equal(a.hp,165);assert.equal(b.hp,165);assert(a.plateHp.every(p=>p===0));assert(b.plates.every(p=>!p));assert.equal(a.armor,0);assert.equal(b.armor,0);
+});
+test('Either Gemini guardian escaping defeats the core exactly once',()=>{
+ for(const twin of [0,1]){const c=context();c.monsters=[{...enemy(1,0,100),miniBoss:true,stageBoss:'gemini',twin}];c.resolveEscapes();assert.equal(c.lives,0);assert.equal(c.escaped,1);c.resolveEscapes();assert.equal(c.escaped,1)}
+});
+test('Gemini renders both guardians, capture shields and Last Stand at portrait portal scales',()=>{
+ const {c}=campaignContext();c.g=new Proxy({arc(x,y,r){assert(Number.isFinite(r)&&r>=0)}},{get:(t,k)=>t[k]||(()=>{})});vm.runInContext(extract('paintGemini'),c);
+ for(const twin of [0,1]){const m=c.createGemini(twin);assert.doesNotThrow(()=>c.paintGemini(m,{x:10,y:20},.6));m.phase=2;m.grappleGuard=3;assert.doesNotThrow(()=>c.paintGemini(m,{x:10,y:20},1));}
 });
 console.log(count+' regression checks passed');
