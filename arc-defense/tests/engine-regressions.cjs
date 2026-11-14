@@ -257,9 +257,10 @@ test('boss music scheduling honors mute and pause',()=>{
 });
 function campaignContext(raw=null){
  const {c,nodes}=titanContext(),saved=new Map(raw?[['arc_campaign_v1',JSON.stringify(raw)]]:[]);
- Object.assign(c,{playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
+ Object.assign(c,{campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
  const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
- for(const name of ['isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
+ const waves2=source.match(/const STAGE_TWO_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_TWO_WAVES='+waves2,c);
+ for(const name of ['activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
  c.campaignProgress=c.readCampaignProgress();return {c,nodes,saved};
 }
 test('Stage 01 contains exactly eight authored waves and 157 enemies',()=>{
@@ -294,5 +295,26 @@ test('campaign and Boss Test use separate technology rules',()=>{
 test('Pulse statistics remain identical to the previous version',()=>{
  assert.match(source,/const areaSpecs=\[null,\{range:2\.85,rate:1\.9,velocity:310,damage:\.65,blast:\.75,cost:0\}/);
  assert.match(source,/range:3\.65,rate:1\.3,velocity:390,damage:1\.1,blast:1\.4,cost:275/);
+});
+test('Stage 02 is locked until Stage 01 is cleared, and unlock survives reload',()=>{
+ const {c}=campaignContext();assert.equal(c.canPlayStage(2),false);c.lives=18;c.recordStageOneVictory();assert.equal(c.canPlayStage(2),true);c.campaignProgress=c.readCampaignProgress();assert(c.canPlayStage(2));assert.equal(c.canPlayStage(3),false);
+});
+test('Stage 02 has ten deterministic waves with one final Bastion and no Titan',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=2;let total=0,bosses=0;
+ for(let w=1;w<=10;w++){const seq=c.stageOneSequence(w);total+=seq.length;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(w,i);assert.equal(m.boss,undefined);if(m.miniBoss){bosses++;assert.equal(w,10);assert.equal(i,seq.length-1);assert.equal(m.hp,100);assert.equal(m.plates.length,6);assert(m.plateHp.every(h=>h===3))}}}assert.equal(total,231);assert.equal(bosses,1);
+});
+test('Stage 02 results remain independent of Stage 01 and persist',()=>{
+ const {c}=campaignContext();c.lives=20;c.recordStageOneVictory();c.campaignStageNumber=2;c.lives=16;c.recordStageOneVictory();const progress=c.readCampaignProgress();assert.equal(progress.best['1'].stars,3);assert.equal(progress.best['2'].stars,2);assert.equal(progress.cleared['2'],true);
+});
+test('Stage 02 route differs, stays within the board and has no discontinuity',()=>{
+ const {c}=campaignContext(),r=c.buildStageTwoRoute();assert.notEqual(JSON.stringify(r),JSON.stringify(c.buildStageOneRoute()));assert(r.at(-1).dist>2100);
+ for(let i=1;i<r.length;i++){assert(r[i].dist>r[i-1].dist);assert(Math.hypot(r[i].x-r[i-1].x,r[i].y-r[i-1].y)<20);assert(r[i].x>=8&&r[i].x<=1112);assert(r[i].y>80&&r[i].y<600)}
+});
+test('Bastion escape ends the stage without mutating Titan state',()=>{
+ const c=context();c.monsters=[{...enemy(1,0,100),miniBoss:true}];c.resolveEscapes();assert.equal(c.lives,0);assert.equal(c.escaped,1);assert.equal(c.titanEncounter,undefined);
+});
+test('Bastion has durable armor, a separate silhouette and partial freeze resistance',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=2;const m=c.createBastion();vm.runInContext(extract('enemyGeometry'),c);const geo=c.enemyGeometry(m,{x:0,y:0});assert(geo.flatMap(p=>p.points).some(p=>Math.hypot(p.x,p.y)>30));
+ c.applyGeometricHit({m,kind:'armor',index:0,x:0,y:0},1);assert(m.plates[0]);assert.equal(m.plateHp[0],2);assert.equal(m.hp,100);assert.equal(c.freezeResistance(m),.5);assert(c.canGrapple(m));
 });
 console.log(count+' regression checks passed');

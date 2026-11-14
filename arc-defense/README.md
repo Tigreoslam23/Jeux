@@ -1,13 +1,13 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.23**.
+Standalone HTML/JavaScript tower defense. Current version: **9.24**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
 ## Campaign 01 — First Contact
 
-The default mode opens the campaign map. **Stage 01: The Relay** is playable.
-Stages 02–05 are explicitly marked as in preparation or planned.
+The default mode opens the campaign map. **Stage 01: The Relay** and **Stage 02: Armor Front** are playable.
+Stage 02 unlocks after a Stage 01 victory; stages 03–05 remain planned.
 
 Stage 01 uses a fixed, continuous route without boosts or teleportation.
 Preparation shows faint route chevrons. Start with **340 energy and 20 core**.
@@ -32,6 +32,23 @@ Pulse's costs, statistics and combat behavior have not changed.
 Victory earns one star, at least 15 core earns two, and 20 core earns three.
 Stage bests and technologies use `arc_campaign_v1`; the original Challenge
 record is kept separately. Storage failure still permits session play.
+
+## Stage 02 — Armor Front
+
+A distinct fixed route, **520 starting energy**, 20 core and ten authored waves.
+Previously unlocked technologies carry over; towers and run energy reset.
+The 231 enemies introduce more armor, increasingly dense Hexion formations,
+and one **Bastion** as the last enemy of wave 10.
+
+Bastion has 100 HP at Intermediate (82 Beginner, 118 Advanced), six plates
+with 3 HP each at Intermediate, and a larger golden silhouette. It resists
+50% of freezing strength and can be grappled. It has no Titan second phase.
+Destroy it to finish the stage; escape defeats the core. Its health bar
+shares the existing boss HUD and honors pause/audio controls.
+
+Results and stars are stored per stage. The Stage 01 victory screen offers
+**Next · Stage 02**. Retries keep the selected stage; the campaign map
+shows locked/unlocked state and each stage's best result.
 
 ## Original 20-wave Challenge
 
@@ -62,8 +79,13 @@ From the repository root:
 ```sh
 node arc-defense/tests/engine-regressions.cjs
 node arc-defense/tests/stage-one-simulation.cjs
+node arc-defense/tests/stage-two-simulation.cjs
 ```
 
 The second check runs the actual eight-wave combat loop with legal purchases
 and upgrades, verifies the elite finish and ensures progression is saved
 without overwriting the original Challenge record.
+
+The Stage 02 simulation uses legal purchases and earned upgrades, finishing
+all ten waves and Bastion with 15 core. This is a reproducible baseline,
+not a guarantee for every strategy. Stage 01 retains its 12-core baseline.
