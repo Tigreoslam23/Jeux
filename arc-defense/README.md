@@ -1,100 +1,106 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.25**.
+Standalone HTML/JavaScript tower defense. Current version: **9.26**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
 ## Campaign 01 — First Contact
 
-The default mode opens the campaign map. **The Relay**, **Armor Front**, and **Swarm Signal** are playable.
-Clear each stage to unlock the next. Stages 04–05 remain planned.
+The campaign map opens by default. Clear each stage to unlock the next.
+Stages 01–04 have fixed authored routes: retrying preserves the trajectory,
+while towers, run energy, and core integrity reset. Stage 05 remains planned.
 
-Stage 01 uses a fixed, continuous route without boosts or teleportation.
-Preparation shows faint route chevrons. Start with **340 energy and 20 core**.
-Defense is rebuilt on each attempt.
+| Stage | Name | Waves | Enemies | Starting energy | Finish |
+| --- | --- | ---: | ---: | ---: | --- |
+| 01 | The Relay | 8 | 157 | 340 | Three reinforced Hexions |
+| 02 | Armor Front | 10 | 231 | 520 | Bastion mini-boss |
+| 03 | Swarm Signal | 12 | 417 | 600 | Nexus boss |
+| 04 | Crosscurrent | 12 | 428 | 650 | Four armored elite Hexions |
 
-| Wave | Formation | Orbs | Trions | Hexions | Interval |
-| --- | --- | ---: | ---: | ---: | ---: |
-| 1 | First contact | 10 | 0 | 0 | 1.00 s |
-| 2 | Trion scouts | 10 | 4 | 0 | 0.90 s |
-| 3 | Hold the line | 12 | 6 | 0 | 0.72 s |
-| 4 | Heavy signatures | 10 | 6 | 2 | 0.85 s |
-| 5 | Close formation | 12 | 8 | 3 | 0.62 s |
-| 6 | Armored column | 10 | 10 | 4 | 0.75 s |
-| 7 | Fast flank | 12 | 10 | 4 | 0.60 s |
-| 8 | Elite vanguard | 8 | 8 | 8 | 0.72 s |
+All stages begin with 20 core. Stage 04 has a distinct crossing route and
+increasingly armored formations; the final four Hexions each have 32 HP
+at Intermediate and six plates. Stage 01–03 wave data remains unchanged.
 
-The 157 enemies finish with three reinforced Hexions; Stage 01 has no Titan.
-Freezer unlocks after wave 2, E-Link after wave 4, and Pulse/Boomerang after
-wave 6. Campaign technologies stay unlocked after retries and reloads.
-Pulse's costs, statistics and combat behavior have not changed.
+Freezer unlocks after Stage 01 wave 2, E-Link after wave 4, and
+Magnetar/Boomerang after wave 6. Technologies persist across retries and
+stages. **Magnetar replaces Pulse** and inherits its existing technology
+unlock (`area` internally); old device unlocks remain valid.
 
-Victory earns one star, at least 15 core earns two, and 20 core earns three.
-Stage bests and technologies use `arc_campaign_v1`; the original Challenge
-record is kept separately. Storage failure still permits session play.
+One star is awarded for victory, two for at least 15 core, and three for 20.
+Stage bests and technologies are stored in `arc_campaign_v1`. Results remain
+independent per stage and separate from the original Challenge record.
+Unavailable storage permits session play and reports unsaved results.
 
-## Stage 02 — Armor Front
+## Magnetar — twin magnetic compression
 
-A distinct fixed route, **520 starting energy**, 20 core and ten authored waves.
-Previously unlocked technologies carry over; towers and run energy reset.
-The 231 enemies introduce more armor, increasingly dense Hexion formations,
-and one **Bastion** as the last enemy of wave 10.
+A violet infinity-shaped field binds **two** available enemies in range.
+Both keep moving and rotating. They become protected immediately during the
+one-second drawing phase and stay protected throughout compression.
+Precision, Rapid, Ricochet, E-Link, Boomerang, Freezer and Grapple cannot target,
+damage, slow or capture them, including projectiles already in flight.
+Other Magnetars cannot take over enemies already bound or grappled.
 
-Bastion has 100 HP at Intermediate (82 Beginner, 118 Advanced), six plates
-with 3 HP each at Intermediate, and a larger golden silhouette. It resists
-50% of freezing strength and can be grappled. It has no Titan second phase. After a capture ends, it has a three-second
-grapple shield (simulation time, paused with gameplay). Freezer and damage
-remain effective; ordinary enemies keep their existing capture rules.
-Destroy it to finish the stage; escape defeats the core. Its health bar
-shares the existing boss HUD and honors pause/audio controls.
+On completion, both lose every armor plate (including durable boss plates)
+and exactly **25% of maximum HP**. Current HP never goes below zero. Other
+towers can target them again after release. No solo-target fallback is used.
 
-Results and stars are stored per stage. The Stage 01 victory screen offers
-**Next · Stage 02**. Retries keep the selected stage; the campaign map
-shows locked/unlocked state and each stage's best result.
+| Level | Range, cells | Drawing | Compression | Recovery |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 3.0 | 1 s | 4 s | 2 s |
+| 2 | 3.2 | 1 s | 3 s | 2 s |
+| 3 | 3.4 | 1 s | 2.25 s | 2 s |
+| 4 | 3.6 | 1 s | 1.6875 s | 2 s |
+| 5 | 3.8 | 1 s | 1.265625 s | 2 s |
 
-## Stage 03 — Swarm Signal
+Construction costs **180 energy**. Base upgrade costs are 105/145/205/275,
+with the existing campaign upgrade multipliers applied. Compression duration
+is reduced multiplicatively by 25% per level. An active pair retains the
+level snapshot from its start; upgrades affect the next pair. A tower runs
+one pair at a time and begins recovery on release. At level 5, the existing
+Range specialization adds 22% range; Reset reduces recovery by 18% and does
+not change the fixed quarter-health damage or the compression sequence.
 
-A new fixed continuous route, **600 starting energy**, 20 core and twelve
-waves totaling **417 enemies**. More numerous Orbs and Trions arrive in dense
-formations (20–46 enemies per wave, intervals from 0.58 to 0.29 seconds),
-with a gradually increasing Hexion escort. All campaign technologies carry
-over. Pulse and every tower's base costs and statistics remain unchanged.
+If either partner exits, disappears, or enters a tunnel, or the tower is sold,
+the pair cancels without damage. The surviving target is immediately freed.
+Out-of-range movement does not break an established field. All timers use
+simulation time, obey pause, and follow the selected game speed.
 
-**Nexus** is the final enemy of wave 12: a large violet triangular boss with
-three reinforced plates. At Intermediate it has 160 HP and 5 HP per plate;
-Beginner/Advanced multiply both by 0.82/1.18. It resists 65% of freezing
-strength. It can be captured, then gets the same three-second grapple shield
-as Bastion. At half HP, Overdrive increases movement by 22% and rotation to
-1.15 without restoring health or plates. The boss score gains its phase-II
-arrangement. Defeat Nexus to clear the stage; its escape defeats the core.
+The violet eight follows both moving targets, forms over one second, and
+tightens during compression. The tower uses an infinity glyph. Selected
+controls show the current compression time and the next upgrade's duration.
 
-Stage 02's victory screen now offers **Next · Stage 03**. All three stage
-bests persist independently. Stage 03 shows Stage 04 as planned; three-star
-victories no longer suggest replaying to earn stars already obtained.
+## Campaign bosses
 
-## Original 20-wave Challenge
+**Bastion** ends Stage 02 wave 10 with 100 HP and six durable plates at
+Intermediate. It resists 50% of freezing strength and can be grappled.
 
-Use the campaign-map button or **Options → 20-wave Challenge · Titan**.
-Direct entry is available with `?mode=challenge`.
-The procedural maps, exploration unlocks, twenty waves and Titan encounter
-remain available, with the existing device record.
+**Nexus** ends Stage 03 wave 12 with 160 HP and three durable plates at
+Intermediate. It resists 65% of freezing strength. At half HP, Overdrive
+increases movement by 22% and rotation to 1.15 without restoring HP or plates.
+Its score gains the second-phase arrangement.
 
-## Titan and Boss Test
+Both receive **three seconds of protection against grapple recapture after
+release**. Normal enemy capture rules remain unchanged. Boss escape defeats
+the core; boss health and phases use the shared HUD.
 
-Titan arrives after the last enemies of Challenge wave 20. Destroy it to win.
-At half health its six armor plates spread and its rotation/movement accelerate.
-Its original synthesized score gains a second-phase arrangement. Existing
-music/effects volume, mute and pause controls apply.
+## Original 20-wave Challenge and Titan
 
-**Options → Boss Test** resets a Challenge map with 3,500 energy and all towers.
-Build, then select **Release Boss**. **Load sample defense** costs 3,125 energy.
-**Retry Boss** restores the test; **Return to Campaign** returns to the previous
-mode. Boss Test changes neither campaign progression nor Challenge records.
+The original Challenge remains available from the campaign map and Options,
+or directly with `?mode=challenge`. New map generates a new seeded procedural
+route; retry preserves it. Exploration-based unlocks and the original record
+`arc_defense_v1_best` remain separate from campaign progress.
 
-Titan resists 78% of freezing strength, cannot be grappled, and ignores boosts.
-Tunnel protection and the ordinary tower damage rules apply.
+Titan arrives after the last enemies of wave 20. At half HP its six plates
+spread and movement/rotation accelerate. It resists 78% of freezing strength,
+cannot be grappled, and ignores speed boosts. Existing music/effects volume,
+mute and pause controls apply.
 
-## Checks
+**Options → Boss Test** restores a Challenge map with 3,500 energy and all
+technologies. Build, then Release Boss. Load sample defense uses the normal
+tower prices and upgrade costs. Retry Boss and Return to Campaign preserve
+mode semantics. Boss Test never changes campaign or Challenge records.
+
+## Verification
 
 From the repository root:
 
@@ -103,21 +109,16 @@ node arc-defense/tests/engine-regressions.cjs
 node arc-defense/tests/stage-one-simulation.cjs
 node arc-defense/tests/stage-two-simulation.cjs
 node arc-defense/tests/stage-three-simulation.cjs
+node arc-defense/tests/stage-four-simulation.cjs
 ```
 
-The second check runs the actual eight-wave combat loop with legal purchases
-and upgrades, verifies the elite finish and ensures progression is saved
-without overwriting the original Challenge record.
+Regressions cover movement/escapes, boomerangs, E-Link construction and damage,
+all stage gates/records/routes, boss phases and grapple recovery, Magnetar
+levels/timing/protection/cancellation, and safe boss-particle rendering.
 
-The Stage 02 simulation uses legal purchases and earned upgrades, finishing
-all ten waves and Bastion with 15 core. This is a reproducible baseline,
-not a guarantee for every strategy. Stage 01 retains its 12-core baseline.
-
-The Stage 03 simulation completes twelve waves with 20 core, 417 kills,
-and 332 energy. Its nine-defense sample uses two E-Links and upgrades them
-with earned energy during the boss encounter. It verifies Nexus Overdrive
-and a grapple shield following an actual capture. Results describe this
-specific strategy and do not guarantee equivalent outcomes for other builds.
-
-Boss phase/death particles now retain their own duration and a nonnegative
-rendered radius; a canvas regression covers the full lifetime of each ring.
+Real combat simulations use legal purchases and earned energy. The Stage 04
+check first isolates bound targets against all seven other tower families,
+then runs twelve complete waves. Its sample completes 50 Magnetar pairs and
+finishes at 20 core, 428 kills and 743 energy. The earlier Stage 01/02/03
+baselines remain 12/15/20 core. These are reproducible sample strategies,
+not guarantees for other builds or difficulties.

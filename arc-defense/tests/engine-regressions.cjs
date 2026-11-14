@@ -28,7 +28,7 @@ function context(){
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
  ctx.enemyGeometry=()=>[];
  ctx.applyGeometricHit=(hit,damage)=>{ctx.hits.push({id:hit.m.id,damage});hit.m.hp-=damage;return true};
- for(const name of ['segmentClosest','geometricHits','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
+ for(const name of ['isMagnetProtected','segmentClosest','geometricHits','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
  return ctx;
 }
 function enemy(id,x,progress=0){return {id,x,y:0,hp:100,maxHp:100,progress}}
@@ -260,8 +260,9 @@ function campaignContext(raw=null){
  Object.assign(c,{campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
  const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
  const waves2=source.match(/const STAGE_TWO_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_TWO_WAVES='+waves2,c);
+ const waves4=source.match(/const STAGE_FOUR_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_FOUR_WAVES='+waves4,c);
  const waves3=source.match(/const STAGE_THREE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_THREE_WAVES='+waves3,c);
- for(const name of ['campaignStageBudget','createNexus','updateNexusPhase','nexusGeometry','releaseGrapple','advanceGrappleGuard','buildStageThreeRoute','activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
+ for(const name of ['buildStageFourRoute','campaignStageBudget','createNexus','updateNexusPhase','nexusGeometry','releaseGrapple','advanceGrappleGuard','buildStageThreeRoute','activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
  c.campaignProgress=c.readCampaignProgress();return {c,nodes,saved};
 }
 test('Stage 01 contains exactly eight authored waves and 157 enemies',()=>{
@@ -293,10 +294,6 @@ test('blocked storage preserves session progress and reports no false save',()=>
 test('campaign and Boss Test use separate technology rules',()=>{
  const {c}=campaignContext();assert(c.isStageCampaign());c.titanBossTest=true;assert.equal(c.isStageCampaign(),false);c.titanBossTest=false;c.playMode='challenge';assert.equal(c.isStageCampaign(),false);
 });
-test('Pulse statistics remain identical to the previous version',()=>{
- assert.match(source,/const areaSpecs=\[null,\{range:2\.85,rate:1\.9,velocity:310,damage:\.65,blast:\.75,cost:0\}/);
- assert.match(source,/range:3\.65,rate:1\.3,velocity:390,damage:1\.1,blast:1\.4,cost:275/);
-});
 test('Stage 02 is locked until Stage 01 is cleared, and unlock survives reload',()=>{
  const {c}=campaignContext();assert.equal(c.canPlayStage(2),false);c.lives=18;c.recordStageOneVictory();assert.equal(c.canPlayStage(2),true);c.campaignProgress=c.readCampaignProgress();assert(c.canPlayStage(2));assert.equal(c.canPlayStage(3),false);
 });
@@ -319,7 +316,7 @@ test('Bastion has durable armor, a separate silhouette and partial freeze resist
  c.applyGeometricHit({m,kind:'armor',index:0,x:0,y:0},1);assert(m.plates[0]);assert.equal(m.plateHp[0],2);assert.equal(m.hp,100);assert.equal(c.freezeResistance(m),.5);assert(c.canGrapple(m));
 });
 test('Stage 03 unlock requires Stage 02 and all three records persist independently',()=>{
- const {c}=campaignContext();assert(!c.canPlayStage(3));c.lives=20;c.recordStageOneVictory();assert(!c.canPlayStage(3));c.campaignStageNumber=2;c.lives=18;c.recordStageOneVictory();assert(c.canPlayStage(3));c.campaignStageNumber=3;c.lives=16;c.recordStageOneVictory();const p=c.readCampaignProgress();assert.equal(p.best['1'].lives,20);assert.equal(p.best['2'].lives,18);assert.equal(p.best['3'].lives,16);assert(p.cleared['3']);assert(!c.canPlayStage(4));
+ const {c}=campaignContext();assert(!c.canPlayStage(3));c.lives=20;c.recordStageOneVictory();assert(!c.canPlayStage(3));c.campaignStageNumber=2;c.lives=18;c.recordStageOneVictory();assert(c.canPlayStage(3));c.campaignStageNumber=3;c.lives=16;c.recordStageOneVictory();const p=c.readCampaignProgress();assert.equal(p.best['1'].lives,20);assert.equal(p.best['2'].lives,18);assert.equal(p.best['3'].lives,16);assert(p.cleared['3']);assert(c.canPlayStage(4));assert(!c.canPlayStage(5));
 });
 test('Stage 03 contains 417 enemies across twelve waves and exactly one Nexus at the end',()=>{
  const {c}=campaignContext();c.campaignStageNumber=3;let total=0,bosses=0;assert.equal(c.campaignStageBudget(),600);
@@ -338,5 +335,44 @@ test('boss phase and death rings render without negative radii throughout their 
  const render=source.match(/for\(let p of particles\)\{if\(p.effect\)continue;[^\n]+/)[0],radii=[];
  const particles=[{x:0,y:0,r:65,life:.7,blast:true},{x:0,y:0,r:85,life:.8,blast:true},{x:0,y:0,r:100,life:1.46,blast:true},{x:0,y:0,r:18,life:.35}];
  const c=vm.createContext({particles,Math,g:{beginPath(){},arc(x,y,r){assert(Number.isFinite(r)&&r>=0);radii.push(r)},stroke(){}}});for(let i=0;i<40;i++){vm.runInContext(render,c);for(const p of particles)p.life=Math.max(0,p.life-.05)}assert.equal(radii.length,160);assert(radii.some(r=>r>=85));
+});
+
+function magnetContext(){
+ const {c}=titanContext();Object.assign(c,{C:57,magneticPairs:[],magnetSerial:0,towers:[],way:[{dist:10000}]});
+ const raw=source.match(/const areaSpecs=(\[null,.*?\]);/)[1];vm.runInContext('var areaSpecs='+raw,c);
+ c.towerSpec=t=>c.areaSpecs[t.lv];c.ctr=t=>({x:t.x*57,y:t.y*57});
+ for(const name of ['canMagnetCapture','beginMagneticPair','endMagneticPair','cancelMagnetarForTower','prepareMagnetar','advanceMagnetar','advanceELinks'])vm.runInContext(extract(name),c);
+ c.monsters=[{...enemy(1,40,100),type:2,armor:6,plates:Array(6).fill(true),plateHp:Array(6).fill(4)},{...enemy(2,80,110),type:2,armor:6,plates:Array(6).fill(true),plateHp:Array(6).fill(4)}];
+ const tower={type:'area',x:0,y:0,lv:1,cool:0};c.towers=[tower];return {c,tower};
+}
+test('Magnetar draws for 1 second then compresses for 4 seconds before a single release',()=>{
+ const {c,tower}=magnetContext();assert(c.beginMagneticPair(tower));assert.equal(c.magneticPairs.length,1);assert(c.monsters.every(c.isMagnetProtected));
+ c.advanceMagnetar(.99);c.advanceMagnetar(4);assert(c.monsters.every(m=>m.hp===100&&m.armor===6));
+ c.advanceMagnetar(.01);assert.equal(c.magneticPairs.length,0);assert(c.monsters.every(m=>m.hp===75&&m.armor===0&&m.plates.every(p=>!p)&&m.plateHp.every(p=>p===0)));assert(c.monsters.every(m=>!c.isMagnetProtected(m)));c.advanceMagnetar(10);assert(c.monsters.every(m=>m.hp===75));
+});
+test('every Magnetar level reduces compression by 25 percent while keeping formation fixed',()=>{
+ for(let lv=1;lv<=5;lv++){const {c,tower}=magnetContext();tower.lv=lv;assert.equal(c.areaSpecs[lv].compression,4*.75**(lv-1));assert(c.beginMagneticPair(tower));c.advanceMagnetar(1+c.areaSpecs[lv].compression-.001);assert.equal(c.monsters[0].hp,100);c.advanceMagnetar(.001);assert.equal(c.monsters[0].hp,75)}
+});
+test('Magnetar needs exactly two available targets and does not steal grappled or bound enemies',()=>{
+ const {c,tower}=magnetContext();c.monsters[1].grapple={};assert.equal(c.beginMagneticPair(tower),false);delete c.monsters[1].grapple;assert(c.beginMagneticPair(tower));assert.equal(c.beginMagneticPair({...tower}),false);assert.equal(c.beginMagneticPair(tower),false);
+});
+test('Magnetar damage uses maximum HP and can finish an enemy already below 25 percent',()=>{
+ const {c,tower}=magnetContext();c.monsters[0].hp=60;c.monsters[1].hp=20;c.beginMagneticPair(tower);c.advanceMagnetar(5);assert.equal(c.monsters[0].hp,35);assert.equal(c.monsters[1].hp,0);
+});
+test('projectiles already in flight and electric beams cannot damage bound enemies',()=>{
+ const {c,tower}=magnetContext();c.beginMagneticPair(tower);for(const m of c.monsters){assert.equal(c.geometricHits({x:0,y:0},{x:100,y:0},m,{x:m.x,y:0}).length,0);assert.equal(c.applyGeometricHit({m,kind:'heart',x:0,y:0},100),false);assert.equal(c.canGrapple(m),false)}
+ const link={type:'elink',x:0,y:0,end:{x:2,y:0},lv:1};c.towers.push(link);const base=c.towerSpec;c.towerSpec=t=>t.type==='elink'?{damage:100,width:1}:base(t);c.advanceELinks(.5);assert(c.monsters.every(m=>m.hp===100&&m.armor===6));
+});
+test('sale, escape, missing partner and tunnels cancel the pair without damage or stranded protection',()=>{
+ for(const reason of ['sale','escape','missing','tunnel']){const {c,tower}=magnetContext();c.beginMagneticPair(tower);if(reason==='sale')c.cancelMagnetarForTower(tower);else{if(reason==='escape')c.monsters[0].progress=10000;if(reason==='missing')c.monsters.shift();if(reason==='tunnel')c.underTunnel=()=>true;c.advanceMagnetar(5)}assert.equal(c.magneticPairs.length,0);assert(c.monsters.every(m=>m.hp===100&&!c.isMagnetProtected(m)&&m.armor===6));}
+});
+test('upgrades apply to the next pair and cooldown starts only after release',()=>{
+ const {c,tower}=magnetContext();c.beginMagneticPair(tower);tower.lv=5;c.prepareMagnetar(2);assert.equal(c.magneticPairs.length,1);c.advanceMagnetar(4);assert.equal(c.monsters[0].hp,100);c.advanceMagnetar(1);assert.equal(tower.cool,2);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,0);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,1);assert.equal(c.magneticPairs[0].compression,1.265625);
+});
+test('Stage 04 has twelve authored waves, 428 enemies and a final four-Hexion elite assault',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=4;let total=0,elites=0;for(let w=1;w<=12;w++){const seq=c.stageOneSequence(w);total+=seq.length;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(w,i);assert(!m.boss&&!m.miniBoss);if(m.trait==='bulwark'){assert.equal(w,12);assert(i>=seq.length-4);assert.equal(m.hp,32);elites++;}}}assert.equal(total,428);assert.equal(elites,4);assert.equal(c.campaignStageBudget(),650);
+});
+test('Stage 04 gate, best result and route remain separate from earlier stages',()=>{
+ const {c}=campaignContext();assert(!c.canPlayStage(4));for(let n=1;n<=4;n++){c.campaignStageNumber=n;c.lives=21-n;c.recordStageOneVictory();if(n<4)assert(c.canPlayStage(n+1));}const p=c.readCampaignProgress();assert.equal(p.best['4'].lives,17);assert.equal(p.best['3'].lives,18);assert(p.cleared['4']);assert(!c.canPlayStage(5));const r=c.buildStageFourRoute();assert(r.at(-1).dist>2500);for(let i=1;i<r.length;i++){assert(r[i].dist>r[i-1].dist);assert(Math.hypot(r[i].x-r[i-1].x,r[i].y-r[i-1].y)<23);assert(r[i].x>=8&&r[i].x<=1112);assert(r[i].y>80&&r[i].y<600)}
 });
 console.log(count+' regression checks passed');
