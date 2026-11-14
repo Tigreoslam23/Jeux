@@ -23,7 +23,7 @@ function extract(name){
 }
 function context(){
  const ctx=vm.createContext({C:1,monsters:[],boomShots:[],particles:[],way:[{dist:100}],lives:20,escaped:0,updates:0,hits:[],window:{arcAudio:{effect(){}}}});
- ctx.update=()=>ctx.updates++;
+ ctx.update=()=>ctx.updates++;ctx.isStageCampaign=()=>false;
  ctx.monsterPosition=m=>({x:m.x,y:m.y,hidden:m.hidden});
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
  ctx.enemyGeometry=()=>[];
@@ -254,5 +254,45 @@ test('boss music scheduling honors mute and pause',()=>{
  for(const state of [{mode:'boss',enabled:false,paused:false},{mode:'bossPhase2',enabled:true,paused:true},{mode:'boss',enabled:true,paused:false}]){
   let calls=0;const c=vm.createContext({state,ac:{state:'running',currentTime:1},nextTime:1,seq:0,STAGE_STEP:.11,schedule:()=>calls++});vm.runInContext(extract('tick'),c);c.tick();assert.equal(calls>0,state.enabled&&!state.paused);
  }
+});
+function campaignContext(raw=null){
+ const {c,nodes}=titanContext(),saved=new Map(raw?[['arc_campaign_v1',JSON.stringify(raw)]]:[]);
+ Object.assign(c,{playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
+ const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
+ for(const name of ['isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
+ c.campaignProgress=c.readCampaignProgress();return {c,nodes,saved};
+}
+test('Stage 01 contains exactly eight authored waves and 157 enemies',()=>{
+ const {c}=campaignContext();let total=0;for(let w=1;w<=8;w++){const seq=c.stageOneSequence(w),spec=c.STAGE_ONE_WAVES[w-1];assert.equal(seq.length,spec.counts.reduce((a,b)=>a+b,0));for(let t=0;t<3;t++)assert.equal(seq.filter(x=>x===t).length,spec.counts[t]);total+=seq.length}assert.equal(total,157);
+});
+test('Stage 01 ends with exactly three reinforced Hexions and no Titan',()=>{
+ const {c}=campaignContext(),seq=c.stageOneSequence(8);let elites=0;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(8,i);assert.equal(m.boss,undefined);if(m.trait==='bulwark'){elites++;assert.equal(m.type,2);assert.equal(m.armor,6);assert.equal(m.hp,10.5)}}assert.equal(elites,3);
+});
+test('authored route is deterministic, continuous and contained on the board',()=>{
+ const {c}=campaignContext(),route=c.buildStageOneRoute(),again=c.buildStageOneRoute();assert.equal(JSON.stringify(route),JSON.stringify(again));assert.equal(route[0].x,8);assert.equal(route.at(-1).x,1112);
+ for(let i=1;i<route.length;i++){assert(route[i].dist>route[i-1].dist);assert(Math.hypot(route[i].x-route[i-1].x,route[i].y-route[i-1].y)<20);assert(route[i].x>=8&&route[i].x<=1112);assert(route[i].y>80&&route[i].y<600)}
+});
+test('campaign technologies unlock at waves 2, 4 and 6, without duplicates',()=>{
+ const {c}=campaignContext();assert.equal(c.technologyAvailable('freeze'),false);assert.equal(c.unlockCampaignTechnologies(1).length,0);assert.deepEqual(Array.from(c.unlockCampaignTechnologies(2)),['freeze']);assert(c.technologyAvailable('freeze'));assert.equal(c.technologyAvailable('elink'),false);
+ c.unlockCampaignTechnologies(4);assert(c.technologyAvailable('elink'));c.unlockCampaignTechnologies(6);assert.equal(c.campaignProgress.unlocked.length,8);assert.equal(c.unlockCampaignTechnologies(8).length,0);
+});
+test('campaign unlocks survive retries and storage reloads without changing challenge records',()=>{
+ const {c,saved}=campaignContext();saved.set('arc_defense_v1_best','original');c.unlockCampaignTechnologies(4);const reloaded=c.readCampaignProgress();assert(reloaded.unlocked.includes('freeze'));assert(reloaded.unlocked.includes('elink'));assert.equal(saved.get('arc_defense_v1_best'),'original');
+});
+test('stage results retain the best stars, and never regress after a weaker victory',()=>{
+ const {c,saved}=campaignContext();c.lives=20;c.recordStageOneVictory();c.lives=5;c.recordStageOneVictory();assert.equal(c.campaignProgress.best['1'].stars,3);assert.equal(c.campaignProgress.best['1'].lives,20);assert.equal(JSON.parse(saved.get('arc_campaign_v1')).cleared['1'],true);
+});
+test('campaign progress rejects unknown technologies and invalid records',()=>{
+ const {c}=campaignContext({version:1,unlocked:['freeze','imaginary'],cleared:{'1':'yes'},best:{'1':{stars:10,lives:100}}});assert(c.campaignProgress.unlocked.includes('freeze'));assert.equal(c.campaignProgress.unlocked.includes('imaginary'),false);assert.equal(c.campaignProgress.cleared['1'],undefined);assert.equal(c.campaignProgress.best['1'],undefined);
+});
+test('blocked storage preserves session progress and reports no false save',()=>{
+ const {c}=campaignContext();c.localStorage.setItem=()=>{throw Error('Storage unavailable')};c.lives=18;const result=c.recordStageOneVictory();assert.equal(result.saved,false);assert.equal(c.campaignProgress.best['1'].stars,2);
+});
+test('campaign and Boss Test use separate technology rules',()=>{
+ const {c}=campaignContext();assert(c.isStageCampaign());c.titanBossTest=true;assert.equal(c.isStageCampaign(),false);c.titanBossTest=false;c.playMode='challenge';assert.equal(c.isStageCampaign(),false);
+});
+test('Pulse statistics remain identical to the previous version',()=>{
+ assert.match(source,/const areaSpecs=\[null,\{range:2\.85,rate:1\.9,velocity:310,damage:\.65,blast:\.75,cost:0\}/);
+ assert.match(source,/range:3\.65,rate:1\.3,velocity:390,damage:1\.1,blast:1\.4,cost:275/);
 });
 console.log(count+' regression checks passed');
