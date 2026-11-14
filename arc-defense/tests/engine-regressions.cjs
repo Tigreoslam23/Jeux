@@ -260,7 +260,8 @@ function campaignContext(raw=null){
  Object.assign(c,{campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
  const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
  const waves2=source.match(/const STAGE_TWO_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_TWO_WAVES='+waves2,c);
- for(const name of ['activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
+ const waves3=source.match(/const STAGE_THREE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_THREE_WAVES='+waves3,c);
+ for(const name of ['campaignStageBudget','createNexus','updateNexusPhase','nexusGeometry','releaseGrapple','advanceGrappleGuard','buildStageThreeRoute','activeStage','campaignWaveSpecs','canPlayStage','createBastion','buildStageTwoRoute','sampledCampaignRoute','bastionGeometry','isStageCampaign','freshCampaignProgress','readCampaignProgress','saveCampaignProgress','technologyAvailable','unlockCampaignTechnologies','stageOneSequence','createStageOneEnemy','buildStageOneRoute','stageStars','recordStageOneVictory'])vm.runInContext(extract(name),c);
  c.campaignProgress=c.readCampaignProgress();return {c,nodes,saved};
 }
 test('Stage 01 contains exactly eight authored waves and 157 enemies',()=>{
@@ -316,5 +317,26 @@ test('Bastion escape ends the stage without mutating Titan state',()=>{
 test('Bastion has durable armor, a separate silhouette and partial freeze resistance',()=>{
  const {c}=campaignContext();c.campaignStageNumber=2;const m=c.createBastion();vm.runInContext(extract('enemyGeometry'),c);const geo=c.enemyGeometry(m,{x:0,y:0});assert(geo.flatMap(p=>p.points).some(p=>Math.hypot(p.x,p.y)>30));
  c.applyGeometricHit({m,kind:'armor',index:0,x:0,y:0},1);assert(m.plates[0]);assert.equal(m.plateHp[0],2);assert.equal(m.hp,100);assert.equal(c.freezeResistance(m),.5);assert(c.canGrapple(m));
+});
+test('Stage 03 unlock requires Stage 02 and all three records persist independently',()=>{
+ const {c}=campaignContext();assert(!c.canPlayStage(3));c.lives=20;c.recordStageOneVictory();assert(!c.canPlayStage(3));c.campaignStageNumber=2;c.lives=18;c.recordStageOneVictory();assert(c.canPlayStage(3));c.campaignStageNumber=3;c.lives=16;c.recordStageOneVictory();const p=c.readCampaignProgress();assert.equal(p.best['1'].lives,20);assert.equal(p.best['2'].lives,18);assert.equal(p.best['3'].lives,16);assert(p.cleared['3']);assert(!c.canPlayStage(4));
+});
+test('Stage 03 contains 417 enemies across twelve waves and exactly one Nexus at the end',()=>{
+ const {c}=campaignContext();c.campaignStageNumber=3;let total=0,bosses=0;assert.equal(c.campaignStageBudget(),600);
+ for(let w=1;w<=12;w++){const seq=c.stageOneSequence(w);total+=seq.length;for(let i=0;i<seq.length;i++){const m=c.createStageOneEnemy(w,i);assert.equal(m.boss,undefined);if(m.miniBoss){bosses++;assert.equal(w,12);assert.equal(i,seq.length-1);assert.equal(m.stageBoss,'nexus');assert.equal(m.hp,160);assert.equal(m.type,1)}}}assert.equal(total,417);assert.equal(bosses,1);
+});
+test('Nexus phase changes once at half health without restoring HP or armor',()=>{
+ const {c}=campaignContext(),m=c.createNexus();m.hp=81;assert.equal(c.updateNexusPhase(m),false);m.hp=80;m.plates[0]=false;const speed=m.moveSpeed;assert(c.updateNexusPhase(m));assert(m.moveSpeed>speed);assert.equal(m.hp,80);assert.equal(m.plates[0],false);assert.equal(c.updateNexusPhase(m),false);assert.equal(c.freezeResistance(m),.35);
+});
+test('boss grapple shield lasts three simulation seconds after release and ordinary enemies are unchanged',()=>{
+ const {c}=campaignContext();for(const m of [c.createBastion(),c.createNexus()]){m.grapple={};c.releaseGrapple(m);assert.equal(m.grappleGuard,3);assert.equal(c.canGrapple(m),false);c.advanceGrappleGuard(m,2.9);assert.equal(c.canGrapple(m),false);c.advanceGrappleGuard(m,.11);assert(c.canGrapple(m));}const normal={grapple:{}};c.releaseGrapple(normal);assert(c.canGrapple(normal));assert.equal(normal.grappleGuard,undefined);
+});
+test('Stage 03 route is distinct, continuous and bounded, and Nexus geometry has three plates',()=>{
+ const {c}=campaignContext(),r=c.buildStageThreeRoute();assert.notEqual(JSON.stringify(r),JSON.stringify(c.buildStageTwoRoute()));for(let i=1;i<r.length;i++){assert(r[i].dist>r[i-1].dist);assert(Math.hypot(r[i].x-r[i-1].x,r[i].y-r[i-1].y)<20);assert(r[i].x>=8&&r[i].x<=1112);assert(r[i].y>80&&r[i].y<600)}const geo=c.nexusGeometry(c.createNexus(),{x:0,y:0});assert.equal(geo.filter(p=>p.kind==='armor').length,3);assert.equal(geo.filter(p=>p.kind==='red').length,3);
+});
+test('boss phase and death rings render without negative radii throughout their lifetime',()=>{
+ const render=source.match(/for\(let p of particles\)\{if\(p.effect\)continue;[^\n]+/)[0],radii=[];
+ const particles=[{x:0,y:0,r:65,life:.7,blast:true},{x:0,y:0,r:85,life:.8,blast:true},{x:0,y:0,r:100,life:1.46,blast:true},{x:0,y:0,r:18,life:.35}];
+ const c=vm.createContext({particles,Math,g:{beginPath(){},arc(x,y,r){assert(Number.isFinite(r)&&r>=0);radii.push(r)},stroke(){}}});for(let i=0;i<40;i++){vm.runInContext(render,c);for(const p of particles)p.life=Math.max(0,p.life-.05)}assert.equal(radii.length,160);assert(radii.some(r=>r>=85));
 });
 console.log(count+' regression checks passed');
