@@ -114,4 +114,65 @@ test('victory can replace a loss and unavailable storage never blocks the dialog
  assert.equal(JSON.parse(saved.get('arc_defense_v1_best')).won,true);
  const fallback=resultContext(null,true);assert.doesNotThrow(()=>fallback.c.endCampaign(false));assert.equal(fallback.nodes.get('endRecord').hidden,true);
 });
+function linkContext(){
+ const c=context();Object.assign(c,{C:57,ENEMY_R:18,W:16,H:9,ELINK_MIN_SPAN:1.5,eLinkPending:null,towers:[],occupied:new Set(),energy:340,placing:true,placingType:'elink',selected:null,placementHover:null,boomHover:null,selectedRangeSince:0,performance:{now:()=>100},towerPrices:{elink:200}});
+ const raw=source.match(/const elinkSpecs=(\[null,.*?\]);/)[1];vm.runInContext('var elinkSpecs='+raw,c);
+ c.key=(x,y)=>x+','+y;c.arcWaveLocked=()=>false;c.technologyAvailable=()=>true;c.modeButtons=()=>{};c.syncDock=()=>{};c.draw=()=>{};c.ctr=t=>({x:t.x*57,y:t.y*57});
+ c.specList=()=>c.elinkSpecs;
+ for(const name of ['towerAtCell','freeConstructionCell','validELinkEnd','hasELinkEnd','placeELinkCell','cancelELink','towerSpec','advanceELinks'])vm.runInContext(extract(name),c);
+ return c;
+}
+test('E-Link first pylon is an unpaid draft and completing it buys one pair once',()=>{
+ const c=linkContext();assert(c.placeELinkCell({x:2,y:2}));assert.equal(c.energy,340);assert.equal(c.towers.length,0);
+ assert(c.placeELinkCell({x:5,y:2}));assert.equal(c.energy,140);assert.equal(c.towers.length,1);assert.equal(c.eLinkPending,null);
+ assert.equal(c.placeELinkCell({x:5,y:2}),false);assert.equal(c.energy,140);
+});
+test('E-Link rejects path cells, occupied endpoints and invalid spans without charging',()=>{
+ const c=linkContext();c.occupied.add('1,1');assert.equal(c.placeELinkCell({x:1,y:1}),false);
+ c.placeELinkCell({x:2,y:2});for(const cell of [{x:2,y:2},{x:3,y:2},{x:9,y:2},{x:1,y:1}])assert.equal(c.placeELinkCell(cell),false);
+ assert.equal(c.energy,340);assert.equal(c.towers.length,0);assert.equal(c.eLinkPending.x,2);
+});
+test('cancel releases the provisional pylon and costs no energy',()=>{
+ const c=linkContext();c.placeELinkCell({x:2,y:2});assert.equal(c.freeConstructionCell(2,2),false);c.cancelELink();
+ assert.equal(c.energy,340);assert.equal(c.towers.length,0);assert.equal(c.eLinkPending,null);assert(c.freeConstructionCell(2,2));
+});
+test('both pylons select the same upgrade and sale record and reserve both cells',()=>{
+ const c=linkContext();c.placeELinkCell({x:2,y:2});c.placeELinkCell({x:5,y:2});const a=c.towerAtCell(2,2),b=c.towerAtCell(5,2);
+ assert.equal(a,b);b.lv=4;assert.equal(a.lv,4);assert.equal(c.freeConstructionCell(5,2),false);
+ c.towers=c.towers.filter(t=>t!==b);assert(c.freeConstructionCell(2,2));assert(c.freeConstructionCell(5,2));
+});
+test('pending pair cannot complete during wave announcements or without energy',()=>{
+ const c=linkContext();c.placeELinkCell({x:2,y:2});c.arcWaveLocked=()=>true;assert.equal(c.placeELinkCell({x:5,y:2}),false);
+ c.key=(x,y)=>x+','+y;c.arcWaveLocked=()=>false;c.energy=199;assert.equal(c.placeELinkCell({x:5,y:2}),false);assert.equal(c.towers.length,0);assert.equal(c.energy,199);
+});
+test('unavailable technology cannot start an E-Link draft',()=>{
+ const c=linkContext();c.technologyAvailable=()=>false;assert.equal(c.placeELinkCell({x:2,y:2}),false);assert.equal(c.eLinkPending,null);
+});
+test('E-Link damages all touching enemies once per pair and never distant enemies',()=>{
+ const c=linkContext();c.towers=[{type:'elink',x:0,y:2,end:{x:4,y:2},lv:1}];
+ c.monsters=[{...enemy(1,57),y:114},{...enemy(2,171),y:114},{...enemy(3,171),y:200}];c.advanceELinks(1);
+ assert(Math.abs(c.monsters[0].hp-97.6)<1e-9);assert(Math.abs(c.monsters[1].hp-97.6)<1e-9);assert.equal(c.monsters[2].hp,100);assert.equal(c.towers[0].linkActive,2);
+});
+test('E-Link ignores dead, escaped and tunnel-protected enemies',()=>{
+ const c=linkContext();c.towers=[{type:'elink',x:0,y:2,end:{x:4,y:2},lv:1}];
+ c.monsters=[{...enemy(1,57),y:114,hidden:true},{...enemy(2,57),y:114,escaped:true},{...enemy(3,57),y:114,hp:0}];
+ c.advanceELinks(1);assert.equal(c.monsters[0].hp,100);assert.equal(c.monsters[1].hp,100);assert.equal(c.monsters[2].hp,0);
+});
+test('fast crossings damage only the fraction of time in the beam',()=>{
+ const c=linkContext();c.towers=[{type:'elink',x:0,y:2,end:{x:4,y:2},lv:1}];c.posAt=p=>({x:114,y:p});
+ c.monsters=[{...enemy(1,114),y:150,progress:150,eLinkPrevious:{x:114,y:78},eLinkPreviousProgress:78}];c.advanceELinks(.1);
+ assert(c.monsters[0].hp<100);assert(c.monsters[0].hp>99.76);
+});
+test('warp jumps never create an electric hit across the intervening board',()=>{
+ const c=linkContext();c.towers=[{type:'elink',x:0,y:2,end:{x:4,y:2},lv:1}];c.posAt=()=>({x:114,y:400});
+ c.monsters=[{...enemy(1,114),y:400,progress:500,eLinkPrevious:{x:114,y:-100},eLinkPreviousProgress:0}];c.advanceELinks(.1);assert.equal(c.monsters[0].hp,100);
+});
+test('electric DPS is independent of frame rate and zero time never damages',()=>{
+ const run=steps=>{const c=linkContext();c.towers=[{type:'elink',x:0,y:2,end:{x:4,y:2},lv:1}];c.monsters=[{...enemy(1,114),y:114}];for(let i=0;i<steps;i++)c.advanceELinks(1/steps);return c.monsters[0].hp};
+ assert(Math.abs(run(10)-run(100))<1e-9);const c=linkContext();c.monsters=[enemy(1,0)];c.advanceELinks(0);assert.equal(c.monsters[0].hp,100);
+});
+test('E-Link specialization modifies shared DPS or contact width',()=>{
+ const c=linkContext(),base=c.towerSpec({type:'elink',lv:5}),power=c.towerSpec({type:'elink',lv:5,specialization:'power'}),reach=c.towerSpec({type:'elink',lv:5,specialization:'reach'});
+ assert.equal(power.damage,8.32);assert.equal(base.damage,6.4);assert.equal(reach.width,.297);assert.equal(base.width,.22);
+});
 console.log(count+' regression checks passed');

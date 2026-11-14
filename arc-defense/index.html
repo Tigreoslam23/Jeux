@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARC DEFENSE · 9.20</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARC DEFENSE · 9.21</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -804,8 +804,24 @@ main{padding:3px 5px calc(77px + env(safe-area-inset-bottom))!important;gap:3px!
  #arc80Stage>#towerDock.tower-dock button{min-height:46px!important}
 }
 @media (orientation:landscape) and (max-width:899px){#arcGraphicsControl{max-width:420px;margin:5px auto!important}}
-</style></head>
-<body><header><h1>ARC DEFENSE · VERSION 9.20</h1><small>7 procedural paths · 20 waves · 1 wormhole · 1 edge warp · BOOST · 8 towers</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="disruptMode">🟣 Disruptor (110 ⚡)</button><button id="areaMode">💗 Pulse (145 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="recommend">🧭 Compare all 8 towers</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">💗 Pulse</option><option value="disrupt">🟣 Disruptor</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. Freezer slows movement; Disruptor slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="disruptMode" aria-label="Select Disruptor"><span class="tower-glyph">⬢</span><span>Disruptor</span><span class="tower-price">110 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Pulse"><span class="tower-glyph">✺</span><span>Pulse</span><span class="tower-price">145 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple Disruptor</span><span>💗 Pink area damage</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Blue armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation disruption. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Red arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Pulse explodes on impact and damages visible enemies within its radius. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. Disruptor slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
+</style>
+<style id="arc921-elink">
+#arc80Stage #towerDock #eLinkCancel{display:none!important}
+#arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower]:not([data-tower="elinkMode"]){display:none!important}
+#arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending{grid-template-columns:minmax(0,3fr) minmax(0,1fr)!important;grid-template-rows:auto!important}
+#arc80Stage.arc917-layout #towerDock.elink-pending #eLinkCancel{display:flex!important;height:54px!important;min-height:54px!important;color:#ffbdca!important;border-color:#b36d82!important}
+#arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower="elinkMode"]{height:54px!important;min-height:54px!important;flex-direction:column!important}
+#towerDock.elink-pending .tower-name{font-size:12px!important}
+#towerDock.elink-pending .tower-price{font-size:9px!important;white-space:normal!important;text-align:center}
+#arc80Stage #towerDock [data-tower="elinkMode"]{border-left-color:#66efed!important}
+
+@media(min-width:701px){
+ #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending{grid-template-columns:minmax(0,1fr)!important}
+ #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower="elinkMode"]{height:95px!important;min-height:95px!important}
+}
+</style>
+</head>
+<body><header><h1>ARC DEFENSE · VERSION 9.21</h1><small>7 procedural paths · 20 waves · 1 wormhole · 1 edge warp · BOOST · 8 towers</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">💗 Pulse (145 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">💗 Pulse</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Pulse"><span class="tower-glyph">✺</span><span>Pulse</span><span class="tower-price">145 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Pink area damage</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Blue armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Red arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Pulse explodes on impact and damages visible enemies within its radius. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
 <script>(()=>{'use strict';
 const cv=document.getElementById('board'),g=cv.getContext('2d'),$=id=>document.getElementById(id);
 const portraitBoard=document.getElementById('portraitBoard'),pg=portraitBoard.getContext('2d');
@@ -814,10 +830,12 @@ function boardPointer(e){const r=portraitBoard.getBoundingClientRect(),sx=(e.cli
 
 const CORE_LIVES=20;
 const W=16,H=9,C=57,OX=104,OY=74,key=(x,y)=>x+','+y;
+let eLinkPending=null;
+const ELINK_MIN_SPAN=1.5;
 let showPlacementHeatmap=false;let placementScores=[];let waveStartKills=0,waveStartEscaped=0,waveStartDiscovery=0,lastWaveReport="";let waveNumber=1,lives=CORE_LIVES,waveSpawned=0,waveTotal=0,waveDelay=0,waveFinished=false,escaped=0;let boomShots=[];let boomHover=null;let monsterSerial=0;let suppressDropClick=false;let placingType="precision";let path=[],occupied=new Set(),tunnels=new Set(),turns=[],way=[],selected=null,monsters=[],playing=false,paused=false,spawn=0,elapsed=0,last=0,seed=0,level=2,towers=[],shots=[],particles=[],energy=340,kills=0,placing=false,placementHover=null,shotClock=0,selectedRangeSince=0;
 const specs=[null,{range:3.2,rate:.7,velocity:440,damage:1,cost:0},{range:3.5,rate:.62,velocity:480,damage:1,cost:65},{range:3.8,rate:.53,velocity:520,damage:1,cost:100},{range:4.1,rate:.46,velocity:580,damage:1,cost:150},{range:4.5,rate:.37,velocity:650,damage:1,cost:220}];
 const rapidSpecs=[null,{range:2.65,rate:.31,velocity:350,damage:.42,cost:0},{range:2.75,rate:.25,velocity:370,damage:.43,cost:75},{range:2.9,rate:.20,velocity:390,damage:.44,cost:110},{range:3.0,rate:.16,velocity:420,damage:.46,cost:160},{range:3.15,rate:.12,velocity:460,damage:.48,cost:235}];
-const disruptSpecs=[null,{range:2.8,rate:0,velocity:0,damage:0,slow:.65,cost:0},{range:3.0,rate:0,velocity:0,damage:0,slow:.52,cost:85},{range:3.2,rate:0,velocity:0,damage:0,slow:.39,cost:125},{range:3.5,rate:0,velocity:0,damage:0,slow:.25,cost:175},{range:3.8,rate:0,velocity:0,damage:0,slow:.1,cost:240}];
+const elinkSpecs=[null,{range:4.5,rate:0,velocity:0,damage:2.4,width:.14,cost:0},{range:4.5,rate:0,velocity:0,damage:3.2,width:.16,cost:100},{range:4.5,rate:0,velocity:0,damage:4.1,width:.18,cost:145},{range:4.5,rate:0,velocity:0,damage:5.2,width:.20,cost:200},{range:4.5,rate:0,velocity:0,damage:6.4,width:.22,cost:280}];
 const areaSpecs=[null,{range:2.85,rate:1.9,velocity:310,damage:.65,blast:.75,cost:0},{range:3.0,rate:1.75,velocity:325,damage:.75,blast:.9,cost:105},{range:3.2,rate:1.6,velocity:345,damage:.85,blast:1.05,cost:145},{range:3.4,rate:1.45,velocity:365,damage:.95,blast:1.2,cost:205},{range:3.65,rate:1.3,velocity:390,damage:1.1,blast:1.4,cost:275}];
 const pierceSpecs=[null,{range:3.2,rate:1.65,velocity:690,damage:.82,penetrations:5,cost:0},{range:3.4,rate:1.52,velocity:740,damage:.90,penetrations:6,cost:95},{range:3.65,rate:1.40,velocity:800,damage:1.0,penetrations:7,cost:135},{range:3.85,rate:1.27,velocity:860,damage:1.1,penetrations:8,cost:185},{range:4.1,rate:1.16,velocity:930,damage:1.2,penetrations:9,cost:255}];
 const freezeSpecs=[null,{range:2.5,slow:.45,capacity:3,rate:0,velocity:0,damage:0,cost:0},{range:2.7,slow:.30,capacity:5,rate:0,velocity:0,damage:0,cost:95},{range:2.9,slow:.20,capacity:7,rate:0,velocity:0,damage:0,cost:140},{range:3.1,slow:.10,capacity:9,rate:0,velocity:0,damage:0,cost:200},{range:3.3,slow:.05,capacity:11,rate:0,velocity:0,damage:0,cost:275}];
@@ -933,28 +951,29 @@ function paintBoom(t){
  if(lv>=3){g.lineWidth=1.4;g.beginPath();g.moveTo(-20,-10);g.lineTo(-10,0);g.lineTo(-20,10);g.stroke()}
  g.restore();
 }
-function specList(type){return type==='grapple'?grappleSpecs:type==='freeze'?freezeSpecs:type==='boom'?boomSpecs:type==='rapid'?rapidSpecs:type==='pierce'?pierceSpecs:type==='disrupt'?disruptSpecs:type==='area'?areaSpecs:specs}
+function specList(type){return type==='grapple'?grappleSpecs:type==='freeze'?freezeSpecs:type==='boom'?boomSpecs:type==='rapid'?rapidSpecs:type==='pierce'?pierceSpecs:type==='elink'?elinkSpecs:type==='area'?areaSpecs:specs}
 function towerSpec(t){
  const base=specList(t.type)[t.lv||1];
  if(t.lv!==5||!t.specialization)return base;
  const sp={...base};
  if(t.specialization==='reach'){
    sp.range=+(sp.range*1.22).toFixed(3);
+   if(t.type==='elink')sp.width=+(sp.width*1.35).toFixed(3);
    if(t.type==='grapple')sp.hold=+(sp.hold*1.15).toFixed(2);
  }else if(t.specialization==='power'){
    if(sp.damage>0)sp.damage=+(sp.damage*1.3).toFixed(3);
    if(sp.rate>0)sp.rate=+(sp.rate*.82).toFixed(3);
    if(t.type==='freeze'||t.type==='grapple')sp.capacity+=2;
-   if(t.type==='disrupt')sp.slow=Math.max(.045,sp.slow*.7);
+   
  }
  return sp;
 }
-function towerName(t){return t.type==='grapple'?'🪝 Grapple':t.type==='freeze'?'❄️ Freezer':t.type==='boom'?'🪃 Boomerang':t.type==='rapid'?'🟠 Rapid':t.type==='pierce'?'🟢 Ricochet':t.type==='disrupt'?'🟣 Disruptor':t.type==='area'?'💗 Pulse':'🎯 Precision'}
-function modeButtons(){if(!placing){placementHover=null;boomHover=null} $('towerMode').textContent=placing&&placingType==='precision'?'✓ Precision : choose a cell':'🎯 Precision (80 ⚡)';$('rapidMode').textContent=placing&&placingType==='rapid'?'✓ Rapid : choose a cell':'🟠 Rapid (90 ⚡)';$('towerMode').style.borderColor=placing&&placingType==='precision'?'#67edff':'';$('rapidMode').style.borderColor=placing&&placingType==='rapid'?'#ffa348':'';$('pierceMode').textContent=placing&&placingType==='pierce'?'✓ Ricochet : choose a cell':'🟢 Ricochet (125 ⚡)';$('pierceMode').style.borderColor=placing&&placingType==='pierce'?'#72ff99':'';$('disruptMode').textContent=placing&&placingType==='disrupt'?'✓ Disruptor : choose a cell':'🟣 Disruptor (110 ⚡)';$('disruptMode').style.borderColor=placing&&placingType==='disrupt'?'#d0a0ff':'';$('areaMode').textContent=placing&&placingType==='area'?'✓ Pulse : choose a cell':'💗 Pulse (145 ⚡)';$('areaMode').style.borderColor=placing&&placingType==='area'?'#ff86c9':'';$('freezeMode').textContent=placing&&placingType==='freeze'?'✓ Freezer : choose a cell':'❄️ Freezer (135 ⚡)';$('grappleMode').textContent=placing&&placingType==='grapple'?'✓ Grapple : choose a cell':'🪝 Grapple (155 ⚡)';$('boomMode').textContent=placing&&placingType==='boom'?'✓ Boomerang : choose a cell':'🪃 Boomerang (175 ⚡)';$('freezeMode').style.borderColor=placing&&placingType==='freeze'?'#8deeff':'';$('boomMode').style.borderColor=placing&&placingType==='boom'?'#ffcf64':'' }
+function towerName(t){return t.type==='grapple'?'🪝 Grapple':t.type==='freeze'?'❄️ Freezer':t.type==='boom'?'🪃 Boomerang':t.type==='rapid'?'🟠 Rapid':t.type==='pierce'?'🟢 Ricochet':t.type==='elink'?'⚡ E-Link':t.type==='area'?'💗 Pulse':'🎯 Precision'}
+function modeButtons(){if(eLinkPending&&(!placing||placingType!=='elink'||arcWaveLocked()))eLinkPending=null;refreshELinkPlacement();if(!placing){placementHover=null;boomHover=null} $('towerMode').textContent=placing&&placingType==='precision'?'✓ Precision : choose a cell':'🎯 Precision (80 ⚡)';$('rapidMode').textContent=placing&&placingType==='rapid'?'✓ Rapid : choose a cell':'🟠 Rapid (90 ⚡)';$('towerMode').style.borderColor=placing&&placingType==='precision'?'#67edff':'';$('rapidMode').style.borderColor=placing&&placingType==='rapid'?'#ffa348':'';$('pierceMode').textContent=placing&&placingType==='pierce'?'✓ Ricochet : choose a cell':'🟢 Ricochet (125 ⚡)';$('pierceMode').style.borderColor=placing&&placingType==='pierce'?'#72ff99':'';$('elinkMode').textContent=placing&&placingType==='elink'?'✓ E-Link : choose a cell':'🟣 E-Link (200 ⚡)';$('elinkMode').style.borderColor=placing&&placingType==='elink'?'#d0a0ff':'';$('areaMode').textContent=placing&&placingType==='area'?'✓ Pulse : choose a cell':'💗 Pulse (145 ⚡)';$('areaMode').style.borderColor=placing&&placingType==='area'?'#ff86c9':'';$('freezeMode').textContent=placing&&placingType==='freeze'?'✓ Freezer : choose a cell':'❄️ Freezer (135 ⚡)';$('grappleMode').textContent=placing&&placingType==='grapple'?'✓ Grapple : choose a cell':'🪝 Grapple (155 ⚡)';$('boomMode').textContent=placing&&placingType==='boom'?'✓ Boomerang : choose a cell':'🪃 Boomerang (175 ⚡)';$('freezeMode').style.borderColor=placing&&placingType==='freeze'?'#8deeff':'';$('boomMode').style.borderColor=placing&&placingType==='boom'?'#ffcf64':'' }
 function rng(s){let a=s|0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const ctr=p=>({x:OX+(p.x+.5)*C,y:OY+(p.y+.5)*C});
 const pt=(x,y)=>({x,y});
-let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
+let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){eLinkPending=null;window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
 for(let i=0;i<rows.length;i++){let y=rows[i],start=direction===1?left:right,end=direction===1?right:left;if(i===0){for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}else{let old=rows[i-1];for(let yy=old+1;yy<y;yy++)path.push({x:start,y:yy});for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}direction*=-1;}
 occupied=new Set(path.map(p=>key(p.x,p.y)));turns=[];way=[];
 // A turn is a true 2x2 reserved footprint. Its centerline enters junction 2,
@@ -1121,15 +1140,15 @@ lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.
  boostPads=chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0}));
  update();draw();}
 // Technologies available selon la découverte permanente du parcours.
-const TECH_THRESHOLDS={precision:0,rapid:0,pierce:0,freeze:25,area:50,disrupt:50,boom:75};
-const TECH_NAMES={freeze:'FREEZER',area:'ZONE',disrupt:'ROTATION',boom:'BOOMERANG'};
-const TECH_IDS={precision:'towerMode',rapid:'rapidMode',pierce:'pierceMode',freeze:'freezeMode',area:'areaMode',disrupt:'disruptMode',boom:'boomMode'};
+const TECH_THRESHOLDS={precision:0,rapid:0,pierce:0,freeze:25,area:50,elink:25,boom:75};
+const TECH_NAMES={freeze:'FREEZER',area:'ZONE',elink:'E-LINK',boom:'BOOMERANG'};
+const TECH_IDS={precision:'towerMode',rapid:'rapidMode',pierce:'pierceMode',freeze:'freezeMode',area:'areaMode',elink:'elinkMode',boom:'boomMode'};
 let lastTechPercent=0,techBannerTimer=0;
 const techBanner=document.createElement('div');techBanner.id='techUnlockBanner';techBanner.setAttribute('role','status');document.body.appendChild(techBanner);
 function discoveredPercent(){const n=traceVisits.length;if(!n)return 0;let count=0;for(let i=0;i<n;i++)if(traceVisits[i]>=TRACE_REQUIRED)count++;return 100*count/n}
 function technologyAvailable(type){return discoveredPercent()+1e-7>=(TECH_THRESHOLDS[type]??0)}
 function technologyFeedback(type){if(technologyAvailable(type))return true;const threshold=TECH_THRESHOLDS[type];const button=document.querySelector('#towerDock [data-tower="'+TECH_IDS[type]+'"]');if(button){button.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:250})}const info=document.getElementById('waveReport');if(info)info.textContent=`🔒 ${TECH_NAMES[type]||type} : explore ${threshold}% of the path to unlock this technology.`;return false}
-function refreshTechnologies(){const pct=discoveredPercent();for(const [type,id] of Object.entries(TECH_IDS)){const locked=!technologyAvailable(type),button=document.querySelector('#towerDock [data-tower="'+id+'"]');if(button){button.classList.toggle('tech-locked',locked);button.dataset.unlock=TECH_THRESHOLDS[type];button.setAttribute('aria-disabled',String(locked));button.title=locked?`Unlocks at ${TECH_THRESHOLDS[type]}% path explored`:button.querySelector('.tower-price')?.textContent||type}}
+function refreshTechnologies(){const pct=discoveredPercent();for(const [type,id] of Object.entries(TECH_IDS)){const locked=!technologyAvailable(type),button=document.querySelector('#towerDock [data-tower="'+id+'"]');if(button){button.classList.toggle('tech-locked',locked);button.dataset.unlock=TECH_THRESHOLDS[type];button.setAttribute('aria-disabled',String(locked));button.title=locked?`Unlocks at ${TECH_THRESHOLDS[type]}% path explored`:type==='elink'?(eLinkPending?'Place second pylon · 1.5–4.5 cells':'Electric Link · 200 energy for two pylons'):button.querySelector('.tower-price')?.textContent||type}}
 if(placing&&!technologyAvailable(placingType)){placing=false;placementHover=null;boomHover=null;modeButtons()}
 for(const threshold of [25,50,75]){if(lastTechPercent<threshold&&pct>=threshold){
  const unlockedTypes=Object.keys(TECH_THRESHOLDS).filter(t=>TECH_THRESHOLDS[t]===threshold);
@@ -1148,7 +1167,7 @@ function updateDiscovery(){
  if(label&&label.textContent!==percent+' %')label.textContent=percent+' %';
  if(bar&&bar.style.width!==percent+'%')bar.style.width=percent+'%';
  const next=document.getElementById('discoveryNext');
- if(next){const exact=discoveredPercent();const goal=[25,50,75].find(v=>exact<v);next.textContent=goal===25?'❄ Freezer · 25 %':goal===50?'✺ Pulse + Disruptor · 50 %':goal===75?'❖ Boomerang · 75 %':'✓ All towers unlocked';}
+ if(next){const exact=discoveredPercent();const goal=[25,50,75].find(v=>exact<v);next.textContent=goal===25?'⚡ E-Link + Freezer · 25 %':goal===50?'✺ Pulse · 50 %':goal===75?'❖ Boomerang · 75 %':'✓ All towers unlocked';}
  refreshTechnologies();
 }
 function resolveEscapes(){
@@ -1180,7 +1199,7 @@ function monsterPosition(m){
 }
 function underTunnel(c){for(let i of tunnels){let t=ctr(path[i]);if(Math.abs(c.x-t.x)<C*.43&&Math.abs(c.y-t.y)<C*.43)return true}return false}
 function campaignUpgradeCost(t){let base=specList(t.type)[t.lv+1].cost;return Math.ceil(base*(t.lv>=4?1.85:t.lv>=3?1.45:t.lv>=2?1.20:1)/5)*5}
-function updateUpgrade(){let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);let b=$('upgrade');$('rotateBoom').style.display='none';if(!t){$('towerTitle').textContent='Select a tower';$('towerStats').textContent='Select a built tower to inspect its stats.';b.disabled=true;b.textContent='⬆ Upgrade';return}let lv=t.lv||1,sp=towerSpec(t);$('towerTitle').textContent=towerName(t)+' · Lvl '+lv+'/5';$('towerStats').textContent=`Range ${sp.range} cells · Fire rate ${sp.rate.toFixed(2)} s · Damage ${sp.damage.toFixed(2)} ${(t.type==='disrupt'||t.type==='freeze'||t.type==='grapple')?' · Permanent aura (no shots)':' · Projectile '+sp.velocity+' px/s'}${t.type==='grapple'?' · Captures : '+sp.capacity+' · Hold '+sp.hold+' s':t.type==='freeze'?' · Targets : '+(t.freezeTargets||[]).length+'/'+sp.capacity+' · Movement ×'+sp.slow+' · Rotation unchanged':t.type==='boom'?' · Straight out-and-back · Pierces enemies · Speed '+sp.velocity+' px/s':t.type==='pierce'?' · Bounces : '+sp.penetrations:t.type==='disrupt'?' · Disruptor ×'+sp.slow.toFixed(2):t.type==='area'?' · Explosion : '+sp.blast+' case(s)':''}`;if(lv===5){b.disabled=true;b.textContent='★ Max level'}else{let price=campaignUpgradeCost(t);b.disabled=energy<price;b.textContent='⬆ Lvl '+(lv+1)+' — '+price+' ⚡'}}
+function updateUpgrade(){let t=selected&&towerAtCell(selected.x,selected.y);let b=$('upgrade');$('rotateBoom').style.display='none';if(!t){$('towerTitle').textContent='Select a tower';$('towerStats').textContent='Select a built tower to inspect its stats.';b.disabled=true;b.textContent='⬆ Upgrade';return}let lv=t.lv||1,sp=towerSpec(t);$('towerTitle').textContent=towerName(t)+' · Lvl '+lv+'/5';$('towerStats').textContent=`Range ${sp.range} cells · Fire rate ${sp.rate.toFixed(2)} s · Damage ${sp.damage.toFixed(2)} ${(t.type==='elink'||t.type==='freeze'||t.type==='grapple')?' · Permanent aura (no shots)':' · Projectile '+sp.velocity+' px/s'}${t.type==='grapple'?' · Captures : '+sp.capacity+' · Hold '+sp.hold+' s':t.type==='freeze'?' · Targets : '+(t.freezeTargets||[]).length+'/'+sp.capacity+' · Movement ×'+sp.slow+' · Rotation unchanged':t.type==='boom'?' · Straight out-and-back · Pierces enemies · Speed '+sp.velocity+' px/s':t.type==='pierce'?' · Bounces : '+sp.penetrations:t.type==='elink'?' · Electric beam':t.type==='area'?' · Explosion : '+sp.blast+' case(s)':''}`;if(t.type==='elink')$('towerStats').textContent=`Link ${Math.hypot(t.end.x-t.x,t.end.y-t.y).toFixed(2)} cells · ${sp.damage.toFixed(2)} damage/s · Two pylons, shared upgrades`;if(lv===5){b.disabled=true;b.textContent='★ Max level'}else{let price=campaignUpgradeCost(t);b.disabled=energy<price;b.textContent='⬆ Lvl '+(lv+1)+' — '+price+' ⚡'}}
 function paintRapid(t){let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#ff9d45';g.shadowBlur=10+lv*2;g.fillStyle='#39271c';g.strokeStyle='#ffac55';g.lineWidth=2.5;g.beginPath();g.arc(0,0,18,0,TAU);g.fill();g.shadowBlur=0;g.fillStyle='#95552b';g.fillRect(-24,-11,8,22);g.fillRect(16,-11,8,22);if(lv>=2){g.strokeStyle='#ffcc7a';g.lineWidth=3;g.beginPath();g.arc(0,0,24,0,TAU);g.stroke()}if(lv>=3){g.fillStyle='#f5a64d';g.fillRect(-27,-24,13,6);g.fillRect(14,-24,13,6);g.fillRect(-27,18,13,6);g.fillRect(14,18,13,6)}if(lv>=4){g.strokeStyle='#ffd49a';g.lineWidth=2;g.beginPath();g.arc(0,0,27,-2.4,.7);g.stroke()}if(lv>=5){for(let a=0;a<4;a++){let q=a*Math.PI/2+performance.now()/900;g.fillStyle='#fff0b2';g.beginPath();g.arc(Math.cos(q)*29,Math.sin(q)*27,3,0,Math.PI*2);g.fill()}}g.rotate(t.angle||0);let barrels=lv===1?1:lv===2?2:lv===3?3:lv===4?4:5;for(let i=0;i<barrels;i++){let xx=(i-(barrels-1)/2)*6;g.fillStyle=i%2?'#ffb54e':'#ffdb83';g.fillRect(xx-2,-25-(lv>=4?4:0),4,25+(lv>=4?4:0));g.fillStyle='#fff2c0';g.fillRect(xx-2,-27-(lv>=4?4:0),4,5)}g.fillStyle='#462e1e';g.beginPath();g.arc(0,0,8,0,Math.PI*2);g.fill();g.strokeStyle='#ffd28b';g.stroke();g.restore()}
 function paintPierce(t){
  // Ricochet: unmistakable three descending magnetic pebbles on a curved launcher.
@@ -1202,11 +1221,11 @@ function paintPierce(t){
  }
  g.restore();
 }
-function paintDisrupt(t){let c=ctr(t),lv=t.lv||1,tm=performance.now()/1000;g.save();g.translate(c.x,c.y);g.shadowColor='#b16cff';g.shadowBlur=12+lv*3;g.beginPath();for(let k=0;k<6;k++){let a=Math.PI/3*k-Math.PI/6,x=Math.cos(a)*24,y=Math.sin(a)*24;k?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();g.fillStyle='#322047';g.strokeStyle='#ca91ff';g.lineWidth=2.5;g.fill();g.stroke();g.shadowBlur=0;for(let k=0;k<3;k++){let a=k*2*Math.PI/3-Math.PI/2,r=15+Math.min(lv,3)*2;g.beginPath();g.arc(Math.cos(a)*r,Math.sin(a)*r,3+lv*.3,0,Math.PI*2);g.fillStyle='#a55aff';g.fill();g.strokeStyle='#f0caff';g.stroke()}if(lv>=2){g.strokeStyle='#a76dff';g.lineWidth=2;g.beginPath();g.arc(0,0,22,-tm*.6,-tm*.6+Math.PI*1.4);g.stroke()}if(lv>=3){g.strokeStyle='#f0baff';g.beginPath();g.arc(0,0,27,tm*.35,tm*.35+Math.PI);g.stroke()}if(lv>=4){for(let k=0;k<3;k++){let a=k*2*Math.PI/3+tm*.5;g.fillStyle='#e9bdff';g.fillRect(Math.cos(a)*27-2,Math.sin(a)*27-2,4,4)}}if(lv>=5){g.strokeStyle='#eed6ff';g.setLineDash([3,5]);g.beginPath();g.arc(0,0,29,0,Math.PI*2);g.stroke();g.setLineDash([])}g.beginPath();g.arc(0,0,8,0,Math.PI*2);g.fillStyle='#e3b3ff';g.fill();g.restore()}
+function paintELink(t){let c=ctr(t),lv=t.lv||1,tm=performance.now()/1000;g.save();g.translate(c.x,c.y);g.shadowColor='#b16cff';g.shadowBlur=12+lv*3;g.beginPath();for(let k=0;k<6;k++){let a=Math.PI/3*k-Math.PI/6,x=Math.cos(a)*24,y=Math.sin(a)*24;k?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();g.fillStyle='#322047';g.strokeStyle='#ca91ff';g.lineWidth=2.5;g.fill();g.stroke();g.shadowBlur=0;for(let k=0;k<3;k++){let a=k*2*Math.PI/3-Math.PI/2,r=15+Math.min(lv,3)*2;g.beginPath();g.arc(Math.cos(a)*r,Math.sin(a)*r,3+lv*.3,0,Math.PI*2);g.fillStyle='#a55aff';g.fill();g.strokeStyle='#f0caff';g.stroke()}if(lv>=2){g.strokeStyle='#a76dff';g.lineWidth=2;g.beginPath();g.arc(0,0,22,-tm*.6,-tm*.6+Math.PI*1.4);g.stroke()}if(lv>=3){g.strokeStyle='#f0baff';g.beginPath();g.arc(0,0,27,tm*.35,tm*.35+Math.PI);g.stroke()}if(lv>=4){for(let k=0;k<3;k++){let a=k*2*Math.PI/3+tm*.5;g.fillStyle='#e9bdff';g.fillRect(Math.cos(a)*27-2,Math.sin(a)*27-2,4,4)}}if(lv>=5){g.strokeStyle='#eed6ff';g.setLineDash([3,5]);g.beginPath();g.arc(0,0,29,0,Math.PI*2);g.stroke();g.setLineDash([])}g.beginPath();g.arc(0,0,8,0,Math.PI*2);g.fillStyle='#e3b3ff';g.fill();g.restore()}
 function paintArea(t){let c=ctr(t),lv=t.lv||1,tm=performance.now()/1100;g.save();g.translate(c.x,c.y);g.shadowColor='#ff6fb9';g.shadowBlur=11+lv*3;g.beginPath();for(let k=0;k<8;k++){let a=Math.PI/4*k-Math.PI/8,x=Math.cos(a)*23,y=Math.sin(a)*23;k?g.lineTo(x,y):g.moveTo(x,y)}g.closePath();g.fillStyle='#422139';g.strokeStyle='#ff8dcb';g.lineWidth=2.5;g.fill();g.stroke();g.shadowBlur=0;for(let k=0;k<lv;k++){let a=(k-(lv-1)/2)*.48;g.save();g.rotate(a);g.fillStyle='#b94e87';g.fillRect(-4,-25,8,11);g.restore()}if(lv>=2){g.strokeStyle='#ffc0e0';g.beginPath();g.arc(0,0,26,-Math.PI*.8,Math.PI*.7);g.stroke()}if(lv>=3){for(let k=0;k<4;k++){let a=k*Math.PI/2;g.fillStyle='#ff86c9';g.fillRect(Math.cos(a)*24-3,Math.sin(a)*24-3,6,6)}}if(lv>=4){g.strokeStyle='#ffb6e0';g.beginPath();g.arc(0,0,29,tm,tm+Math.PI*1.4);g.stroke()}if(lv>=5){for(let k=0;k<8;k++){let a=k*Math.PI/4+tm*.5;g.fillStyle='#ffe0f3';g.beginPath();g.arc(Math.cos(a)*29,Math.sin(a)*29,2,0,Math.PI*2);g.fill()}}g.rotate(t.angle||0);g.fillStyle='#ff8bc9';g.fillRect(-7,-26-lv*1.5,14,29+lv*1.5);g.fillStyle='#ffe4f4';g.fillRect(-5,-29-lv*1.5,10,7);g.fillStyle='#6d2b57';g.beginPath();g.arc(0,0,9,0,Math.PI*2);g.fill();g.strokeStyle='#ffd0eb';g.stroke();g.restore()}
 // Corner-only sci-fi chassis: broken arc/line brackets, never a closed square.
 // V7.4: eight functional silhouettes, coordinated open-frame bases and restrained motion.
-const towerArt={precision:['#58e7ff',4],rapid:['#ffae60',3],pierce:['#5ee6a1',6],disrupt:['#bc8aff',6],area:['#ff86bf',8],freeze:['#85e6ff',6],boom:['#55e6c7',3],grapple:['#ffd18a',4]};
+const towerArt={precision:['#58e7ff',4],rapid:['#ffae60',3],pierce:['#5ee6a1',6],elink:['#bc8aff',6],area:['#ff86bf',8],freeze:['#85e6ff',6],boom:['#55e6c7',3],grapple:['#ffd18a',4]};
 function paintArtBase(t,now){
  const c=ctr(t),lv=t.lv||1,kind=t.type,def=towerArt[kind]||towerArt.precision,col=def[0],n=def[1],sec=now/1000;
  g.save();g.translate(c.x,c.y);g.lineCap='round';g.lineJoin='round';
@@ -1233,7 +1252,7 @@ function paintArtMotion(t,now){
   for(let k=0;k<3;k++){let x=(k-1)*12,y=-24-6*(1-(k-1)*(k-1))+Math.sin(sec*3+k)*2;g.beginPath();g.arc(x,y,3.5-k*.7,0,TAU);g.fill()}
  }else if(kind==='freeze'){
   for(let k=0;k<6;k++){let a=k*TAU/6+sec*.09,r=24+p*2;g.beginPath();g.moveTo(Math.cos(a)*r,Math.sin(a)*r);g.lineTo(Math.cos(a)*(r+6),Math.sin(a)*(r+6));g.stroke()}
- }else if(kind==='disrupt'){
+ }else if(kind==='elink'){
   for(let k=0;k<3;k++){let a=sec*(active?.8:.25)+k*TAU/3;g.beginPath();g.arc(Math.cos(a)*27,Math.sin(a)*27,2.5,0,TAU);g.fill()}
  }else if(kind==='area'){
   for(let k=0;k<4;k++){let a=k*Math.PI/2+sec*.12;g.beginPath();g.arc(0,0,27+p*3,a,a+.35);g.stroke()}
@@ -1248,7 +1267,7 @@ function paintArtMotion(t,now){
 }
 function paintCornerChassis(t){
  const c=ctr(t),lv=t.lv||1;
- const colors={precision:'#5eeaff',rapid:'#ffae62',pierce:'#6affaa',disrupt:'#c08aff',area:'#ff8fcf',freeze:'#9deeff',boom:'#55e6c7',grapple:'#ffd18a'};
+ const colors={precision:'#5eeaff',rapid:'#ffae62',pierce:'#6affaa',elink:'#c08aff',area:'#ff8fcf',freeze:'#9deeff',boom:'#55e6c7',grapple:'#ffd18a'};
  const color=colors[t.type]||'#7eeaff',r=24+Math.min(3,lv)*1.1;
  g.save();g.translate(c.x,c.y);g.strokeStyle=color;g.lineWidth=2.1;g.lineCap='round';g.shadowColor=color;g.shadowBlur=7;
  // Four independent corner motifs: one straight edge and a small curved return.
@@ -1277,7 +1296,7 @@ function supportPresence(t){
    !underTunnel(monsterPosition(m))&&Math.hypot(monsterPosition(m).x-c.x,monsterPosition(m).y-c.y)<=r);
 }
 function paintSupportActivity(t,now){
- if(t.type!=='freeze'&&t.type!=='disrupt'&&t.type!=='boom')return;
+ if(t.type!=='freeze'&&t.type!=='elink'&&t.type!=='boom')return;
  const c=ctr(t),lv=t.lv||1,active=supportPresence(t),sec=now*.001;
  g.save();g.translate(c.x,c.y);g.lineCap='round';
  if(t.type==='freeze'){
@@ -1292,7 +1311,7 @@ function paintSupportActivity(t,now){
    g.beginPath();g.arc(0,0,r,sec*.16+k*2.1,sec*.16+k*2.1+.72);g.stroke();
   }
   if(active){g.beginPath();g.arc(0,0,10+pulse*2,0,TAU);g.stroke()}
- }else if(t.type==='disrupt'){
+ }else if(t.type==='elink'){
   // Three satellites revolve slowly around the interference generator.
   const speed=active?.72:.24;
   g.shadowColor='#bc84ff';g.shadowBlur=active?12:4;
@@ -1336,7 +1355,7 @@ function paintGrapple(t){
  g.moveTo(0,15);g.lineTo(-4,11);g.moveTo(0,15);g.lineTo(4,11);g.stroke();
  g.restore();
 }
-function paintTower(t){if(t.type==='grapple')return paintGrapple(t);if(t.type==='freeze')return paintFreeze(t);if(t.type==='boom')return paintBoom(t);if(t.type==='area')return paintArea(t);if(t.type==='rapid')return paintRapid(t);if(t.type==='pierce')return paintPierce(t);if(t.type==='disrupt')return paintDisrupt(t);let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#42eaff';g.shadowBlur=10+lv*3;g.fillStyle='#102b40';g.strokeStyle='#50dfff';g.lineWidth=2.5;g.beginPath();g.arc(0,0,17,0,TAU);g.fill();g.shadowBlur=0;
+function paintTower(t){if(t.type==='grapple')return paintGrapple(t);if(t.type==='freeze')return paintFreeze(t);if(t.type==='boom')return paintBoom(t);if(t.type==='area')return paintArea(t);if(t.type==='rapid')return paintRapid(t);if(t.type==='pierce')return paintPierce(t);if(t.type==='elink')return;let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#42eaff';g.shadowBlur=10+lv*3;g.fillStyle='#102b40';g.strokeStyle='#50dfff';g.lineWidth=2.5;g.beginPath();g.arc(0,0,17,0,TAU);g.fill();g.shadowBlur=0;
 // Functional modules: bracing, stabilizers, sensors and an additional focusing ring.
 g.fillStyle='#2b6174';for(let a of [-1,1])for(let b of [-1,1])g.fillRect(a*14-4,b*14-4,8,8);
 if(lv>=2){g.strokeStyle='#5ceeff';g.lineWidth=3;for(let a of [-1,1]){g.beginPath();g.moveTo(a*22,-12);g.lineTo(a*26,-12);g.lineTo(a*26,12);g.lineTo(a*22,12);g.stroke()}}
@@ -1351,9 +1370,9 @@ function placementCoverage(x,y,lv=2,type='precision'){const samples=visiblePathS
 function refreshPlacementScores(){const type=$('analysisType').value,lv=+$('analysisLevel').value;const samples=visiblePathSamples();placementScores=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(!occupied.has(key(x,y))){const mask=coverageMask(x,y,type,lv,samples);placementScores.push({x,y,score:samples.length?mask.filter(Boolean).length/samples.length:0})}}
 function updateStrategyReport(x,y){const type=$('analysisType').value,lv=+$('analysisLevel').value,samples=visiblePathSamples();if(!samples.length)return;const candidate=coverageMask(x,y,type,lv,samples);const current=samples.map((p,i)=>towers.some(t=>{const c=ctr(t);return Math.hypot(p.x-c.x,p.y-c.y)<=analysisRange(t.type,t.lv)}));let own=0,already=0,added=0,union=0;for(let i=0;i<samples.length;i++){if(candidate[i])own++;if(current[i])already++;if(candidate[i]&&!current[i])added++;if(candidate[i]||current[i])union++}const pct=n=>Math.round(100*n/samples.length);$('strategyReport').textContent=`🔬 Cell (${x+1} ; ${y+1}) · ${type} Lvl ${lv} : individual coverage ${pct(own)} % · existing towers ${pct(already)} % · added coverage +${pct(added)} points · combined coverage ${pct(union)} %. Geometry outside tunnels: does not predict damage or victories.`}
 function recommendTowers(){
- const types=['precision','rapid','pierce','disrupt','area','freeze','boom'];
- const names={grapple:'🪝 Grapple',precision:'🎯 Cyan',rapid:'🟠 Rapid',pierce:'🟢 Ricochet',disrupt:'🟣 Disruptor',area:'💗 Pulse',freeze:'❄️ Freezer',boom:'🪃 Boomerang'};
- const costs={precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155};
+ const types=['precision','rapid','pierce','area','freeze','boom','grapple'];
+ const names={grapple:'🪝 Grapple',precision:'🎯 Cyan',rapid:'🟠 Rapid',pierce:'🟢 Ricochet',elink:'🟣 E-Link',area:'💗 Pulse',freeze:'❄️ Freezer',boom:'🪃 Boomerang'};
+ const costs={precision:80,rapid:90,pierce:125,elink:200,area:145,freeze:135,boom:175,grapple:155};
  const samples=visiblePathSamples();if(!samples.length)return;
  const current=samples.map(p=>towers.some(t=>Math.hypot(p.x-ctr(t).x,p.y-ctr(t).y)<=analysisRange(t.type,t.lv)));
  const used=new Set(towers.map(t=>key(t.x,t.y)));
@@ -1371,13 +1390,13 @@ function recommendTowers(){
  rows.sort((a,b)=>b.score-a.score);
  const pct=n=>Math.round(100*n/samples.length);
  const lines=rows.map(r=>`<tr><td style="padding:6px">${names[r.type]}</td><td>(${r.x+1} ; ${r.y+1})</td><td>${r.cost} ⚡</td><td>${pct(r.covered)} %</td><td><strong>+${pct(r.added)} pts</strong></td><td>${r.cost<=energy?'Available':'Not enough energy'}</td></tr>`).join('');
- $('recommendReport').innerHTML=`<strong>🧭 Tower family comparison — Lvl 1</strong><p style="margin:7px 0">Energy : ${energy} ⚡ · ${towers.length} tower(s) built. Best free cell per family, ranked by added coverage / cost.</p><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr><th>Tower</th><th>Cell</th><th>Cost</th><th>Coverage</th><th>Added coverage</th><th>Purchase</th></tr></thead><tbody>${lines}</tbody></table></div><p style="color:#aac4d5;margin-bottom:0">⚠️ Geometry analysis only: damage, fire rate, boomerang trajectories and aura effectiveness are not measured. Support tower coverage is not directly comparable to offensive tower coverage. This table does not simulate combat.</p>`;
+ $('recommendReport').innerHTML=`<strong>🧭 Tower coverage comparison — Lvl 1</strong><p style="margin:7px 0">Energy : ${energy} ⚡ · ${towers.length} tower(s) built. Best free cell per family, ranked by added coverage / cost.</p><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr><th>Tower</th><th>Cell</th><th>Cost</th><th>Coverage</th><th>Added coverage</th><th>Purchase</th></tr></thead><tbody>${lines}</tbody></table></div><p style="color:#aac4d5;margin-bottom:0">⚠️ Geometry analysis only: damage, fire rate, boomerang trajectories and aura effectiveness are not measured. Support tower coverage is not directly comparable to offensive tower coverage. E-Link needs two endpoints and is excluded from this circular coverage comparison. This table does not simulate combat.</p>`;
 }
 function paintPlacementHeatmap(){if(!showPlacementHeatmap)return;for(const item of placementScores){let q=item.score,xx=OX+item.x*C,yy=OY+item.y*C;g.save();g.fillStyle=q>=.55?'rgba(248,91,77,.38)':q>=.35?'rgba(255,190,71,.32)':'rgba(91,165,255,.20)';rounded(xx+3,yy+3,C-6,C-6,5);g.fill();g.font='bold 12px system-ui';g.textAlign='center';g.textBaseline='middle';g.fillStyle='#f7fcff';g.fillText(Math.round(q*100)+'%',xx+C/2,yy+C/2);g.restore()}}
 // V7.5: restrained, distinctive animated signatures above each mechanical chassis.
 function paintSignature(t,ms){
  const c=ctr(t),time=ms*.001,level=Math.max(1,t.lv||1);
- const palettes={precision:'#68eaff',rapid:'#ffb25e',pierce:'#68e9a8',freeze:'#8edaff',disrupt:'#b998ff',area:'#ff86c9',boom:'#56e8cd',grapple:'#ffd38c'};
+ const palettes={precision:'#68eaff',rapid:'#ffb25e',pierce:'#68e9a8',freeze:'#8edaff',elink:'#b998ff',area:'#ff86c9',boom:'#56e8cd',grapple:'#ffd38c'};
  const color=palettes[t.type]||'#b8efff';
  const radius=Math.min(C*.31,14)+Math.min(level,5)*.55;
  g.save();g.translate(c.x,c.y);g.strokeStyle=color;g.fillStyle=color;g.lineCap='round';g.lineJoin='round';g.shadowColor=color;g.shadowBlur=4;
@@ -1394,7 +1413,7 @@ function paintSignature(t,ms){
   for(let k=0;k<3;k++){let a=time*.8+k*2*Math.PI/3;g.beginPath();g.ellipse(Math.cos(a)*radius,Math.sin(a)*radius*.45,1.8+k*.25,1.8+k*.25,0,0,Math.PI*2);g.fill()}
  }else if(t.type==='freeze'){
   for(let k=0;k<6;k++){let a=k*Math.PI/3;g.beginPath();g.moveTo(Math.cos(a)*radius*.65,Math.sin(a)*radius*.65);g.lineTo(Math.cos(a)*radius*.95,Math.sin(a)*radius*.95);g.stroke()}
- }else if(t.type==='disrupt'){
+ }else if(t.type==='elink'){
   for(let k=0;k<3;k++){let a=time*.75+k*2*Math.PI/3;g.beginPath();g.arc(Math.cos(a)*radius,Math.sin(a)*radius,2.1,0,Math.PI*2);g.fill()}
  }else if(t.type==='area'){
   g.globalAlpha=.20+.30*(.5+.5*Math.sin(time*3));g.beginPath();g.arc(0,0,radius*(.72+.18*Math.sin(time*3)),Math.PI*.13,Math.PI*.87);g.stroke();
@@ -1411,7 +1430,111 @@ function paintSignature(t,ms){
  g.restore();
 }
 // Construction anchors: independent from each tower's attack range.
-function freeConstructionCell(x,y){return x>=0&&x<W&&y>=0&&y<H&&!occupied.has(key(x,y))&&!towers.some(t=>t.x===x&&t.y===y)}
+
+// E-Link: one pair is one tower record, including upgrades and resale.
+function towerAtCell(x,y){return towers.find(t=>(t.x===x&&t.y===y)||(t.type==='elink'&&t.end?.x===x&&t.end?.y===y))}
+function validELinkEnd(start,end){
+ if(!end||!freeConstructionCell(end.x,end.y))return false;
+ const span=Math.hypot(end.x-start.x,end.y-start.y);
+ return span>=ELINK_MIN_SPAN&&span<=elinkSpecs[1].range+1e-7;
+}
+function hasELinkEnd(start){
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(validELinkEnd(start,{x,y}))return true;
+ return false;
+}
+function placeELinkCell(cell){
+ if(!cell||arcWaveLocked()||!technologyAvailable('elink')||energy<towerPrices.elink||!freeConstructionCell(cell.x,cell.y))return false;
+ if(!eLinkPending){
+  if(!hasELinkEnd(cell))return false;
+  eLinkPending={x:cell.x,y:cell.y};selected=null;placing=true;placingType='elink';
+ }else{
+  if(!validELinkEnd(eLinkPending,cell))return false;
+  const t={...eLinkPending,end:{x:cell.x,y:cell.y},type:'elink',lv:1,angle:0,cool:0};
+  towers.push(t);energy-=towerPrices.elink;eLinkPending=null;placing=false;selected={x:t.x,y:t.y};selectedRangeSince=performance.now();
+ }
+ placementHover=null;boomHover=null;modeButtons();syncDock();update();draw();return true;
+}
+function cancelELink(){eLinkPending=null;placing=false;placementHover=null;boomHover=null;modeButtons();syncDock();draw()}
+function refreshELinkPlacement(){
+ const dock=document.getElementById('towerDock'),b=dock?.querySelector('[data-tower="elinkMode"]');
+ if(!b)return;
+ dock.classList.toggle('elink-pending',!!eLinkPending);
+ const name=b.querySelector('.tower-name')||b.children[1],price=b.querySelector('.tower-price');
+ if(name)name.textContent=eLinkPending?'Place second pylon':'E-Link';
+ if(price)price.textContent=eLinkPending?'Drag or tap · 1.5–4.5 cells':'200 ⚡ / pair';
+ b.title=eLinkPending?'Place the second pylon 1.5–4.5 cells away. Energy is charged only when linked.':'Electric Link · 200 energy for two pylons';
+}
+function advanceELinks(dt){
+ if(dt<=0)return;
+ for(const t of towers){
+  if(t.type!=='elink'||!t.end)continue;
+  const a=ctr(t),b=ctr(t.end),sp=towerSpec(t);let active=0;
+  for(const m of monsters){
+   if(m.hp<=0||m.escaped)continue;
+   const current=monsterPosition(m),previous=m.eLinkPrevious||current;
+   const travel=Math.hypot(current.x-previous.x,current.y-previous.y);
+   // Never draw a damage sweep through a warp, wormhole or a tunnel.
+   const samples=travel>C*3?1:Math.max(1,Math.min(12,Math.ceil(travel/6)));let contact=0;
+   for(let i=1;i<=samples;i++){
+    const u=i/samples;
+    const point=m.grapple?{x:previous.x+(current.x-previous.x)*u,y:previous.y+(current.y-previous.y)*u}:
+      Number.isFinite(m.eLinkPreviousProgress)?posAt(m.eLinkPreviousProgress+(m.progress-m.eLinkPreviousProgress)*u):current;
+    if(!underTunnel(point)&&segmentClosest(a,b,point,point).dist<=ENEMY_R+sp.width*C)contact++;
+   }
+   if(!contact)continue;
+   m.hp-=sp.damage*dt*contact/samples;m.hitFlash92=Math.max(m.hitFlash92||0,.10);m.hitKick92=1;active++;
+  }
+  t.linkActive=active;
+  if(active){t.linkSpark=(t.linkSpark||0)+dt;if(t.linkSpark>=.18){t.linkSpark=0;window.arcAudio?.effect('shot','elink')}}
+ }
+}
+function paintELinkPylon(cell,lv=1,alpha=1){
+ const p=ctr(cell);g.save();g.globalAlpha=alpha;g.translate(p.x,p.y);
+ g.fillStyle='#102c39';g.strokeStyle='#65f4ef';g.lineWidth=2.6;g.shadowColor='#54f5f4';g.shadowBlur=8;
+ g.beginPath();g.roundRect(-19,-19,38,38,9);g.fill();g.stroke();g.shadowBlur=0;
+ g.strokeStyle='#a2b6ed';g.lineWidth=3;
+ for(let i=0;i<3;i++){const y=-10+i*10;g.beginPath();g.moveTo(-12,y);g.lineTo(12,y);g.stroke()}
+ g.strokeStyle='#e9ffff';g.lineWidth=3;g.beginPath();g.moveTo(3,-15);g.lineTo(-5,1);g.lineTo(4,1);g.lineTo(-3,15);g.stroke();
+ g.fillStyle='#affffa';for(let i=0;i<lv;i++){g.beginPath();g.arc(-12+i*6,24,1.8,0,TAU);g.fill()}
+ g.restore();
+}
+function drawELinkBeam(a,b,color,alpha=1,active=false,preview=false){
+ const distance=Math.hypot(b.x-a.x,b.y-a.y),steps=Math.max(2,Math.ceil(distance/7)),now=performance.now()/1000;
+ const nx=-(b.y-a.y)/(distance||1),ny=(b.x-a.x)/(distance||1);
+ g.save();g.globalAlpha=alpha;g.lineCap='round';g.lineJoin='round';
+ const trace=()=>{g.beginPath();let pen=false;
+  for(let i=0;i<=steps;i++){
+   const u=i/steps,x=a.x+(b.x-a.x)*u,y=a.y+(b.y-a.y)*u;
+   if(!preview&&underTunnel({x,y})){pen=false;continue}
+   const jitter=(i===0||i===steps)?0:Math.sin(i*2.7+Math.floor(now*12)*1.9)*(active?5:2.6);
+   const px=x+nx*jitter,py=y+ny*jitter;if(pen)g.lineTo(px,py);else{g.moveTo(px,py);pen=true}
+  }};
+ trace();g.strokeStyle=color;g.lineWidth=active?8:5;g.shadowColor=color;g.shadowBlur=active?14:6;g.stroke();
+ g.shadowBlur=0;g.strokeStyle=preview?color:'#eaffff';g.lineWidth=active?2.5:1.5;g.stroke();g.restore();
+}
+function drawELink(t){
+ if(!t.end)return;
+ const isSelected=selected&&towerAtCell(selected.x,selected.y)===t;
+ drawELinkBeam(ctr(t),ctr(t.end),'#57ecf1',isSelected?1:.76,playing&&!paused&&t.linkActive>0);
+ paintELinkPylon(t,t.lv);paintELinkPylon(t.end,t.lv);
+ if(isSelected){for(const cell of [t,t.end]){const p=ctr(cell);g.save();g.strokeStyle='#e3ffff';g.lineWidth=1.6;g.setLineDash([5,5]);g.beginPath();g.arc(p.x,p.y,30,0,TAU);g.stroke();g.restore()}}
+}
+function drawELinkPreview(){
+ if(!eLinkPending)return;
+ paintELinkPylon(eLinkPending,1,.65);
+ const a=ctr(eLinkPending);g.save();g.strokeStyle='#6cebf5';g.globalAlpha=.24;g.lineWidth=1.5;g.setLineDash([7,7]);
+ g.beginPath();g.arc(a.x,a.y,elinkSpecs[1].range*C,0,TAU);g.stroke();g.restore();
+ // All eligible endpoints are shown once; no permanent construction grid.
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(validELinkEnd(eLinkPending,{x,y})){
+  const p=ctr({x,y});g.save();g.strokeStyle='#70efdf';g.globalAlpha=.45;g.lineWidth=1.5;g.beginPath();g.arc(p.x,p.y,11,0,TAU);g.stroke();g.restore();
+ }
+ if(!placementHover)return;
+ const end=snapConstruction(placementHover.x,placementHover.y),valid=end&&validELinkEnd(eLinkPending,end);
+ drawELinkBeam(a,end?ctr(end):placementHover,valid?'#79fff0':'#ff637b',.85,false,true);
+ if(end)paintELinkPylon(end,1,.5);
+}
+
+function freeConstructionCell(x,y){return x>=0&&x<W&&y>=0&&y<H&&!occupied.has(key(x,y))&&!towerAtCell(x,y)&&!(eLinkPending&&eLinkPending.x===x&&eLinkPending.y===y)}
 function snapConstruction(x,y){
  const gx=Math.floor((x-OX)/C),gy=Math.floor((y-OY)/C);
  if(freeConstructionCell(gx,gy))return {x:gx,y:gy};
@@ -1748,19 +1871,20 @@ for(let i of tunnels){let p=path[i],a=path[i-1],b=path[i+1],c=ctr(p),horizontal=
 // Show only the active cryogenic links, never a permanent full-screen field.
 for(let t of towers){if(t.type!=='freeze')continue;let tc=ctr(t),sp=towerSpec(t),affected=t.freezeTargets||[];for(let id of affected){let m=monsters.find(m=>m.id===id&&m.hp>0);if(!m)continue;let mc=monsterPosition(m);if(underTunnel(mc))continue;g.save();g.strokeStyle='rgba(129,233,255,.34)';g.lineWidth=1.4;g.setLineDash([3,6]);g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(mc.x,mc.y);g.stroke();g.setLineDash([]);g.restore()}}
 for(let t of towers){
- if(t.type!=='freeze'&&t.type!=='disrupt'&&t.type!=='boom'){
+ if(t.type==='elink'){drawELink(t);continue}
+ if(t.type!=='freeze'&&t.type!=='elink'&&t.type!=='boom'){
   // Target angle is owned by the combat engine; otherwise scan around entrance bearing.
   t.angle=(t.targetLocked&&monsters.some(m=>m.hp>0))?(t.targetAngle??t.angle??0):turretBearing(t,performance.now());
  }
  paintArtBase(t,performance.now());paintTower(t);paintSupportActivity(t,performance.now());paintArtMotion(t,performance.now());paintCornerChassis(t);paintSignature(t,performance.now());
 }
-if(selected){let t=towers.find(t=>t.x===selected.x&&t.y===selected.y);if(t){
+if(selected){let t=towerAtCell(selected.x,selected.y);if(t&&t.type!=='elink'){
   // La portée reste nette deux secondes, puis s'estompe sans masquer le combat.
   const age=Math.max(0,performance.now()-selectedRangeSince);
   const fade=age<=2000?1:Math.max(.045,1-(age-2000)/1100);
   let c=ctr(t);g.save();g.globalAlpha=fade;g.beginPath();g.arc(c.x,c.y,C*towerSpec(t).range,0,Math.PI*2);
-  g.fillStyle=t.type==='rapid'?'#ffad3816':t.type==='pierce'?'#69ff9d15':t.type==='freeze'?'#8defff18':t.type==='boom'?'#ffd36e18':t.type==='disrupt'?'#c080ff18':t.type==='area'?'#ff7fbd18':'#54eaff13';g.fill();
-  g.strokeStyle=t.type==='rapid'?'#ffad3899':t.type==='pierce'?'#69ff9d99':t.type==='freeze'?'#8defff99':t.type==='boom'?'#ffd36e99':t.type==='disrupt'?'#c080ff99':t.type==='area'?'#ff8bcb99':'#7defff99';
+  g.fillStyle=t.type==='rapid'?'#ffad3816':t.type==='pierce'?'#69ff9d15':t.type==='freeze'?'#8defff18':t.type==='boom'?'#ffd36e18':t.type==='elink'?'#c080ff18':t.type==='area'?'#ff7fbd18':'#54eaff13';g.fill();
+  g.strokeStyle=t.type==='rapid'?'#ffad3899':t.type==='pierce'?'#69ff9d99':t.type==='freeze'?'#8defff99':t.type==='boom'?'#ffd36e99':t.type==='elink'?'#c080ff99':t.type==='area'?'#ff8bcb99':'#7defff99';
   g.setLineDash([8,6]);g.stroke();g.restore();}}
 // Show the straight flight axis only during placement or selection.
 function drawBoomLane(t,opacity=.8){
@@ -1770,8 +1894,9 @@ function drawBoomLane(t,opacity=.8){
  for(const [x,direction,offset] of [[reach*.72,1,-7],[reach*.32,-1,7]]){g.beginPath();g.moveTo(x-direction*7,offset-5);g.lineTo(x,offset);g.lineTo(x-direction*7,offset+5);g.stroke()}
  g.restore();
 }
-if(selected){let t=towers.find(t=>t.x===selected.x&&t.y===selected.y);if(t&&t.type==='boom'){const age=Math.max(0,performance.now()-selectedRangeSince);const fade=age<=2000?1:Math.max(.025,1-(age-2000)/1100);drawBoomLane(t,.8*fade)}}
+if(selected){let t=towerAtCell(selected.x,selected.y);if(t&&t.type==='boom'){const age=Math.max(0,performance.now()-selectedRangeSince);const fade=age<=2000?1:Math.max(.025,1-(age-2000)/1100);drawBoomLane(t,.8*fade)}}
 if(placing&&placingType==='boom'&&boomHover&&!occupied.has(key(boomHover.x,boomHover.y))&&!towers.some(t=>t.x===boomHover.x&&t.y===boomHover.y)){let t={...boomHover,lv:1,type:'boom',boomAngle:0};t.boomAngle=fixedBoomAngle(t);drawBoomLane(t,.55)}
+drawELinkPreview();
 for(const b of boomShots){if(b.u>=0)drawBoomProjectile(g,b)}
 for(let s of shots){g.beginPath();g.arc(s.x,s.y,4,0,Math.PI*2);g.fillStyle=s.type==='rapid'?'#ffbd69':s.type==='pierce'?'#aaffc2':s.type==='area'?'#ffd2eb':'#a6ffff';g.shadowColor=s.type==='rapid'?'#ff9b35':s.type==='pierce'?'#50ff90':s.type==='area'?'#ff64b1':'#40eaff';g.shadowBlur=12;g.fill();g.shadowBlur=0}
 // Blue-green sparks and a short reflected magnetic streak on armored impacts.
@@ -1810,7 +1935,7 @@ for(let m of monsters){if(!m.grapple||m.hp<=0)continue;let c=monsterPosition(m),
  g.strokeStyle='#ffe6aa';g.lineWidth=2;g.beginPath();g.arc(c.x,c.y,26,0,TAU);g.stroke();g.restore();
 }
 for(let m of monsters){let c=monsterPosition(m),covered=underTunnel(c);if(covered)continue;
-g.save();g.translate(c.x,c.y);const recoil92=(m.hitFlash92||0)/.23;g.scale(portalScaleAt(m.progress)*(1+.055*recoil92),portalScaleAt(m.progress)*(1+.055*recoil92));if(recoil92>0){g.save();g.globalAlpha=.32*recoil92;g.strokeStyle=m.hitKick92<.5?'#74d8ff':'#ff9aaa';g.lineWidth=2;g.beginPath();g.arc(0,0,ENEMY_R+5+8*(1-recoil92),0,TAU);g.stroke();g.restore()}if(m.frozen){g.strokeStyle='#86eaff';g.lineWidth=2;g.beginPath();g.arc(0,0,25,0,Math.PI*2);g.stroke()}if(m.disrupted){g.strokeStyle='#c78aff';g.lineWidth=1.6;g.beginPath();g.arc(0,0,23,0,Math.PI*2);g.stroke()}let parts=enemyGeometry(m,{x:0,y:0}); // local geometry, with the same rotation used by collisions
+g.save();g.translate(c.x,c.y);const recoil92=(m.hitFlash92||0)/.23;g.scale(portalScaleAt(m.progress)*(1+.055*recoil92),portalScaleAt(m.progress)*(1+.055*recoil92));if(recoil92>0){g.save();g.globalAlpha=.32*recoil92;g.strokeStyle=m.hitKick92<.5?'#74d8ff':'#ff9aaa';g.lineWidth=2;g.beginPath();g.arc(0,0,ENEMY_R+5+8*(1-recoil92),0,TAU);g.stroke();g.restore()}if(m.frozen){g.strokeStyle='#86eaff';g.lineWidth=2;g.beginPath();g.arc(0,0,25,0,Math.PI*2);g.stroke()}if(m.elinked){g.strokeStyle='#c78aff';g.lineWidth=1.6;g.beginPath();g.arc(0,0,23,0,Math.PI*2);g.stroke()}let parts=enemyGeometry(m,{x:0,y:0}); // local geometry, with the same rotation used by collisions
 for(let part of parts){g.strokeStyle=part.kind==='armor'?'#56baff':'#ff5c71';g.lineWidth=part.kind==='armor'?4:2.5;g.beginPath();part.points.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.stroke()}
 g.fillStyle='#ff475f';g.beginPath();g.arc(0,0,4.5,0,TAU);g.fill();
 // Marqueurs tactiques : vitesse (double chevron) ou blindage (six pointes lumineuses).
@@ -1920,7 +2045,7 @@ function renderWaveCountdown(){const active=autoWaveCountdown>=0&&!playing&&live
  if(active){if(waveBannerExitTimer){clearTimeout(waveBannerExitTimer);waveBannerExitTimer=null}waveBanner.classList.remove('exiting');waveBanner.classList.add('visible');const sec=Math.max(1,Math.ceil(autoWaveCountdown));if(sec!==autoWaveLastShown){if(autoWaveLastShown===-1)window.arcAudio?.mode('alert');waveBanner.querySelector('.wave-number').textContent=String(waveNumber).padStart(2,'0');waveBanner.querySelector('.wave-sec').textContent=`IN ${sec} S`;autoWaveLastShown=sec}waveBanner.classList.toggle('is-paused',paused);}
  else if(waveBanner.classList.contains('visible')){waveBanner.classList.remove('visible');waveBanner.classList.add('exiting');waveBannerExitTimer=setTimeout(()=>{waveBanner.classList.remove('exiting');waveBannerExitTimer=null},300)}
 }
-function launchWave(isAuto=false){if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
+function launchWave(isAuto=false){eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
 let arcFrameStamp=0;
 function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrameStamp&&ts-arcFrameStamp<31){if(!window.__arcLabManual)requestAnimationFrame(animate);return}arcFrameStamp=ts;if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
  // Phase 1: announce the discovery before illuminating a single section of the path.
@@ -1958,7 +2083,7 @@ for(let t of towers){if(t.type!=='grapple')continue;const sp=towerSpec(t),tc=ctr
   if(candidates.length)t.cool=sp.rate;
  }
 }
-for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,(m.hitFlash92||0)-dt);m.behaviorClock92=(m.behaviorClock92||0)+dt;const oldProgress=m.progress;
+for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,(m.hitFlash92||0)-dt);m.behaviorClock92=(m.behaviorClock92||0)+dt;const oldProgress=m.progress;m.eLinkPrevious=monsterPosition(m);m.eLinkPreviousProgress=m.progress;
  if(m.grapple){m.grapple.age+=dt;const a=m.grapple;if(a.age>=a.travel+a.hold+a.returnTime)m.grapple=null;}
 
  m.boostLeft=Math.max(0,(m.boostLeft||0)-dt);
@@ -1976,13 +2101,14 @@ for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,
   m.lastTraceSection=Math.max(previousSection,last);
  }
  for(const pair of jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}for(const pad of boostPads){if(oldProgress<pad.d&&m.progress>=pad.d&&!m.boostLeft){window.arcAudio?.effect('boost');m.boostLeft=BOOST_DURATION;pad.discovered=true;pad.flash=performance.now();break}}
-{let c=monsterPosition(m),factor=1;for(let t of towers){if(t.type!=='disrupt')continue;let tc=ctr(t),sp=towerSpec(t);if(!underTunnel(c)&&Math.hypot(c.x-tc.x,c.y-tc.y)<=C*sp.range)factor=Math.min(factor,sp.slow)}const spinRhythm92=m.type===0?1+0.13*Math.sin(m.behaviorClock92*2+m.id):m.type===1?1+0.23*Math.sin(m.behaviorClock92*3.5+m.id*.6):1+0.07*Math.sin(m.behaviorClock92*1.4+m.id);m.spin+=dt*(m.spinSpeed??1.4)*spinRhythm92*factor;m.disrupted=factor<1}}// Exit crossings are final: remove them before towers can shoot or capture them.
+const spinRhythm92=m.type===0?1+0.13*Math.sin(m.behaviorClock92*2+m.id):m.type===1?1+0.23*Math.sin(m.behaviorClock92*3.5+m.id*.6):1+0.07*Math.sin(m.behaviorClock92*1.4+m.id);m.spin+=dt*(m.spinSpeed??1.4)*spinRhythm92;}// Exit crossings are final: remove them before towers can shoot or capture them.
 if(resolveEscapes()&&lives<=0){
  playing=false;endCampaign(false);$('waveReport').textContent=`Core destroyed on wave ${waveNumber}.`;
  draw();if(!window.__arcLabManual)requestAnimationFrame(animate);return;
 }
+advanceELinks(dt);
 // Tower: target the current red center, without prediction; shot continues straight.
-for(let t of towers){if(t.type==='disrupt'||t.type==='freeze'||t.type==='grapple')continue;t.cool=(t.cool||0)-dt;let tc=ctr(t),sp=towerSpec(t);
+for(let t of towers){if(t.type==='elink'||t.type==='freeze'||t.type==='grapple')continue;t.cool=(t.cool||0)-dt;let tc=ctr(t),sp=towerSpec(t);
 if(t.type==='boom'){
   // Lock the firing axis until the single projectile has returned.
   if(t.cool<=0&&launchBoomSalve(t,tc,sp))t.cool=sp.rate
@@ -2048,7 +2174,7 @@ s.life=0;break;
 
 shots=shots.filter(s=>s.life>0);particles.forEach(p=>p.life-=dt);particles=particles.filter(p=>p.life>0);
 let dead=monsters.filter(m=>m.hp<=0);if(dead.length){for(const m of dead){const c=monsterPosition(m);spawnVfx91(c.x,c.y,'vfx91death',null,m.type)}kills+=dead.length;energy+=dead.reduce((sum,m)=>sum+(m.reward??12),0);update()}monsters=monsters.filter(m=>m.hp>0);if(waveSpawned>=waveTotal&&monsters.length===0){playing=false;waveFinished=true;lastWaveReport=`📊 Wave ${waveNumber} (${waveTheme(waveNumber)}) : ${kills-waveStartKills} eliminated out of ${waveTotal} · ${escaped-waveStartEscaped} escaped · ${lives} lives remaining · Exploration ${Math.round(discoveredPercent())} % (+${Math.max(0,Math.round(discoveredPercent()-waveStartDiscovery))} pts) · ${energy} ⚡ available.`;$('waveReport').textContent=lastWaveReport;if(lives>0){if(waveNumber>=CAMPAIGN_WAVES){endCampaign(true);waveNumber++}else{energy+=Math.max(25,Math.round(20+waveNumber*4));waveNumber++;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;placing=false;placementHover=null;boomHover=null;modeButtons();renderWaveCountdown()}}update()}if(lives<=0){playing=false;endCampaign(false);$('waveReport').textContent=`💔 Core destroyed during wave ${waveNumber} : ${kills-waveStartKills} eliminated, ${escaped-waveStartEscaped} escaped.`;update()}}draw();if(!window.__arcLabManual)requestAnimationFrame(animate)}
-$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Hide analysis':'🗺️ Analyze placements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Theoretical coverage of the selected tower (excluding tunnels) : ${high} high-coverage cells (≥55 %), ${medium} medium-coverage cells (35–54 %). These percentages measure the path length within range, not the probability of victory.`:'📍 Analysis off: enable the placement map to compare tower coverage.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='disrupt'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('disruptMode').onclick=()=>{placing=!(placing&&placingType==='disrupt');placingType='disrupt';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;placing=false;placementHover=null;boomHover=null;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');modeButtons();renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Resume':'⏸ Pause';update()};$('reset').onclick=()=>{clearEnd();build();$('waveReport').textContent='📊 Game restarted: towers, energy, score, lives and waves reset on the same map.'};portraitBoard.addEventListener('pointermove',e=>{
+$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Hide analysis':'🗺️ Analyze placements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Theoretical coverage of the selected tower (excluding tunnels) : ${high} high-coverage cells (≥55 %), ${medium} medium-coverage cells (35–54 %). These percentages measure the path length within range, not the probability of victory.`:'📍 Analysis off: enable the placement map to compare tower coverage.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='elink'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('elinkMode').onclick=()=>{placing=!!eLinkPending||!(placing&&placingType==='elink');placingType='elink';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;placing=false;placementHover=null;boomHover=null;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');modeButtons();renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Resume':'⏸ Pause';update()};$('reset').onclick=()=>{clearEnd();build();$('waveReport').textContent='📊 Game restarted: towers, energy, score, lives and waves reset on the same map.'};portraitBoard.addEventListener('pointermove',e=>{
  if(!placing||arcWaveLocked())return;
  let {x,y}=boardPointer(e),gx=Math.floor((x-OX)/C),gy=Math.floor((y-OY)/C);
  placementHover={x,y};
@@ -2064,6 +2190,7 @@ portraitBoard.addEventListener('click',e=>{
  const {x:gx,y:gy}=cell;
  if(!freeConstructionCell(gx,gy))return;
  selected={x:gx,y:gy};selectedRangeSince=performance.now();updateStrategyReport(gx,gy);
+ if(placing&&placingType==='elink'){placeELinkCell({x:gx,y:gy});draw();return}
  if(placing&&technologyAvailable(placingType)&&energy>=towerPrices[placingType]){
   const t={x:gx,y:gy,angle:0,cool:0,lv:1,type:placingType};
   if(placingType==='boom')t.boomAngle=fixedBoomAngle(t);
@@ -2104,21 +2231,23 @@ if(new URLSearchParams(location.search).has('lab')){
 }
 try{let best=JSON.parse(localStorage.getItem('arc_defense_v1_best')||'null');if(best)$('bestRecord').textContent=`🏅 Best campaign on this device: wave ${best.wave}/${CAMPAIGN_WAVES} · ${best.lives} lives · ${best.kills} kills.`}catch(e){}
 // Mobile-first presentation: reuses the original game engine and its controls.
+const eLinkCancel=document.createElement('button');eLinkCancel.id='eLinkCancel';eLinkCancel.type='button';eLinkCancel.textContent='✕ Cancel';eLinkCancel.onclick=cancelELink;
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&eLinkPending)cancelELink()});
 const dock=$('towerDock'),actions=$('gameActions'),toolbar=$('gameToolbar'),ctx=$('towerContext');
-const towerChoices=[['towerMode','◈','Cyan',80],['rapidMode','✦','Rapid',90],['pierceMode','◕','Ricochet',125],['disruptMode','⬢','Disruptor',110],['areaMode','✺','Pulse',145],['freezeMode','❄','Freezer',135],['boomMode','❖','Boomerang',175],['grappleMode','🪝','Grapple',155]];
-for(const [id,glyph,name,cost] of towerChoices){let original=$(id),button=dock.querySelector('[data-tower="'+id+'"]');if(!button)continue;button.title=name;button.onclick=()=>{const type=({towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'})[id];if(arcWaveLocked()||!technologyFeedback(type))return;original.click();syncDock();closeContext()}}
-function syncDock(){for(const b of dock.children){const types={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};b.classList.toggle('active',placing&&placingType===types[b.dataset.tower])}}
+const towerChoices=[['towerMode','◈','Cyan',80],['rapidMode','✦','Rapid',90],['pierceMode','◕','Ricochet',125],['elinkMode','⚡','E-Link',200],['areaMode','✺','Pulse',145],['freezeMode','❄','Freezer',135],['boomMode','❖','Boomerang',175],['grappleMode','🪝','Grapple',155]];
+for(const [id,glyph,name,cost] of towerChoices){let original=$(id),button=dock.querySelector('[data-tower="'+id+'"]');if(!button)continue;button.title=name;button.onclick=()=>{const type=({towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'})[id];if(arcWaveLocked()||!technologyFeedback(type))return;original.click();syncDock();closeContext()}}
+function syncDock(){for(const b of dock.querySelectorAll('[data-tower]')){const types={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};b.classList.toggle('active',placing&&placingType===types[b.dataset.tower])}}
 
-const towerIds={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',disruptMode:'disrupt',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};
-const towerPrices={precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155};
+const towerIds={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple'};
+const towerPrices={precision:80,rapid:90,pierce:125,elink:200,area:145,freeze:135,boom:175,grapple:155};
 let dragging=null,dragSuppressUntil=0;
 function arcWaveLocked(){return autoWaveCountdown>=0||waveIntroStart>0||revealSweepStart>0}
-function validDrop(x,y,type){return !arcWaveLocked()&&technologyAvailable(type)&&!!snapConstruction(x,y)&&energy>=towerPrices[type]}
-function dropTower(x,y,type){if(arcWaveLocked()||!technologyFeedback(type)||!validDrop(x,y,type))return false;let {x:gx,y:gy}=snapConstruction(x,y);let t={x:gx,y:gy,angle:0,cool:0,lv:1,type};if(type==='boom')t.boomAngle=fixedBoomAngle(t);towers.push(t);energy-=towerPrices[type];selected={x:gx,y:gy};selectedRangeSince=performance.now();placing=false;placementHover=null;boomHover=null;modeButtons();update();draw();return true}
+function validDrop(x,y,type){const cell=snapConstruction(x,y);return !arcWaveLocked()&&technologyAvailable(type)&&!!cell&&energy>=towerPrices[type]&&(type!=='elink'||(eLinkPending?validELinkEnd(eLinkPending,cell):hasELinkEnd(cell)))}
+function dropTower(x,y,type){if(arcWaveLocked()||!technologyFeedback(type)||!validDrop(x,y,type))return false;let cell=snapConstruction(x,y);if(type==='elink')return placeELinkCell(cell);let {x:gx,y:gy}=cell;let t={x:gx,y:gy,angle:0,cool:0,lv:1,type};if(type==='boom')t.boomAngle=fixedBoomAngle(t);towers.push(t);energy-=towerPrices[type];selected={x:gx,y:gy};selectedRangeSince=performance.now();placing=false;placementHover=null;boomHover=null;modeButtons();update();draw();return true}
 function screenToBoard(clientX,clientY){const r=portraitBoard.getBoundingClientRect();if(clientX<r.left||clientX>r.right||clientY<r.top||clientY>r.bottom)return null;return {x:(clientY-r.top)*1120/r.height,y:675-(clientX-r.left)*675/r.width}}
 function updateDrag(clientX,clientY){if(!dragging||arcWaveLocked())return;let ghost=$('dragGhost');ghost.style.left=clientX+'px';ghost.style.top=clientY+'px';let p=screenToBoard(clientX,clientY);if(p){placementHover=p;const anchor=snapConstruction(p.x,p.y);boomHover=dragging.type==='boom'&&anchor?anchor:null;ghost.classList.toggle('invalid',!validDrop(p.x,p.y,dragging.type))}else{placementHover=null;boomHover=null;ghost.classList.add('invalid')}}
-function stopDrag(clientX,clientY,cancel=false){if(!dragging)return;let d=dragging;dragging=null;$('dragGhost').style.display='none';let p=!cancel?screenToBoard(clientX,clientY):null;let moved=Math.hypot(clientX-d.startX,clientY-d.startY)>12;let placed=moved&&p&&dropTower(p.x,p.y,d.type);if(!placed){placementHover=null;boomHover=null;if(!cancel&&!moved&&!arcWaveLocked()){placing=true;placingType=d.type}else{placing=false}modeButtons();draw()}dragSuppressUntil=performance.now()+450;syncDock()}
-for(const b of dock.children){b.addEventListener('pointerdown',e=>{if(arcWaveLocked())return;if(e.pointerType==='mouse')return;if(e.button!==0)return;e.preventDefault();closeContext();let type=towerIds[b.dataset.tower];if(!technologyFeedback(type))return;if(energy<towerPrices[type]){b.animate([{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'none'}],{duration:180});return}dragging={type,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY};placing=true;placingType=type;modeButtons();syncDock();$('dragGhost').textContent=b.querySelector('.tower-glyph').textContent;$('dragGhost').style.display='flex';updateDrag(e.clientX,e.clientY)});
+function stopDrag(clientX,clientY,cancel=false){if(!dragging)return;let d=dragging;dragging=null;$('dragGhost').style.display='none';let p=!cancel?screenToBoard(clientX,clientY):null;let moved=Math.hypot(clientX-d.startX,clientY-d.startY)>12;let placed=moved&&p&&dropTower(p.x,p.y,d.type);if(!placed){placementHover=null;boomHover=null;if(eLinkPending&&!arcWaveLocked()){placing=true;placingType='elink'}else if(!cancel&&!moved&&!arcWaveLocked()){placing=true;placingType=d.type}else{placing=false}modeButtons();draw()}dragSuppressUntil=performance.now()+450;syncDock()}
+for(const b of dock.children){b.addEventListener('pointerdown',e=>{if(arcWaveLocked())return;if(e.pointerType==='mouse'&&b.dataset.tower!=='elinkMode')return;if(e.button!==0)return;e.preventDefault();closeContext();let type=towerIds[b.dataset.tower];if(!technologyFeedback(type))return;if(energy<towerPrices[type]){b.animate([{transform:'translateX(-3px)'},{transform:'translateX(3px)'},{transform:'none'}],{duration:180});return}dragging={type,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY};placing=true;placingType=type;modeButtons();syncDock();$('dragGhost').textContent=b.querySelector('.tower-glyph').textContent;$('dragGhost').style.display='flex';updateDrag(e.clientX,e.clientY)});
 
 
 
@@ -2131,6 +2260,7 @@ window.addEventListener('blur',()=>{if(dragging)stopDrag(0,0,true)});
 // Prevent synthetic click after a pointer drag, but preserve tap-to-select accessibility.
 for(const b of dock.children){b.addEventListener('click',e=>{if(performance.now()<dragSuppressUntil){e.preventDefault();e.stopImmediatePropagation()}},true)}
 portraitBoard.addEventListener('click',e=>{if(performance.now()<dragSuppressUntil){e.preventDefault();e.stopImmediatePropagation()}},true);
+dock.appendChild(eLinkCancel);refreshELinkPlacement();
 for(const id of ['wave','pause'])actions.appendChild($(id));$('wave').addEventListener('click',()=>closeContext());
 const speedQuick=document.createElement('button');speedQuick.id='speedQuick';speedQuick.textContent='1×';speedQuick.onclick=()=>{let opts=['1','2','4'],v=$('speed'),i=opts.indexOf(v.value);v.value=opts[(i+1)%opts.length];speedQuick.textContent=v.value+'×'};actions.appendChild(speedQuick);
 for(const id of ['new','reset'])toolbar.appendChild($(id));
@@ -2159,11 +2289,11 @@ function placeRadialMenu(t){
  rotate.style.left=(Math.max(55,Math.min(innerWidth-55,px-direction*gap))-originX)+'px';
  rotate.style.top=(Math.max(32,Math.min(innerHeight-32,py+gap))-originY)+'px';
 }
-function openContext(){const t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t){closeContext();return}updateUpgrade();$('contextTitle').textContent=$('towerTitle').textContent;$('contextStats').textContent=$('towerStats').textContent+(['disrupt'].includes(t.type)?'':' · Priority: '+TARGET_LABELS[t.targetMode||'first']);let u=$('contextUpgrade');u.disabled=$('upgrade').disabled;u.textContent=t.lv>=5?'MAX':`⬆ Lvl ${t.lv+1} · ${campaignUpgradeCost(t)} ⚡`;u.title=$('upgrade').textContent;$('contextSell').textContent='◇ +'+Math.round(({precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155}[t.type]||80)*.6)+' ⚡';$('contextRotate').style.display='none';const ct=$('contextTarget');ct.style.display=['disrupt'].includes(t.type)?'none':'flex';ct.textContent='🎯 '+TARGET_LABELS[t.targetMode||'first'];ct.title='Priority: '+TARGET_LABELS[t.targetMode||'first']+' (click to change)';ctx.classList.add('visible');placeRadialMenu(t);scheduleContextHide()}
-$('contextTarget').onclick=()=>{const t=selected&&towers.find(q=>q.x===selected.x&&q.y===selected.y);if(!t)return;const i=TARGET_MODES.indexOf(t.targetMode||'first');t.targetMode=TARGET_MODES[(i+1)%TARGET_MODES.length];openContext();};
+function openContext(){const t=selected&&towerAtCell(selected.x,selected.y);if(!t){closeContext();return}updateUpgrade();$('contextTitle').textContent=$('towerTitle').textContent;$('contextStats').textContent=$('towerStats').textContent+(['elink'].includes(t.type)?'':' · Priority: '+TARGET_LABELS[t.targetMode||'first']);let u=$('contextUpgrade');u.disabled=$('upgrade').disabled;u.textContent=t.lv>=5?'MAX':`⬆ Lvl ${t.lv+1} · ${campaignUpgradeCost(t)} ⚡`;u.title=$('upgrade').textContent;$('contextSell').textContent='◇ +'+Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:145,freeze:135,boom:175,grapple:155}[t.type]||80)*.6)+' ⚡';$('contextRotate').style.display='none';const ct=$('contextTarget');ct.style.display=['elink'].includes(t.type)?'none':'flex';ct.textContent='🎯 '+TARGET_LABELS[t.targetMode||'first'];ct.title='Priority: '+TARGET_LABELS[t.targetMode||'first']+' (click to change)';ctx.classList.add('visible');placeRadialMenu(t);scheduleContextHide()}
+$('contextTarget').onclick=()=>{const t=selected&&towerAtCell(selected.x,selected.y);if(!t)return;const i=TARGET_MODES.indexOf(t.targetMode||'first');t.targetMode=TARGET_MODES[(i+1)%TARGET_MODES.length];openContext();};
 $('contextCancel').textContent='✕ Close';$('contextCancel').onclick=closeContext;
 $('contextUpgrade').onclick=()=>{
- const t=selected&&towers.find(q=>q.x===selected.x&&q.y===selected.y);
+ const t=selected&&towerAtCell(selected.x,selected.y);
  if(!t)return;
  if(t.lv>=5){openContext();return}
  const price=campaignUpgradeCost(t);
@@ -2176,13 +2306,13 @@ $('contextUpgrade').onclick=()=>{
  selectedRangeSince=performance.now();update();draw();openContext();
 };
 $('contextRotate').onclick=()=>{$('rotateBoom').click();closeContext()};
-$('contextSell').onclick=()=>{const t=selected&&towers.find(t=>t.x===selected.x&&t.y===selected.y);if(!t)return;const refund=Math.round(({precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155}[t.type]||80)*.6);energy+=refund;towers=towers.filter(q=>q!==t);selected=null;closeContext();update();draw()};
+$('contextSell').onclick=()=>{const t=selected&&towerAtCell(selected.x,selected.y);if(!t)return;const refund=Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:145,freeze:135,boom:175,grapple:155}[t.type]||80)*.6);energy+=refund;towers=towers.filter(q=>q!==t);selected=null;closeContext();update();draw()};
 // Canvas event handler in engine is registered earlier; defer reading its resulting selection.
 portraitBoard.addEventListener('click',e=>{
  // Sélection explicite de la tour touchée, indépendamment du mode construction.
  // L'ancien code pouvait conserver une sélection périmée et masquer les améliorations.
  const {x,y}=boardPointer(e),gx=Math.floor((x-OX)/C),gy=Math.floor((y-OY)/C);
- const tower=towers.find(t=>t.x===gx&&t.y===gy);
+ const tower=towerAtCell(gx,gy);
  if(tower){selected={x:tower.x,y:tower.y};selectedRangeSince=performance.now();openContext()}
  else if(!placing){selected=null;closeContext()}
  syncDock();updateUpgrade();draw();
@@ -2253,7 +2383,7 @@ animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFEN
  document.body.appendChild(panel);
  const $60=id=>document.getElementById(id);
  let active=null;
- const cost={precision:80,rapid:90,pierce:125,disrupt:110,area:145,freeze:135,boom:175,grapple:155};
+ const cost={precision:80,rapid:90,pierce:125,elink:200,area:145,freeze:135,boom:175,grapple:155};
  function close(){active=null;panel.classList.remove('show')}
  function refresh(){
   if(!active||!towers.includes(active)){close();return}
@@ -2261,8 +2391,8 @@ animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFEN
   const price=t.lv<5?campaignUpgradeCost(t):0;
   $60('arc60Title').textContent=towerName(t)+' · Lvl '+t.lv+'/5';
   panel.classList.toggle('has-specialization',t.lv===5&&!t.specialization);
-  panel.classList.toggle('no-targeting',['disrupt'].includes(t.type));
-  $60('arc60Stats').textContent=(t.specialization?'★ '+(t.specialization==='reach'?'Range':'Power')+' · ':'')+'Energy '+energy+' ⚡'+(t.lv<5?' · Next level: '+price+' ⚡':' · Max level')+(t.type==='pierce'?' · '+towerSpec(t).penetrations+' bounces':'');
+  panel.classList.toggle('no-targeting',['elink'].includes(t.type));
+  $60('arc60Stats').textContent=(t.specialization?'★ '+(t.specialization==='reach'?(t.type==='elink'?'Conduction':'Range'):'Power')+' · ':'')+(t.type==='elink'?towerSpec(t).damage.toFixed(1)+' DPS · ':'')+'Energy '+energy+' ⚡'+(t.lv<5?' · Next level: '+price+' ⚡':' · Max level')+(t.type==='pierce'?' · '+towerSpec(t).penetrations+' bounces':'');
   const up=$60('arc60Upgrade');up.disabled=t.lv>=5||energy<price;
   up.textContent=t.lv>=5?'★ Max Lvl':energy<price?'🔒 '+price+' ⚡':'⬆ Lvl '+(t.lv+1)+' · '+price+' ⚡';
   up.title=t.lv>=5?'Maximum level':`Upgrade to Lvl ${t.lv+1}: ${price} energy`;
@@ -2271,26 +2401,27 @@ animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFEN
   let special=$60('arc93Special');
   if(special){
     special.hidden=t.lv<5||!!t.specialization;
+    special.querySelector('[data-spec="reach"]').innerHTML=t.type==='elink'?'◎ Conduction<br><small>+35% beam width</small>':'◎ Range<br><small>+22% range</small>';
     const chosen=$60('arc93Chosen');
-    chosen.textContent=t.specialization?'★ Specialization: '+(t.specialization==='reach'?'Extended range':'Increased power'):'';
+    chosen.textContent=t.specialization?'★ Specialization: '+(t.specialization==='reach'?(t.type==='elink'?'Wider conduction':'Extended range'):'Increased power'):'';
     chosen.hidden=!t.specialization;
   }
-  const target=$60('arc79Target');target.style.display=['disrupt'].includes(t.type)?'none':'';
+  const target=$60('arc79Target');target.style.display=['elink'].includes(t.type)?'none':'';
   target.querySelectorAll('[data-target]').forEach(b=>{const chosen=b.dataset.target===(t.targetMode||'first');b.classList.toggle('selected',chosen);b.setAttribute('aria-pressed',String(chosen));});
   $60('arc60Sell').textContent='◇ Sell +'+Math.round((cost[t.type]||80)*.6)+' ⚡';
  }
- function open(t){placing=false;modeButtons();active=t;selected={x:t.x,y:t.y};selectedRangeSince=performance.now();panel.classList.add('show');refresh()}
+ function open(t){eLinkPending=null;placing=false;modeButtons();active=t;selected={x:t.x,y:t.y};selectedRangeSince=performance.now();panel.classList.add('show');refresh()}
  // The game renders in landscape coordinates rotated onto the portrait canvas.
  // Capture pointer selection BEFORE legacy click handlers can hide or reset it.
  portraitBoard.addEventListener('pointerup',e=>{
   if(e.button!==0&&e.pointerType==='mouse')return;
   const p=boardPointer(e),gx=Math.floor((p.x-OX)/C),gy=Math.floor((p.y-OY)/C);
-  const t=towers.find(q=>q.x===gx&&q.y===gy);
+  const t=towerAtCell(gx,gy);
   if(t){open(t)}
  },true);
  portraitBoard.addEventListener('click',e=>{
   const p=boardPointer(e),gx=Math.floor((p.x-OX)/C),gy=Math.floor((p.y-OY)/C);
-  const t=towers.find(q=>q.x===gx&&q.y===gy);
+  const t=towerAtCell(gx,gy);
   if(t)open(t);
  },true);
  const special=document.createElement('div');special.id='arc93Special';special.innerHTML='<div class="arc93-label">★ LVL 5 — CHOOSE A SPECIALIZATION (FREE)</div><div class="arc93-choices"><button type="button" data-spec="reach">◎ Range<br><small>+22% range</small></button><button type="button" data-spec="power">✦ Power<br><small>+30% damage / fire rate or aura</small></button></div>';
@@ -2425,7 +2556,7 @@ build();draw();if(!window.__arcLabManual)requestAnimationFrame(animate)})();
  function notify(msg){toast.textContent=msg;toast.classList.add('visible');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('visible'),1400)}
  const buttons=Array.from(dock.querySelectorAll('button[data-tower]'));
  buttons.forEach((b,i)=>{b.dataset.shortcut=String(i+1);b.setAttribute('aria-keyshortcuts',String(i+1))});
- const names=['Precision','Rapid','Ricochet','Disruptor','Pulse','Freezer','Boomerang','Grapple'];
+ const names=['Precision','Rapid','Ricochet','E-Link','Pulse','Freezer','Boomerang','Grapple'];
  document.addEventListener('keydown',e=>{
   if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey)return;
   const target=e.target;
@@ -2478,7 +2609,7 @@ header h1{color:#b8ecff;letter-spacing:.065em;text-shadow:0 0 18px #47b9ee55}
 .tower-dock button:hover{transform:translateY(-2px);box-shadow:0 0 13px #4ad0ef30}
 .tower-dock button[data-tower="towerMode"],.tower-dock button[data-tower="rapidMode"]{border-left:4px solid #55d9f7!important}
 .tower-dock button[data-tower="pierceMode"],.tower-dock button[data-tower="boomMode"]{border-left:4px solid #57e9bb!important}
-.tower-dock button[data-tower="freezeMode"],.tower-dock button[data-tower="disruptMode"],.tower-dock button[data-tower="grappleMode"]{border-left:4px solid #a69cff!important}
+.tower-dock button[data-tower="freezeMode"],.tower-dock button[data-tower="elinkMode"],.tower-dock button[data-tower="grappleMode"]{border-left:4px solid #a69cff!important}
 .tower-dock button[data-tower="areaMode"]{border-left:4px solid #f48ccf!important}
 .tower-dock button[data-tower="boomMode"] .tower-glyph{filter:drop-shadow(0 0 5px #55e5cb66)}
 .tower-dock button[data-tower="grappleMode"] .tower-glyph{filter:drop-shadow(0 0 5px #ffd58c66)}
@@ -2497,7 +2628,7 @@ header h1{color:#b8ecff;letter-spacing:.065em;text-shadow:0 0 18px #47b9ee55}
 #towerDock.tower-dock button[data-tower="rapidMode"]{border-left-color:#ffae62!important}
 #towerDock.tower-dock button[data-tower="freezeMode"]{border-left-color:#83e1ff!important}
 #towerDock.tower-dock button[data-tower="grappleMode"]{border-left-color:#ffd38c!important}
-#towerDock.tower-dock button[data-tower="disruptMode"]{border-left-color:#b998ff!important}
+#towerDock.tower-dock button[data-tower="elinkMode"]{border-left-color:#b998ff!important}
 @media(max-width:649px) and (orientation:portrait){#towerDock.tower-dock{gap:5px!important;padding:6px!important}#towerDock.tower-dock button{min-height:0!important;padding:5px 2px!important;line-height:1.08!important}#towerDock.tower-dock .tower-glyph{height:27px!important;min-height:27px!important}}
 @media(prefers-reduced-motion:reduce){#towerDock.tower-dock button{transition:none!important}}
 </style>
@@ -2892,7 +3023,7 @@ main>.key,main>#arc10Stats{display:none!important}
    seq++;
   }
  }
- function cue(kind,arg,color){if(!ensure()||!state.enabled)return;const now=ac.currentTime;const key=kind==='shot'?'shot-'+arg:kind;const gaps={shot:.085,impact:.065,death:.10,warp:.19,wormhole:.19,boost:.18,grapple:.13};if(lastFx[key]&&now-lastFx[key]<(gaps[kind]||.1))return;lastFx[key]=now;if(kind==='shot'){const pitches={precision:950,rapid:1200,pierce:740,disrupt:340,area:520,freeze:630,boom:820,grapple:290};let hz=pitches[arg]||820;tone(hz,now,.095,{type:arg==='rapid'?'square':'triangle',end:hz*.48,bus:'fx',gain:.045,cut:3000})}
+ function cue(kind,arg,color){if(!ensure()||!state.enabled)return;const now=ac.currentTime;const key=kind==='shot'?'shot-'+arg:kind;const gaps={shot:.085,impact:.065,death:.10,warp:.19,wormhole:.19,boost:.18,grapple:.13};if(lastFx[key]&&now-lastFx[key]<(gaps[kind]||.1))return;lastFx[key]=now;if(kind==='shot'){const pitches={precision:950,rapid:1200,pierce:740,elink:340,area:520,freeze:630,boom:820,grapple:290};let hz=pitches[arg]||820;tone(hz,now,.095,{type:arg==='rapid'?'square':'triangle',end:hz*.48,bus:'fx',gain:.045,cut:3000})}
  else if(kind==='impact'){const armor=color==='#6dcfff';tone(armor?1000:330,now,armor?.1:.15,{bus:'fx',type:armor?'triangle':'sawtooth',end:armor?480:130,gain:armor?.07:.09})}
  else if(kind==='death'){const hz=[160,125,92][arg]||150;tone(hz,now,.35,{bus:'fx',type:'sawtooth',end:44,gain:.16,cut:950});tone(hz*3,now,.18,{bus:'fx',type:'triangle',end:hz*.7,gain:.06})}
  else if(kind==='warp'){tone(370,now,.4,{bus:'fx',type:'sine',end:1140,gain:.11})}
@@ -3270,6 +3401,7 @@ document.addEventListener('keydown',event=>{
 </script>
 
 </body></html>
+
 
 
 
