@@ -175,4 +175,84 @@ test('E-Link specialization modifies shared DPS or contact width',()=>{
  const c=linkContext(),base=c.towerSpec({type:'elink',lv:5}),power=c.towerSpec({type:'elink',lv:5,specialization:'power'}),reach=c.towerSpec({type:'elink',lv:5,specialization:'reach'});
  assert.equal(power.damage,8.32);assert.equal(base.damage,6.4);assert.equal(reach.width,.297);assert.equal(base.width,.22);
 });
+function titanContext(){
+ const c=context(),nodes=new Map(),modes=[];
+ c.$=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',disabled:false,classList:{toggle(){},add(){},remove(){}},focus(){}});return nodes.get(id)};
+ Object.assign(c,{level:2,monsterSerial:0,TITAN_RADIUS:43,titanEncounter:'idle',titanCountdown:0,titanAftermath:0,titanFightTime:0,titanPhaseReached:1,titanMaxHp:0,titanRemainingHp:0,eLinkPending:null,placing:false,placementHover:null,boomHover:null,waveSpawned:10,waveTotal:10,TAU:Math.PI*2,ENEMY_R:18});
+ c.window.arcAudio.mode=m=>modes.push(m);c.modeButtons=()=>{};c.spawnVfx91=()=>{};c.monsterPosition=m=>({x:m.x||0,y:m.y||0});
+ for(const name of ['resetTitanEncounter','titanBlocksCompletion','beginTitanWarning','createTitan','spawnTitan','stepTitanEncounter','updateTitanPhase','finishTitan','titanGeometry','armorCount','ensureArmor','enemyGeometry','applyGeometricHit','freezeResistance','canGrapple'])vm.runInContext(extract(name),c);
+ return {c,nodes,modes};
+}
+test('final-wave escort must finish before Titan arrives',()=>{
+ const {c,modes}=titanContext();c.titanEncounter='pending';c.monsters=[enemy(1,10)];c.stepTitanEncounter(1);
+ assert.equal(c.titanEncounter,'pending');assert(c.titanBlocksCompletion());assert.equal(modes.length,0);
+ c.monsters=[];c.stepTitanEncounter(.05);assert.equal(c.titanEncounter,'warning');assert.equal(c.monsters.length,0);assert.equal(modes[0],'bossIntro');
+});
+test('campaign launches normally through wave 19 and queues Titan only on wave 20',()=>{
+ for(const wave of [1,19,20]){const {c}=titanContext();Object.assign(c,{kills:0,waveNumber:wave,CAMPAIGN_WAVES:20,playing:false,firstWaveStarted:false,autoWaveCountdown:-1,performance:{now:()=>100},pathRevealBanner:{classList:{toggle(){}}}});
+  c.renderWaveCountdown=()=>{};c.discoveredPercent=()=>100;c.waveComposition=()=>({total:46});vm.runInContext(extract('launchWave'),c);c.launchWave();
+  assert.equal(c.titanEncounter,wave===20?'pending':'idle');assert(c.playing);assert.equal(c.waveSpawned,0);assert.equal(c.monsters.length,0);
+ }
+});
+test('Titan spawns once after its warning, with balanced spawn counters',()=>{
+ const {c,modes}=titanContext();c.titanEncounter='pending';c.stepTitanEncounter(.05);c.stepTitanEncounter(2);assert.equal(c.monsters.length,0);
+ c.stepTitanEncounter(.5);assert.equal(c.monsters.length,1);assert(c.monsters[0].boss);assert.equal(c.waveSpawned,11);assert.equal(c.waveTotal,11);assert.equal(modes.at(-1),'boss');
+ c.stepTitanEncounter(5);assert.equal(c.monsters.length,1);assert(c.titanBlocksCompletion());
+});
+test('boss HP follows difficulty while preserving six independent armor plates',()=>{
+ const {c}=titanContext();for(const [level,hp] of [[1,240],[2,340],[3,440]]){c.level=level;const m=c.createTitan();assert.equal(m.hp,hp);assert.equal(m.plates.length,6);assert.equal(m.plateHp.length,6);assert.equal(m.phase,1)}
+});
+test('phase II triggers exactly once at half HP without restoring health',()=>{
+ const {c,modes}=titanContext(),m=c.createTitan();m.hp=171;assert.equal(c.updateTitanPhase(m),false);m.hp=170;m.plates.fill(false);
+ assert(c.updateTitanPhase(m));assert.equal(m.hp,170);assert.equal(m.phase,2);assert.equal(m.spinSpeed,.86);assert(m.plates.every(Boolean));
+ assert.equal(c.updateTitanPhase(m),false);assert.deepEqual(modes,['bossPhase2']);
+});
+test('lethal damage does not trigger a phantom second phase',()=>{
+ const {c,modes}=titanContext(),m=c.createTitan();m.hp=0;assert.equal(c.updateTitanPhase(m),false);assert.equal(modes.length,0);
+});
+test('Titan uses enlarged collision geometry and spreads its plates in phase II',()=>{
+ const {c}=titanContext(),m=c.createTitan();const radius=()=>Math.max(...c.enemyGeometry(m,{x:0,y:0}).filter(p=>p.kind==='armor').flatMap(p=>p.points.map(q=>Math.hypot(q.x,q.y))));
+ const before=radius();assert(before>40);m.phase=2;assert(radius()>before+10);
+ vm.runInContext(extract('geometricHits'),c);assert(c.geometricHits({x:9,y:0},{x:9,y:0},m,{x:0,y:0}).some(h=>h.kind==='heart'));
+});
+test('boss armor absorbs several hits and never deducts core HP on armor impacts',()=>{
+ const {c}=titanContext(),m=c.createTitan(),hit={m,index:0,kind:'armor',x:0,y:0};c.applyGeometricHit(hit,1);assert(m.plates[0]);assert.equal(m.hp,340);
+ c.applyGeometricHit(hit,3);assert.equal(m.plates[0],false);assert.equal(m.hp,340);assert.equal(c.applyGeometricHit(hit,2),false);
+});
+test('Titan resists freezing and grappling while ordinary enemies retain their rules',()=>{
+ const {c}=titanContext(),m=c.createTitan();assert.equal(c.freezeResistance(m),.22);assert.equal(c.canGrapple(m),false);
+ assert.equal(c.freezeResistance({trait:'sprinter'}),.8);assert.equal(c.freezeResistance({}),1);assert(c.canGrapple({}));assert.equal(c.canGrapple({grapple:{}}),false);
+});
+test('boss death blocks premature victory through the explosion and clears after it',()=>{
+ const {c,modes}=titanContext(),m=c.createTitan();m.hp=0;m.phase=2;c.finishTitan(m);
+ assert.equal(c.titanEncounter,'defeated');assert(c.titanBlocksCompletion());assert.equal(c.titanPhaseReached,2);assert.equal(modes.at(-1),'bossDefeated');
+ const count=c.particles.length;c.finishTitan(m);assert.equal(c.particles.length,count);
+ c.stepTitanEncounter(1);assert(c.titanBlocksCompletion());c.stepTitanEncounter(2);assert.equal(c.titanBlocksCompletion(),false);
+});
+test('Titan escape is counted once and defeats the core instead of granting victory',()=>{
+ const {c}=titanContext(),m=c.createTitan();vm.runInContext(extract('resolveEscapes'),c);m.progress=100;c.monsters=[m];assert.equal(c.resolveEscapes(),1);assert.equal(c.lives,0);assert.equal(c.titanEncounter,'escaped');assert.equal(c.titanRemainingHp,340);
+ c.resolveEscapes();assert.equal(c.escaped,1);
+});
+test('boss test results never read or overwrite campaign records',()=>{
+ for(const won of [true,false]){const {c,saved}=resultContext({won:true,wave:20,lives:19,kills:700});let called=null;c.titanBossTest=true;c.endTitanTest=value=>called=value;
+  const before=saved.get('arc_defense_v1_best');c.endCampaign(won);assert.equal(called,won);assert.equal(saved.get('arc_defense_v1_best'),before);
+ }
+});
+test('Boss Test shows its own retry and return actions',()=>{
+ const {c,nodes}=resultContext();Object.assign(c,{titanRemainingHp:0,titanPhaseReached:2,titanFightTime:42.2});vm.runInContext(extract('endTitanTest'),c);c.endTitanTest(true);
+ assert.equal(nodes.get('endTitle').textContent,'TITAN DEFEATED');assert.equal(nodes.get('endRestart').textContent,'↺ Retry Boss');assert.equal(nodes.get('endNew').textContent,'Return to Campaign');assert.equal(nodes.get('endRecord').hidden,true);
+});
+test('Titan renderer runs in both phases with its caller-provided portal scale',()=>{
+ const {c}=titanContext(),m=c.createTitan();c.g=new Proxy({},{get:(target,key)=>target[key]||(()=>{})});c.performance={now:()=>1000};vm.runInContext(extract('paintTitan'),c);
+ assert.doesNotThrow(()=>c.paintTitan(m,{x:30,y:40},.6));m.phase=2;assert.doesNotThrow(()=>c.paintTitan(m,{x:30,y:40},1));
+});
+test('boss score has low bass and gains an additional musical layer in phase II',()=>{
+ function score(mode){const tones=[],drums=[],c=vm.createContext({state:{mode},tone:(...a)=>tones.push(a),drum:(...a)=>drums.push(a),note:n=>440*Math.pow(2,(n-69)/12)});vm.runInContext(extract('scheduleTitan'),c);for(let i=0;i<16;i++)c.scheduleTitan(i,i*.13);return {tones,drums}}
+ const a=score('boss'),b=score('bossPhase2');assert(a.tones.some(x=>x[0]<70));assert(b.tones.length>a.tones.length);assert(b.drums.length>a.drums.length);
+});
+test('boss music scheduling honors mute and pause',()=>{
+ for(const state of [{mode:'boss',enabled:false,paused:false},{mode:'bossPhase2',enabled:true,paused:true},{mode:'boss',enabled:true,paused:false}]){
+  let calls=0;const c=vm.createContext({state,ac:{state:'running',currentTime:1},nextTime:1,seq:0,STAGE_STEP:.11,schedule:()=>calls++});vm.runInContext(extract('tick'),c);c.tick();assert.equal(calls>0,state.enabled&&!state.paused);
+ }
+});
 console.log(count+' regression checks passed');
