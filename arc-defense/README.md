@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.30**.
+Standalone HTML/JavaScript tower defense. Current version: **9.32**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -203,5 +203,15 @@ for other builds or difficulty levels.
 
 Campaign 02 atmosphere can be previewed on existing stages using Arena atmosphere
 in Game options, or the campaign map preview button. Aubergine backgrounds, copper
-edge haze and amber fissures preserve tower and enemy colors. This is a visual
-preview; Campaign 02 gameplay is not yet available. The choice persists locally.
+edge haze and amber fissures preserve tower and enemy colors. Stage 06 now launches Campaign 02; later stages are in preparation. The choice persists locally.
+
+## Campaign 02 — Rupture (9.32)
+
+Stage 06, Fracture Relay, unlocks after Titan / Stage 05. It has a new fixed
+3640-unit route, 12 authored waves, 438 enemies, 700 starting energy and 20 core.
+Every wave has two pressure groups separated by 5.5 seconds. Six 28-HP elite
+Hexions conclude the final wave; no Titan or mini-boss spawns in this stage.
+Campaign technologies carry over, while energy and towers reset per stage.
+Rupture colors apply automatically when starting Stage 06. Earlier campaigns
+keep their stars; Campaign 01's total remains out of 15. Stage 06 has its own
+saved best result. Stages 07–10 are visibly marked in preparation.
