@@ -1,14 +1,14 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.27**.
+Standalone HTML/JavaScript tower defense. Current version: **9.28**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
 ## Campaign 01 — First Contact
 
 The campaign map opens by default. Clear each stage to unlock the next.
-Stages 01–04 have fixed authored routes: retrying preserves the trajectory,
-while towers, run energy, and core integrity reset. Stage 05 remains planned.
+All five stages have fixed authored routes: retrying preserves the trajectory,
+while towers, run energy, and core integrity reset. Stage 05 ends Campaign 01.
 
 | Stage | Name | Waves | Enemies | Starting energy | Finish |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -16,6 +16,7 @@ while towers, run energy, and core integrity reset. Stage 05 remains planned.
 | 02 | Armor Front | 10 | 231 | 520 | Bastion mini-boss |
 | 03 | Swarm Signal | 12 | 417 | 600 | Nexus boss |
 | 04 | Crosscurrent | 12 | 428 | 650 | Gemini twin boss |
+| 05 | Titan Protocol | 15 | Up to 613 | 700 | Campaign Titan + escorts |
 
 All stages begin with 20 core. Stage 04 has a distinct crossing route and
 increasingly armored formations. Its final wave ends with two 32-HP elite
@@ -108,6 +109,37 @@ HP and remaining guardian count, including a partner still arriving.
 Previous stage results and campaign unlocks are retained. Retry clears the
 encounter and restores the same Crosscurrent route and starting budget.
 
+### Stage 05 — Titan Protocol
+
+Stage 05 unlocks after Stage 04 and closes **Campaign 01: First Contact**.
+A new fixed continuous route supports fifteen authored waves, 700 starting
+energy, and 20 core. The regular formations total **602 enemies**, with
+increasing armor, health and density. Wave 15's vanguard must finish before
+Titan's arrival warning.
+
+Campaign Titan has **700 HP at Intermediate** (574 Beginner, 826 Advanced),
+six plates with 6 HP each, movement 0.72 and rotation 0.38. It retains Titan's
+78% freeze resistance, grapple immunity, geometry and two-phase score.
+At half HP, movement rises to 0.98 and rotation to 1.1, and the plates spread
+with 4 HP each. No core HP is restored.
+
+Six escort reinforcements arrive near Titan during phase I; four more arrive
+in phase II. They appear over time with a violet arrival effect, and their
+positions follow the current boss location. This gives Magnetar nearby
+partners for its normal quarter-max-HP compression. The ten escorts and
+Titan bring a full two-phase run to **613 enemies**. A lethal skip of phase II
+can result in fewer reinforcements; spawned enemy counters remain exact.
+
+Queued reinforcements and remaining enemies block victory even after Titan
+dies. Titan escaping defeats the core. Retry clears all queued arrivals.
+The original Challenge and Boss Test retain their prior Titan profiles and
+never receive the campaign escorts.
+
+The Stage 04 victory offers **Next · Stage 05**. Finishing Stage 05 shows
+**CAMPAIGN COMPLETE**, saves its own best result, displays campaign stars
+out of 15, and marks the campaign map complete. All five stages remain
+replayable and their previous records are retained.
+
 ## Original 20-wave Challenge and Titan
 
 The original Challenge remains available from the campaign map and Options,
@@ -135,6 +167,7 @@ node arc-defense/tests/stage-one-simulation.cjs
 node arc-defense/tests/stage-two-simulation.cjs
 node arc-defense/tests/stage-three-simulation.cjs
 node arc-defense/tests/stage-four-simulation.cjs
+node arc-defense/tests/stage-five-simulation.cjs
 ```
 
 Regressions cover movement/escapes, boomerangs, E-Link construction and damage,
@@ -149,3 +182,10 @@ upgrading both E-Links to level 4 during the encounter. An additional
 actual-loop probe verifies Last Stand after one guardian dies. The earlier Stage 01/02/03
 baselines remain 12/15/20 core. These are reproducible sample strategies,
 not guarantees for other builds or difficulties.
+
+The Stage 05 actual-loop simulation finishes fifteen waves, both Titan phases
+and all ten reinforcements with legal purchases: 20 core, 613 kills and 484
+energy. Magnetar completes four pairs involving Titan. It verifies the final
+campaign screen and Stage 05 persistence without overwriting prior stage or
+Challenge records. This sample strategy is reproducible, not a guarantee
+for other builds or difficulty levels.
