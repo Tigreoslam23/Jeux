@@ -1,8 +1,17 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.28**.
+Standalone HTML/JavaScript tower defense. Current version: **9.29**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Full screen on mobile
+
+Use **Full screen** on the campaign map or under **Game options** during play.
+The whole document enters fullscreen, so the map, tower controls, and results
+remain available. **Exit full screen** returns to the browser without restarting.
+The request is made only when the button is pressed. If an embedded browser
+rejects it, a message suggests opening the game in Chrome. Fullscreen layout
+keeps controls clear of display cutouts.
 
 ## Campaign 01 — First Contact
 
