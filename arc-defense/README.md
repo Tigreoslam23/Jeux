@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.29**.
+Standalone HTML/JavaScript tower defense. Current version: **9.30**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -198,3 +198,10 @@ energy. Magnetar completes four pairs involving Titan. It verifies the final
 campaign screen and Stage 05 persistence without overwriting prior stage or
 Challenge records. This sample strategy is reproducible, not a guarantee
 for other builds or difficulty levels.
+
+## Rupture visual preview
+
+Campaign 02 atmosphere can be previewed on existing stages using Arena atmosphere
+in Game options, or the campaign map preview button. Aubergine backgrounds, copper
+edge haze and amber fissures preserve tower and enemy colors. This is a visual
+preview; Campaign 02 gameplay is not yet available. The choice persists locally.
