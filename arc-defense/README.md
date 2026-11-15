@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.32**.
+Standalone HTML/JavaScript tower defense. Current version: **9.33**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -214,4 +214,16 @@ Hexions conclude the final wave; no Titan or mini-boss spawns in this stage.
 Campaign technologies carry over, while energy and towers reset per stage.
 Rupture colors apply automatically when starting Stage 06. Earlier campaigns
 keep their stars; Campaign 01's total remains out of 15. Stage 06 has its own
-saved best result. Stages 07–10 are visibly marked in preparation.
+saved best result. Stages 08–10 are visibly marked in preparation.
+
+## Stage 07 — Copper March (9.33)
+
+Unlocked after Stage 06, with 720 starting energy and 20 core. Fourteen authored
+waves alternate fast formations and heavier armored convoys, with 550 enemies
+in total on a fixed 3116-unit route. Anvil replaces one Hexion in the last
+formation and has two Hexion escorts. The mini-boss has 240 HP on Intermediate,
+six plates with 6 HP each, and accelerates by 40% at half HP without healing.
+It retains mini-boss freeze resistance, a 3-second grapple shield after release,
+and a fatal escape. Copper armor outline and its own HUD distinguish Anvil.
+Stage 07 saves its own stars and leaves all prior stage profiles untouched.
+Stages 08–10 remain in preparation.
