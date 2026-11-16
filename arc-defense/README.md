@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.33**.
+Standalone HTML/JavaScript tower defense. Current version: **9.34**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -227,3 +227,10 @@ It retains mini-boss freeze resistance, a 3-second grapple shield after release,
 and a fatal escape. Copper armor outline and its own HUD distinguish Anvil.
 Stage 07 saves its own stars and leaves all prior stage profiles untouched.
 Stages 08–10 remain in preparation.
+
+## Open Rupture access (9.34)
+
+Stages 06 and 07 are freely accessible without defeating Titan or one another.
+Starting either carries all campaign technologies. Their victories and best
+results persist independently; no earlier stage is marked cleared. Stage 01–05
+progression rules and all combat values remain unchanged.
