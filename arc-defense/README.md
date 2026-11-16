@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.36**.
+Standalone HTML/JavaScript tower defense. Current version: **9.37**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -264,3 +264,15 @@ Titan core HP is reduced by 20% in every mode and difficulty. Campaign Stage 05
 Intermediate: 700 → 560 HP. Challenge / Boss Test: 240/340/440 → 192/272/352 HP.
 Armor, movement, resistances, reinforcements and two-phase behavior are unchanged.
 Rupture stages remain freely accessible, with existing progress preserved.
+
+## Campaign picker (9.37)
+
+The campaign map opens with two distinct cards: First Contact (cyan/blue) and
+Rupture (aubergine/copper). Each shows stages secured out of five, stars out
+of 15, and the next uncleared stage or a three-star replay objective. Selecting
+a card shows only that campaign's five existing stage buttons. Campaigns / Escape
+returns to the overview; Escape from the overview closes it. Hidden groups are
+excluded from keyboard focus. Existing scores, stage access, combat and listeners
+are preserved, as are fullscreen and Challenge access. Navigation tests run with
+`node arc-defense/tests/campaign-picker.cjs`. Mobile visual QA was unavailable
+in the 9.37 authoring environment.
