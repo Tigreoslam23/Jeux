@@ -28,7 +28,7 @@ function game(){
   pause:value=>paused=value,
   state:()=>({playing,paused,kills,energy,lives,wave:waveNumber,length:way.at(-1).dist}),
   raw:()=>{draw=realDraw;try{draw()}finally{draw=()=>{}}},
-  drawMaw:paintMaw,drawCaptives:paintMawCaptives,
+  drawMaw:paintMaw,drawCaptives:paintMawCaptives,visual:mawGrindVisual,drawDebris:paintMawDebris,particles:()=>particles,
   upgrade:t=>{const cost=campaignUpgradeCost(t);if(energy<cost)return false;energy-=cost;t.lv++;return true},
   setEnergy:v=>energy=v,
   buy:(t)=>{if(energy<220||!technologyAvailable('maw'))return false;towers.push(t);energy-=220;return true},
@@ -96,6 +96,32 @@ check('a released boss resumes its original route during resistance',()=>{
 
 check('a tunnel-covered enemy cannot be swallowed',()=>{
  const s=fixture(),{t,m}=adjacent(s);s.setup([m],[t]);s.blocked(true);assert(!s.capture(t));s.blocked(false);assert(s.capture(t));
+});
+
+
+check('the larger captive is visibly squeezed when the jaw closes',()=>{
+ const s=fixture(),{t,m}=adjacent(s);s.setup([m],[t]);s.capture(t);m.maw.age=.8;
+ const open=s.visual(m);m.maw.age=.8+1/(4*1.65);const closed=s.visual(m);
+ assert(open.scaleX>=.8);assert(closed.gap<open.gap-10);assert(closed.scaleY<open.scaleY*.4);assert(closed.scaleX>closed.scaleY);assert(closed.pressure>.99);
+});
+check('grinding visuals follow simulation time and never alter combat state',()=>{
+ const s=fixture(),{t,m}=adjacent(s);s.setup([m],[t]);s.capture(t);s.advance(2);
+ const before=JSON.stringify({m,t,game:s.state(),particles:s.particles()}),visual=s.visual(m);
+ for(let i=0;i<20;i++){s.drawMaw(t);s.drawCaptives();s.drawDebris()}
+ assert.equal(JSON.stringify({m,t,game:s.state(),particles:s.particles()}),before);
+ assert.deepEqual(s.visual(m),visual);s.pause(true);s.step();assert.deepEqual(s.visual(m),visual);
+});
+check('all grinding frames retain finite positive scales for regular enemies and bosses',()=>{
+ for(const boss of [false,true]){
+  const s=fixture(),{t,m}=adjacent(s,1,{boss});s.setup([m],[t]);s.capture(t);
+  const end=m.maw.absorb+m.maw.digestion;for(let age=0;age<end;age+=.037){
+   m.maw.age=age;const v=s.visual(m);assert(Number.isFinite(v.scaleX)&&v.scaleX>0);assert(Number.isFinite(v.scaleY)&&v.scaleY>0);assert(v.gap>=7&&v.gap<=19);s.drawMaw(t);s.drawCaptives();
+  }
+ }
+});
+check('finishing debris reuses the existing completion burst without new particles',()=>{
+ const s=fixture(),{t,m}=adjacent(s);s.setup([m],[t]);s.capture(t);s.advance(6.8);
+ const before=JSON.stringify(s.particles());for(let i=0;i<20;i++)s.drawDebris();assert.equal(JSON.stringify(s.particles()),before);
 });
 
 console.log(checks+' Maw checks passed');

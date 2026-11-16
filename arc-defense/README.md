@@ -1,9 +1,25 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.38**.
+Standalone HTML/JavaScript tower defense. Current version: **9.39**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+
+## Maw — clearer grinding animation (9.39)
+
+The captive now remains much larger and fully opaque in the chamber after
+absorption. Opposed toothed plates repeatedly press against it; the silhouette
+widens and flattens with each stroke, with small impact shakes and exposed
+counter-rotating gears. Ordinary shell segments disappear visually as digestion
+progresses, with short debris streaks and a final fragment burst. Boss armor
+remains drawn. A portrait-aligned GRINDING label identifies the active phase.
+
+All animation follows capture age in simulation time and freezes during pause.
+Rendering does not change armor, HP, cooldowns or target ownership, nor allocate
+additional particles. The final debris reuses the existing completion burst.
+The Maw suite now includes 19 checks, including squeezing, finite transforms,
+frozen animation and repeated rendering without combat-state mutations.
+Browser/mobile visual verification remains unavailable in this environment.
 
 ## Maw — single-target digestion (9.38)
 
