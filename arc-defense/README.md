@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.35**.
+Standalone HTML/JavaScript tower defense. Current version: **9.36**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -12,6 +12,29 @@ remain available. **Exit full screen** returns to the browser without restarting
 The request is made only when the button is pressed. If an embedded browser
 rejects it, a message suggests opening the game in Chrome. Fullscreen layout
 keeps controls clear of display cutouts.
+
+## Campaign 02 — Rupture (complete in 9.36)
+
+All five stages are freely accessible. Technologies carry over; each stage has
+a fresh budget and an independent best result. Secure all five in any order
+to complete Rupture, with a separate 15-star total from Campaign 01.
+
+| Stage | Name | Waves | Enemies | Starting energy | Finish |
+| --- | --- | ---: | ---: | ---: | --- |
+| 06 | Fracture Relay | 12 | 438 | 700 | Six elite Hexions |
+| 07 | Copper March | 14 | 550 | 720 | Anvil + two escorts |
+| 08 | Prism Convergence | 14 | 605 | 760 | Prism + three escorts |
+| 09 | Energy Divide | 15 | 638 | 600 | Eight elite Hexions |
+| 10 | Rift Heart | 16 | Up to 729 | 800 | Rift + 14 reinforcements |
+
+Stage 08 splits each wave into three pressure groups. Prism has 280 HP on
+Intermediate and reverses rotation while moving 18% faster at half health,
+without healing or restoring armor. Stage 09 grants lower kill rewards
+(7/11/18 rather than 8/12/20) to make upgrade choices matter. Stage 10's Rift
+has 600 HP on Intermediate, two phases, and 8+6 staggered reinforcements.
+It shares Titan's tested collision/phase lifecycle with its own health, speed,
+colors and HUD. The original Titan keeps its 20% HP reduction (560 HP in
+Stage 05 Intermediate). Existing stage profiles and records are preserved.
 
 ## Campaign 01 — First Contact
 
