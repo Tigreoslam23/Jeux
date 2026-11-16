@@ -1,6 +1,6 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.34**.
+Standalone HTML/JavaScript tower defense. Current version: **9.35**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
@@ -234,3 +234,10 @@ Stages 06 and 07 are freely accessible without defeating Titan or one another.
 Starting either carries all campaign technologies. Their victories and best
 results persist independently; no earlier stage is marked cleared. Stage 01–05
 progression rules and all combat values remain unchanged.
+
+## Titan health reduction (9.35)
+
+Titan core HP is reduced by 20% in every mode and difficulty. Campaign Stage 05
+Intermediate: 700 → 560 HP. Challenge / Boss Test: 240/340/440 → 192/272/352 HP.
+Armor, movement, resistances, reinforcements and two-phase behavior are unchanged.
+Rupture stages remain freely accessible, with existing progress preserved.
