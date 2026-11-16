@@ -1,8 +1,53 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.37**.
+Standalone HTML/JavaScript tower defense. Current version: **9.38**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+
+## Maw — single-target digestion (9.38)
+
+Maw is a ninth tower, available immediately for prototyping in both campaigns
+and Challenge. It costs **220 energy**. Previous saves automatically gain the
+base technology without changing stage clears, stars or records.
+
+A coral mechanical jaw absorbs exactly one available enemy over **0.8 seconds**.
+The enemy visibly shrinks into its chamber. Its path progress stops and all
+other towers, existing projectiles, Magnetars and grapples exclude it while
+captured. After digestion, an ordinary enemy is eliminated and the normal kill
+and energy reward are awarded once through the shared death lifecycle.
+
+| Level | Range, cells | Digestion | Recovery after release | Base upgrade cost |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 2.5 | 6 s | 12 s | — |
+| 2 | 2.7 | 5.5 s | 11.5 s | 120 |
+| 3 | 2.9 | 5 s | 11 s | 170 |
+| 4 | 3.1 | 4.5 s | 10.5 s | 235 |
+| 5 | 3.3 | 4 s | 10 s | 310 |
+
+Existing campaign upgrade multipliers apply. Active captures retain their
+starting level snapshot. Level-5 Range adds 22% range; Reset reduces recovery
+by 18%. Neither increases target capacity or the damage against bosses.
+
+Bosses and mini-bosses are absorbed for 0.8 s, crushed for 2.4 s, then released
+at their original path progress after losing **12% maximum HP**. Their armor
+is retained. They resist all Maws for eight seconds after release. A lethal
+crush uses the existing boss death/phase and campaign completion handling.
+
+Selling a Maw or removing its tower cancels the capture, frees the enemy
+without damage, and restores its route position. Bound, grappled, dead,
+escaped or tunnel-covered enemies are ineligible. Capture, digestion,
+resistance and recovery use simulation time and obey pause and game speed.
+First/Near/Strong target priority remains available. The selected title shows
+Ready, Absorbing, Digesting, Crushing boss or Recharge with remaining time.
+The nine-tower mobile dock preserves the board's scale and aspect ratio.
+
+Checks: `node arc-defense/tests/maw.cjs` exercises the actual game loop,
+capture timing, protection, cancellation, level snapshots, boss release,
+pause/speed, rewards and renderer execution. The 94 existing engine checks
+and campaign-picker checks also pass. Authoring checks were executed in the
+available JavaScript harness with mocked DOM/Node adapters; browser/mobile
+visual verification was unavailable.
 
 ## Full screen on mobile
 
