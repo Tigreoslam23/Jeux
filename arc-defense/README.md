@@ -1,9 +1,54 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.39**.
+Standalone HTML/JavaScript tower defense. Current version: **9.40**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+
+## Pusher — white single-target recoil (9.40)
+
+Pusher is a tenth family, available immediately in campaigns and Challenge,
+for **180 energy**, with **at most two active towers** on the board. Both tap
+placement and drag/drop enforce the limit. The dock shows 0/2, 1/2 or 2/2,
+disables construction at two, and reopens a slot after selling one (108 refund).
+Existing records and authored stage profiles are preserved.
+
+One white guided projectile reserves one eligible enemy. On impact it pushes
+that enemy backwards along the actual curved route over 0.42 simulation seconds.
+The enemy stays vulnerable to damaging towers and Freezer during recoil.
+Grapple, Magnetar and Maw wait until the shot/recoil ownership ends. There is
+no direct damage or armor removal. Other Pusher projectiles select another
+available enemy. A missing, dead, protected or tunnel-covered target cancels
+the shot, clears its reservation and retains the shot's cooldown.
+
+| Level | Range, cells | Recharge | Recoil in seconds of normal walking | Base upgrade cost |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 2.8 | 10 s | 2 | — |
+| 2 | 3.0 | 9.5 s | 2.25 | 100 |
+| 3 | 3.2 | 9 s | 2.5 | 145 |
+| 4 | 3.4 | 8.5 s | 2.75 | 200 |
+| 5 | 3.6 | 8 s | 3 | 275 |
+
+Existing campaign upgrade multipliers apply. Range specialization adds 22%
+range; Force adds 20% recoil distance and keeps the eight-second recharge.
+A projectile retains its firing level snapshot. Recoil distance uses the
+enemy's normal movement speed before freeze/boost, with **30% strength against
+bosses and minibosses**. A pushed enemy resists another push for four seconds
+after recoil (six seconds for bosses). No enemy moves before the entrance,
+backwards across a portal or into a tunnel. Reversing does not grant additional
+exploration visits. All motion, shots, cooldowns and guards use simulation time.
+
+The white cannon has twin chevrons and a charge bar; its projectile and route
+trail distinguish the impulse from freezing. On phones, ten buttons use two
+rows of five with 44px targets; the board keeps its uniform aspect ratio and
+accounts for the taller dock. The existing selected panel fills that dock.
+
+Checks: `node arc-defense/tests/pusher.cjs` covers legal construction/sale limits,
+one-target shots, separate reservations, curved recoil, vulnerable targets,
+boss resistance, cancellation, tunnels/portals, pause/speed, upgrade snapshots,
+exploration and rendering. Sixteen Pusher checks, 19 Maw checks, 94 engine
+regressions and campaign navigation pass in the JavaScript authoring harness.
+Browser/mobile visual verification is unavailable in this environment.
 
 ## Maw — clearer grinding animation (9.39)
 
