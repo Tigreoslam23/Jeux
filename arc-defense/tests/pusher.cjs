@@ -29,7 +29,7 @@ function game(){
  shots:()=>pusherShots,targets:()=>monsters,defenses:()=>towers,
  point:monsterPosition,pathPoint:posAt,center:ctr,route:()=>way,
  spec:towerSpec,hit:(m)=>applyGeometricHit({m,kind:'heart',x:0,y:0},1),
- maw:canMawCapture,magnet:canMagnetCapture,grapple:canGrapple,
+ echo:canEchoMark,magnet:canMagnetCapture,grapple:canGrapple,
  blocked:fn=>underTunnel=fn||realTunnel,portals:pairs=>jumpPairs=pairs,
  sell:t=>{cancelPusherForTower(t);towers=towers.filter(v=>v!==t);energy+=108;refreshPusherLimit()},
  energy:v=>energy=v,price:campaignUpgradeCost,
@@ -81,10 +81,10 @@ check('boss recoil remains 30 percent and applies an eight-second guard',()=>{
  for(const key of ['boss','miniBoss']){const s=fixture(),{t,ms}=group(s,1,{[key]:true}),m=ms[0],p=m.progress;s.recoil(m,s.spec(t));assert.equal(m.pushMotion.duration,.75);s.motion(m,.75);assert(Math.abs(p-m.progress-68.4)<1e-8);assert.equal(m.pushGuard,8);assert(!s.recoil(m,s.spec(t)))}
 });
 check('ordinary enemies remain damageable while rewinding and resist repeats for six seconds',()=>{
- const s=fixture(),{t,ms}=group(s,1),m=ms[0];s.recoil(m,s.spec(t));assert(s.hit(m));assert(!s.maw(m));assert(!s.grapple(m));s.motion(m,.75);assert.equal(m.pushGuard,6);assert(!s.recoil(m,s.spec(t)));s.motion(m,6);assert(s.recoil(m,s.spec(t)));
+ const s=fixture(),{t,ms}=group(s,1),m=ms[0];s.recoil(m,s.spec(t));assert(s.hit(m));assert(s.echo(m));assert(!s.grapple(m));s.motion(m,.75);assert.equal(m.pushGuard,6);assert(!s.recoil(m,s.spec(t)));s.motion(m,6);assert(s.recoil(m,s.spec(t)));
 });
 check('dead, bound, grappled and tunnel-covered enemies are excluded from wave selection',()=>{
- for(const extra of [{hp:0},{escaped:true},{magnetId:2},{maw:{}},{grapple:{}},{pushGuard:2}]){const s=fixture(),{t}=group(s,1,extra);assert(!s.launch(t))}
+ for(const extra of [{hp:0},{escaped:true},{magnetId:2},{grapple:{}},{pushGuard:2}]){const s=fixture(),{t}=group(s,1,extra);assert(!s.launch(t))}
  const s=fixture(),{t}=group(s,1);s.blocked(()=>true);assert(!s.launch(t));
 });
 check('invalid or out-of-range targets are freed without being replaced by a sixth enemy',()=>{

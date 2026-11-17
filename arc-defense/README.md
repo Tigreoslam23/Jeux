@@ -1,9 +1,69 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.43**.
+Standalone HTML/JavaScript tower defense. Current version: **9.44**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+
+## Echo replaces Maw (9.44)
+
+Echo replaces the digestion tower in the existing ninth dock slot for **220
+energy**. The internal type/unlock `maw` is retained to preserve old campaign
+technology data; all player-facing labels, icons, controls and descriptions use
+Echo. The old capture, shrink, grinding, immunity and boss-crush behavior is
+removed. Existing stage clears, stars, Repulsor values and authored waves remain.
+
+Echo marks one eligible enemy in range, then copies **30% of its actual HP loss
+to each of the two nearest eligible neighbors** within the resonance radius.
+The source remains moving, damageable, freezable, grappleable and eligible for
+Magnetar/Repulsor. Echo causes no damage on its own. First/Near/Strong priorities
+select the source. Two Echo towers cannot mark the same source at once.
+
+| Level | Marking range, cells | Mark duration | Neighbor radius, cells | Recharge | Base upgrade cost |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 2.8 | 4 s | 2.0 | 6 s | — |
+| 2 | 3.0 | 4.5 s | 2.2 | 6 s | 120 |
+| 3 | 3.2 | 5 s | 2.4 | 6 s | 170 |
+| 4 | 3.4 | 5.5 s | 2.6 | 6 s | 235 |
+| 5 | 3.6 | 6 s | 2.8 | 6 s | 310 |
+
+Recharge starts on marking; one mark per tower is active at a time. Mark duration,
+radius and fraction are snapshotted at application. Existing upgrade multipliers
+apply. Range specialization extends marking range by 22%; Reset reduces the
+marking cooldown by 18%. The copy fraction stays 30% and neighbor capacity stays
+two at every level. No-neighbor situations consume the mark normally.
+
+Only HP actually lost is echoed, including the normal heart-hit multiplier.
+Armor-only hits trigger no echo. Overkill is capped to remaining source HP.
+A lethal direct hit can echo before the source is removed. Copied damage goes
+directly to neighbor HP and does not remove their armor. Bosses can be sources
+and neighbors with the same 30% HP-loss rule; no fixed boss-health percentage is
+removed. Dead, escaped, tunnel-covered or magnetically protected neighbors are
+excluded. A protected source does not echo while protection is active.
+
+Every source's direct damage is collected before any copies are applied.
+Baselines then reset after copied damage, so echoes cannot recursively trigger
+other echoes in the same or following frames. All damage families, including
+E-Link and projectiles, feed this shared frame-end accounting. Standard boss
+phases, kills, rewards and victory handling process any resulting deaths once.
+
+The tower uses nested pink diamonds; marked enemies have pink resonance brackets
+and a duration bar. Pink dashed flashes with travelling diamonds show damage
+copies. Visual effects are capped and throttled. Selling cancels the mark; retry,
+stage changes and wave reset clear marks. All timers obey pause and game speed.
+
+Verification: 21 Echo checks, 19 Repulsor checks, 94 engine regressions and campaign
+navigation checks pass with real Node. The selected actions panel and active mark
+were inspected in the running desktop browser. The legacy `maw.cjs` test entry
+point forwards to `echo.cjs`; historical Maw mechanics below describe earlier
+versions.
+
+```sh
+node arc-defense/tests/echo.cjs
+node arc-defense/tests/pusher.cjs
+node arc-defense/tests/engine-regressions.cjs
+node arc-defense/tests/campaign-picker.cjs
+```
 
 ## Repulsor — Wi-Fi arcs and five-second recharge (9.43)
 
