@@ -1,13 +1,19 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.40**.
+Standalone HTML/JavaScript tower defense. Current version: **9.41**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
 
-## Pusher — white single-target recoil (9.40)
+## Repulsor name (9.41)
 
-Pusher is a tenth family, available immediately in campaigns and Challenge,
+The white recoil tower is now named Repulsor in its dock button, tower actions,
+construction feedback, help text and accessibility labels. The existing `pusher`
+internal ID, two-tower cap and combat values are retained.
+
+## Repulsor — white single-target recoil (9.40)
+
+Repulsor is a tenth family, available immediately in campaigns and Challenge,
 for **180 energy**, with **at most two active towers** on the board. Both tap
 placement and drag/drop enforce the limit. The dock shows 0/2, 1/2 or 2/2,
 disables construction at two, and reopens a slot after selling one (108 refund).
@@ -17,7 +23,7 @@ One white guided projectile reserves one eligible enemy. On impact it pushes
 that enemy backwards along the actual curved route over 0.42 simulation seconds.
 The enemy stays vulnerable to damaging towers and Freezer during recoil.
 Grapple, Magnetar and Maw wait until the shot/recoil ownership ends. There is
-no direct damage or armor removal. Other Pusher projectiles select another
+no direct damage or armor removal. Other Repulsor projectiles select another
 available enemy. A missing, dead, protected or tunnel-covered target cancels
 the shot, clears its reservation and retains the shot's cooldown.
 
@@ -46,7 +52,7 @@ accounts for the taller dock. The existing selected panel fills that dock.
 Checks: `node arc-defense/tests/pusher.cjs` covers legal construction/sale limits,
 one-target shots, separate reservations, curved recoil, vulnerable targets,
 boss resistance, cancellation, tunnels/portals, pause/speed, upgrade snapshots,
-exploration and rendering. Sixteen Pusher checks, 19 Maw checks, 94 engine
+exploration and rendering. Sixteen Repulsor checks, 19 Maw checks, 94 engine
 regressions and campaign navigation pass in the JavaScript authoring harness.
 Browser/mobile visual verification is unavailable in this environment.
 
