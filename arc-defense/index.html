@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.45</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.50</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -1458,7 +1458,7 @@ function modeButtons(){refreshPusherLimit();$('mawMode').textContent=placing&&pl
 function rng(s){let a=s|0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const ctr=p=>({x:OX+(p.x+.5)*C,y:OY+(p.y+.5)*C});
 const pt=(x,y)=>({x,y});
-let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){titanBossTest=false;CAMPAIGN_WAVES=isStageCampaign()?campaignWaveSpecs().length:20;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];hookPreviewCache.clear();eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
+let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){titanBossTest=false;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;freePathRevealed=false;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];hookPreviewCache.clear();eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
 for(let i=0;i<rows.length;i++){let y=rows[i],start=direction===1?left:right,end=direction===1?right:left;if(i===0){for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}else{let old=rows[i-1];for(let yy=old+1;yy<y;yy++)path.push({x:start,y:yy});for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}direction*=-1;}
 occupied=new Set(path.map(p=>key(p.x,p.y)));turns=[];way=[];
 // A turn is a true 2x2 reserved footprint. Its centerline enters junction 2,
@@ -1579,7 +1579,7 @@ for(let si=0;si<routeSegments.length;si++){
   rebuilt.push(exit);jumpPairs.push({from:last,to:exit,at:start,kind:si===0?'wormhole':'edge'});
  }
 }
-way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()){jumpPairs=[];proceduralVariant=1}
+way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()||isFreePlay()){const scenic=isFreePlay()?buildExoticRoute(freeMapNumber):buildScenicCampaign(activeStage());way=scenic.way;jumpPairs=scenic.jumps;proceduralVariant=isFreePlay()?freeMapNumber:activeStage()}
 // Reserve every cell touched by a real route segment, not only its endpoints.
 occupied=new Set();for(let i=0;i<way.length;i++){
  const p=way[i],prev=way[i-1];if(prev&&p.dist-prev.dist<.05)continue;
@@ -1599,7 +1599,7 @@ path=[...occupied].map(v=>{let [x,y]=v.split(',').map(Number);return {x,y}});
 turns=[];
 // Do not place roofs or tunnels: all ordinary enemies remain targetable.
 tunnels=new Set();let candidates=[];for(let i=1;i<path.length-1;i++){let a=path[i-1],b=path[i],c=path[i+1];if((a.y===b.y&&b.y===c.y)||(a.x===b.x&&b.x===c.x))candidates.push(i)}for(let j=candidates.length-1;j>0;j--){let k=Math.floor(r()*(j+1));[candidates[j],candidates[k]]=[candidates[k],candidates[j]]}// No tunnels in the new stage.
-lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.dist||0)/TRACE_STEP)));monsters=[];shots=[];boomShots=[];particles=[];towers=[];energy=isStageCampaign()?campaignStageBudget():340;kills=0;waveNumber=1;lives=CORE_LIVES;waveSpawned=0;waveTotal=0;escaped=0;waveStartKills=0;waveStartEscaped=0;waveStartDiscovery=0;lastWaveReport="";$('waveReport').textContent="📊 Report: start a wave to see enemies eliminated and escaped.";playing=false;paused=false;spawn=0;elapsed=0;selected=null;selectedRangeSince=0;placing=false;placementHover=null;boomHover=null;showPlacementHeatmap=false;$('heatmap').textContent='🗺️ Analyze placements';$('placementReport').textContent='📍 Analysis off: enable the placement map to compare tower coverage.';$('strategyReport').textContent='🔬 Select a free cell to compare its coverage with your existing towers.';$('pause').textContent='⏸ Pause';modeButtons();refreshPlacementScores();// Place two oriented BOOST pads far enough apart along the travelled distance.
+lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.dist||0)/TRACE_STEP)));monsters=[];shots=[];boomShots=[];particles=[];towers=[];energy=isFreePlay()?freeMap().budget:isStageCampaign()?campaignStageBudget():340;kills=0;waveNumber=1;lives=CORE_LIVES;waveSpawned=0;waveTotal=0;escaped=0;waveStartKills=0;waveStartEscaped=0;waveStartDiscovery=0;lastWaveReport="";$('waveReport').textContent="📊 Report: start a wave to see enemies eliminated and escaped.";playing=false;paused=false;spawn=0;elapsed=0;selected=null;selectedRangeSince=0;placing=false;placementHover=null;boomHover=null;showPlacementHeatmap=false;$('heatmap').textContent='🗺️ Analyze placements';$('placementReport').textContent='📍 Analysis off: enable the placement map to compare tower coverage.';$('strategyReport').textContent='🔬 Select a free cell to compare its coverage with your existing towers.';$('pause').textContent='⏸ Pause';modeButtons();refreshPlacementScores();// Place two oriented BOOST pads far enough apart along the travelled distance.
  const total=way.length?way[way.length-1].dist:0;
  // Keep boost effects separated by at least the distance travelled at
  // boosted speed during their 1.8 s lifetime (conservative speed budget).
@@ -1622,7 +1622,7 @@ lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.
    .sort((a,b)=>Math.abs(a-target)-Math.abs(b-target))[0];
   if(best!==undefined)chosen.push(best);
  }
- boostPads=isStageCampaign()?[]:chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0}));
+ boostPads=(isStageCampaign()||isFreePlay())?scenicBoostPads():chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0}));
  update();draw();}
 // Technologies available selon la découverte permanente du parcours.
 const TECH_THRESHOLDS={pusher:0,maw:0,precision:0,rapid:0,pierce:0,freeze:25,area:50,elink:25,boom:75};
@@ -1631,12 +1631,12 @@ const TECH_IDS={pusher:'pusherMode',maw:'mawMode',precision:'towerMode',rapid:'r
 let lastTechPercent=0,techBannerTimer=0;
 const techBanner=document.createElement('div');techBanner.id='techUnlockBanner';techBanner.setAttribute('role','status');document.body.appendChild(techBanner);
 function discoveredPercent(){const n=traceVisits.length;if(!n)return 0;let count=0;for(let i=0;i<n;i++)if(traceVisits[i]>=TRACE_REQUIRED)count++;return 100*count/n}
-function technologyAvailable(type){if(isStageCampaign())return campaignProgress.unlocked.includes(type);return discoveredPercent()+1e-7>=(TECH_THRESHOLDS[type]??0)}
+function technologyAvailable(type){if(isFreePlay())return true;if(isStageCampaign())return campaignProgress.unlocked.includes(type);return discoveredPercent()+1e-7>=(TECH_THRESHOLDS[type]??0)}
 function technologyFeedback(type){if(type==='pusher'&&!pusherBuildAvailable()){$('waveReport').textContent='Repulsor limit reached · Sell one to build elsewhere (2/2)';return false}if(technologyAvailable(type))return true;const threshold=TECH_THRESHOLDS[type];if(isStageCampaign()){const info=$('waveReport');if(info)info.textContent='🔒 '+technologyHint(type);return false}const button=document.querySelector('#towerDock [data-tower="'+TECH_IDS[type]+'"]');if(button){button.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:250})}const info=document.getElementById('waveReport');if(info)info.textContent=`🔒 ${TECH_NAMES[type]||type} : explore ${threshold}% of the path to unlock this technology.`;return false}
 function refreshTechnologies(){const pct=discoveredPercent();for(const [type,id] of Object.entries(TECH_IDS)){const locked=!technologyAvailable(type),button=document.querySelector('#towerDock [data-tower="'+id+'"]');if(button){button.classList.toggle('tech-locked',locked);button.dataset.unlock=isStageCampaign()?'🔒 W'+CAMPAIGN_TECH_WAVES[type]:TECH_THRESHOLDS[type];button.setAttribute('aria-disabled',String(locked));button.title=locked?(isStageCampaign()?technologyHint(type):`Unlocks at ${TECH_THRESHOLDS[type]}% path explored`):type==='elink'?(eLinkPending?'Place second pylon · 1.5–4.5 cells':'Electric Link · 200 energy for two pylons'):type==='maw'?'Hook · 220 energy · 180° upstream transfer in 3s · 10–14% max HP/s · Protected during transfer':button.querySelector('.tower-price')?.textContent||type}}
 refreshPusherLimit();
 if(placing&&!technologyAvailable(placingType)){placing=false;placementHover=null;boomHover=null;modeButtons()}
-if(isStageCampaign())return;
+if(isStageCampaign()||isFreePlay())return;
 for(const threshold of [25,50,75]){if(lastTechPercent<threshold&&pct>=threshold){
  const unlockedTypes=Object.keys(TECH_THRESHOLDS).filter(t=>TECH_THRESHOLDS[t]===threshold);
  const names=unlockedTypes.map(t=>{const id=TECH_IDS[t];const b=document.querySelector('#towerDock [data-tower="'+id+'"]');return b?.querySelector('.tower-name')?.textContent?.trim()||TECH_NAMES[t]||t.toUpperCase()});
@@ -1654,7 +1654,7 @@ function updateDiscovery(){
  if(label&&label.textContent!==percent+' %')label.textContent=percent+' %';
  if(bar&&bar.style.width!==percent+'%')bar.style.width=percent+'%';
  const next=document.getElementById('discoveryNext');
- if(next){const exact=discoveredPercent();const goal=[25,50,75].find(v=>exact<v);next.textContent=isStageCampaign()?nextCampaignTechnology():goal===25?'⚡ E-Link + Freezer · 25 %':goal===50?'∞ Magnetar · 50 %':goal===75?'❖ Boomerang · 75 %':'✓ All towers unlocked';}
+ if(next){const exact=discoveredPercent();const goal=[25,50,75].find(v=>exact<v);next.textContent=isFreePlay()?'∞ FREE PLAY · All towers unlocked':isStageCampaign()?nextCampaignTechnology():goal===25?'⚡ E-Link + Freezer · 25 %':goal===50?'∞ Magnetar · 50 %':goal===75?'❖ Boomerang · 75 %':'✓ All towers unlocked';}
  refreshTechnologies();
 }
 function resolveEscapes(){
@@ -1669,7 +1669,7 @@ function resolveEscapes(){
 }
 
 function update(){
-$('lives').textContent=lives;updateCampaignHUD();$('waveNum').textContent=waveNumber;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0).length;$('wave').textContent=!firstWaveStarted?'▶ START':playing?'🌊 Wave '+waveNumber+' / '+CAMPAIGN_WAVES:'🌊 AUTO';$('wave').disabled=firstWaveStarted||playing||lives<=0||waveNumber>CAMPAIGN_WAVES;updateUpgrade();$('energy').textContent=energy;$('kills').textContent=kills;let p=occupied.size;$('info').textContent=`Board : ${W} × ${H} = 144 cells · Reserved path : ${p} cells · Construction : ${144-p} cells · BOOST : ${boostPads.length} · Path : ${proceduralVariant} · 2×2 turns : ${turns.length} · Wormholes : 1 · Edge warp : 1 · Seed : ${seed} · Wave ${waveNumber}${waveNumber===1?" (test : 12 units)":waveNumber===2?" (test : 16 units)":waveNumber===3?" (test : 22 units)":waveNumber===5?" (mixed : 6 Orbs + 7 Trions + 3 Hexions)":""} · Base ${lives}/${CORE_LIVES} · ${playing?(paused?'PAUSE':'WAVE IN PROGRESS'):'READY'}`;}
+$('lives').textContent=lives;updateCampaignHUD();const freeHUD=$('freeRunLabel');if(freeHUD){freeHUD.hidden=!isFreePlay();if(isFreePlay())freeHUD.textContent=freeMap().name+' · '+(firstWaveStarted?waveSpawned+' / '+freeMap().count:freeMap().count+' enemies · '+boostPads.length+' boosts')} $('waveNum').textContent=waveNumber;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0).length;$('wave').textContent=!firstWaveStarted?'▶ START':playing?'🌊 Wave '+waveNumber+' / '+CAMPAIGN_WAVES:'🌊 AUTO';$('wave').disabled=firstWaveStarted||playing||lives<=0||waveNumber>CAMPAIGN_WAVES;if(isFreePlay())$('wave').textContent=!firstWaveStarted?'▶ RELEASE STREAM':'∞ '+waveSpawned+' / '+freeMap().count;updateUpgrade();$('energy').textContent=energy;$('kills').textContent=kills;let p=occupied.size;$('info').textContent=`Board : ${W} × ${H} = 144 cells · Reserved path : ${p} cells · Construction : ${144-p} cells · BOOST : ${boostPads.length} · Path : ${proceduralVariant} · 2×2 turns : ${turns.length} · Wormholes : 1 · Edge warp : 1 · Seed : ${seed} · Wave ${waveNumber}${waveNumber===1?" (test : 12 units)":waveNumber===2?" (test : 16 units)":waveNumber===3?" (test : 22 units)":waveNumber===5?" (mixed : 6 Orbs + 7 Trions + 3 Hexions)":""} · Base ${lives}/${CORE_LIVES} · ${playing?(paused?'PAUSE':'WAVE IN PROGRESS'):'READY'}`;}
 function rounded(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 function posAt(d){if(!way.length)return pt(0,0);if(d<=0)return way[0];if(d>=way.at(-1).dist)return way.at(-1);let lo=0,hi=way.length-1;while(hi-lo>1){let mid=(lo+hi)>>1;if(way[mid].dist<d)lo=mid;else hi=mid;}let a=way[lo],b=way[hi],t=(d-a.dist)/(b.dist-a.dist||1);return pt(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t)}
 // A captured monster has a separate physical position while its path progress is frozen.
@@ -2170,6 +2170,7 @@ if(rupture){
  g.stroke();g.restore();
 }
 drawAmbientSerpentinesAndStars();
+if(isFreePlay())paintExoticArena();
 if(isStageCampaign()&&!firstWaveStarted)paintStageOnePreview();
 drawConstructionAnchors();
 paintHookPlacement();
@@ -2202,7 +2203,7 @@ if(revealSweepStart>0&&waveNumber===1){
 }
 // Direction indicators appear ONLY during the two-second wave announcement.
 if(revealSweepStart>0){
- const progress=Math.min(1,Math.max(0,(performance.now()-revealSweepStart)/2000));
+ const progress=Math.min(1,Math.max(0,(performance.now()-revealSweepStart)/900));
  const total=way.length?way[way.length-1].dist:0;
  const head=total*progress;
  g.save();g.lineCap='round';g.lineJoin='round';
@@ -2227,7 +2228,7 @@ if(revealSweepStart>0){
 
 // Five distinct monsters reveal sparse, gently pulsing yellow chevrons.
 // The icons are tangent to the centerline; teleport jumps are not connected.
-if(traceVisits.length){
+if(traceVisits.length&&!isFreePlay()){
  const total=way.at(-1).dist;
  const spacing=Math.max(38,C*.92);
  const clock=performance.now()*.001;
@@ -2520,6 +2521,97 @@ const enemyProfiles=[
 ];
 
 
+// FREE PLAY: independent authored circuits, saves and continuous spawn schedules.
+let freeMapNumber=1,freePathRevealed=false;
+const FREE_MAPS=[
+ {name:'Neon Grand Prix',tag:'01 · FULL THROTTLE',color:'#58ffe1',count:320,gap:.42,type:0,hp:2.6,speed:1.55,budget:1800,boosts:10,description:'Hug the walls. Cut the chicanes. Ten turbo strips, one endless-looking convoy.'},
+ {name:'Ribbon Riot',tag:'02 · HAIRPIN HEAVEN',color:'#ff80cf',count:420,gap:.38,type:1,hp:3.3,speed:1.4,budget:2000,boosts:5,description:'A ribbon folded into sweeping hairpins. 420 identical Trions at a steady rhythm.'},
+ {name:'Warp Boulevard',tag:'03 · BREAK THE BORDER',color:'#af9cff',count:480,gap:.34,type:0,hp:3.4,speed:1.5,budget:2200,boosts:6,description:'Vanish through the frame. Reappear on the opposite edge. Two warps, zero queues.'},
+ {name:'Event Horizon',tag:'04 · INTO THE VORTEX',color:'#ffb369',count:540,gap:.42,type:2,hp:4.6,speed:1.25,budget:2400,boosts:5,description:'Three dark singularities connect four sweeping orbits. A procession of 540 Hexions.'},
+ {name:'Hyperdrive',tag:'05 · BEAUTIFUL CHAOS',color:'#64c9ff',count:800,gap:.25,type:-1,hp:3.6,speed:1.55,budget:2800,boosts:12,description:'800 enemies. Twelve turbo strips. Warps and black holes. Make every crossing count.'}
+];
+function isFreePlay(){return playMode==='free'&&!titanBossTest}
+function freeMap(){return FREE_MAPS[freeMapNumber-1]||FREE_MAPS[0]}
+// Rounded polylines preserve the authored composition without spline overshoot.
+// Every physical sample is <= 9 px apart; a jump is exactly .01 route units.
+function scenicRoute(sections,kinds=[]){
+ const points=[],jumps=[];let distance=0;
+ function append(p,jump=false){const prev=points.at(-1);if(prev)distance+=jump?.01:Math.hypot(p.x-prev.x,p.y-prev.y);points.push({x:p.x,y:p.y,dist:distance})}
+ function line(p){const prev=points.at(-1);if(!prev){append(p);return}const n=Math.max(1,Math.ceil(Math.hypot(p.x-prev.x,p.y-prev.y)/9)),a={...prev};for(let k=1;k<=n;k++)append({x:a.x+(p.x-a.x)*k/n,y:a.y+(p.y-a.y)*k/n})}
+ for(let si=0;si<sections.length;si++){
+  const ps=sections[si].map(([x,y])=>({x,y}));
+  if(si){const from=points.at(-1),at=from.dist;append(ps[0],true);jumps.push({from,to:points.at(-1),at,kind:kinds[si-1]||'wormhole'})}else append(ps[0]);
+  for(let i=1;i<ps.length-1;i++){
+   const a=ps[i-1],b=ps[i],c=ps[i+1],ab=Math.hypot(b.x-a.x,b.y-a.y),bc=Math.hypot(c.x-b.x,c.y-b.y),r=Math.min(74,ab*.32,bc*.32);
+   if(ab<.1||bc<.1){line(b);continue}
+   const enter={x:b.x+(a.x-b.x)*r/ab,y:b.y+(a.y-b.y)*r/ab},leave={x:b.x+(c.x-b.x)*r/bc,y:b.y+(c.y-b.y)*r/bc};line(enter);
+   const n=Math.max(8,Math.ceil(r/3));for(let k=1;k<=n;k++){const t=k/n,q=1-t;append({x:q*q*enter.x+2*q*t*b.x+t*t*leave.x,y:q*q*enter.y+2*q*t*b.y+t*t*leave.y})}
+  }
+  line(ps.at(-1));
+ }
+ return {way:points,jumps};
+}
+function exoticSections(id){
+ if(id===1)return {sections:[[[8,55],[1060,55],[1060,620],[60,620],[60,165],[940,165],[940,510],[200,510],[200,285],[800,285],[800,400],[380,400],[380,570],[1112,570]]],kinds:[]};
+ if(id===2)return {sections:[[[8,75],[1010,75],[1010,195],[140,195],[140,315],[980,315],[980,435],[140,435],[140,555],[1010,555],[1010,645],[1112,645]]],kinds:[]};
+ if(id===3)return {sections:[[[8,110],[220,110],[220,480],[470,480],[470,200],[730,200],[730,8]],[[730,667],[730,520],[990,520],[990,350],[510,350],[510,90],[300,90],[300,8]],[[300,667],[300,570],[100,570],[100,280],[850,280],[850,100],[1030,100],[1030,600],[1112,600]]],kinds:['edge','edge']};
+ if(id===4)return {sections:[[[8,100],[190,100],[190,520],[500,520],[500,160],[340,160],[340,350]],[[660,140],[1000,140],[1000,530],[660,530],[660,350]],[[350,290],[100,290],[100,620],[900,620],[900,430]],[[780,90],[530,90],[530,420],[1090,420],[1090,600],[1112,600]]],kinds:['wormhole','wormhole','wormhole']};
+ return {sections:[[[8,42],[1070,42],[1070,620],[80,620],[80,160],[920,160],[920,470],[300,470],[300,8]],[[300,667],[300,560],[780,560],[780,300],[520,300],[520,110]],[[150,250],[150,520],[420,520],[420,260],[1040,260],[1040,8]],[[1040,667],[1040,550],[600,550],[600,380],[240,380],[240,90],[700,90],[700,210]],[[440,170],[440,650],[900,650],[900,360],[1112,360]]],kinds:['edge','wormhole','edge','wormhole']};
+}
+function buildExoticRoute(id){const config=exoticSections(id);return scenicRoute(config.sections,config.kinds)}
+function buildScenicCampaign(stage){
+ if(stage===1)return scenicRoute([[[8,170],[180,170],[250,90],[390,90],[450,300],[610,300],[680,120],[850,120],[930,450],[1112,450]]]);
+ if(stage===2)return scenicRoute([[[8,100],[930,100],[930,245],[180,245],[180,420],[920,420],[920,580],[1112,580]]]);
+ if(stage===3)return scenicRoute([[[8,130],[250,130],[250,540],[500,540],[500,180],[780,180],[780,480],[1000,480],[1000,90],[1112,90]]]);
+ if(stage===4)return buildExoticRoute(1);
+ if(stage===5){const c=exoticSections(3);return scenicRoute([c.sections[0],c.sections[1].concat([[300,610],[1112,610]])],['edge'])}
+ if(stage===6)return buildExoticRoute(2);
+ if(stage===7){const c=exoticSections(4);return scenicRoute([c.sections[0],c.sections[1].concat([[880,350],[880,600],[1112,600]])],['wormhole'])}
+ if(stage===8)return buildExoticRoute(3);
+ if(stage===9){const c=exoticSections(4);return scenicRoute([c.sections[0],c.sections[1],c.sections[2].concat([[1040,430],[1112,430]])],['wormhole','wormhole'])}
+ return buildExoticRoute(5);
+}
+function scenicBoostPads(){
+ const desired=isFreePlay()?freeMap().boosts:[0,0,1,2,2,3,3,4,4,5][activeStage()-1];
+ const total=way.at(-1).dist,candidates=[];
+ for(let d=150;d<total-180;d+=20)if(jumpPairs.every(p=>Math.abs(d-p.at)>230))candidates.push(d);
+ const chosen=[];
+ for(let i=0;i<desired;i++){const target=total*(i+.55)/desired;const d=candidates.filter(d=>chosen.every(v=>Math.abs(v-d)>210)).sort((a,b)=>Math.abs(a-target)-Math.abs(b-target))[0];if(d!==undefined)chosen.push(d)}
+ return chosen.sort((a,b)=>a-b).map((d,id)=>({id,d,discovered:false,flash:0,duration:isFreePlay()?.8:1.1}));
+}
+function refreshFreeStreamHUD(){if(!isFreePlay())return;const text='∞ '+waveSpawned+' / '+freeMap().count;if($('wave').textContent!==text)$('wave').textContent=text;const label=$('freeRunLabel');if(label)label.textContent=freeMap().name+' · '+waveSpawned+' / '+freeMap().count;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0).length}
+function freeEnemyType(i){return freeMap().type>=0?freeMap().type:Math.floor(i/80)%3}
+function createFreeEnemy(i){const cfg=freeMap(),type=freeEnemyType(i),n=type===2?6:type===1?3:4,difficulty=level===1?.82:level===3?1.18:1,hp=cfg.hp*(type===2?1.15:1)*difficulty;return {id:++monsterSerial,type,trait:'normal',progress:0,spin:i*.3,hp,maxHp:hp,moveSpeed:cfg.speed,spinSpeed:enemyProfiles[type].spin,reward:3,armor:Math.min(n,2+Math.floor(i/cfg.count*2)),plates:Array.from({length:n},(_,j)=>j<2+Math.floor(i/cfg.count*2))}}
+function startFreeMap(id){if(id<1||id>5)return false;closeCampaignMap();freeMapNumber=id;playMode='free';clearEnd();build();$('arc60Close')?.click();if($('arc917Settings'))$('arc917Settings').open=false;update();draw();return true}
+function freeBest(id){try{return JSON.parse(localStorage.getItem('arc_free_v1_'+id)||'null')}catch(e){return null}}
+function endFreePlay(won){
+ const cfg=freeMap(),result={won,kills,lives,count:cfg.count},old=freeBest(freeMapNumber);let saved=false;
+ try{if(!old||Number(won)>Number(old.won)||(won===old.won&&(kills>old.kills||(kills===old.kills&&lives>old.lives)))){localStorage.setItem('arc_free_v1_'+freeMapNumber,JSON.stringify(result));saved=true}}catch(e){}
+ window.arcAudio?.mode(won?'victory':'defeat');$('endScreen').classList.add('show');$('endTitle').textContent=won?'CIRCUIT COMPLETE':'CIRCUIT LOST';$('endDescription').textContent=cfg.name+' · '+(won?'The entire stream has passed your defense.':'The convoy broke through. Rebuild and try a different corner.');
+ const summary=$('endSummary');summary.replaceChildren();for(const [label,value] of [['Enemies released',waveSpawned+' / '+cfg.count],['Enemies eliminated',kills],['Core integrity',lives+' / '+CORE_LIVES],['Energy left',energy+' ⚡'],['Active defenses',towers.length],['Circuit features',boostPads.length+' boosts · '+jumpPairs.length+' portals']]){const item=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;item.append(dt,dd);summary.append(item)}
+ $('endRecord').hidden=!saved;$('endRecord').textContent='✦ NEW CIRCUIT RECORD';$('endTip').textContent='Free Play records are independent of campaign stars. Every circuit is always open.';$('endRestart').textContent='↺ Retry circuit';$('endNew').textContent='Choose another circuit';requestAnimationFrame(()=>$('endRestart').focus({preventScroll:true}));
+}
+function routeMiniature(id){const c=buildExoticRoute(id),cfg=FREE_MAPS[id-1];let d='';for(let i=0;i<c.way.length;i++){const p=c.way[i];d+=(i===0||p.dist-c.way[i-1].dist<.05?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)}return '<svg class="free-mini" viewBox="0 0 675 1120" aria-hidden="true"><g transform="translate(675,0) rotate(90)"><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" opacity=".18"/><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="4" stroke-linecap="round"/>'+c.jumps.map(j=>[j.from,j.to].map(p=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="20" fill="#080c20" stroke="'+cfg.color+'" stroke-width="5"/>').join('')).join('')+'</g></svg>'}
+function openFreeMaps(){const map=$('campaignMap');if(!map)return;map.dataset.campaign='free';$('campaignOverview').hidden=true;$('campaignBack').hidden=false;$('campaignStageProgress').hidden=true;for(const n of [1,2])$('campaignStages'+n).hidden=true;$('freeMaps').hidden=false;$('campaignMapTitle').textContent='Take the wild route';$('campaignPickerIntro').textContent='FREE PLAY · FIVE OPEN CIRCUITS · ALL TOWERS UNLOCKED';map.querySelector('.campaign-map-panel').scrollTop=0;for(let n=1;n<=5;n++){const b=freeBest(n);$('freeRecord'+n).textContent=b?(b.won?'✓ Circuit secured':'Best: '+b.kills+' eliminated'):'No record yet · Make your first run'}requestAnimationFrame(()=>$('freePlay1').focus({preventScroll:true}))}
+function mountFreePlayPicker(panel,overview,classic){
+ const card=document.createElement('button');card.type='button';card.id='freeChoose';card.className='campaign-choice free-choice';card.setAttribute('aria-label','Open Free Play');card.innerHTML='<span class="free-infinity" aria-hidden="true">∞</span><span class="campaign-choice-copy"><span class="campaign-kicker">FREE PLAY · 5 EXOTIC CIRCUITS</span><strong class="campaign-choice-title">Take the wild route</strong><span class="campaign-description">Wall rides. Hairpins. Warps. Black holes.</span><span class="campaign-choice-next">320–800 enemies · Continuous streams</span></span><span class="campaign-chevron" aria-hidden="true">›</span>';card.onclick=openFreeMaps;overview.append(card);
+ const section=document.createElement('section');section.id='freeMaps';section.hidden=true;section.setAttribute('aria-label','Free Play circuits');section.innerHTML='<div class="free-manifesto"><span>NO LOCKS. NO WAITING BETWEEN WAVES.</span><p>Build your dream defense, reveal the whole circuit, then unleash a continuous stream. The path stays lit.</p></div><div class="free-map-grid">'+FREE_MAPS.map((cfg,i)=>'<article class="free-map-card" style="--circuit:'+cfg.color+'"><div class="free-art">'+routeMiniature(i+1)+'<span>'+String(i+1).padStart(2,'0')+'</span></div><div class="free-card-copy"><small>'+cfg.tag+'</small><h3>'+cfg.name+'</h3><p>'+cfg.description+'</p><div class="free-chips"><span>'+cfg.count+' enemies</span><span>'+cfg.boosts+' boosts</span><span>'+cfg.budget+' ⚡</span></div><p class="free-record" id="freeRecord'+(i+1)+'"></p><button type="button" id="freePlay'+(i+1)+'">Play '+cfg.name+' <span aria-hidden="true">&gt;</span></button></div></article>').join('')+'</div>';panel.insertBefore(section,classic);for(let i=1;i<=5;i++)$('freePlay'+i).onclick=()=>startFreeMap(i);
+ const label=document.createElement('div');label.id='freeRunLabel';label.hidden=true;label.setAttribute('role','status');document.querySelector('.battle-frame').append(label);
+ const button=document.createElement('button');button.type='button';button.id='freeOpen';button.textContent='∞ Free Play · 5 exotic circuits';button.onclick=()=>{openCampaignMap();openFreeMaps()};$('campaignOptions')?.append(button);
+}
+function paintExoticArena(){
+ const cfg=freeMap(),color=cfg.color,total=way.at(-1).dist;
+ g.save();const haze=g.createRadialGradient(560,337,30,560,337,650);haze.addColorStop(0,color+'14');haze.addColorStop(1,'#030817');g.fillStyle=haze;g.fillRect(0,0,1120,675);
+ // Restrained circuit dressing stays behind enemies and never reserves build cells.
+ g.strokeStyle=color+'18';g.lineWidth=1;for(let x=40;x<1120;x+=80){g.beginPath();g.moveTo(x,20);g.lineTo(x,655);g.stroke()}for(let y=35;y<675;y+=80){g.beginPath();g.moveTo(20,y);g.lineTo(1100,y);g.stroke()}
+ const visible=freePathRevealed||revealSweepStart>0;g.globalAlpha=visible?1:.32;g.lineCap='round';g.lineJoin='round';g.beginPath();way.forEach((p,i)=>{if(!i||p.dist-way[i-1].dist<.05)g.moveTo(p.x,p.y);else g.lineTo(p.x,p.y)});
+ g.strokeStyle=color+'35';g.lineWidth=30;g.stroke();g.strokeStyle='#070d1c';g.lineWidth=23;g.stroke();g.strokeStyle=color+'c0';g.lineWidth=2;g.setLineDash([10,15]);g.stroke();g.setLineDash([]);
+ for(let d=80;d<total-50;d+=115){if(jumpPairs.some(j=>Math.abs(d-j.at)<45))continue;const p=posAt(d),a=posAt(d-6),b=posAt(d+6);g.save();g.translate(p.x,p.y);g.rotate(Math.atan2(b.y-a.y,b.x-a.x));g.strokeStyle=color;g.lineWidth=1.8;g.beginPath();g.moveTo(-5,-5);g.lineTo(1,0);g.lineTo(-5,5);g.stroke();g.restore()}
+ // Start/finish chequered strips make the racing composition readable immediately.
+ for(const d of [24,total-24]){const p=posAt(d),a=posAt(Math.max(0,d-5)),b=posAt(Math.min(total,d+5));g.save();g.translate(p.x,p.y);g.rotate(Math.atan2(b.y-a.y,b.x-a.x));for(let x=0;x<2;x++)for(let y=0;y<6;y++){g.fillStyle=(x+y)%2?'#17243b':'#f2faff';g.fillRect(x*5-5,y*5-15,5,5)}g.restore()}
+ g.restore();
+}
+
 function isStageCampaign(){return playMode==='campaign'&&!titanBossTest}
 function activeStage(){return [1,2,3,4,5,6,7,8,9,10].includes(campaignStageNumber)?campaignStageNumber:1}
 function campaignWaveSpecs(){return [STAGE_ONE_WAVES,STAGE_TWO_WAVES,STAGE_THREE_WAVES,STAGE_FOUR_WAVES,STAGE_FIVE_WAVES,STAGE_SIX_WAVES,STAGE_SEVEN_WAVES,STAGE_EIGHT_WAVES,STAGE_NINE_WAVES,STAGE_TEN_WAVES][activeStage()-1]}
@@ -2743,14 +2835,14 @@ function visibleCampaignButtons(map){return [...map.querySelectorAll('button:not
 function showCampaignPicker(){
  const map=$('campaignMap');if(!map||!$('campaignOverview'))return;
  const previous=map.dataset.campaign==='2'?2:1;
- map.dataset.campaign='overview';$('campaignOverview').hidden=false;$('campaignBack').hidden=true;$('campaignStageProgress').hidden=true;
+ if($('freeMaps'))$('freeMaps').hidden=true;map.dataset.campaign='overview';$('campaignOverview').hidden=false;$('campaignBack').hidden=true;$('campaignStageProgress').hidden=true;
  for(const id of [1,2])$('campaignStages'+id).hidden=true;
- $('campaignMapTitle').textContent='Choose your campaign';$('campaignPickerIntro').textContent='Two campaigns. Two worlds. Choose your next defense.';
+ $('campaignMapTitle').textContent='Choose your campaign';$('campaignPickerIntro').textContent='Two campaigns. Five wild circuits. Choose your next defense.';
  refreshCampaignOverview();map.querySelector('.campaign-map-panel').scrollTop=0;
  requestAnimationFrame(()=>$('campaignChoose'+previous).focus({preventScroll:true}));
 }
 function showCampaignStages(id){
- if(id!==1&&id!==2)return;
+ if(id!==1&&id!==2)return;if($('freeMaps'))$('freeMaps').hidden=true;
  const map=$('campaignMap'),data=campaignOverviewData(id);
  map.dataset.campaign=String(id);$('campaignOverview').hidden=true;$('campaignBack').hidden=false;$('campaignStageProgress').hidden=false;
  for(const n of [1,2])$('campaignStages'+n).hidden=n!==id;
@@ -2781,7 +2873,7 @@ function mountCampaignPicker(){
   group.append(headings[id-1],$(id===1?'campaignCompletion':'campaignCompletion2'));if(id===2)group.append(ruptureIntro);group.append(routes[id-1]);panel.insertBefore(group,classic);
  }
  panel.querySelector('.campaign-map-foot').textContent='Progress and stars are saved on this device.';
- refreshCampaignOverview();
+ refreshCampaignOverview();mountFreePlayPicker(panel,overview,classic);
 }
 
 function openCampaignMap(){
@@ -2800,7 +2892,7 @@ function mountCampaignControls(){
  const options=document.querySelector('#arc917Settings .arc917-options');if(!options)return;
  const panel=document.createElement('section');panel.id='campaignOptions';panel.innerHTML='<strong>CAMPAIGN 01 · FIRST CONTACT</strong><button id="campaignOpen" type="button">Campaign map</button><button id="campaignRestart" type="button">Play Stage 01 · 8 waves</button><button id="classicChallenge" type="button">20-wave Challenge · Titan</button><label>Difficulty <select id="campaignDifficulty" aria-label="Campaign difficulty"><option value="1">Beginner</option><option value="2" selected>Intermediate</option><option value="3">Advanced</option></select></label>';options.prepend(panel);
  const map=document.createElement('section');map.id='campaignMap';map.hidden=true;map.setAttribute('role','dialog');map.setAttribute('aria-modal','true');map.setAttribute('aria-labelledby','campaignMapTitle');
- map.innerHTML='<div class="campaign-map-panel"><div class="campaign-map-head"><span>ARC DEFENSE · CAMPAIGNS</span><button id="campaignFullscreen" type="button" aria-label="Enter full screen" aria-pressed="false">⛶ Full screen</button><button id="campaignClose" aria-label="Close campaign map" type="button">✕</button></div><h2 id="campaignMapTitle">Choose your stage</h2><p id="campaignCompletion" class="campaign-map-intro" hidden></p><p class="campaign-map-intro">A new route. A fresh defense. One stage at a time.</p><h3 class="campaign-section-title">CAMPAIGN 01 · FIRST CONTACT</h3><div class="campaign-route"><article class="campaign-stage available"><span class="campaign-stage-number">01</span><div><strong>THE RELAY</strong><small>8 waves · Elite vanguard</small><p id="campaignStageResult"></p></div><button id="campaignPlay" type="button">Play Stage 01</button></article><article id="campaignStage2" class="campaign-stage planned"><span class="campaign-stage-number">02</span><div><strong>ARMOR FRONT</strong><small>10 waves · Bastion mini-boss</small><p id="campaignStage2Result"></p></div><button id="campaignPlay2" type="button" disabled>Play Stage 02</button></article><article id="campaignStage3" class="campaign-stage planned"><span class="campaign-stage-number">03</span><div><strong>SWARM SIGNAL</strong><small>12 waves · Nexus boss · Dense formations</small><p id="campaignStage3Result"></p></div><button id="campaignPlay3" type="button" disabled>Play Stage 03</button></article><article id="campaignStage4" class="campaign-stage planned"><span class="campaign-stage-number">04</span><div><strong>CROSSCURRENT</strong><small>12 waves · Gemini twin boss · Magnetar</small><p id="campaignStage4Result"></p></div><button id="campaignPlay4" type="button" disabled>Play Stage 04</button></article><article id="campaignStage5" class="campaign-stage planned"><span class="campaign-stage-number">05</span><div><strong>TITAN PROTOCOL</strong><small>15 waves · TITAN + reinforcements · Finale</small><p id="campaignStage5Result"></p></div><button id="campaignPlay5" type="button" disabled>Play Stage 05</button></article></div><h3 class="campaign-section-title rupture-title">CAMPAIGN 02 · RUPTURE</h3><p id="campaignCompletion2" class="campaign-map-intro"></p><p class="campaign-map-intro">Five stages: split formations, armored convoys, Prism, energy management and the Rift finale.</p><div class="campaign-route"><article id="campaignStage6" class="campaign-stage planned"><span class="campaign-stage-number">06</span><div><strong>FRACTURE RELAY</strong><small>12 waves · Split formations · Elite assault</small><p id="campaignStage6Result"></p></div><button id="campaignPlay6" type="button" disabled>Play Stage 06</button></article><article id="campaignStage7" class="campaign-stage planned"><span class="campaign-stage-number">07</span><div><strong>COPPER MARCH</strong><small>14 waves · Runners and armor · Anvil mini-boss</small><p id="campaignStage7Result"></p></div><button id="campaignPlay7" type="button" disabled>Play Stage 07</button></article><article id="campaignStage8" class="campaign-stage planned"><span class="campaign-stage-number">08</span><div><strong>PRISM CONVERGENCE</strong><small>14 waves · Coordinated formations · Prism boss</small><p id="campaignStage8Result"></p></div><button id="campaignPlay8" type="button" disabled>Play Stage 08</button></article><article id="campaignStage9" class="campaign-stage planned"><span class="campaign-stage-number">09</span><div><strong>ENERGY DIVIDE</strong><small>15 waves · Limited energy · Elite assault</small><p id="campaignStage9Result"></p></div><button id="campaignPlay9" type="button" disabled>Play Stage 09</button></article><article id="campaignStage10" class="campaign-stage planned"><span class="campaign-stage-number">10</span><div><strong>RIFT HEART</strong><small>16 waves · Rift boss · Reinforcements · Finale</small><p id="campaignStage10Result"></p></div><button id="campaignPlay10" type="button" disabled>Play Stage 10</button></article></div><button id="campaignClassic" type="button">Play the original 20-wave Challenge</button><p class="campaign-map-foot">Rupture is open: play Stages 06–10 freely. Each stage has its own score. Secure all five to complete Campaign 02.<br>Campaign technologies and stage results stay on this device.</p></div>';
+ map.innerHTML='<div class="campaign-map-panel"><div class="campaign-map-head"><span>ARC DEFENSE · CAMPAIGNS</span><button id="campaignFullscreen" type="button" aria-label="Enter full screen" aria-pressed="false">⛶ Full screen</button><button id="campaignClose" aria-label="Close campaign map" type="button">✕</button></div><h2 id="campaignMapTitle">Choose your stage</h2><p id="campaignCompletion" class="campaign-map-intro" hidden></p><p class="campaign-map-intro">A new route. A fresh defense. One stage at a time.</p><h3 class="campaign-section-title">CAMPAIGN 01 · FIRST CONTACT</h3><div class="campaign-route"><article class="campaign-stage available"><span class="campaign-stage-number">01</span><div><strong>THE RELAY</strong><small>8 waves · Winding route · Elite vanguard</small><p id="campaignStageResult"></p></div><button id="campaignPlay" type="button">Play Stage 01</button></article><article id="campaignStage2" class="campaign-stage planned"><span class="campaign-stage-number">02</span><div><strong>ARMOR FRONT</strong><small>10 waves · Hairpins · Bastion mini-boss</small><p id="campaignStage2Result"></p></div><button id="campaignPlay2" type="button" disabled>Play Stage 02</button></article><article id="campaignStage3" class="campaign-stage planned"><span class="campaign-stage-number">03</span><div><strong>SWARM SIGNAL</strong><small>12 waves · First boost · Nexus boss</small><p id="campaignStage3Result"></p></div><button id="campaignPlay3" type="button" disabled>Play Stage 03</button></article><article id="campaignStage4" class="campaign-stage planned"><span class="campaign-stage-number">04</span><div><strong>CROSSCURRENT</strong><small>12 waves · 2 boosts · Gemini twin boss</small><p id="campaignStage4Result"></p></div><button id="campaignPlay4" type="button" disabled>Play Stage 04</button></article><article id="campaignStage5" class="campaign-stage planned"><span class="campaign-stage-number">05</span><div><strong>TITAN PROTOCOL</strong><small>15 waves · Edge warp · TITAN finale</small><p id="campaignStage5Result"></p></div><button id="campaignPlay5" type="button" disabled>Play Stage 05</button></article></div><h3 class="campaign-section-title rupture-title">CAMPAIGN 02 · RUPTURE</h3><p id="campaignCompletion2" class="campaign-map-intro"></p><p class="campaign-map-intro">Five stages: split formations, armored convoys, Prism, energy management and the Rift finale.</p><div class="campaign-route"><article id="campaignStage6" class="campaign-stage planned"><span class="campaign-stage-number">06</span><div><strong>FRACTURE RELAY</strong><small>12 waves · Turbo hairpins · Elite assault</small><p id="campaignStage6Result"></p></div><button id="campaignPlay6" type="button" disabled>Play Stage 06</button></article><article id="campaignStage7" class="campaign-stage planned"><span class="campaign-stage-number">07</span><div><strong>COPPER MARCH</strong><small>14 waves · First black hole · Anvil</small><p id="campaignStage7Result"></p></div><button id="campaignPlay7" type="button" disabled>Play Stage 07</button></article><article id="campaignStage8" class="campaign-stage planned"><span class="campaign-stage-number">08</span><div><strong>PRISM CONVERGENCE</strong><small>14 waves · Twin warps · Prism boss</small><p id="campaignStage8Result"></p></div><button id="campaignPlay8" type="button" disabled>Play Stage 08</button></article><article id="campaignStage9" class="campaign-stage planned"><span class="campaign-stage-number">09</span><div><strong>ENERGY DIVIDE</strong><small>15 waves · Twin black holes · Elite assault</small><p id="campaignStage9Result"></p></div><button id="campaignPlay9" type="button" disabled>Play Stage 09</button></article><article id="campaignStage10" class="campaign-stage planned"><span class="campaign-stage-number">10</span><div><strong>RIFT HEART</strong><small>16 waves · Warps + black holes · Rift finale</small><p id="campaignStage10Result"></p></div><button id="campaignPlay10" type="button" disabled>Play Stage 10</button></article></div><button id="campaignClassic" type="button">Play the original 20-wave Challenge</button><p class="campaign-map-foot">Rupture is open: play Stages 06–10 freely. Each stage has its own score. Secure all five to complete Campaign 02.<br>Campaign technologies and stage results stay on this device.</p></div>';
  document.body.append(map);$('campaignPlay8').onclick=()=>startCampaignStage(8);$('campaignPlay9').onclick=()=>startCampaignStage(9);$('campaignPlay10').onclick=()=>startCampaignStage(10);$('campaignPlay7').onclick=()=>startCampaignStage(7);$('campaignPlay6').onclick=()=>startCampaignStage(6);$('campaignPlay5').onclick=()=>startCampaignStage(5);$('campaignPlay4').onclick=()=>startCampaignStage(4);$('campaignPlay3').onclick=()=>startCampaignStage(3);$('campaignPlay2').onclick=()=>startCampaignStage(2);$('campaignOpen').onclick=openCampaignMap;$('campaignRestart').onclick=$('campaignPlay').onclick=startStageOne;$('classicChallenge').onclick=$('campaignClassic').onclick=startClassicChallenge;$('campaignClose').onclick=closeCampaignMap;
  $('campaignDifficulty').value=$('level').value;$('campaignDifficulty').onchange=()=>{$('level').value=$('campaignDifficulty').value;if(titanBossTest)prepareTitanTest();else if(isStageCampaign())startCampaignStage(activeStage());else{clearEnd();build()}};
  document.addEventListener('keydown',e=>{if(map.hidden)return;
@@ -3001,11 +3093,11 @@ function mountTitanControls(){
 }
 document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(mountTitanControls),{once:true});
 
-function waveKind(i,w){if(isStageCampaign())return stageOneSequence(w)[i]??0;if(w===1)return i%4===3?1:0;if(w===2)return i%5===4?1:0;if(w===3)return i%11===10?2:i%3===2?1:0;if(w===4)return i===4||i===9||i===14?2:(i===2||i===5||i===7||i===11||i===13)?1:0;if(w===5)return [5,10,15].includes(i)?2:[1,3,6,8,11,13,14].includes(i)?1:0;if(w===6||w===8)return i%7===0?2:i%4===0?0:1;if(w===7||w===9)return i%3===0?2:i%3===1?1:0;if(w===10)return i%4===0?2:i%4===1?1:0;return (i*7+w*3)%10 < Math.min(6,2+w)?2:(i+w)%2}
+function waveKind(i,w){if(isFreePlay())return freeEnemyType(i);if(isStageCampaign())return stageOneSequence(w)[i]??0;if(w===1)return i%4===3?1:0;if(w===2)return i%5===4?1:0;if(w===3)return i%11===10?2:i%3===2?1:0;if(w===4)return i===4||i===9||i===14?2:(i===2||i===5||i===7||i===11||i===13)?1:0;if(w===5)return [5,10,15].includes(i)?2:[1,3,6,8,11,13,14].includes(i)?1:0;if(w===6||w===8)return i%7===0?2:i%4===0?0:1;if(w===7||w===9)return i%3===0?2:i%3===1?1:0;if(w===10)return i%4===0?2:i%4===1?1:0;return (i*7+w*3)%10 < Math.min(6,2+w)?2:(i+w)%2}
 
 let CAMPAIGN_WAVES=playMode==='campaign'?8:20; // Campagne complète pour tester toutes les technologies
-function waveComposition(w){if(isStageCampaign()){const counts=[...campaignWaveSpecs()[Math.max(0,Math.min(campaignWaveSpecs().length-1,w-1))].counts];return {total:counts.reduce((a,b)=>a+b,0),counts}}let total=w===1?12:w===2?16:w===3?22:w===4?15:w===5?16:Math.min(46,16+(w-5)*2+(w>=11?Math.floor((w-10)*.9):0)),counts=[0,0,0];for(let i=0;i<total;i++)counts[waveKind(i,w)]++;return {total,counts}}
-function waveTheme(w){if(isStageCampaign())return campaignWaveSpecs()[Math.max(0,Math.min(campaignWaveSpecs().length-1,w-1))].name;if(w===20)return 'TITAN · Final boss';return w<=2?'Introduction':w===3?'⚡ Fast Trions · 🛡 Reinforced Hexions':w===4?'Reinforced armor':w===5?'Mixed formation':w===6?'⚡ Fast, freeze-resistant enemies':w===7?'🛡️ Heavy-armored Hexions':w===8?'🌪️ Accelerated swarm':w===9?'⚔️ Specialized mixed formation':w===10?'Elite I':w<=14?'Armored reinforcements':w<=18?'Mixed assaults':'👑 Final elite assault'}
+function waveComposition(w){if(isFreePlay()){const counts=[0,0,0];for(let i=0;i<freeMap().count;i++)counts[freeEnemyType(i)]++;return {total:freeMap().count,counts}}if(isStageCampaign()){const counts=[...campaignWaveSpecs()[Math.max(0,Math.min(campaignWaveSpecs().length-1,w-1))].counts];return {total:counts.reduce((a,b)=>a+b,0),counts}}let total=w===1?12:w===2?16:w===3?22:w===4?15:w===5?16:Math.min(46,16+(w-5)*2+(w>=11?Math.floor((w-10)*.9):0)),counts=[0,0,0];for(let i=0;i<total;i++)counts[waveKind(i,w)]++;return {total,counts}}
+function waveTheme(w){if(isFreePlay())return freeMap().name+' · Continuous stream';if(isStageCampaign())return campaignWaveSpecs()[Math.max(0,Math.min(campaignWaveSpecs().length-1,w-1))].name;if(w===20)return 'TITAN · Final boss';return w<=2?'Introduction':w===3?'⚡ Fast Trions · 🛡 Reinforced Hexions':w===4?'Reinforced armor':w===5?'Mixed formation':w===6?'⚡ Fast, freeze-resistant enemies':w===7?'🛡️ Heavy-armored Hexions':w===8?'🌪️ Accelerated swarm':w===9?'⚔️ Specialized mixed formation':w===10?'Elite I':w<=14?'Armored reinforcements':w<=18?'Mixed assaults':'👑 Final elite assault'}
 function tacticalTrait(w,i,type){
  if(w===3)return type===1&&i%3===2?'sprinter':type===2?'bulwark':'normal';
  if(w<6)return 'normal';
@@ -3018,6 +3110,7 @@ function tacticalTrait(w,i,type){
 function updateCampaignHUD(){let n=Math.min(waveNumber,CAMPAIGN_WAVES),comp=waveComposition(n);$('campaignStage').textContent=`🌊 Wave ${n} / ${CAMPAIGN_WAVES}`;$('campaignBar').style.width=`${Math.min(100,((waveNumber-1)+(playing?Math.min(1,waveSpawned/Math.max(1,waveTotal)):0))/CAMPAIGN_WAVES*100)}%`;$('campaignEnemies').textContent=`${waveTheme(n)} · ${comp.counts[0]} Orbs · ${comp.counts[1]} Trions · ${comp.counts[2]} Hexions`;}
 function endCampaign(won){
  if(typeof titanBossTest!=='undefined'&&titanBossTest){endTitanTest(won);return}
+ if(typeof playMode!=='undefined'&&isFreePlay()){endFreePlay(won);return}
  if(typeof playMode!=='undefined'&&isStageCampaign()){endStageOne(won);return}
  window.arcAudio?.mode(won?'victory':'defeat');
  const current={won,wave:Math.min(waveNumber,CAMPAIGN_WAVES),lives,kills,energy,level:$('level').value};
@@ -3046,11 +3139,11 @@ const waveBanner=document.createElement('div');waveBanner.id='waveCountdownBanne
 document.querySelector('.battle-frame').appendChild(waveBanner);
 const pathRevealBanner=document.createElement('div');pathRevealBanner.id='pathRevealBanner';pathRevealBanner.textContent='REVEALING THE PATH';document.querySelector('.battle-frame').appendChild(pathRevealBanner);
 let waveBannerExitTimer=null;
-function renderWaveCountdown(){const active=autoWaveCountdown>=0&&!playing&&lives>0&&waveNumber<=CAMPAIGN_WAVES;
+function renderWaveCountdown(){waveBanner.querySelector('.wave-main').textContent=isFreePlay()?'STREAM INCOMING':'NEXT WAVE';const active=autoWaveCountdown>=0&&!playing&&lives>0&&waveNumber<=CAMPAIGN_WAVES;
  if(active){if(waveBannerExitTimer){clearTimeout(waveBannerExitTimer);waveBannerExitTimer=null}waveBanner.classList.remove('exiting');waveBanner.classList.add('visible');const sec=Math.max(1,Math.ceil(autoWaveCountdown));if(sec!==autoWaveLastShown){if(autoWaveLastShown===-1)window.arcAudio?.mode('alert');waveBanner.querySelector('.wave-number').textContent=String(waveNumber).padStart(2,'0');waveBanner.querySelector('.wave-sec').textContent=`IN ${sec} S`;autoWaveLastShown=sec}waveBanner.classList.toggle('is-paused',paused);}
  else if(waveBanner.classList.contains('visible')){waveBanner.classList.remove('visible');waveBanner.classList.add('exiting');waveBannerExitTimer=setTimeout(()=>{waveBanner.classList.remove('exiting');waveBannerExitTimer=null},300)}
 }
-function launchWave(isAuto=false){eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];hookPreviewCache.clear();elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
+function launchWave(isAuto=false){eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=!isFreePlay()&&(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];hookPreviewCache.clear();elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isFreePlay()?freeMap().count:isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isFreePlay()?freeMap().gap:isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
 let arcFrameStamp=0;
 function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrameStamp&&ts-arcFrameStamp<31){if(!window.__arcLabManual)requestAnimationFrame(animate);return}arcFrameStamp=ts;if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
  // Phase 1: announce the discovery before illuminating a single section of the path.
@@ -3059,10 +3152,10 @@ function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrame
  }
  if(revealSweepStart>0){
  // Phase 2: only after the banner disappears, sweep the route once.
- if(ts-revealSweepStart>=900){revealSweepStart=0;last=ts;dt=0}
+ if(ts-revealSweepStart>=900){if(isFreePlay()){freePathRevealed=true;for(const pad of boostPads)pad.discovered=true}revealSweepStart=0;last=ts;dt=0}
  else {draw();if(!window.__arcLabManual)requestAnimationFrame(animate);return}
  }
- if(playing&&!paused){dt*=+$('speed').value;elapsed+=dt;stepTitanEncounter(dt);spawn+=dt;if(waveSpawned<waveTotal&&spawn>=waveDelay){spawn-=waveDelay;if(isStageCampaign()){monsters.push(createStageOneEnemy(waveNumber,waveSpawned));waveSpawned++;waveDelay=nextCampaignSpawnDelay(waveNumber,waveSpawned)}else{let type=waveKind(waveSpawned,waveNumber),profile=enemyProfiles[type],scale=1+(waveNumber-1)*.22;
+ if(playing&&!paused){dt*=+$('speed').value;elapsed+=dt;stepTitanEncounter(dt);spawn+=dt;if(isFreePlay()){let emitted=0;while(waveSpawned<waveTotal&&spawn+1e-9>=waveDelay&&emitted++<12){spawn-=waveDelay;const arrival=createFreeEnemy(waveSpawned);arrival.spawnAge=spawn;monsters.push(arrival);waveSpawned++}if(emitted>0)refreshFreeStreamHUD()}if(!isFreePlay()&&waveSpawned<waveTotal&&spawn>=waveDelay){spawn-=waveDelay;if(isStageCampaign()){monsters.push(createStageOneEnemy(waveNumber,waveSpawned));waveSpawned++;waveDelay=nextCampaignSpawnDelay(waveNumber,waveSpawned)}else{let type=waveKind(waveSpawned,waveNumber),profile=enemyProfiles[type],scale=1+(waveNumber-1)*.22;
 // Wave d'beginner : trois Orbs lents, une seule plaque bleue active chacun.
 // Leur géométrie reste identique ; les autres plaques sont déjà absentes.
 let beginner=waveNumber===1;
@@ -3096,9 +3189,10 @@ for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,
  if(m.grapple){m.grapple.age+=dt;const a=m.grapple;if(a.age>=a.travel+a.hold+a.returnTime)releaseGrapple(m);}
 
  m.boostLeft=Math.max(0,(m.boostLeft||0)-dt);
- const cadence92=m.type===0?1+0.035*Math.sin(m.behaviorClock92*2.4+m.id*.7):m.type===1?1+0.055*Math.sin(m.behaviorClock92*3.1+m.id*.43):1+0.018*Math.sin(m.behaviorClock92*1.5+m.id);
+ const cadence92=isFreePlay()?1:m.type===0?1+0.035*Math.sin(m.behaviorClock92*2.4+m.id*.7):m.type===1?1+0.055*Math.sin(m.behaviorClock92*3.1+m.id*.43):1+0.018*Math.sin(m.behaviorClock92*1.5+m.id);
  const pushed=advancePusherMotion(m,dt);
- m.progress+=((m.grapple||m.hook||pushed)?0:dt*C*(m.moveSpeed??1.55)*cadence92*(freezeFactors.get(m.id)??1)*(m.boostLeft>0?BOOST_MULT:1));
+ const movementDt=m.spawnAge===undefined?dt:Math.min(dt,m.spawnAge);delete m.spawnAge;
+ m.progress+=((m.grapple||m.hook||pushed)?0:movementDt*C*(m.moveSpeed??1.55)*cadence92*(freezeFactors.get(m.id)??1)*(m.boostLeft>0?BOOST_MULT:1));
  // Count each crossing once per monster, including accelerated movement.
  // The high-water mark prevents Repulsor backtracking from granting duplicate exploration.
  if(traceVisits.length){
@@ -3110,7 +3204,7 @@ for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,
   }
   m.lastTraceSection=Math.max(previousSection,last);
  }
- for(const pair of jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}if(!m.boss)for(const pad of boostPads){if(oldProgress<pad.d&&m.progress>=pad.d&&!m.boostLeft){window.arcAudio?.effect('boost');m.boostLeft=BOOST_DURATION;pad.discovered=true;pad.flash=performance.now();break}}
+ for(const pair of jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}if(!m.boss)for(const pad of boostPads){if(oldProgress<pad.d&&m.progress>=pad.d&&!m.boostLeft){window.arcAudio?.effect('boost');m.boostLeft=pad.duration||BOOST_DURATION;pad.discovered=true;pad.flash=performance.now();break}}
 const spinRhythm92=m.type===0?1+0.13*Math.sin(m.behaviorClock92*2+m.id):m.type===1?1+0.23*Math.sin(m.behaviorClock92*3.5+m.id*.6):1+0.07*Math.sin(m.behaviorClock92*1.4+m.id);m.spin+=dt*(m.spinSpeed??1.4)*spinRhythm92;}// Exit crossings are final: remove them before towers can shoot or capture them.
 if(resolveEscapes()&&lives<=0){
  playing=false;endCampaign(false);$('waveReport').textContent=`Core destroyed on wave ${waveNumber}.`;
@@ -3213,6 +3307,7 @@ portraitBoard.addEventListener('click',e=>{
  updateUpgrade();draw();
 })// Les commandes de fin de campagne doivent rester dans la portée du moteur.
 $('endRestart').addEventListener('click',()=>{
+  if(isFreePlay()){startFreeMap(freeMapNumber);return}
   if(isStageCampaign()){startCampaignStage(activeStage());return}
   if(titanBossTest){prepareTitanTest();return}
   clearEnd();
@@ -3220,6 +3315,7 @@ $('endRestart').addEventListener('click',()=>{
   $('waveReport').textContent='📊 New game on the same map: towers, energy, score, lives and waves reset.';
 });
 $('endNew').addEventListener('click',()=>{
+  if(isFreePlay()){clearEnd();openCampaignMap();openFreeMaps();return}
   if(isStageCampaign()){if(lives>0&&waveNumber>CAMPAIGN_WAVES&&canPlayStage(activeStage()+1)){startCampaignStage(activeStage()+1);return}clearEnd();openCampaignMap();return}
   if(titanBossTest){returnFromTitanTest();return}
   clearEnd();
@@ -3701,7 +3797,7 @@ main>.key,main>#arc10Stats{display:none!important}
 (()=>{
  const hud=document.querySelector('main>.campaign-hud');if(!hud)return;
  const top=document.createElement('div');top.className='arc76-wave-top';
- const name=document.createElement('div');name.className='arc76-wave-name';name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':'CHALLENGE';
+ const name=document.createElement('div');name.className='arc76-wave-name';name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
  const detail=document.createElement('div');detail.className='arc76-wave-detail';detail.textContent='NEXT WAVE';
  top.append(name,detail);
  const description=document.createElement('div');description.className='arc76-wave-description';
@@ -3713,10 +3809,10 @@ main>.key,main>#arc10Stats{display:none!important}
  function refresh(){
   const waveText=campaignStage?.textContent||'Wave 1 / 20';
   const nums=waveText.match(/(\d+)\s*\/\s*(\d+)/);const w=nums?nums[1]:'1',total=nums?nums[2]:'20';
-  name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':'CHALLENGE';
+  name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
   name.title=`${name.textContent} · Wave ${String(w).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
   const countdown=document.getElementById('waveCountdownBanner');const inProgress=(document.getElementById('wave')?.textContent||'').includes('Wave');
-  detail.textContent=inProgress?'IN PROGRESS':countdown?.classList.contains('visible')?'STARTING SOON':'NEXT WAVE';
+  detail.textContent=document.body.dataset.gameMode==='free'?'CONTINUOUS STREAM':inProgress?'IN PROGRESS':countdown?.classList.contains('visible')?'STARTING SOON':'NEXT WAVE';
   description.textContent=enemies?.textContent||'Prepare your defenses for the next wave';
   for(const [label,id] of data){const el=document.getElementById(id);values[id].textContent=(el?.textContent||'0').trim()+(id==='discoveryPercent'&&!el?.textContent?.includes('%')?'%':'')}
  }
@@ -4588,7 +4684,10 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
  #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower="elinkMode"],#arc80Stage.arc917-layout #towerDock.elink-pending #eLinkCancel{grid-row:1/3!important;height:91px!important;min-height:91px!important}
 }
 </style>
-</body></html>
+<style>.free-choice{border-color:#62ead0!important;background:linear-gradient(120deg,#123b3b,#172141 65%,#39264a)!important}.free-infinity{font:500 80px system-ui;color:#7fffe1;line-height:1;text-shadow:0 0 30px #47f3b777}.free-choice .campaign-kicker{color:#a1ffe6}.free-manifesto{border-left:3px solid #78ffe0;padding:6px 18px;margin:18px 0 24px}.free-manifesto>span{font:700 11px system-ui;letter-spacing:.13em;color:#8affe2}.free-manifesto p{color:#b5cddc;margin:9px 0 0;line-height:1.6}.free-map-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.free-map-card{display:grid;grid-template-columns:108px 1fr;border:1px solid color-mix(in srgb,var(--circuit) 50%,#203044);border-radius:20px;overflow:hidden;background:linear-gradient(140deg,#11283b,#0a1123);min-width:0}.free-map-card:last-child{grid-column:1/-1}.free-art{position:relative;min-height:250px;background:radial-gradient(ellipse at center,color-mix(in srgb,var(--circuit) 12%,#081121),#050b15);border-right:1px solid #ffffff12;padding:30px 10px 15px}.free-art>span{position:absolute;top:12px;left:14px;font:800 12px system-ui;letter-spacing:.12em;color:var(--circuit)}.free-mini{width:100%;height:100%;max-height:235px;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--circuit) 40%,transparent))}.free-card-copy{padding:22px 18px;min-width:0}.free-card-copy>small{color:var(--circuit);font:700 10px system-ui;letter-spacing:.1em}.free-card-copy h3{font:750 23px system-ui;letter-spacing:-.03em;color:#edfbff;margin:8px 0 10px}.free-card-copy p{font:13px/1.55 system-ui;color:#b7c8db;margin:0 0 14px}.free-chips{display:flex;gap:5px;flex-wrap:wrap;margin:14px 0}.free-chips span{font:700 10px system-ui;padding:5px 7px;border:1px solid #ffffff1d;border-radius:7px;color:#d8eaf3}.free-card-copy p.free-record{font-size:11px;color:#81aaac}.free-card-copy button{width:100%;display:flex;justify-content:space-between;gap:8px;background:color-mix(in srgb,var(--circuit) 16%,#0e2233);color:#f0fffc;border:1px solid var(--circuit);border-radius:10px;padding:12px;font:700 12px system-ui;cursor:pointer}.free-card-copy button:hover{background:color-mix(in srgb,var(--circuit) 30%,#0e2233)}#freeMaps[hidden]{display:none!important}#freeRunLabel{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);padding:7px 12px;border:1px solid #84e7f14d;background:#071324df;border-radius:20px;color:#c6f8ff;font:700 10px system-ui;letter-spacing:.03em;white-space:nowrap;pointer-events:none;z-index:3}body[data-game-mode=free] .battle-frame{box-shadow:0 0 0 1px #74ffe7,0 0 35px #61cdea26!important}body[data-game-mode=free]{background:#070d1c!important}#freeOpen{border-color:#70f4d3!important;color:#a1ffe7!important}@media(max-width:760px){.free-map-grid{grid-template-columns:1fr}.free-map-card:last-child{grid-column:auto}.free-map-card{grid-template-columns:95px 1fr}.free-art{min-height:230px}.free-card-copy{padding:20px 16px}.free-card-copy h3{font-size:23px}.free-infinity{font-size:55px}#freeRunLabel{font-size:9px;max-width:92%;overflow:hidden;text-overflow:ellipsis}}
+</style>
+<style>#campaignMap[data-campaign="free"]{background:radial-gradient(ellipse at 50% 10%,#173a48ed,#050b19fa 80%)!important}#campaignMap[data-campaign="free"] .campaign-map-panel{width:min(1000px,94vw)!important;max-width:1000px!important;background:linear-gradient(145deg,#112d3ff7,#0c1327fa)!important;border-color:#4d9aab!important}#campaignMap[data-campaign="free"] .campaign-map-head{color:#8cf6e0}@media(max-width:760px){#campaignMap[data-campaign="free"] .campaign-map-panel{width:94vw!important;padding:20px!important}.free-card-copy button{min-height:44px}}</style></body></html>
+
 
 
 

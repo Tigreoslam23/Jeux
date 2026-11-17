@@ -1,8 +1,79 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.45**.
+Standalone HTML/JavaScript tower defense. Current version: **9.50**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Free Play — Take the wild route (9.50)
+
+The campaign picker now includes five freely accessible exotic circuits, with
+portrait SVG route previews, their own colors, all ten technologies available,
+and independent device records. Each circuit has one continuous stream instead
+of small grouped waves. The initial path sweep permanently lights the whole
+route, direction markers, start/finish strips and every turbo pad. A faint route
+preview is available during construction.
+
+| Circuit | Enemies | Regular spawn interval | Start budget | Boosts | Transfers |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Neon Grand Prix | 320 Orbs | 0.42 s | 1800 | 10 | None |
+| Ribbon Riot | 420 Trions | 0.38 s | 2000 | 5 | None |
+| Warp Boulevard | 480 Orbs | 0.34 s | 2200 | 6 | Two opposite-edge warps |
+| Event Horizon | 540 Hexions | 0.42 s | 2400 | 5 | Three black-hole pairs |
+| Hyperdrive | 800, blocks of 80 per type | 0.25 s | 2800 | 12 | Two warps and two black-hole pairs |
+
+The wall-hugging Grand Prix folds into inner chicanes; Ribbon Riot uses repeated
+hairpins; Warp Boulevard crosses the arena frame twice; Event Horizon links four
+rounded circuits through gravitational wells; Hyperdrive combines border runs,
+overlapping loops, boosts and four transfers. Every physical segment is sampled
+at <=9 pixels and real teleport discontinuities use a 0.01 route-distance step,
+so reservation, collision, E-Link and Hook never connect teleport endpoints.
+
+Free Play preserves ordinary tower prices, upgrades, the 20-life core, armor and
+combat rules. Enemy speed has no cadence jitter, and subframe spawn age preserves
+regular spacing at accelerated game speed. Enemy release, pause, live counters,
+retries and end dialogs use the existing loop; no Titan is queued for a circuit.
+Rewards are 3 energy per enemy. Free Play turbo lasts 0.8 s at the existing 2.5x
+boost factor. Records use separate arc_free_v1_<id> keys and do not grant campaign
+stars or overwrite technology unlocks. All five circuits are always open.
+
+## More winding campaign terrain
+
+All ten campaign routes now use authored rounded turns, including border runs
+and hairpins. Existing authored enemy waves, boss HP, stage budgets and saves
+remain. Terrain mechanics are introduced progressively:
+
+| Stage | Boost pads | Portal terrain |
+| --- | ---: | --- |
+| 01–02 | 0 | None |
+| 03 | 1 | None |
+| 04 | 2 | None |
+| 05 | 2 | One opposite-edge warp |
+| 06 | 3 | None; hairpins |
+| 07 | 3 | One black-hole pair |
+| 08 | 4 | Two opposite-edge warps |
+| 09 | 4 | Two black-hole pairs |
+| 10 | 5 | Two warps and two black-hole pairs |
+
+Campaign boosts last 1.1 s, use the existing speed factor and are spaced away
+from portal mouths. Bosses keep their existing immunity to boost pads. Campaign
+path discovery remains the normal exploration mechanic; only Free Play keeps
+the full revealed route visible.
+
+Validation: ten Free Play integration checks cover real build geometry,
+construction space, exact advertised quantities, spawn schedules and physical
+spacing at 1x/4x, pause, permanent revelation, separate saves, five complete stream
+lifecycles, and progressive campaign terrain. Existing 22 Hook checks, 19
+Repulsor checks, 94 engine regressions and campaign picker checks pass.
+The Free Play picker, Grand Prix, Warp Boulevard, Event Horizon and Hyperdrive
+were inspected in the running browser.
+
+```sh
+node arc-defense/tests/free-play.cjs
+node arc-defense/tests/hook.cjs
+node arc-defense/tests/pusher.cjs
+node arc-defense/tests/engine-regressions.cjs
+node arc-defense/tests/campaign-picker.cjs
+```
 
 ## Hook replaces Echo (9.45)
 

@@ -29,7 +29,7 @@ function fixture(progress){
  }
  panel.append(node('button','campaignClassic'),node('p','','campaign-map-foot'));
  const frames=[],$=id=>document.getElementById(id);
- const prelude="const $=id=>document.getElementById(id);let playing=false,paused=false,campaignMenuWasPaused=false;function activeStage(){return 1}\n";
+ const prelude="const $=id=>document.getElementById(id);let playing=false,paused=false,campaignMenuWasPaused=false;function activeStage(){return 1}function mountFreePlayPicker(){}\n";
  const tail="\nreturn {mountCampaignPicker,showCampaignPicker,showCampaignStages,campaignOverviewData,openCampaignMap,closeCampaignMap,visibleCampaignButtons,setPlaying(v,p=false){playing=v;paused=p},state:()=>({playing,paused})};";
  const api=new Function('document','campaignProgress','requestAnimationFrame','window',prelude+gate+'\n'+budget+'\n'+helpers+'\n'+openCode+tail)(document,progress,fn=>frames.push(fn),{arcAudio:{pause(){}}});
  return {document,$,api,refs,flush(){while(frames.length)frames.shift()()}};
@@ -58,3 +58,4 @@ for(let n=6;n<=10;n++){progress.cleared[n]=true;progress.best[n]={stars:2}}
 d=f.api.campaignOverviewData(2);assert.equal(d.stars,10);assert.equal(d.cleared,5);assert.equal(d.next,6);assert.match(d.objective,/Improve: Stage 06/);assert.equal(f.api.campaignOverviewData(1).stars,15);
 assert(source.includes("const buttons=visibleCampaignButtons(map)"));assert(source.includes("map.dataset.campaign!=='overview')showCampaignPicker();else closeCampaignMap()"));
 console.log('PASS campaign picker: two cards, five stages each, separate stars/objectives, stage access, hidden focus filtering, preserved listeners/scores, pause/resume and completion');
+

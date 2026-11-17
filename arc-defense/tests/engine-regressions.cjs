@@ -23,7 +23,7 @@ function extract(name){
 }
 function context(){
  const ctx=vm.createContext({C:1,monsters:[],boomShots:[],particles:[],way:[{dist:100}],lives:20,escaped:0,updates:0,hits:[],window:{arcAudio:{effect(){}}}});
- ctx.update=()=>ctx.updates++;ctx.isStageCampaign=()=>false;
+ ctx.isFreePlay=()=>false;ctx.update=()=>ctx.updates++;ctx.isStageCampaign=()=>false;
  ctx.monsterPosition=m=>({x:m.x,y:m.y,hidden:m.hidden});
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
  ctx.enemyGeometry=()=>[];
@@ -435,4 +435,5 @@ test('Prism reverses rotation at half health without healing or restoring stripp
 test('Rift has its own health profile and 8+6 escorts while Titan remains reduced by 20 percent',()=>{const {c}=campaignContext();c.campaignStageNumber=10;for(const level of [1,2,3]){c.level=level;const m=c.createTitan();assert.equal(m.stageBoss,'rift');assert.equal(m.hp,600*(level===1?.82:level===3?1.18:1));assert.equal(m.moveSpeed,.68)}c.level=2;c.spawnTitan();assert.equal(c.titanEscortQueue.length,8);const m=c.monsters.find(m=>m.boss);m.hp=300;assert(c.updateTitanPhase(m));assert.equal(m.hp,300);assert.equal(m.moveSpeed,.92);assert.equal(c.titanEscortQueue.length,14);assert(!c.updateTitanPhase(m));c.advanceTitanEscorts(8);assert.equal(c.monsters.filter(m=>m.titanEscort).length,14);assert.equal(c.waveSpawned,c.waveTotal);c.campaignStageNumber=5;assert.equal(c.createTitan().hp,560);c.playMode='challenge';assert.equal(c.createTitan().hp,272)});
 test('New Rupture records reload independently without fabricating prior wins',()=>{const {c}=campaignContext();for(const n of [8,9,10]){c.campaignStageNumber=n;c.recordStageOneVictory()}const p=c.readCampaignProgress();for(const n of [8,9,10]){assert(p.cleared[String(n)]);assert(p.best[String(n)])}assert(!p.cleared['5']);assert(!p.cleared['6']);});
 console.log(count+' regression checks passed');
+
 
