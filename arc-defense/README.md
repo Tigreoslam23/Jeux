@@ -1,9 +1,40 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.41**.
+Standalone HTML/JavaScript tower defense. Current version: **9.42**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+
+## Repulsor — five-target pressure waves (9.42)
+
+Repulsor now emits three expanding white pressure fronts instead of a guided
+projectile. Each activation reserves **up to five eligible enemies** in range,
+using First/Near/Strong priority. The leading front pushes each reserved target
+once when it reaches it; trailing fronts are visual echoes. A sixth enemy is
+not substituted if a reserved enemy dies, escapes, becomes protected or leaves
+the wave radius. Two Repulsors reserve separate groups.
+
+Recoil distance is **twice the 9.40/9.41 distance at every level**:
+
+| Level | Targets | Recoil in normal walking seconds | Recharge |
+| --- | ---: | ---: | ---: |
+| 1 | Up to 5 | 4 | 16 s |
+| 2 | Up to 5 | 4.5 | 15 s |
+| 3 | Up to 5 | 5 | 14 s |
+| 4 | Up to 5 | 5.5 | 13 s |
+| 5 | Up to 5 | 6 | 12 s |
+
+The longer recoil lasts 0.75 simulation seconds and has a brighter path trail
+and backward chevrons. Three concentric fronts remain visible for 1.35 s.
+Bosses retain 30% recoil strength and an eight-second repeat guard; ordinary
+enemies have a six-second guard after recoil. Cost remains 180 energy and the
+construction cap remains two. Enemies remain damageable while rewinding.
+Wave and recoil timers obey pause and game speed, with level snapshots at launch.
+
+Seventeen real-Node Repulsor wave checks, 19 Maw checks, 94 engine regressions
+and campaign navigation checks pass. The white wave fronts were also inspected
+in the running desktop browser. Phone-specific visual verification was not run.
+Historical single-target values below describe versions 9.40/9.41.
 
 ## Repulsor name (9.41)
 
