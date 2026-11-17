@@ -1,11 +1,49 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.44**.
+Standalone HTML/JavaScript tower defense. Current version: **9.45**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+## Hook replaces Echo (9.45)
 
-## Echo replaces Maw (9.44)
+Hook costs **220 energy** and captures one enemy with a retractable copper arm.
+It pivots exactly **180 degrees in three seconds**, retracting then extending,
+and releases the enemy on an earlier, opposite portion of the actual route.
+A valid upstream landing point is required before capture; tunnels, portal
+crossings and downstream landings are excluded. The placement/selection guide
+shows a possible transfer. Positioning between two portions of path is essential.
+
+The captive is protected from every other tower, including shots already in
+flight. Hook alone removes a percentage of maximum HP each second. Damage,
+destination and recovery are snapshotted when capture starts.
+
+| Level | Capture range, cells | Return reach, cells | HP loss/s | Three-second loss | Recovery after release |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 1 | 2.6 | 3.0 | 10% | 30% | 8 s |
+| 2 | 2.9 | 3.4 | 11% | 33% | 7.5 s |
+| 3 | 3.2 | 3.8 | 12% | 36% | 7 s |
+| 4 | 3.5 | 4.2 | 13% | 39% | 6.5 s |
+| 5 | 3.8 | 4.6 | 14% | 42% | 6 s |
+
+Upgrade base prices remain 120/170/235/310. Range specialization extends both
+reaches by 22%; Reset shortens recovery by 18%. Bosses use the same HP percentage,
+with an eight-second recapture guard; ordinary enemies have a four-second guard.
+Selling cancels a transfer at its original route position, retaining only damage
+already dealt. Pause, speed, kills and rewards follow the normal game loop.
+The internal technology alias `maw` preserves saved unlocks. No Hook build cap.
+Repulsor, authored waves, campaign results and existing technology saves are retained.
+
+Verification: 22 Hook checks, 19 Repulsor checks, 94 engine regressions and campaign
+picker checks. Legacy Echo/Maw test commands forward to Hook.
+
+```sh
+node arc-defense/tests/hook.cjs
+node arc-defense/tests/pusher.cjs
+node arc-defense/tests/engine-regressions.cjs
+node arc-defense/tests/campaign-picker.cjs
+```
+
+## Historical: Echo replaces Maw (9.44)
 
 Echo replaces the digestion tower in the existing ninth dock slot for **220
 energy**. The internal type/unlock `maw` is retained to preserve old campaign
