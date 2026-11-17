@@ -1,9 +1,29 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.42**.
+Standalone HTML/JavaScript tower defense. Current version: **9.43**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
 
+
+## Repulsor — Wi-Fi arcs and five-second recharge (9.43)
+
+Repulsor now has a **five-second recharge at every level**, including Force
+specialization. Its existing five-target capacity, doubled recoil distances,
+price, two-tower construction cap, target priority and repeat guards remain.
+
+Three open white arcs replace the full circular pressure fronts. The emitter
+icon also uses a Wi-Fi silhouette and turns toward the primary target. Nearby
+target bearings share an arc fan; groups in different directions get separate
+fans so all five reserved targets stay visually covered without narrowing the
+existing targeting behavior. Each fan spans 120 degrees. Recoil trails keep
+their backward chevrons and no longer draw an enclosing target ring.
+
+Nineteen Repulsor checks now verify the uniform five-second recharge, open
+arc geometry, all five targets, and the existing recoil/cancellation rules.
+All 94 engine regressions, 19 Maw checks and campaign navigation checks pass.
+The new arcs and five-second displayed recharge were inspected in the desktop
+browser. Maw remains available while a replacement concept is being discussed.
+Historical values below describe their named versions.
 
 ## Repulsor — five-target pressure waves (9.42)
 
