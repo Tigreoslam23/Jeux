@@ -1,8 +1,45 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.50**.
+Standalone HTML/JavaScript tower defense. Current version: **9.51**.
 
 Play: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Free Play Volume 02 — Loop Worlds (9.51)
+
+Five additional open circuits extend Free Play to ten maps. The first five
+circuits, campaign terrain, tower balance, authored waves and save keys are
+preserved. All ten map buttons, records, identifiers and menu counts now work.
+Volume 02 is grouped below the original five with portrait previews.
+
+| ID | Circuit | Geometry | Enemies | Boosts | Budget |
+| --- | --- | --- | ---: | ---: | ---: |
+| 06 | Solar Coil | Two golden spirals linked by a black-hole pair | 600 Orbs | 8 | 2500 |
+| 07 | Infinity Rush | A large figure eight traversed for three lobes | 720 Trions | 9 | 2700 |
+| 08 | Prism Blossom | Four rose-curve petals, black hole, outer border lap | 840 mixed | 10 | 2900 |
+| 09 | Orbital Cascade | Four complete elliptical orbits, three black-hole pairs | 900 Hexions | 10 | 3100 |
+| 10 | Aurora Corkscrew | Five continuous rolling loops | 1000 mixed | 14 | 3400 |
+
+New paths use parametric spirals, a Gerono figure eight, a four-petal rose,
+ellipses and a drifting trochoid. Physical samples remain <=9 pixels apart.
+Dense, already smooth samples bypass redundant corner rounding; sparse corners
+still use the original rounding pipeline. Build reservation and combat use the
+same sampled route, including its real teleport discontinuities. Intersections
+do not change an enemy's assigned progress.
+
+Each new map has bespoke decorative effects: rotating solar corona arcs,
+twin reactor halos, a rotating petal core, orbital satellites, or translucent
+aurora ribbons. Two light packets in Eco / four otherwise follow the route
+without drawing through portals. These effects use elapsed simulation time,
+obey pause and speed, remain bounded in count and never modify combat state.
+The full circuit stays visible after its initial reveal as in other Free Play
+maps. Prices and boost multipliers retain their existing rules.
+
+Validation: 13 Free Play checks now exercise all ten circuit builds and complete
+spawn/end/save lifecycles, actual construction space, advertised boost counts,
+continuous turning, valid menu identifiers, nonmutating effects, pause and
+regular spawning at 1x/4x. The existing 22 Hook, 19 Repulsor, 94 engine regression
+and campaign picker checks also pass. Solar Coil, Prism Blossom and Aurora
+Corkscrew were inspected in the browser.
 
 ## Free Play — Take the wild route (9.50)
 
