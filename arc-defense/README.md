@@ -1,8 +1,68 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.51**.
+Standalone HTML/JavaScript tower defense. Current version: **9.60.1**.
 
-Play: https://tigreoslam23.github.io/Jeux/arc-defense/
+Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Installable offline app, safe updates and progress transfer (9.60.1)
+
+The existing game URL now serves a PWA, with a scoped manifest, 192/512 PNG icons,
+a maskable icon and Apple home-screen metadata. The game remains available in
+the browser and all campaigns, circuits, balance and saved progress are retained.
+
+Use **Install / Updates** in the campaign menu or **App · Install, updates &
+backups** in Options. A supported browser installation prompt is used when
+available; otherwise the panel explains browser-menu installation and Safari's
+Share → Add to Home Screen flow. Installation remains a user action on their
+device. The browser QA did not install an OS app.
+
+The service worker downloads a complete release (HTML, two JavaScript modules,
+manifest and three icons) before confirming offline readiness. Navigation uses
+that consistent cached release, including game query parameters. Only this
+game's directory is controlled, and cleanup deletes only this game's old caches.
+Offline play requires the initial successful online download. Music is already
+synthesized locally by the game. Browser/OS storage eviction can require a fresh
+download; backup files are recommended for device transfers.
+
+Updated workers wait. New versions are checked on opening/returning online,
+returning to the app and every five minutes, or manually. The app offers Update
+now at the menu or queues an update after the run. Prepared defenses and
+between-wave countdowns count as active runs. Activation asks every open game
+window for permission; an active or unresponsive tab blocks it. Safe windows
+briefly lock new launches while activation completes. No active defense is
+automatically reloaded.
+
+**Release maintenance:** every code/content release must update the VERSION
+constant in sw.js (and keep the displayed pwa.js / HTML version consistent).
+The worker is registered with updateViaCache:none. A failed new download leaves
+the active cached version intact. Do not remove old-save keys during updates.
+
+Export progress downloads a schema-versioned JSON file containing completed
+campaign stages, unlocked technologies, ten circuit records, Challenge best
+result and supported audio/graphics/theme settings. Active runs are not saved.
+Import validates file size (512 KB), app/schema, an explicit key allowlist and
+value ranges, then shows a review before merging and reloading. Merging unions
+unlocks/clears and retains better existing scores. Storage write errors attempt
+rollback. Import is disabled during an active/prepared defense. Browser and
+installed-app storage can differ on iOS; export before switching and import in
+the installed app. No server account or automatic cross-device sync is added.
+
+Validation: 12 PWA checks cover progress round-trips, malicious/invalid input,
+merge rules, failed-write rollback, atomic offline downloads, offline navigation,
+worker scope, cache cleanup and coordinated update activation. Existing 13 Free
+Play, 22 Hook, 19 Repulsor, 94 engine and campaign picker checks pass. Browser QA
+confirmed offline readiness, a real cached-release update from 9.60 to 9.60.1,
+blocking with other tabs open, backup export/import review and successful merge
+with five stage clears and ten stars preserved.
+
+```sh
+node arc-defense/tests/pwa.cjs
+node arc-defense/tests/free-play.cjs
+node arc-defense/tests/hook.cjs
+node arc-defense/tests/pusher.cjs
+node arc-defense/tests/engine-regressions.cjs
+node arc-defense/tests/campaign-picker.cjs
+```
 
 ## Free Play Volume 02 — Loop Worlds (9.51)
 
