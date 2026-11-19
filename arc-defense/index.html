@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.60.1</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.61.1</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -847,7 +847,7 @@ body.stage-campaign #towerDock button.tech-locked::before{content:attr(data-unlo
 @media(max-width:420px){.campaign-map-panel{padding:15px}.campaign-map-intro{font-size:11px}.campaign-stage{gap:8px;padding:9px}.campaign-stage-number{width:29px;height:29px;font-size:11px}.campaign-stage strong{font-size:10px}.campaign-stage small{font-size:9px}.campaign-stage button{font-size:10px;padding:5px;max-width:80px}.campaign-map-panel h2{font-size:27px}}
 </style>
 <meta name="theme-color" content="#071020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ARC DEFENSE"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png"></head>
-<body><header><h1>ARC DEFENSE · VERSION 9.45</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Hook (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Hook</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Hook: grabs one enemy, pivots 180 degrees and returns it upstream, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="12" cy="28" r="6" fill="#302534" stroke="#ffb68b" stroke-width="2"/><path d="m12 28 9-17 9 3m0 0v10c0 7 10 7 10 0l-4 2" fill="none" stroke="#ffe0b0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15Q4 3 17 4" fill="none" stroke="#ffb68b" stroke-width="2" stroke-dasharray="2 3"/></svg></span><span>Hook</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · twin compression</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>🪝 Hook : 180° upstream transfer</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Blue armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Red arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar needs two enemies in range. It draws a violet infinity in 1 second, then compresses for 4 seconds at level 1, reduced by 25% per upgrade. Bound enemies keep moving and are protected from all other towers. Completion removes all armor and 25% of maximum HP. A missing partner, tunnel or tower sale cancels the effect without damage. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
+<body><header><h1>ARC DEFENSE · VERSION 9.45</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Hole (900 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Hole</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Hole: deposits an explosive mine that opens a lethal vortex, 900 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><path d="M5 32V13l12-6 8 12" fill="none" stroke="#ede7ff" stroke-width="3" stroke-linecap="round"/><circle cx="28" cy="25" r="11" fill="#080714" stroke="#c0a6ff" stroke-width="2"/><path d="M20 26q10-13 15 0q-4 9-12 2" fill="none" stroke="#ddcaff" stroke-width="2"/><circle cx="28" cy="25" r="3" fill="#ff608a"/></svg></span><span>Hole</span><span class="tower-price">900 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · twin compression</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Hole : explosive mine and lethal vortex</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Blue armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Red arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar needs two enemies in range. It draws a violet infinity in 1 second, then compresses for 4 seconds at level 1, reduced by 25% per upgrade. Bound enemies keep moving and are protected from all other towers. Completion removes all armor and 25% of maximum HP. A missing partner, tunnel or tower sale cancels the effect without damage. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
 <script>(()=>{'use strict';
 const cv=document.getElementById('board'),g=cv.getContext('2d'),$=id=>document.getElementById(id);
 const portraitBoard=document.getElementById('portraitBoard'),pg=portraitBoard.getContext('2d');
@@ -1045,149 +1045,99 @@ function boomSegments(b,from,to){
  if(end>.5){const begin=Math.max(.5,start);parts.push({from:boomPoint(b,begin),to:boomPoint(b,end),leg:1})}
  return parts;
 }
-function isMagnetProtected(m){return !!(m.magnetId||m.hook)}
+function isMagnetProtected(m){return !!(m.magnetId||m.holeCapture)}
 
 
 
-const hookSpecs=[null,{range:2.6,returnRange:3,rate:8,velocity:0,damage:0,loss:.10,duration:3,cost:0},{range:2.9,returnRange:3.4,rate:7.5,velocity:0,damage:0,loss:.11,duration:3,cost:120},{range:3.2,returnRange:3.8,rate:7,velocity:0,damage:0,loss:.12,duration:3,cost:170},{range:3.5,returnRange:4.2,rate:6.5,velocity:0,damage:0,loss:.13,duration:3,cost:235},{range:3.8,returnRange:4.6,rate:6,velocity:0,damage:0,loss:.14,duration:3,cost:310}];
-let hookPreviewCache=new Map();
-function hookPortalClear(progress){return !jumpPairs.some(p=>Math.abs(p.at-progress)<(p.kind==='edge'?55:35))}
-function findHookDrop(t,m,sp=towerSpec(t)){
- const tc=ctr(t),from=posAt(m.progress),dx=from.x-tc.x,dy=from.y-tc.y,length=Math.hypot(dx,dy);
- if(length<C*.6||length>sp.range*C||!hookPortalClear(m.progress))return null;
- const ux=-dx/length,uy=-dy/length,minRadius=C*.65,maxRadius=sp.returnRange*C,minBack=C*.5;
- let best=null;
- const consider=(progress,x,y,radius)=>{
-  if(progress<0||progress>m.progress-minBack||radius<minRadius||radius>maxRadius||!hookPortalClear(progress)||underTunnel({x,y}))return;
-  if(!best||progress<best.progress)best={progress,x,y,radius};
- };
- for(let i=1;i<way.length;i++){
-  const a=way[i-1],b=way[i];if(a.dist>m.progress-minBack)break;
-  const vx=b.x-a.x,vy=b.y-a.y;if(Math.hypot(vx,vy)>C*1.6||b.dist-a.dist>C*1.6)continue;
-  const ax=a.x-tc.x,ay=a.y-tc.y,den=ux*vy-uy*vx;
-  if(Math.abs(den)<1e-8){
-   if(Math.abs(ax*uy-ay*ux)<.01){
-    for(const p of [a,b])consider(p.dist,p.x,p.y,(p.x-tc.x)*ux+(p.y-tc.y)*uy);
-   }
-   continue;
+// Hole retains the saved `maw` technology slot. Mines snapshot their statistics.
+const holeSpecs=[null,...[0,1,2,3,4].map((i)=>({range:+(3.2+i*.2).toFixed(2),radius:+(1.65+i*.2).toFixed(2),rate:28,velocity:0,damage:0,duration:2*1.2**i,deploy:.75,fuse:2.4,cost:[0,400,650,900,1200][i]}))];
+let holeMines=[],holeMineSerial=0,holeSiteCache=new Map();
+function holePortalClear(progress,clearance=90){return !jumpPairs.some(p=>Math.abs(p.at-progress)<clearance)}
+function holeSites(t){
+ const sp=towerSpec(t),key=t.x+','+t.y+','+t.lv+','+(t.specialization||'');if(holeSiteCache.has(key))return holeSiteCache.get(key);
+ const tc=ctr(t),sites=[],finish=way.at(-1)?.dist||0;
+ for(let d=50;d<finish-55;d+=12){const c=posAt(d),distance=Math.hypot(c.x-tc.x,c.y-tc.y);if(distance>C*sp.range||distance<C*.9||underTunnel(c)||!holePortalClear(d,sp.radius*C+40))continue;sites.push({x:c.x,y:c.y,progress:d})}
+ holeSiteCache.set(key,sites);return sites;
+}
+function findHoleSite(t,target){
+ const sp=towerSpec(t),sites=holeSites(t).filter(c=>!holeMines.some(m=>m.age<m.sp.deploy+m.sp.fuse+m.sp.duration&&Math.hypot(c.x-m.x,c.y-m.y)<(sp.radius+m.sp.radius)*C*.65));
+ if(!sites.length)return null;if(!target){const tc=ctr(t);return sites.reduce((a,b)=>Math.hypot(a.x-tc.x,a.y-tc.y)<Math.hypot(b.x-tc.x,b.y-tc.y)?a:b)}
+ const predicted=target.progress+C*(target.moveSpeed||1.4)*(sp.deploy+sp.fuse)*.85;
+ return sites.reduce((a,b)=>Math.abs(a.progress-predicted)<Math.abs(b.progress-predicted)?a:b);
+}
+function canHoleCapture(m){return m.hp>0&&!m.escaped&&!isMagnetProtected(m)&&m.progress<(way.at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m))&&holePortalClear(m.progress,35)}
+function beginHoleMine(t){
+ if(holeMines.some(m=>m.tower===t))return false;const sp=towerSpec(t),tc=ctr(t);
+ const targets=sortTargets(monsters.filter(m=>canHoleCapture(m)&&Math.hypot(monsterPosition(m).x-tc.x,monsterPosition(m).y-tc.y)<=sp.range*C),t,tc);
+ for(const m of targets){const site=findHoleSite(t,m);if(!site)continue;holeMines.push({...site,id:++holeMineSerial,tower:t,sp:{...sp},age:0,opened:false,lastBeep:-1});t.cool=sp.rate;window.arcAudio?.effect('holePlant');return true}return false;
+}
+function prepareHole(dt){for(const t of towers){if(t.type!=='maw')continue;t.cool=Math.max(0,(t.cool||0)-dt);t.holeSearchWait=Math.max(0,(t.holeSearchWait||0)-dt);if(t.cool<=0&&t.holeSearchWait<=0&&!beginHoleMine(t))t.holeSearchWait=.2}}
+function holeCapturePosition(a){
+ const u=Math.max(0,Math.min(1,a.age/a.travel)),pull=u*u*(3-2*u),angle=a.angle+u*TAU*1.15,radius=a.distance*(1-pull);
+ return {x:a.mine.x+Math.cos(angle)*radius,y:a.mine.y+Math.sin(angle)*radius};
+}
+function holeCaptureScale(a){return Math.max(.025,(1-Math.min(1,a.age/a.travel))**1.4)}
+function captureInHole(m,mine){
+ if(!canHoleCapture(m))return false;const from=monsterPosition(m),dx=from.x-mine.x,dy=from.y-mine.y;
+ if(m.grapple)releaseGrapple(m);delete m.pushMotion;delete m.pusherPending;
+ m.holeCapture={mine,age:0,travel:.65,from:{x:from.x,y:from.y},angle:Math.atan2(dy,dx),distance:Math.hypot(dx,dy)};
+ m.frozen=false;m.elinked=false;m.boostLeft=0;return true;
+}
+function advanceHole(dt){
+ for(const mine of holeMines){
+  const before=mine.age;mine.age+=dt;const start=mine.sp.deploy+mine.sp.fuse,end=start+mine.sp.duration;
+  if(mine.age>=mine.sp.deploy&&mine.age<start){const a=mine.age-mine.sp.deploy,beep=Math.floor(a*.9+a*a*.8);if(beep!==mine.lastBeep){mine.lastBeep=beep;window.arcAudio?.effect('holeBeep')}}
+  if(!mine.opened&&mine.age>=start){mine.opened=true;window.arcAudio?.effect('holeBlast')}
+  if(mine.age<start||mine.age>=end)continue;
+  const radius=mine.sp.radius*C;
+  for(const m of monsters){
+   if(!canHoleCapture(m))continue;const c=monsterPosition(m);let touching=Math.hypot(c.x-mine.x,c.y-mine.y)<=radius;
+   const old=m.eLinkPrevious,oldProgress=m.eLinkPreviousProgress??m.progress;
+   const jumped=jumpPairs.some(p=>p.at>=Math.min(oldProgress,m.progress)&&p.at<=Math.max(oldProgress,m.progress));
+   if(!touching&&old&&!jumped&&Math.hypot(c.x-old.x,c.y-old.y)<C*2)touching=segmentClosest(old,c,mine,mine).dist<=radius;
+   if(touching)captureInHole(m,mine);
   }
-  const radius=(ax*vy-ay*vx)/den,u=(ax*uy-ay*ux)/den;
-  if(u< -1e-7||u>1+1e-7)continue;
-  consider(a.dist+(b.dist-a.dist)*Math.max(0,Math.min(1,u)),tc.x+ux*radius,tc.y+uy*radius,radius);
  }
- return best;
+ for(const m of monsters){const a=m.holeCapture;if(!a)continue;a.age+=dt;if(m.hp<=0||a.age+1e-9>=a.travel){m.holeDeathPosition={x:a.mine.x,y:a.mine.y};m.hp=0;delete m.holeCapture}}
+ holeMines=holeMines.filter(m=>m.age<m.sp.deploy+m.sp.fuse+m.sp.duration+.75||monsters.some(v=>v.holeCapture?.mine===m));
 }
-function hookTransportPosition(a){
- if(a.age<=.35)return {...a.from};
- const u=Math.max(0,Math.min(1,(a.age-.35)/2.3)),smooth=v=>v*v*(3-2*v),angle=a.angle+a.direction*Math.PI*smooth(u);
- const retracted=Math.max(C*.65,Math.min(a.startRadius,a.drop.radius)*.55);
- const radius=u<.5?a.startRadius+(retracted-a.startRadius)*smooth(u*2):retracted+(a.drop.radius-retracted)*smooth((u-.5)*2);
- const c=ctr(a.tower);return {x:c.x+Math.cos(angle)*radius,y:c.y+Math.sin(angle)*radius};
+function cancelHoleForTower(t){holeMines=holeMines.filter(m=>{if(m.tower!==t)return true;if(m.age<m.sp.deploy+m.sp.fuse)return false;m.tower=null;return true})}
+function holeStatus(t){const m=holeMines.find(m=>m.tower===t);if(m){const start=m.sp.deploy+m.sp.fuse;return m.age<m.sp.deploy?'Deploying mine':m.age<start?'Detonation '+Math.max(0,start-m.age).toFixed(1)+'s':m.age<start+m.sp.duration?'Vortex '+Math.max(0,start+m.sp.duration-m.age).toFixed(1)+'s':'Collapsing'}return t.cool>0?'Recharge '+t.cool.toFixed(1)+'s':holeSites(t).length?'Ready':'No path in arm reach'}
+function paintHolePlacement(){
+ let t=null;if(placing&&placingType==='maw'&&placementHover){const cell=snapConstruction(placementHover.x,placementHover.y);if(cell)t={...cell,type:'maw',lv:1}}else if(selected){const built=towerAtCell(selected.x,selected.y);if(built?.type==='maw')t=built}if(!t)return;
+ const site=findHoleSite(t),tc=ctr(t);if(!site)return;g.save();g.strokeStyle='#bdabff';g.globalAlpha=.65;g.lineWidth=1.8;g.setLineDash([5,6]);g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(site.x,site.y);g.stroke();g.beginPath();g.arc(site.x,site.y,towerSpec(t).radius*C,0,TAU);g.stroke();g.setLineDash([]);g.beginPath();g.arc(site.x,site.y,10,0,TAU);g.stroke();g.restore();
 }
-function hookTurnDirection(a){
- let best=1,bestScore=Infinity;
- for(const direction of [-1,1]){
-  let score=0;for(let i=0;i<=16;i++){const p=hookTransportPosition({...a,direction,age:.35+2.3*i/16});score+=Math.max(0,30-p.x,p.x-(cv.width-30))+Math.max(0,30-p.y,p.y-(cv.height-30))}
-  if(score<bestScore){bestScore=score;best=direction}
- }
- return best;
+function paintHole(t){
+ const tc=ctr(t),mine=holeMines.find(m=>m.tower===t),lv=t.lv||1;
+ g.save();g.translate(tc.x,tc.y);g.fillStyle='#171429';g.strokeStyle='#c2b3ff';g.lineWidth=2.5;g.shadowColor='#9a74ff';g.shadowBlur=9;rounded(-23,-21,46,42,9);g.fill();g.stroke();g.fillStyle='#050712';g.beginPath();g.arc(0,0,14,0,TAU);g.fill();g.strokeStyle='#faf0ff';g.lineWidth=2;g.beginPath();g.arc(0,0,10,.3,4.6);g.stroke();g.fillStyle='#c3acff';for(let i=0;i<lv;i++){g.beginPath();g.arc((i-(lv-1)/2)*6,27,1.7,0,TAU);g.fill()}g.restore();
+ let angle=-.65,length=29;
+ if(mine&&mine.age<mine.sp.deploy+.55){const u=mine.age<mine.sp.deploy?Math.min(1,mine.age/.5):Math.max(0,1-(mine.age-mine.sp.deploy)/.55);angle=Math.atan2(mine.y-tc.y,mine.x-tc.x);length=Math.hypot(mine.x-tc.x,mine.y-tc.y)*u}
+ g.save();g.translate(tc.x,tc.y);g.rotate(angle);g.lineCap='round';for(const [width,color,from,to] of [[13,'#080d1c',0,length],[7,'#8c92b4',0,length*.7],[4,'#edebff',length*.35,length]]){g.strokeStyle=color;g.lineWidth=width;g.beginPath();g.moveTo(from,0);g.lineTo(to,0);g.stroke()}g.strokeStyle='#c8b1ff';g.lineWidth=2.5;g.beginPath();g.moveTo(length-4,-7);g.lineTo(length+6,-6);g.lineTo(length+9,0);g.lineTo(length+6,6);g.lineTo(length-4,7);g.stroke();g.restore();
 }
-function canHookCapture(m){return m.hp>0&&!m.escaped&&!m.grapple&&!m.pushMotion&&!m.pusherPending&&!isMagnetProtected(m)&&!(m.hookGuard>0)&&m.progress<(way.at(-1)?.dist??Infinity)&&hookPortalClear(m.progress)&&!underTunnel(monsterPosition(m))}
-function beginHookCapture(t){
- if(monsters.some(m=>m.hook?.tower===t))return false;
- const sp=towerSpec(t),tc=ctr(t),targets=sortTargets(monsters.filter(m=>canHookCapture(m)&&Math.hypot(monsterPosition(m).x-tc.x,monsterPosition(m).y-tc.y)<=sp.range*C),t,tc);
- for(const m of targets){
-  const drop=findHookDrop(t,m,sp);if(!drop)continue;
-  const from=posAt(m.progress),a={tower:t,progress:m.progress,from:{...from},drop,angle:Math.atan2(from.y-tc.y,from.x-tc.x),startRadius:Math.hypot(from.x-tc.x,from.y-tc.y),direction:1,age:0,duration:3,loss:sp.loss,maxHp:m.maxHp,recovery:sp.rate};
-  a.direction=hookTurnDirection(a);m.hook=a;m.frozen=false;m.elinked=false;m.boostLeft=0;window.arcAudio?.effect('grapple');return true;
- }
- return false;
-}
-function endHookCapture(m,complete=false){
- const a=m.hook;if(!a)return false;
- const c=hookTransportPosition(a);delete m.hook;
- if(m.hp<=0)m.hookDeathPosition=c;
- else{m.progress=complete?a.drop.progress:a.progress;m.hookGuard=m.boss||m.miniBoss?8:4;m.eLinkPrevious=posAt(m.progress);m.eLinkPreviousProgress=m.progress}
- a.tower.cool=a.recovery;a.tower.hookSearchWait=0;
- if(complete){particles.push({x:c.x,y:c.y,r:28,life:.3,color:'#ffc78e',blast:true});window.arcAudio?.effect('impact')}
- return true;
-}
-function cancelHookForTower(t){for(const m of monsters)if(m.hook?.tower===t)endHookCapture(m)}
-function prepareHook(dt){
- for(const m of monsters)if(!m.hook)m.hookGuard=Math.max(0,(m.hookGuard||0)-dt);
- for(const t of towers){
-  if(t.type!=='maw'||monsters.some(m=>m.hook?.tower===t))continue;
-  t.cool=Math.max(0,(t.cool||0)-dt);t.hookSearchWait=Math.max(0,(t.hookSearchWait||0)-dt);
-  if(t.cool<=0&&t.hookSearchWait<=0&&!beginHookCapture(t))t.hookSearchWait=.2;
+function paintHoleFields(){
+ const low=qualityVfx91()===0;
+ for(const mine of holeMines){
+  const start=mine.sp.deploy+mine.sp.fuse,r=mine.sp.radius*C,live=mine.age-start;
+  if(mine.age<mine.sp.deploy)continue;
+  g.save();g.translate(mine.x,mine.y);
+  if(live<0){const a=mine.age-mine.sp.deploy,pulse=.5+.5*Math.sin(TAU*(.8*a+1.1*a*a));g.shadowColor='#e389ff';g.shadowBlur=low?0:8+18*pulse;g.fillStyle='#20152f';g.strokeStyle='#c2abff';g.lineWidth=2;g.beginPath();for(let k=0;k<8;k++){const angle=k*TAU/8;k?g.lineTo(Math.cos(angle)*13,Math.sin(angle)*13):g.moveTo(Math.cos(angle)*13,Math.sin(angle)*13)}g.closePath();g.fill();g.stroke();g.fillStyle=pulse>.55?'#fff4e1':'#ff426e';g.beginPath();g.arc(0,0,4+3*pulse,0,TAU);g.fill();g.strokeStyle='#ffa5bd';g.lineWidth=2;g.beginPath();g.arc(0,0,19,-Math.PI/2,-Math.PI/2+TAU*Math.max(.005,1-a/mine.sp.fuse));g.stroke();g.restore();continue}
+  const closing=Math.max(0,Math.min(1,(live-mine.sp.duration)/.75)),scale=Math.min(1,live/.18)*(1-closing);if(scale<=0){g.restore();continue}g.scale(scale,scale);
+  const haze=g.createRadialGradient(0,0,r*.16,0,0,r*1.15);haze.addColorStop(0,'#010106');haze.addColorStop(.36,'#03030df8');haze.addColorStop(.65,'#4627698a');haze.addColorStop(1,'#8d66ff00');g.fillStyle=haze;g.beginPath();g.arc(0,0,r*1.15,0,TAU);g.fill();
+  // Opaque event horizon punches through the path; spirals show the pull radius.
+  g.fillStyle='#010106';g.beginPath();g.ellipse(0,0,r*.39,r*.33,live*.3,0,TAU);g.fill();
+  g.lineWidth=2.1;g.shadowColor='#b699ff';g.shadowBlur=low?0:10;
+  for(let k=0;k<(low?4:8);k++){g.beginPath();for(let j=0;j<=22;j++){const u=j/22,rr=r*(.23+u*.77),a=k*TAU/(low?4:8)+u*2.7-live*3.5;const x=Math.cos(a)*rr,y=Math.sin(a)*rr*.83;j?g.lineTo(x,y):g.moveTo(x,y)}g.strokeStyle=k%2?'#9b73ff9a':'#f4d8ffb0';g.stroke()}
+  g.strokeStyle='#fff1ff';g.lineWidth=2.6;g.beginPath();g.ellipse(0,0,r*.4,r*.34,-live,0,TAU);g.stroke();
+  if(live<.6){const q=live/.6;g.globalAlpha=1-q;g.strokeStyle='#ffe1ff';g.lineWidth=4*(1-q)+1;g.beginPath();g.arc(0,0,r*(.3+1.5*q),0,TAU);g.stroke();g.globalAlpha=1}
+  g.restore();
  }
 }
-function advanceHook(dt){
- for(const m of monsters){
-  const a=m.hook;if(!a)continue;
-  if(m.hp<=0||m.escaped||!towers.includes(a.tower)){endHookCapture(m);continue}
-  const elapsed=Math.max(0,Math.min(dt,a.duration-a.age));a.age+=elapsed;m.hp=Math.max(0,m.hp-a.maxHp*a.loss*elapsed);
-  m.hitFlash92=Math.max(m.hitFlash92||0,.08);m.hitKick92=1;
-  if(m.hp<=0)endHookCapture(m);
-  else if(a.age+1e-9>=a.duration)endHookCapture(m,true);
+function paintHoleCaptives(){
+ for(const m of monsters){const a=m.holeCapture;if(!a||m.hp<=0)continue;const c=holeCapturePosition(a),scale=holeCaptureScale(a);
+  g.save();g.translate(c.x,c.y);g.rotate(a.age*5);g.scale(scale,scale);g.globalAlpha=Math.min(1,scale*1.5);g.shadowColor='#e7bcff';g.shadowBlur=6;g.lineWidth=3;
+  for(const part of enemyGeometry(m,{x:0,y:0})){g.strokeStyle=part.kind==='armor'?'#7dcfff':'#ff738e';g.beginPath();part.points.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.stroke()}g.fillStyle='#ff4c7a';g.beginPath();g.arc(0,0,m.boss?11:m.miniBoss?8:5,0,TAU);g.fill();g.restore();
  }
 }
-function hookStatus(t){const m=monsters.find(m=>m.hook?.tower===t);return m?'Turning '+Math.max(0,3-m.hook.age).toFixed(1)+'s':t.cool>0?'Recharge '+t.cool.toFixed(1)+'s':hookPlacementExample(t)?'Ready':'Needs opposite upstream path'}
-function hookPlacementExample(t){
- const key=t.x+','+t.y+','+(t.lv||1)+','+(t.specialization||'');if(hookPreviewCache.has(key))return hookPreviewCache.get(key);
- const sp=towerSpec(t),tc=ctr(t);let best=null;
- for(let i=way.length-1;i>=0;i-=6){
-  const from=way[i];if(Math.hypot(from.x-tc.x,from.y-tc.y)>sp.range*C||underTunnel(from)||!hookPortalClear(from.dist))continue;
-  const drop=findHookDrop(t,{progress:from.dist},sp);
-  if(drop&&(!best||from.dist-drop.progress>best.progress-best.drop.progress)){best={tower:t,progress:from.dist,from:{x:from.x,y:from.y},drop,angle:Math.atan2(from.y-tc.y,from.x-tc.x),startRadius:Math.hypot(from.x-tc.x,from.y-tc.y),direction:1,age:0};best.direction=hookTurnDirection(best)}
- }
- hookPreviewCache.set(key,best);return best;
-}
-function paintHookPlacement(){
- let t=null;
- if(placing&&placingType==='maw'&&placementHover){const cell=snapConstruction(placementHover.x,placementHover.y);if(cell)t={...cell,type:'maw',lv:1}}
- else if(selected){const built=towerAtCell(selected.x,selected.y);if(built?.type==='maw')t=built}
- if(!t)return;const a=hookPlacementExample(t),c=ctr(t);
- g.save();g.strokeStyle=a?'#ffcf96':'#ff7388';g.lineWidth=1.8;g.globalAlpha=.7;g.setLineDash([4,6]);
- if(a){g.beginPath();for(let i=0;i<=24;i++){const p=hookTransportPosition({...a,age:.35+2.3*i/24});i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y)}g.stroke();g.setLineDash([]);for(const p of [a.from,a.drop]){g.beginPath();g.arc(p.x,p.y,12,0,TAU);g.stroke()}g.fillStyle='#ffe6bb';g.beginPath();g.moveTo(a.drop.x-6,a.drop.y);g.lineTo(a.drop.x+6,a.drop.y);g.moveTo(a.drop.x,a.drop.y-6);g.lineTo(a.drop.x,a.drop.y+6);g.stroke()}
- else{g.setLineDash([]);g.beginPath();g.moveTo(c.x-13,c.y-13);g.lineTo(c.x+13,c.y+13);g.moveTo(c.x+13,c.y-13);g.lineTo(c.x-13,c.y+13);g.stroke()}
- g.restore();
-}
-function paintHook(t){
- const c=ctr(t),lv=t.lv||1,m=monsters.find(m=>m.hook?.tower===t),a=m?.hook;
- g.save();g.translate(c.x,c.y);g.lineJoin='round';g.shadowColor='#ffb37f';g.shadowBlur=a?14:7;g.fillStyle='#302534';g.strokeStyle='#ffb68b';g.lineWidth=2.3;
- g.beginPath();for(let k=0;k<8;k++){const q=k*TAU/8,r=22;k?g.lineTo(Math.cos(q)*r,Math.sin(q)*r):g.moveTo(Math.cos(q)*r,Math.sin(q)*r)}g.closePath();g.fill();g.stroke();g.shadowBlur=0;
- g.fillStyle='#ffe3b9';g.beginPath();g.arc(0,0,8,0,TAU);g.fill();g.strokeStyle='#8e6660';g.lineWidth=3;g.beginPath();g.arc(0,0,15,-2.6,-.5);g.stroke();g.fillStyle='#ffd0a2';for(let i=0;i<lv;i++){g.beginPath();g.arc((i-(lv-1)/2)*6,28,1.5,0,TAU);g.fill()}g.restore();
- let endpoint,angle,grip;
- if(a){endpoint=hookTransportPosition(a);const extend=Math.min(1,a.age/.35);endpoint={x:c.x+(endpoint.x-c.x)*extend,y:c.y+(endpoint.y-c.y)*extend};angle=Math.atan2(endpoint.y-c.y,endpoint.x-c.x);grip=m.boss?48:m.miniBoss?38:27}
- else{angle=t.hookIdleAngle??-.7;endpoint={x:c.x+Math.cos(angle)*29,y:c.y+Math.sin(angle)*29};grip=8}
- const dx=endpoint.x-c.x,dy=endpoint.y-c.y,length=Math.hypot(dx,dy),arm=Math.max(0,length-(a?grip:0));
- g.save();g.translate(c.x,c.y);g.rotate(angle);g.lineCap='round';g.strokeStyle='#101a29';g.lineWidth=14;g.beginPath();g.moveTo(0,0);g.lineTo(arm,0);g.stroke();
- g.strokeStyle='#d89770';g.lineWidth=8;g.beginPath();g.moveTo(0,0);g.lineTo(arm*.62,0);g.stroke();g.strokeStyle='#ffe0b0';g.lineWidth=4;g.beginPath();g.moveTo(arm*.38,0);g.lineTo(arm,0);g.stroke();
- g.lineWidth=1.5;g.strokeStyle='#7c5a58';for(const f of [.3,.6]){g.beginPath();g.moveTo(arm*f,-5);g.lineTo(arm*f,5);g.stroke()}
- g.restore();
- // Curved claw remains around the captive while the arm retracts and pivots.
- g.save();g.translate(endpoint.x,endpoint.y);g.rotate(angle);g.lineCap='round';g.lineJoin='round';g.strokeStyle='#ffe9bf';g.shadowColor='#ffc28f';g.shadowBlur=a?10:3;g.lineWidth=3;
- g.beginPath();g.moveTo(-grip-8,0);g.lineTo(-grip,0);g.arc(0,0,grip,Math.PI,Math.PI*2.15);g.stroke();const q=Math.PI*2.15;g.beginPath();g.moveTo(Math.cos(q)*grip,Math.sin(q)*grip);g.lineTo(Math.cos(q)*grip-6,Math.sin(q)*grip-3);g.lineTo(Math.cos(q)*grip-2,Math.sin(q)*grip+5);g.stroke();g.restore();
-}
-function paintHookTransfers(){
- for(const m of monsters){const a=m.hook;if(!a||m.hp<=0)continue;const c=monsterPosition(m),progress=Math.min(1,a.age/3);
-  g.save();g.strokeStyle='#ffbb87';g.lineWidth=1.8;g.globalAlpha=.55;g.setLineDash([3,5]);g.beginPath();g.arc(a.drop.x,a.drop.y,14,0,TAU);g.stroke();g.setLineDash([]);
-  g.globalAlpha=.9;g.strokeStyle='#ffd8a7';g.lineWidth=2;g.beginPath();g.moveTo(c.x-18,c.y+35);g.lineTo(c.x-18+36*progress,c.y+35);g.stroke();g.restore();
- }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const pusherSpecs=[null,{"range":2.8,"rate":5,"velocity":420,"damage":0,"push":4,"capacity":5,"cost":0},{"range":3,"rate":5,"velocity":450,"damage":0,"push":4.5,"capacity":5,"cost":100},{"range":3.2,"rate":5,"velocity":480,"damage":0,"push":5,"capacity":5,"cost":145},{"range":3.4,"rate":5,"velocity":510,"damage":0,"push":5.5,"capacity":5,"cost":200},{"range":3.6,"rate":5,"velocity":540,"damage":0,"push":6,"capacity":5,"cost":275}];
 let pusherShots=[];
@@ -1434,14 +1384,14 @@ function paintBoom(t){
  if(lv>=3){g.lineWidth=1.4;g.beginPath();g.moveTo(-20,-10);g.lineTo(-10,0);g.lineTo(-20,10);g.stroke()}
  g.restore();
 }
-function specList(type){return type==='pusher'?pusherSpecs:type==='maw'?hookSpecs:type==='grapple'?grappleSpecs:type==='freeze'?freezeSpecs:type==='boom'?boomSpecs:type==='rapid'?rapidSpecs:type==='pierce'?pierceSpecs:type==='elink'?elinkSpecs:type==='area'?areaSpecs:specs}
+function specList(type){return type==='pusher'?pusherSpecs:type==='maw'?holeSpecs:type==='grapple'?grappleSpecs:type==='freeze'?freezeSpecs:type==='boom'?boomSpecs:type==='rapid'?rapidSpecs:type==='pierce'?pierceSpecs:type==='elink'?elinkSpecs:type==='area'?areaSpecs:specs}
 function towerSpec(t){
  const base=specList(t.type)[t.lv||1];
  if(t.lv!==5||!t.specialization)return base;
  const sp={...base};
  if(t.specialization==='reach'){
    sp.range=+(sp.range*1.22).toFixed(3);
-   if(t.type==='maw')sp.returnRange=+(sp.returnRange*1.22).toFixed(3);
+   if(t.type==='maw')sp.radius=+(sp.radius*1.22).toFixed(3);
    if(t.type==='elink')sp.width=+(sp.width*1.35).toFixed(3);
    if(t.type==='grapple')sp.hold=+(sp.hold*1.15).toFixed(2);
  }else if(t.specialization==='power'){
@@ -1453,12 +1403,12 @@ function towerSpec(t){
  }
  return sp;
 }
-function towerName(t){return t.type==='pusher'?'≫ Repulsor':t.type==='maw'?'◉ Hook':t.type==='grapple'?'🪝 Grapple':t.type==='freeze'?'❄️ Freezer':t.type==='boom'?'🪃 Boomerang':t.type==='rapid'?'🟠 Rapid':t.type==='pierce'?'🟢 Ricochet':t.type==='elink'?'⚡ E-Link':t.type==='area'?'🧲 Magnetar':'🎯 Precision'}
-function modeButtons(){refreshPusherLimit();$('mawMode').textContent=placing&&placingType==='maw'?'✓ Hook : choose a cell':'◉ Hook (220 ⚡)';if(eLinkPending&&(!placing||placingType!=='elink'||arcWaveLocked()))eLinkPending=null;refreshELinkPlacement();if(!placing){placementHover=null;boomHover=null} $('towerMode').textContent=placing&&placingType==='precision'?'✓ Precision : choose a cell':'🎯 Precision (80 ⚡)';$('rapidMode').textContent=placing&&placingType==='rapid'?'✓ Rapid : choose a cell':'🟠 Rapid (90 ⚡)';$('towerMode').style.borderColor=placing&&placingType==='precision'?'#67edff':'';$('rapidMode').style.borderColor=placing&&placingType==='rapid'?'#ffa348':'';$('pierceMode').textContent=placing&&placingType==='pierce'?'✓ Ricochet : choose a cell':'🟢 Ricochet (125 ⚡)';$('pierceMode').style.borderColor=placing&&placingType==='pierce'?'#72ff99':'';$('elinkMode').textContent=placing&&placingType==='elink'?'✓ E-Link : choose a cell':'🟣 E-Link (200 ⚡)';$('elinkMode').style.borderColor=placing&&placingType==='elink'?'#d0a0ff':'';$('areaMode').textContent=placing&&placingType==='area'?'✓ Magnetar : choose a cell':'🧲 Magnetar (180 ⚡)';$('areaMode').style.borderColor=placing&&placingType==='area'?'#ff86c9':'';$('freezeMode').textContent=placing&&placingType==='freeze'?'✓ Freezer : choose a cell':'❄️ Freezer (135 ⚡)';$('grappleMode').textContent=placing&&placingType==='grapple'?'✓ Grapple : choose a cell':'🪝 Grapple (155 ⚡)';$('boomMode').textContent=placing&&placingType==='boom'?'✓ Boomerang : choose a cell':'🪃 Boomerang (175 ⚡)';$('freezeMode').style.borderColor=placing&&placingType==='freeze'?'#8deeff':'';$('boomMode').style.borderColor=placing&&placingType==='boom'?'#ffcf64':'' }
+function towerName(t){return t.type==='pusher'?'≫ Repulsor':t.type==='maw'?'◉ Hole':t.type==='grapple'?'🪝 Grapple':t.type==='freeze'?'❄️ Freezer':t.type==='boom'?'🪃 Boomerang':t.type==='rapid'?'🟠 Rapid':t.type==='pierce'?'🟢 Ricochet':t.type==='elink'?'⚡ E-Link':t.type==='area'?'🧲 Magnetar':'🎯 Precision'}
+function modeButtons(){refreshPusherLimit();$('mawMode').textContent=placing&&placingType==='maw'?'✓ Hole : choose a cell':'◉ Hole (900 ⚡)';if(eLinkPending&&(!placing||placingType!=='elink'||arcWaveLocked()))eLinkPending=null;refreshELinkPlacement();if(!placing){placementHover=null;boomHover=null} $('towerMode').textContent=placing&&placingType==='precision'?'✓ Precision : choose a cell':'🎯 Precision (80 ⚡)';$('rapidMode').textContent=placing&&placingType==='rapid'?'✓ Rapid : choose a cell':'🟠 Rapid (90 ⚡)';$('towerMode').style.borderColor=placing&&placingType==='precision'?'#67edff':'';$('rapidMode').style.borderColor=placing&&placingType==='rapid'?'#ffa348':'';$('pierceMode').textContent=placing&&placingType==='pierce'?'✓ Ricochet : choose a cell':'🟢 Ricochet (125 ⚡)';$('pierceMode').style.borderColor=placing&&placingType==='pierce'?'#72ff99':'';$('elinkMode').textContent=placing&&placingType==='elink'?'✓ E-Link : choose a cell':'🟣 E-Link (200 ⚡)';$('elinkMode').style.borderColor=placing&&placingType==='elink'?'#d0a0ff':'';$('areaMode').textContent=placing&&placingType==='area'?'✓ Magnetar : choose a cell':'🧲 Magnetar (180 ⚡)';$('areaMode').style.borderColor=placing&&placingType==='area'?'#ff86c9':'';$('freezeMode').textContent=placing&&placingType==='freeze'?'✓ Freezer : choose a cell':'❄️ Freezer (135 ⚡)';$('grappleMode').textContent=placing&&placingType==='grapple'?'✓ Grapple : choose a cell':'🪝 Grapple (155 ⚡)';$('boomMode').textContent=placing&&placingType==='boom'?'✓ Boomerang : choose a cell':'🪃 Boomerang (175 ⚡)';$('freezeMode').style.borderColor=placing&&placingType==='freeze'?'#8deeff':'';$('boomMode').style.borderColor=placing&&placingType==='boom'?'#ffcf64':'' }
 function rng(s){let a=s|0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const ctr=p=>({x:OX+(p.x+.5)*C,y:OY+(p.y+.5)*C});
 const pt=(x,y)=>({x,y});
-let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){titanBossTest=false;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;freePathRevealed=false;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];hookPreviewCache.clear();eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
+let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){titanBossTest=false;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;freePathRevealed=false;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];holeSiteCache.clear();holeMines=[];eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
 for(let i=0;i<rows.length;i++){let y=rows[i],start=direction===1?left:right,end=direction===1?right:left;if(i===0){for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}else{let old=rows[i-1];for(let yy=old+1;yy<y;yy++)path.push({x:start,y:yy});for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}direction*=-1;}
 occupied=new Set(path.map(p=>key(p.x,p.y)));turns=[];way=[];
 // A turn is a true 2x2 reserved footprint. Its centerline enters junction 2,
@@ -1633,7 +1583,7 @@ const techBanner=document.createElement('div');techBanner.id='techUnlockBanner';
 function discoveredPercent(){const n=traceVisits.length;if(!n)return 0;let count=0;for(let i=0;i<n;i++)if(traceVisits[i]>=TRACE_REQUIRED)count++;return 100*count/n}
 function technologyAvailable(type){if(isFreePlay())return true;if(isStageCampaign())return campaignProgress.unlocked.includes(type);return discoveredPercent()+1e-7>=(TECH_THRESHOLDS[type]??0)}
 function technologyFeedback(type){if(type==='pusher'&&!pusherBuildAvailable()){$('waveReport').textContent='Repulsor limit reached · Sell one to build elsewhere (2/2)';return false}if(technologyAvailable(type))return true;const threshold=TECH_THRESHOLDS[type];if(isStageCampaign()){const info=$('waveReport');if(info)info.textContent='🔒 '+technologyHint(type);return false}const button=document.querySelector('#towerDock [data-tower="'+TECH_IDS[type]+'"]');if(button){button.animate([{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'none'}],{duration:250})}const info=document.getElementById('waveReport');if(info)info.textContent=`🔒 ${TECH_NAMES[type]||type} : explore ${threshold}% of the path to unlock this technology.`;return false}
-function refreshTechnologies(){const pct=discoveredPercent();for(const [type,id] of Object.entries(TECH_IDS)){const locked=!technologyAvailable(type),button=document.querySelector('#towerDock [data-tower="'+id+'"]');if(button){button.classList.toggle('tech-locked',locked);button.dataset.unlock=isStageCampaign()?'🔒 W'+CAMPAIGN_TECH_WAVES[type]:TECH_THRESHOLDS[type];button.setAttribute('aria-disabled',String(locked));button.title=locked?(isStageCampaign()?technologyHint(type):`Unlocks at ${TECH_THRESHOLDS[type]}% path explored`):type==='elink'?(eLinkPending?'Place second pylon · 1.5–4.5 cells':'Electric Link · 200 energy for two pylons'):type==='maw'?'Hook · 220 energy · 180° upstream transfer in 3s · 10–14% max HP/s · Protected during transfer':button.querySelector('.tower-price')?.textContent||type}}
+function refreshTechnologies(){const pct=discoveredPercent();for(const [type,id] of Object.entries(TECH_IDS)){const locked=!technologyAvailable(type),button=document.querySelector('#towerDock [data-tower="'+id+'"]');if(button){button.classList.toggle('tech-locked',locked);button.dataset.unlock=isStageCampaign()?'🔒 W'+CAMPAIGN_TECH_WAVES[type]:TECH_THRESHOLDS[type];button.setAttribute('aria-disabled',String(locked));button.title=locked?(isStageCampaign()?technologyHint(type):`Unlocks at ${TECH_THRESHOLDS[type]}% path explored`):type==='elink'?(eLinkPending?'Place second pylon · 1.5–4.5 cells':'Electric Link · 200 energy for two pylons'):type==='maw'?'Hole · 900 energy · Mine fuse 2.4s · Lethal vortex 2–4.15s · Recharge 28s':button.querySelector('.tower-price')?.textContent||type}}
 refreshPusherLimit();
 if(placing&&!technologyAvailable(placingType)){placing=false;placementHover=null;boomHover=null;modeButtons()}
 if(isStageCampaign()||isFreePlay())return;
@@ -1674,8 +1624,8 @@ function rounded(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 function posAt(d){if(!way.length)return pt(0,0);if(d<=0)return way[0];if(d>=way.at(-1).dist)return way.at(-1);let lo=0,hi=way.length-1;while(hi-lo>1){let mid=(lo+hi)>>1;if(way[mid].dist<d)lo=mid;else hi=mid;}let a=way[lo],b=way[hi],t=(d-a.dist)/(b.dist-a.dist||1);return pt(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t)}
 // A captured monster has a separate physical position while its path progress is frozen.
 function monsterPosition(m){
- if(m.hookDeathPosition)return m.hookDeathPosition;
- if(m.hook)return hookTransportPosition(m.hook);
+ if(m.holeDeathPosition)return m.holeDeathPosition;
+ if(m.holeCapture)return holeCapturePosition(m.holeCapture);
  if(!m.grapple)return posAt(m.progress);
  const a=m.grapple,tc=ctr(a.tower),origin=posAt(a.progress);
  const dx=origin.x-tc.x,dy=origin.y-tc.y,dist=Math.hypot(dx,dy)||1;
@@ -1688,7 +1638,7 @@ function monsterPosition(m){
 }
 function underTunnel(c){for(let i of tunnels){let t=ctr(path[i]);if(Math.abs(c.x-t.x)<C*.43&&Math.abs(c.y-t.y)<C*.43)return true}return false}
 function campaignUpgradeCost(t){let base=specList(t.type)[t.lv+1].cost;return Math.ceil(base*(t.lv>=4?1.85:t.lv>=3?1.45:t.lv>=2?1.20:1)/5)*5}
-function updateUpgrade(){let t=selected&&towerAtCell(selected.x,selected.y);let b=$('upgrade');$('rotateBoom').style.display='none';if(!t){$('towerTitle').textContent='Select a tower';$('towerStats').textContent='Select a built tower to inspect its stats.';b.disabled=true;b.textContent='⬆ Upgrade';return}let lv=t.lv||1,sp=towerSpec(t);$('towerTitle').textContent=towerName(t)+' · Lvl '+lv+'/5';$('towerStats').textContent=`Range ${sp.range} cells · Fire rate ${sp.rate.toFixed(2)} s · Damage ${sp.damage.toFixed(2)} ${(t.type==='elink'||t.type==='freeze'||t.type==='grapple')?' · Permanent aura (no shots)':' · Projectile '+sp.velocity+' px/s'}${t.type==='grapple'?' · Captures : '+sp.capacity+' · Hold '+sp.hold+' s':t.type==='freeze'?' · Targets : '+(t.freezeTargets||[]).length+'/'+sp.capacity+' · Movement ×'+sp.slow+' · Rotation unchanged':t.type==='boom'?' · Straight out-and-back · Pierces enemies · Speed '+sp.velocity+' px/s':t.type==='pierce'?' · Bounces : '+sp.penetrations:t.type==='elink'?' · Electric beam':t.type==='area'?' · Explosion : '+sp.blast+' case(s)':''}`;if(t.type==='maw')$('towerStats').textContent=`Capture ${sp.range} cells · Return reach ${sp.returnRange} cells · 180° in 3s · ${Math.round(sp.loss*100)}% max HP/s · Protected while held · ${hookStatus(t)}`;if(t.type==='pusher')$('towerStats').textContent=`Range ${sp.range} cells · Up to 5 targets · Wi-Fi arcs · Push ${sp.push}s of normal movement · Recharge ${sp.rate}s · Boss push 30% · Maximum 2 towers`;if(t.type==='area')$('towerStats').textContent=`Range ${sp.range} cells · 2 targets · Form 1s + compress ${Number(sp.compression.toFixed(2))}s · All armor + 25% max HP · Protected while bound · Recovery ${sp.rate}s`;if(t.type==='elink')$('towerStats').textContent=`Link ${Math.hypot(t.end.x-t.x,t.end.y-t.y).toFixed(2)} cells · ${sp.damage.toFixed(2)} damage/s · Two pylons, shared upgrades`;if(lv===5){b.disabled=true;b.textContent='★ Max level'}else{let price=campaignUpgradeCost(t);b.disabled=energy<price;b.textContent='⬆ Lvl '+(lv+1)+' — '+price+' ⚡'}}
+function updateUpgrade(){let t=selected&&towerAtCell(selected.x,selected.y);let b=$('upgrade');$('rotateBoom').style.display='none';if(!t){$('towerTitle').textContent='Select a tower';$('towerStats').textContent='Select a built tower to inspect its stats.';b.disabled=true;b.textContent='⬆ Upgrade';return}let lv=t.lv||1,sp=towerSpec(t);$('towerTitle').textContent=towerName(t)+' · Lvl '+lv+'/5';$('towerStats').textContent=`Range ${sp.range} cells · Fire rate ${sp.rate.toFixed(2)} s · Damage ${sp.damage.toFixed(2)} ${(t.type==='elink'||t.type==='freeze'||t.type==='grapple')?' · Permanent aura (no shots)':' · Projectile '+sp.velocity+' px/s'}${t.type==='grapple'?' · Captures : '+sp.capacity+' · Hold '+sp.hold+' s':t.type==='freeze'?' · Targets : '+(t.freezeTargets||[]).length+'/'+sp.capacity+' · Movement ×'+sp.slow+' · Rotation unchanged':t.type==='boom'?' · Straight out-and-back · Pierces enemies · Speed '+sp.velocity+' px/s':t.type==='pierce'?' · Bounces : '+sp.penetrations:t.type==='elink'?' · Electric beam':t.type==='area'?' · Explosion : '+sp.blast+' case(s)':''}`;if(t.type==='maw')$('towerStats').textContent=`Arm reach ${sp.range} cells · Mine fuse ${sp.fuse}s · Lethal vortex ${sp.duration.toFixed(2)}s · Radius ${sp.radius} cells · Recharge ${sp.rate}s · ${holeStatus(t)}`;if(t.type==='pusher')$('towerStats').textContent=`Range ${sp.range} cells · Up to 5 targets · Wi-Fi arcs · Push ${sp.push}s of normal movement · Recharge ${sp.rate}s · Boss push 30% · Maximum 2 towers`;if(t.type==='area')$('towerStats').textContent=`Range ${sp.range} cells · 2 targets · Form 1s + compress ${Number(sp.compression.toFixed(2))}s · All armor + 25% max HP · Protected while bound · Recovery ${sp.rate}s`;if(t.type==='elink')$('towerStats').textContent=`Link ${Math.hypot(t.end.x-t.x,t.end.y-t.y).toFixed(2)} cells · ${sp.damage.toFixed(2)} damage/s · Two pylons, shared upgrades`;if(lv===5){b.disabled=true;b.textContent='★ Max level'}else{let price=campaignUpgradeCost(t);b.disabled=energy<price;b.textContent='⬆ Lvl '+(lv+1)+' — '+price+' ⚡'}}
 function paintRapid(t){let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#ff9d45';g.shadowBlur=10+lv*2;g.fillStyle='#39271c';g.strokeStyle='#ffac55';g.lineWidth=2.5;g.beginPath();g.arc(0,0,18,0,TAU);g.fill();g.shadowBlur=0;g.fillStyle='#95552b';g.fillRect(-24,-11,8,22);g.fillRect(16,-11,8,22);if(lv>=2){g.strokeStyle='#ffcc7a';g.lineWidth=3;g.beginPath();g.arc(0,0,24,0,TAU);g.stroke()}if(lv>=3){g.fillStyle='#f5a64d';g.fillRect(-27,-24,13,6);g.fillRect(14,-24,13,6);g.fillRect(-27,18,13,6);g.fillRect(14,18,13,6)}if(lv>=4){g.strokeStyle='#ffd49a';g.lineWidth=2;g.beginPath();g.arc(0,0,27,-2.4,.7);g.stroke()}if(lv>=5){for(let a=0;a<4;a++){let q=a*Math.PI/2+performance.now()/900;g.fillStyle='#fff0b2';g.beginPath();g.arc(Math.cos(q)*29,Math.sin(q)*27,3,0,Math.PI*2);g.fill()}}g.rotate(t.angle||0);let barrels=lv===1?1:lv===2?2:lv===3?3:lv===4?4:5;for(let i=0;i<barrels;i++){let xx=(i-(barrels-1)/2)*6;g.fillStyle=i%2?'#ffb54e':'#ffdb83';g.fillRect(xx-2,-25-(lv>=4?4:0),4,25+(lv>=4?4:0));g.fillStyle='#fff2c0';g.fillRect(xx-2,-27-(lv>=4?4:0),4,5)}g.fillStyle='#462e1e';g.beginPath();g.arc(0,0,8,0,Math.PI*2);g.fill();g.strokeStyle='#ffd28b';g.stroke();g.restore()}
 function paintPierce(t){
  // Ricochet: unmistakable three descending magnetic pebbles on a curved launcher.
@@ -1732,7 +1682,7 @@ function paintMagneticPairs(){
 
 // Corner-only sci-fi chassis: broken arc/line brackets, never a closed square.
 // V7.4: eight functional silhouettes, coordinated open-frame bases and restrained motion.
-const towerArt={pusher:['#eff8ff',4],maw:['#ffb68b',4],precision:['#58e7ff',4],rapid:['#ffae60',3],pierce:['#5ee6a1',6],elink:['#bc8aff',6],area:['#b98aff',8],freeze:['#85e6ff',6],boom:['#55e6c7',3],grapple:['#ffd18a',4]};
+const towerArt={pusher:['#eff8ff',4],maw:['#bf9fff',4],precision:['#58e7ff',4],rapid:['#ffae60',3],pierce:['#5ee6a1',6],elink:['#bc8aff',6],area:['#b98aff',8],freeze:['#85e6ff',6],boom:['#55e6c7',3],grapple:['#ffd18a',4]};
 function paintArtBase(t,now){
  const c=ctr(t),lv=t.lv||1,kind=t.type,def=towerArt[kind]||towerArt.precision,col=def[0],n=def[1],sec=now/1000;
  g.save();g.translate(c.x,c.y);g.lineCap='round';g.lineJoin='round';
@@ -1774,7 +1724,7 @@ function paintArtMotion(t,now){
 }
 function paintCornerChassis(t){
  const c=ctr(t),lv=t.lv||1;
- const colors={precision:'#5eeaff',rapid:'#ffae62',pierce:'#6affaa',elink:'#c08aff',area:'#b98aff',freeze:'#9deeff',boom:'#55e6c7',grapple:'#ffd18a',maw:'#ffb68b',pusher:'#eff8ff'};
+ const colors={precision:'#5eeaff',rapid:'#ffae62',pierce:'#6affaa',elink:'#c08aff',area:'#b98aff',freeze:'#9deeff',boom:'#55e6c7',grapple:'#ffd18a',maw:'#bf9fff',pusher:'#eff8ff'};
  const color=colors[t.type]||'#7eeaff',r=24+Math.min(3,lv)*1.1;
  g.save();g.translate(c.x,c.y);g.strokeStyle=color;g.lineWidth=2.1;g.lineCap='round';g.shadowColor=color;g.shadowBlur=7;
  // Four independent corner motifs: one straight edge and a small curved return.
@@ -1862,7 +1812,7 @@ function paintGrapple(t){
  g.moveTo(0,15);g.lineTo(-4,11);g.moveTo(0,15);g.lineTo(4,11);g.stroke();
  g.restore();
 }
-function paintTower(t){if(t.type==='pusher')return paintPusher(t);if(t.type==='maw')return paintHook(t);if(t.type==='grapple')return paintGrapple(t);if(t.type==='freeze')return paintFreeze(t);if(t.type==='boom')return paintBoom(t);if(t.type==='area')return paintArea(t);if(t.type==='rapid')return paintRapid(t);if(t.type==='pierce')return paintPierce(t);if(t.type==='elink')return;let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#42eaff';g.shadowBlur=10+lv*3;g.fillStyle='#102b40';g.strokeStyle='#50dfff';g.lineWidth=2.5;g.beginPath();g.arc(0,0,17,0,TAU);g.fill();g.shadowBlur=0;
+function paintTower(t){if(t.type==='pusher')return paintPusher(t);if(t.type==='maw')return paintHole(t);if(t.type==='grapple')return paintGrapple(t);if(t.type==='freeze')return paintFreeze(t);if(t.type==='boom')return paintBoom(t);if(t.type==='area')return paintArea(t);if(t.type==='rapid')return paintRapid(t);if(t.type==='pierce')return paintPierce(t);if(t.type==='elink')return;let c=ctr(t),lv=t.lv||1;g.save();g.translate(c.x,c.y);g.shadowColor='#42eaff';g.shadowBlur=10+lv*3;g.fillStyle='#102b40';g.strokeStyle='#50dfff';g.lineWidth=2.5;g.beginPath();g.arc(0,0,17,0,TAU);g.fill();g.shadowBlur=0;
 // Functional modules: bracing, stabilizers, sensors and an additional focusing ring.
 g.fillStyle='#2b6174';for(let a of [-1,1])for(let b of [-1,1])g.fillRect(a*14-4,b*14-4,8,8);
 if(lv>=2){g.strokeStyle='#5ceeff';g.lineWidth=3;for(let a of [-1,1]){g.beginPath();g.moveTo(a*22,-12);g.lineTo(a*26,-12);g.lineTo(a*26,12);g.lineTo(a*22,12);g.stroke()}}
@@ -1879,7 +1829,7 @@ function updateStrategyReport(x,y){const type=$('analysisType').value,lv=+$('ana
 function recommendTowers(){
  const types=['precision','rapid','pierce','area','freeze','boom','grapple'];
  const names={grapple:'🪝 Grapple',precision:'🎯 Cyan',rapid:'🟠 Rapid',pierce:'🟢 Ricochet',elink:'🟣 E-Link',area:'🧲 Magnetar',freeze:'❄️ Freezer',boom:'🪃 Boomerang'};
- const costs={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180};
+ const costs={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180};
  const samples=visiblePathSamples();if(!samples.length)return;
  const current=samples.map(p=>towers.some(t=>Math.hypot(p.x-ctr(t).x,p.y-ctr(t).y)<=analysisRange(t.type,t.lv)));
  const used=new Set(towers.map(t=>key(t.x,t.y)));
@@ -1903,7 +1853,7 @@ function paintPlacementHeatmap(){if(!showPlacementHeatmap)return;for(const item 
 // V7.5: restrained, distinctive animated signatures above each mechanical chassis.
 function paintSignature(t,ms){
  const c=ctr(t),time=ms*.001,level=Math.max(1,t.lv||1);
- const palettes={precision:'#68eaff',rapid:'#ffb25e',pierce:'#68e9a8',freeze:'#8edaff',elink:'#b998ff',area:'#b98aff',boom:'#56e8cd',grapple:'#ffd38c',maw:'#ffb68b',pusher:'#eff8ff'};
+ const palettes={precision:'#68eaff',rapid:'#ffb25e',pierce:'#68e9a8',freeze:'#8edaff',elink:'#b998ff',area:'#b98aff',boom:'#56e8cd',grapple:'#ffd38c',maw:'#bf9fff',pusher:'#eff8ff'};
  const color=palettes[t.type]||'#b8efff';
  const radius=Math.min(C*.31,14)+Math.min(level,5)*.55;
  g.save();g.translate(c.x,c.y);g.strokeStyle=color;g.fillStyle=color;g.lineCap='round';g.lineJoin='round';g.shadowColor=color;g.shadowBlur=4;
@@ -2173,7 +2123,7 @@ drawAmbientSerpentinesAndStars();
 if(isFreePlay())paintExoticArena();
 if(isStageCampaign()&&!firstWaveStarted)paintStageOnePreview();
 drawConstructionAnchors();
-paintHookPlacement();
+paintHolePlacement();
 // Placement feedback: highlight the magnetically snapped construction cell.
 // No board-wide green overlay when a tower is merely selected.
 if(placing && placementHover){
@@ -2390,7 +2340,7 @@ for(let i of tunnels){let p=path[i],a=path[i-1],b=path[i+1],c=ctr(p),horizontal=
 for(let t of towers){if(t.type!=='freeze')continue;let tc=ctr(t),sp=towerSpec(t),affected=t.freezeTargets||[];for(let id of affected){let m=monsters.find(m=>m.id===id&&m.hp>0);if(!m)continue;let mc=monsterPosition(m);if(underTunnel(mc))continue;g.save();g.strokeStyle='rgba(129,233,255,.34)';g.lineWidth=1.4;g.setLineDash([3,6]);g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(mc.x,mc.y);g.stroke();g.setLineDash([]);g.restore()}}
 for(let t of towers){
  if(t.type==='elink'){drawELink(t);continue}
- if(t.type!=='freeze'&&t.type!=='elink'&&t.type!=='boom'){
+ if(t.type!=='freeze'&&t.type!=='elink'&&t.type!=='boom'&&t.type!=='maw'){
   // Target angle is owned by the combat engine; otherwise scan around entrance bearing.
   t.angle=(t.targetLocked&&monsters.some(m=>m.hp>0))?(t.targetAngle??t.angle??0):turretBearing(t,performance.now());
  }
@@ -2444,6 +2394,7 @@ for(const p of particles){if(!p.effect?.startsWith('vfx91'))continue;
  g.restore();
 }
 for(let p of particles){if(p.effect)continue;const duration=p.duration??(p.duration=Math.max(.35,p.life)),q=Math.max(0,Math.min(1,p.life/duration)),radius=Math.max(0,p.r*(1-q)+(p.blast?0:3));g.globalAlpha=q;g.beginPath();g.arc(p.x,p.y,radius,0,Math.PI*2);g.strokeStyle=p.color;g.lineWidth=p.blast?3:2;g.stroke();g.globalAlpha=1}
+paintHoleFields();
 for(const pad of boostPads){if(!pad.discovered)continue;let c=posAt(pad.d),before=posAt(Math.max(0,pad.d-7)),after=posAt(pad.d+7),angle=Math.atan2(after.y-before.y,after.x-before.x);g.save();g.translate(c.x,c.y);g.rotate(angle);const pulse=.5+.5*Math.sin(performance.now()*.006-pad.id*.7);const fresh=performance.now()-pad.flash<650;g.globalAlpha=.68+.32*pulse;g.strokeStyle=fresh?'#fff7ad':'#ffd53d';g.lineWidth=3.2+1.1*pulse;g.lineCap='round';g.shadowColor='#ffca25';g.shadowBlur=(fresh?24:8)+14*pulse;for(let k=-1;k<=1;k++){let x=k*12;g.beginPath();g.moveTo(x-5,-10);g.lineTo(x+5,0);g.lineTo(x-5,10);g.stroke()}g.restore()}
 for(const m of monsters){if(m.hp<=0||!m.boostLeft)continue;if(jumpPairs.some(pair=>Math.abs(m.progress-pair.at)<95))continue;const c=monsterPosition(m);const back=posAt(Math.max(0,m.progress-95));g.save();const trail=g.createLinearGradient(back.x,back.y,c.x,c.y);trail.addColorStop(0,'rgba(40,224,255,0)');trail.addColorStop(1,'rgba(140,255,255,.9)');g.strokeStyle=trail;g.lineWidth=7;g.shadowColor='#4ffbff';g.shadowBlur=18;g.beginPath();g.moveTo(back.x,back.y);g.lineTo(c.x,c.y);g.stroke();g.restore()}
 // Physical grappling cable, reel head and capture halo.
@@ -2452,7 +2403,7 @@ for(let m of monsters){if(!m.grapple||m.hp<=0)continue;let c=monsterPosition(m),
  g.strokeStyle='#ffda92';g.lineWidth=2.1;g.setLineDash([7,4]);g.lineDashOffset=-performance.now()*.03;g.shadowColor='#ffbd62';g.shadowBlur=9;g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(c.x,c.y);g.stroke();g.setLineDash([]);
  g.strokeStyle='#ffe6aa';g.lineWidth=2;g.beginPath();g.arc(c.x,c.y,26,0,TAU);g.stroke();g.restore();
 }
-for(let m of monsters){let c=monsterPosition(m),covered=!m.hook&&underTunnel(c);if(covered)continue;if(m.stageBoss==='prism'){paintPrism(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='anvil'){paintAnvil(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='gemini'){paintGemini(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='nexus'){paintNexus(m,c,portalScaleAt(m.progress));continue;}if(m.miniBoss){paintBastion(m,c,portalScaleAt(m.progress));continue;}if(m.boss){paintTitan(m,c,portalScaleAt(m.progress));continue;}
+for(let m of monsters){if(m.holeCapture)continue;let c=monsterPosition(m),covered=underTunnel(c);if(covered)continue;if(m.stageBoss==='prism'){paintPrism(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='anvil'){paintAnvil(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='gemini'){paintGemini(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='nexus'){paintNexus(m,c,portalScaleAt(m.progress));continue;}if(m.miniBoss){paintBastion(m,c,portalScaleAt(m.progress));continue;}if(m.boss){paintTitan(m,c,portalScaleAt(m.progress));continue;}
 g.save();g.translate(c.x,c.y);const recoil92=(m.hitFlash92||0)/.23;g.scale(portalScaleAt(m.progress)*(1+.055*recoil92),portalScaleAt(m.progress)*(1+.055*recoil92));if(recoil92>0){g.save();g.globalAlpha=.32*recoil92;g.strokeStyle=m.hitKick92<.5?'#74d8ff':'#ff9aaa';g.lineWidth=2;g.beginPath();g.arc(0,0,ENEMY_R+5+8*(1-recoil92),0,TAU);g.stroke();g.restore()}if(m.frozen){g.strokeStyle='#86eaff';g.lineWidth=2;g.beginPath();g.arc(0,0,25,0,Math.PI*2);g.stroke()}if(m.elinked){g.strokeStyle='#c78aff';g.lineWidth=1.6;g.beginPath();g.arc(0,0,23,0,Math.PI*2);g.stroke()}let parts=enemyGeometry(m,{x:0,y:0}); // local geometry, with the same rotation used by collisions
 for(let part of parts){g.strokeStyle=part.kind==='armor'?'#56baff':'#ff5c71';g.lineWidth=part.kind==='armor'?4:2.5;g.beginPath();part.points.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.stroke()}
 g.fillStyle='#ff475f';g.beginPath();g.arc(0,0,4.5,0,TAU);g.fill();
@@ -2485,7 +2436,7 @@ g.strokeStyle='rgba(8,18,31,.70)';g.beginPath();g.arc(0,0,ringRadius,0,TAU);g.st
 if(life>0){g.strokeStyle=life>.55?'#8ef2ad':life>.25?'#ffce70':'#ff6379';g.beginPath();g.arc(0,0,ringRadius,ringStart,ringStart+TAU*life);g.stroke();}
 g.restore()}
 paintMagneticPairs();
-paintHookTransfers();
+paintHoleCaptives();
 paintPusherEffects();
 // Impact effects are drawn AFTER monsters so red hits cannot be hidden by their outlines.
 for(let p of particles){if(!p.effect)continue;let q=Math.max(0,Math.min(1,p.life/p.duration)),t=1-q;g.save();g.globalAlpha=Math.min(1,q*2.3);if(p.effect==='arc'){let m=monsters.find(m=>m.id===p.monsterId);if(m&&m.hp>0){let c=monsterPosition(m);if(!underTunnel(c)){let arc=enemyGeometry(m,c).find(part=>part.kind==='red'&&part.index===p.partIndex);if(arc){g.beginPath();arc.points.forEach((pt,i)=>i?g.lineTo(pt.x,pt.y):g.moveTo(pt.x,pt.y));g.strokeStyle='#ff304e';g.lineWidth=3+5*q;g.shadowColor='#ff163d';g.shadowBlur=17*q;g.stroke();g.shadowBlur=0}}}g.beginPath();g.arc(p.x,p.y,5+16*t,0,TAU);g.strokeStyle='#ff3859';g.lineWidth=3*q;g.stroke();g.beginPath();g.arc(p.x,p.y,4*q,0,TAU);g.fillStyle='#fff0ee';g.fill()}else if(p.effect==='heart'){g.beginPath();g.arc(p.x,p.y,6+24*t,0,TAU);g.strokeStyle='#ff4056';g.lineWidth=5*q;g.shadowColor='#ff153c';g.shadowBlur=20*q;g.stroke();g.beginPath();g.arc(p.x,p.y,8*q,0,TAU);g.fillStyle='#fff3f3';g.fill()}else if(p.effect==='armor'){g.beginPath();g.arc(p.x,p.y,4+13*t,0,TAU);g.strokeStyle='#56bbff';g.lineWidth=3*q;g.stroke();for(let i=0;i<5;i++){let a=i*TAU/5+p.angle;g.beginPath();g.moveTo(p.x+7*Math.cos(a),p.y+7*Math.sin(a));g.lineTo(p.x+(9+12*t)*Math.cos(a),p.y+(9+12*t)*Math.sin(a));g.stroke()}}g.restore()}
@@ -3184,7 +3135,7 @@ function renderWaveCountdown(){waveBanner.querySelector('.wave-main').textConten
  if(active){if(waveBannerExitTimer){clearTimeout(waveBannerExitTimer);waveBannerExitTimer=null}waveBanner.classList.remove('exiting');waveBanner.classList.add('visible');const sec=Math.max(1,Math.ceil(autoWaveCountdown));if(sec!==autoWaveLastShown){if(autoWaveLastShown===-1)window.arcAudio?.mode('alert');waveBanner.querySelector('.wave-number').textContent=String(waveNumber).padStart(2,'0');waveBanner.querySelector('.wave-sec').textContent=`IN ${sec} S`;autoWaveLastShown=sec}waveBanner.classList.toggle('is-paused',paused);}
  else if(waveBanner.classList.contains('visible')){waveBanner.classList.remove('visible');waveBanner.classList.add('exiting');waveBannerExitTimer=setTimeout(()=>{waveBanner.classList.remove('exiting');waveBannerExitTimer=null},300)}
 }
-function launchWave(isAuto=false){if(window.arcAppUpdating)return;eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=!isFreePlay()&&(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];hookPreviewCache.clear();elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isFreePlay()?freeMap().count:isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isFreePlay()?freeMap().gap:isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
+function launchWave(isAuto=false){if(window.arcAppUpdating)return;eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=!isFreePlay()&&(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();$('waveReport').textContent=`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];holeSiteCache.clear();holeMines=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isFreePlay()?freeMap().count:isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isFreePlay()?freeMap().gap:isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
 let arcFrameStamp=0;
 function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrameStamp&&ts-arcFrameStamp<31){if(!window.__arcLabManual)requestAnimationFrame(animate);return}arcFrameStamp=ts;if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
  // Phase 1: announce the discovery before illuminating a single section of the path.
@@ -3207,7 +3158,7 @@ let fifthWave=waveNumber===5;
 let hp=beginner?0.9:secondWave?(type===0?1.15:1.65):thirdWave?[3.0,4.1,6.0][type]:fourthWave?[2.6,3.6,5.4][type]:fifthWave?[2.9,4.1,6.2][type]:profile.hp*(1+Math.min(2.0,Math.max(0,waveNumber-5)*.13));
 let plates=beginner?[true,false,false,false]:secondWave?(type===0?[true,true,false,false]:[true,true,false]):thirdWave?(type===0?[true,true,true,false]:type===1?[true,true,true]:[true,true,true,true,false,false]):fourthWave?(type===0?[true,true,true,false]:type===1?[true,true,true]:[true,true,true,true,true,false]):fifthWave?(type===0?[true,true,true,false]:type===1?[true,true,true]:[true,true,true,true,true,false]):null;
 let trait=tacticalTrait(waveNumber,waveSpawned,type);if(trait==='bulwark'){hp*=1.20;plates=Array(type===2?6:type===1?3:4).fill(true)}else if(trait==='sprinter'){hp*=0.92}monsters.push({trait,progress:0,spin:0,type,hp,maxHp:hp,moveSpeed:beginner?0.65:secondWave?(type===0?0.85:0.72):thirdWave?[0.85,0.72,0.58][type]:fourthWave?[0.9,0.77,0.62][type]:fifthWave?[0.95,0.8,0.65][type]:profile.speed*(1+Math.min(.25,(waveNumber-5)*.02)),spinSpeed:profile.spin,reward:profile.reward,armor:beginner?1:secondWave?2:thirdWave?(type===2?4:3):fourthWave?(type===2?5:3):fifthWave?(type===2?5:3):0,plates,id:++monsterSerial});let spawned=monsters[monsters.length-1];if(trait==='sprinter')spawned.moveSpeed*=1.23;if(waveNumber>=6){const pressure=waveNumber-5;const hpBoost=1+Math.min(.95,pressure*.065);spawned.hp*=hpBoost;spawned.maxHp=spawned.hp;spawned.moveSpeed*=1+Math.min(.16,pressure*.011);spawned.reward=Math.max(1,Math.round(spawned.reward*(1-Math.min(.30,pressure*.02))))}waveSpawned++}}// Freezer targets the most advanced enemies in range, up to each tower's capacity.
-prepareHook(dt);
+prepareHole(dt);
 prepareMagnetar(dt);
 preparePusher(dt);
 for(const m of monsters)advanceGrappleGuard(m,dt);
@@ -3233,7 +3184,7 @@ for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,
  const cadence92=isFreePlay()?1:m.type===0?1+0.035*Math.sin(m.behaviorClock92*2.4+m.id*.7):m.type===1?1+0.055*Math.sin(m.behaviorClock92*3.1+m.id*.43):1+0.018*Math.sin(m.behaviorClock92*1.5+m.id);
  const pushed=advancePusherMotion(m,dt);
  const movementDt=m.spawnAge===undefined?dt:Math.min(dt,m.spawnAge);delete m.spawnAge;
- m.progress+=((m.grapple||m.hook||pushed)?0:movementDt*C*(m.moveSpeed??1.55)*cadence92*(freezeFactors.get(m.id)??1)*(m.boostLeft>0?BOOST_MULT:1));
+ m.progress+=((m.grapple||m.holeCapture||pushed)?0:movementDt*C*(m.moveSpeed??1.55)*cadence92*(freezeFactors.get(m.id)??1)*(m.boostLeft>0?BOOST_MULT:1));
  // Count each crossing once per monster, including accelerated movement.
  // The high-water mark prevents Repulsor backtracking from granting duplicate exploration.
  if(traceVisits.length){
@@ -3247,12 +3198,13 @@ for(let m of monsters){m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,
  }
  for(const pair of jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}if(!m.boss)for(const pad of boostPads){if(oldProgress<pad.d&&m.progress>=pad.d&&!m.boostLeft){window.arcAudio?.effect('boost');m.boostLeft=pad.duration||BOOST_DURATION;pad.discovered=true;pad.flash=performance.now();break}}
 const spinRhythm92=m.type===0?1+0.13*Math.sin(m.behaviorClock92*2+m.id):m.type===1?1+0.23*Math.sin(m.behaviorClock92*3.5+m.id*.6):1+0.07*Math.sin(m.behaviorClock92*1.4+m.id);m.spin+=dt*(m.spinSpeed??1.4)*spinRhythm92;}// Exit crossings are final: remove them before towers can shoot or capture them.
+advanceHole(dt);
 if(resolveEscapes()&&lives<=0){
  playing=false;endCampaign(false);$('waveReport').textContent=`Core destroyed on wave ${waveNumber}.`;
  draw();if(!window.__arcLabManual)requestAnimationFrame(animate);return;
 }
 advancePusherShots(dt);
-advanceHook(dt);
+
 
 advanceMagnetar(dt);
 advanceELinks(dt);
@@ -3392,12 +3344,12 @@ try{let best=JSON.parse(localStorage.getItem('arc_defense_v1_best')||'null');if(
 const eLinkCancel=document.createElement('button');eLinkCancel.id='eLinkCancel';eLinkCancel.type='button';eLinkCancel.textContent='✕ Cancel';eLinkCancel.onclick=cancelELink;
 window.addEventListener('keydown',e=>{if(e.key==='Escape'&&eLinkPending)cancelELink()});
 const dock=$('towerDock'),actions=$('gameActions'),toolbar=$('gameToolbar'),ctx=$('towerContext');
-const towerChoices=[['towerMode','◈','Cyan',80],['rapidMode','✦','Rapid',90],['pierceMode','◕','Ricochet',125],['elinkMode','⚡','E-Link',200],['areaMode','∞','Magnetar',180],['freezeMode','❄','Freezer',135],['boomMode','❖','Boomerang',175],['grappleMode','🪝','Grapple',155],['mawMode','◉','Hook',220],['pusherMode','≫','Repulsor',180]];
+const towerChoices=[['towerMode','◈','Cyan',80],['rapidMode','✦','Rapid',90],['pierceMode','◕','Ricochet',125],['elinkMode','⚡','E-Link',200],['areaMode','∞','Magnetar',180],['freezeMode','❄','Freezer',135],['boomMode','❖','Boomerang',175],['grappleMode','🪝','Grapple',155],['mawMode','◉','Hole',900],['pusherMode','≫','Repulsor',180]];
 for(const [id,glyph,name,cost] of towerChoices){let original=$(id),button=dock.querySelector('[data-tower="'+id+'"]');if(!button)continue;button.title=name;button.onclick=()=>{const type=({towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple',mawMode:'maw',pusherMode:'pusher'})[id];if(arcWaveLocked()||!technologyFeedback(type))return;original.click();syncDock();closeContext()}}
 function syncDock(){for(const b of dock.querySelectorAll('[data-tower]')){const types={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple',mawMode:'maw',pusherMode:'pusher'};b.classList.toggle('active',placing&&placingType===types[b.dataset.tower])}}
 
 const towerIds={towerMode:'precision',rapidMode:'rapid',pierceMode:'pierce',elinkMode:'elink',areaMode:'area',freezeMode:'freeze',boomMode:'boom',grappleMode:'grapple',mawMode:'maw',pusherMode:'pusher'};
-const towerPrices={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180};
+const towerPrices={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180};
 let dragging=null,dragSuppressUntil=0;
 function arcWaveLocked(){return autoWaveCountdown>=0||waveIntroStart>0||revealSweepStart>0||titanEncounter==='warning'}
 function validDrop(x,y,type){const cell=snapConstruction(x,y);return (type!=='pusher'||pusherBuildAvailable())&&!arcWaveLocked()&&technologyAvailable(type)&&!!cell&&energy>=towerPrices[type]&&(type!=='elink'||(eLinkPending?validELinkEnd(eLinkPending,cell):hasELinkEnd(cell)))}
@@ -3447,7 +3399,7 @@ function placeRadialMenu(t){
  rotate.style.left=(Math.max(55,Math.min(innerWidth-55,px-direction*gap))-originX)+'px';
  rotate.style.top=(Math.max(32,Math.min(innerHeight-32,py+gap))-originY)+'px';
 }
-function openContext(){const t=selected&&towerAtCell(selected.x,selected.y);if(!t){closeContext();return}updateUpgrade();$('contextTitle').textContent=$('towerTitle').textContent;$('contextStats').textContent=$('towerStats').textContent+(['elink'].includes(t.type)?'':' · Priority: '+TARGET_LABELS[t.targetMode||'first']);let u=$('contextUpgrade');u.disabled=$('upgrade').disabled;u.textContent=t.lv>=5?'MAX':`⬆ Lvl ${t.lv+1} · ${campaignUpgradeCost(t)} ⚡`;u.title=$('upgrade').textContent;$('contextSell').textContent='◇ +'+Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180}[t.type]||80)*.6)+' ⚡';$('contextRotate').style.display='none';const ct=$('contextTarget');ct.style.display=['elink'].includes(t.type)?'none':'flex';ct.textContent='🎯 '+TARGET_LABELS[t.targetMode||'first'];ct.title='Priority: '+TARGET_LABELS[t.targetMode||'first']+' (click to change)';ctx.classList.add('visible');placeRadialMenu(t);scheduleContextHide()}
+function openContext(){const t=selected&&towerAtCell(selected.x,selected.y);if(!t){closeContext();return}updateUpgrade();$('contextTitle').textContent=$('towerTitle').textContent;$('contextStats').textContent=$('towerStats').textContent+(['elink'].includes(t.type)?'':' · Priority: '+TARGET_LABELS[t.targetMode||'first']);let u=$('contextUpgrade');u.disabled=$('upgrade').disabled;u.textContent=t.lv>=5?'MAX':`⬆ Lvl ${t.lv+1} · ${campaignUpgradeCost(t)} ⚡`;u.title=$('upgrade').textContent;$('contextSell').textContent='◇ +'+Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180}[t.type]||80)*.6)+' ⚡';$('contextRotate').style.display='none';const ct=$('contextTarget');ct.style.display=['elink'].includes(t.type)?'none':'flex';ct.textContent='🎯 '+TARGET_LABELS[t.targetMode||'first'];ct.title='Priority: '+TARGET_LABELS[t.targetMode||'first']+' (click to change)';ctx.classList.add('visible');placeRadialMenu(t);scheduleContextHide()}
 $('contextTarget').onclick=()=>{const t=selected&&towerAtCell(selected.x,selected.y);if(!t)return;const i=TARGET_MODES.indexOf(t.targetMode||'first');t.targetMode=TARGET_MODES[(i+1)%TARGET_MODES.length];openContext();};
 $('contextCancel').textContent='✕ Close';$('contextCancel').onclick=closeContext;
 $('contextUpgrade').onclick=()=>{
@@ -3464,7 +3416,7 @@ $('contextUpgrade').onclick=()=>{
  selectedRangeSince=performance.now();update();draw();openContext();
 };
 $('contextRotate').onclick=()=>{$('rotateBoom').click();closeContext()};
-$('contextSell').onclick=()=>{const t=selected&&towerAtCell(selected.x,selected.y);if(!t)return;const refund=Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180}[t.type]||80)*.6);energy+=refund;cancelMagnetarForTower(t);cancelHookForTower(t);cancelPusherForTower(t);towers=towers.filter(q=>q!==t);selected=null;closeContext();update();draw()};
+$('contextSell').onclick=()=>{const t=selected&&towerAtCell(selected.x,selected.y);if(!t)return;const refund=Math.round(({precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180}[t.type]||80)*.6);energy+=refund;cancelMagnetarForTower(t);cancelHoleForTower(t);cancelPusherForTower(t);towers=towers.filter(q=>q!==t);selected=null;closeContext();update();draw()};
 // Canvas event handler in engine is registered earlier; defer reading its resulting selection.
 portraitBoard.addEventListener('click',e=>{
  // Sélection explicite de la tour touchée, indépendamment du mode construction.
@@ -3541,20 +3493,20 @@ animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFEN
  document.body.appendChild(panel);
  const $60=id=>document.getElementById(id);
  let active=null;
- const cost={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180};
+ const cost={precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180};
  function close(){active=null;panel.classList.remove('show')}
  function refresh(){
   if(!active||!towers.includes(active)){close();return}
   const t=active;selected={x:t.x,y:t.y};
   const price=t.lv<5?campaignUpgradeCost(t):0;
-  $60('arc60Title').textContent=towerName(t)+' · Lvl '+t.lv+'/5'+(t.type==='area'?' · '+Number(towerSpec(t).compression.toFixed(2))+'s':t.type==='maw'?' · '+hookStatus(t):t.type==='pusher'?' · '+((t.cool||0)>0?'Recharge '+t.cool.toFixed(1)+'s':'Ready'):'');
+  $60('arc60Title').textContent=towerName(t)+' · Lvl '+t.lv+'/5'+(t.type==='area'?' · '+Number(towerSpec(t).compression.toFixed(2))+'s':t.type==='maw'?' · '+holeStatus(t):t.type==='pusher'?' · '+((t.cool||0)>0?'Recharge '+t.cool.toFixed(1)+'s':'Ready'):'');
   panel.classList.toggle('has-specialization',t.lv===5&&!t.specialization);
   panel.classList.toggle('no-targeting',['elink'].includes(t.type));
-  $60('arc60Stats').textContent=(t.specialization?'★ '+(t.specialization==='reach'?(t.type==='elink'?'Conduction':'Range'):(t.type==='maw'?'Reset':'Power'))+' · ':'')+(t.type==='elink'?towerSpec(t).damage.toFixed(1)+' DPS · ':'')+'Energy '+energy+' ⚡'+(t.lv<5?' · Next level: '+price+' ⚡':' · Max level')+(t.type==='pierce'?' · '+towerSpec(t).penetrations+' bounces':t.type==='pusher'?' · Wi-Fi arcs · Up to 5 targets · Push '+towerSpec(t).push+'s · Recharge '+towerSpec(t).rate+'s · Boss push 30% · Limit 2':t.type==='maw'?' · 180° / 3s · Reach '+towerSpec(t).returnRange+' cells · '+Math.round(towerSpec(t).loss*100)+'% max HP/s · Protected':t.type==='area'?' · Needs 2 enemies · Form 1s + compress '+Number(towerSpec(t).compression.toFixed(2))+'s · All armor + 25% max HP · Protected while bound':'');
+  $60('arc60Stats').textContent=(t.specialization?'★ '+(t.specialization==='reach'?(t.type==='elink'?'Conduction':'Range'):(t.type==='maw'?'Reset':'Power'))+' · ':'')+(t.type==='elink'?towerSpec(t).damage.toFixed(1)+' DPS · ':'')+'Energy '+energy+' ⚡'+(t.lv<5?' · Next level: '+price+' ⚡':' · Max level')+(t.type==='pierce'?' · '+towerSpec(t).penetrations+' bounces':t.type==='pusher'?' · Wi-Fi arcs · Up to 5 targets · Push '+towerSpec(t).push+'s · Recharge '+towerSpec(t).rate+'s · Boss push 30% · Limit 2':t.type==='maw'?' · Mine 2.4s · Vortex '+towerSpec(t).duration.toFixed(2)+'s · Radius '+towerSpec(t).radius.toFixed(2)+' cells · Recharge '+towerSpec(t).rate+'s':t.type==='area'?' · Needs 2 enemies · Form 1s + compress '+Number(towerSpec(t).compression.toFixed(2))+'s · All armor + 25% max HP · Protected while bound':'');
   const up=$60('arc60Upgrade');up.disabled=t.lv>=5||energy<price;
   up.textContent=t.lv>=5?'★ Max Lvl':energy<price?'🔒 '+price+' ⚡':'⬆ Lvl '+(t.lv+1)+' · '+price+' ⚡';
   up.title=t.lv>=5?'Maximum level':`Upgrade to Lvl ${t.lv+1}: ${price} energy`;
-  if(t.type==='pusher'&&t.lv<5)up.title+=' · Push '+pusherSpecs[t.lv+1].push+'s · Recharge '+pusherSpecs[t.lv+1].rate+'s';if(t.type==='maw'&&t.lv<5)up.title+=' · Return reach '+hookSpecs[t.lv+1].returnRange+' cells · '+Math.round(hookSpecs[t.lv+1].loss*100)+'% max HP/s';if(t.type==='area'&&t.lv<5)up.title+=' · Compression '+Number(areaSpecs[t.lv+1].compression.toFixed(2))+'s';up.setAttribute('aria-label',up.title);
+  if(t.type==='pusher'&&t.lv<5)up.title+=' · Push '+pusherSpecs[t.lv+1].push+'s · Recharge '+pusherSpecs[t.lv+1].rate+'s';if(t.type==='maw'&&t.lv<5)up.title+=' · Vortex '+holeSpecs[t.lv+1].duration.toFixed(2)+'s · Radius '+holeSpecs[t.lv+1].radius.toFixed(2)+' cells';if(t.type==='area'&&t.lv<5)up.title+=' · Compression '+Number(areaSpecs[t.lv+1].compression.toFixed(2))+'s';up.setAttribute('aria-label',up.title);
   $60('arc60Title').title=$60('arc60Stats').textContent;
   let special=$60('arc93Special');
   if(special){
@@ -3595,7 +3547,7 @@ animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFEN
   selectedRangeSince=performance.now();update();draw();refresh();
  };
  $60('arc79Target').addEventListener('click',e=>{const b=e.target.closest('[data-target]');if(!b||!active)return;active.targetMode=b.dataset.target;refresh();draw();});
- $60('arc60Sell').onclick=()=>{if(!active)return;energy+=Math.round((cost[active.type]||80)*.6);cancelMagnetarForTower(active);cancelHookForTower(active);cancelPusherForTower(active);towers=towers.filter(q=>q!==active);selected=null;close();update();draw()};
+ $60('arc60Sell').onclick=()=>{if(!active)return;energy+=Math.round((cost[active.type]||80)*.6);cancelMagnetarForTower(active);cancelHoleForTower(active);cancelPusherForTower(active);towers=towers.filter(q=>q!==active);selected=null;close();update();draw()};
  $60('arc60Close').onclick=close;
  setInterval(()=>{if(active)refresh()},350);
  window.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
@@ -4208,6 +4160,9 @@ main>.key,main>#arc10Stats{display:none!important}
  else if(kind==='warp'){tone(370,now,.4,{bus:'fx',type:'sine',end:1140,gain:.11})}
  else if(kind==='wormhole'){tone(770,now,.48,{bus:'fx',type:'sine',end:130,gain:.12});tone(180,now+.06,.35,{bus:'fx',type:'triangle',end:70,gain:.045})}
  else if(kind==='boost'){tone(450,now,.26,{bus:'fx',type:'sawtooth',end:1050,gain:.045})}
+ else if(kind==='holePlant'){tone(300,now,.24,{bus:'fx',type:'triangle',end:110,gain:.06})}
+ else if(kind==='holeBeep'){tone(920,now,.065,{bus:'fx',type:'sine',end:1150,gain:.025})}
+ else if(kind==='holeBlast'){tone(90,now,1.15,{bus:'fx',type:'sawtooth',end:26,gain:.14,cut:420});tone(680,now,.65,{bus:'fx',type:'sine',end:62,gain:.08});tone(170,now+.08,.8,{bus:'fx',type:'triangle',end:35,gain:.08})}
  else if(kind==='grapple'){tone(260,now,.22,{bus:'fx',type:'triangle',end:110,gain:.065})}
  else if(kind==='bossArrival'){tone(72,now,1.8,{bus:'fx',type:'sawtooth',end:36,gain:.16,cut:480});[48,55,60].forEach((n,i)=>tone(note(n),now+.45+i*.24,.45,{bus:'fx',type:'triangle',gain:.09,cut:1800}))}
  else if(kind==='bossPhase'){tone(220,now,.65,{bus:'fx',type:'sawtooth',end:660,gain:.07,cut:1300})}
@@ -4702,8 +4657,8 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
 
 
 <style id="arc938-maw">
-#arc80Stage.arc917-layout #towerDock button[data-tower="mawMode"]{border-left-color:#ffb68b!important}
-#arc80Stage.arc917-layout #towerDock button[data-tower="mawMode"] .tower-glyph{color:#ffe0b0!important}
+#arc80Stage.arc917-layout #towerDock button[data-tower="mawMode"]{border-left-color:#bd9fff!important}
+#arc80Stage.arc917-layout #towerDock button[data-tower="mawMode"] .tower-glyph{color:#e7d6ff!important}
 @media(min-width:700px),(orientation:landscape){
  #arc80Stage.arc917-layout #towerDock.tower-dock{grid-template-rows:repeat(5,auto)!important}
  #arc80Stage.arc917-layout #towerDock button[data-tower="mawMode"]{grid-column:1/-1!important}
@@ -4732,6 +4687,7 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
 </style>
 <style>#campaignMap[data-campaign="free"]{background:radial-gradient(ellipse at 50% 10%,#173a48ed,#050b19fa 80%)!important}#campaignMap[data-campaign="free"] .campaign-map-panel{width:min(1000px,94vw)!important;max-width:1000px!important;background:linear-gradient(145deg,#112d3ff7,#0c1327fa)!important;border-color:#4d9aab!important}#campaignMap[data-campaign="free"] .campaign-map-head{color:#8cf6e0}@media(max-width:760px){#campaignMap[data-campaign="free"] .campaign-map-panel{width:94vw!important;padding:20px!important}.free-card-copy button{min-height:44px}}</style><style>.free-map-card:last-child{grid-column:auto}.free-volume{grid-column:1/-1;padding:24px 4px 10px;display:grid;gap:8px;border-top:1px solid #7b9bac40;margin-top:12px}.free-volume small{font:700 10px system-ui;letter-spacing:.15em;color:#9ff7e0}.free-volume strong{font:750 27px system-ui;color:#e6faff;letter-spacing:-.03em}.free-volume span{font:13px system-ui;color:#a2bdcf}</style><style>#arcAppDialog[hidden],#arcAppDialog [hidden]{display:none!important}#arcAppDialog{position:fixed;inset:0;z-index:100000;background:#030917de;backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;padding:18px;overflow:auto}#arcAppDialog .arc-app-panel{width:min(600px,100%);max-height:calc(100dvh - 36px);overflow:auto;background:linear-gradient(145deg,#15354a,#0a1426);border:1px solid #639cae;border-radius:24px;padding:26px;box-shadow:0 20px 100px #0009}#arcAppDialog .arc-app-head{display:flex;gap:14px;align-items:center;padding:0;margin:0 0 22px}#arcAppDialog .arc-app-head img{border-radius:15px}#arcAppDialog h2{font:750 25px/1.15 system-ui;letter-spacing:-.03em;color:#e8fbff;margin:6px 0}#arcAppDialog small{font:700 10px system-ui;letter-spacing:.13em;color:#80eddb}#arcAppClose{margin-left:auto;align-self:flex-start;min-width:36px;font-size:21px;padding:3px 9px}.arc-app-status{display:grid;gap:6px;border:1px solid #6de6d544;background:#53ead20b;border-radius:13px;padding:15px;margin-bottom:18px}.arc-app-status strong{color:#a3f5d5;font:650 14px system-ui}.arc-app-status span{color:#aac4d5;font-size:12px}.arc-app-actions{display:flex;gap:9px;flex-wrap:wrap}.arc-app-actions button,#arcAppMerge{min-height:44px;font-size:13px}#arcAppInstall,#arcAppUpdate,#arcAppMerge{background:#206575;border-color:#77decc}#arcAppMessage{color:#c1d8e7;font-size:13px;line-height:1.6;min-height:42px}#arcAppDialog p{font-size:13px;line-height:1.6;color:#acc5d8}#arcAppInstallHelp,#arcAppReview{padding:15px;border:1px solid #557f99;border-radius:12px;margin:16px 0;background:#102b3e}.arc-app-backup{border-top:1px solid #7497ab40;padding-top:22px;margin-top:20px}.arc-app-backup h3{margin:7px 0;font:700 21px system-ui;color:#e2f9ff}.arc-app-entry{display:flex;gap:10px;align-items:center;border:1px solid #669ba34a;padding:12px;border-radius:13px;background:#0e2435;margin:16px 0}.arc-app-entry img{border-radius:9px}.arc-app-entry div{display:grid;gap:3px;flex:1}.arc-app-entry strong{font:700 10px system-ui;letter-spacing:.08em;color:#c8f6f5}.arc-app-entry small{font:11px system-ui;color:#a7bfcf}.arc-app-entry button{min-height:40px;font-size:11px;padding:8px 10px}#arcAppDialog button:disabled{opacity:.45;cursor:default}.arc-app-updating:after{content:'Applying update…';position:fixed;inset:0;z-index:9999999;display:grid;place-items:center;background:#061120f5;color:#aaf9e3;font:700 22px system-ui}@media(max-width:480px){#arcAppDialog{padding:10px}#arcAppDialog .arc-app-panel{padding:20px;max-height:calc(100dvh - 20px);border-radius:19px}#arcAppDialog h2{font-size:21px}#arcAppDialog .arc-app-head img{width:44px;height:44px}.arc-app-entry img{display:none}.arc-app-actions button{flex:1 1 130px}}
 </style><script src="./progress.js"></script><script src="./pwa.js"></script></body></html>
+
 
 
 

@@ -1,2 +1,2 @@
-// Legacy test entry point: the slot is now Hook.
-require('./hook.cjs');
+// Historical tower-slot test entry point. Hole replaces Hook/Maw/Echo.
+require('./hole.cjs');

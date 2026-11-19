@@ -176,7 +176,7 @@ test('E-Link specialization modifies shared DPS or contact width',()=>{
  assert.equal(power.damage,8.32);assert.equal(base.damage,6.4);assert.equal(reach.width,.297);assert.equal(base.width,.22);
 });
 function titanContext(){
- const c=context(),nodes=new Map(),modes=[];c.hookPreviewCache=new Map();
+ const c=context(),nodes=new Map(),modes=[];c.holeSiteCache=new Map();
  c.$=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',disabled:false,classList:{toggle(){},add(){},remove(){}},focus(){}});return nodes.get(id)};
  Object.assign(c,{level:2,monsterSerial:0,TITAN_RADIUS:43,titanEscortQueue:[],titanLastProgress:0,titanEncounter:'idle',titanCountdown:0,titanAftermath:0,titanFightTime:0,titanPhaseReached:1,titanMaxHp:0,titanRemainingHp:0,eLinkPending:null,placing:false,placementHover:null,boomHover:null,waveSpawned:10,waveTotal:10,TAU:Math.PI*2,ENEMY_R:18});
  c.window.arcAudio.mode=m=>modes.push(m);c.modeButtons=()=>{};c.spawnVfx91=()=>{};c.monsterPosition=m=>({x:m.x||0,y:m.y||0});
@@ -435,5 +435,6 @@ test('Prism reverses rotation at half health without healing or restoring stripp
 test('Rift has its own health profile and 8+6 escorts while Titan remains reduced by 20 percent',()=>{const {c}=campaignContext();c.campaignStageNumber=10;for(const level of [1,2,3]){c.level=level;const m=c.createTitan();assert.equal(m.stageBoss,'rift');assert.equal(m.hp,600*(level===1?.82:level===3?1.18:1));assert.equal(m.moveSpeed,.68)}c.level=2;c.spawnTitan();assert.equal(c.titanEscortQueue.length,8);const m=c.monsters.find(m=>m.boss);m.hp=300;assert(c.updateTitanPhase(m));assert.equal(m.hp,300);assert.equal(m.moveSpeed,.92);assert.equal(c.titanEscortQueue.length,14);assert(!c.updateTitanPhase(m));c.advanceTitanEscorts(8);assert.equal(c.monsters.filter(m=>m.titanEscort).length,14);assert.equal(c.waveSpawned,c.waveTotal);c.campaignStageNumber=5;assert.equal(c.createTitan().hp,560);c.playMode='challenge';assert.equal(c.createTitan().hp,272)});
 test('New Rupture records reload independently without fabricating prior wins',()=>{const {c}=campaignContext();for(const n of [8,9,10]){c.campaignStageNumber=n;c.recordStageOneVictory()}const p=c.readCampaignProgress();for(const n of [8,9,10]){assert(p.cleared[String(n)]);assert(p.best[String(n)])}assert(!p.cleared['5']);assert(!p.cleared['6']);});
 console.log(count+' regression checks passed');
+
 
 

@@ -1,8 +1,48 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.60.1**.
+Standalone HTML/JavaScript tower defense. Current version: **9.61.1**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Hole replaces Hook (9.61.1)
+
+Hole costs **900 energy**. A telescopic arm plants a mine on a reachable section
+of the real route. Deployment takes 0.75 seconds, followed by a 2.4-second fuse
+with accelerating light and sound pulses. Detonation tears a dark vortex into
+the path: nearby enemies upstream, downstream or on another nearby branch
+spiral inward, shrink, and are completely destroyed.
+
+| Level | Suction time | Radius (cells) | Arm reach (cells) |
+| --- | --- | --- | --- |
+| 1 | 2.00 s | 1.65 | 3.2 |
+| 2 | 2.40 s | 1.85 | 3.4 |
+| 3 | 2.88 s | 2.05 | 3.6 |
+| 4 | 3.46 s | 2.25 | 3.8 |
+| 5 | 4.15 s | 2.45 | 4.0 |
+
+Suction time follows 2 × 1.2^(level−1). Recharge is **28 seconds** starting
+at deployment, with one mine per tower. Upgrade base costs are 400 / 650 / 900 /
+1200 energy (campaign upgrade modifiers still apply). Existing level-five Range
+and Reset specializations apply to the new tower.
+
+The vortex ignores armor and is lethal to bosses too. Magnetar-held enemies
+remain protected; captured enemies cannot be hit by other towers. Captures
+finish their animation even after suction ends. Portal jumps cannot cause a
+false capture across the board. Mines avoid portal mouths and tunnels.
+Selling cancels unexploded mines, while a vortex already open finishes normally.
+Upgrades do not alter a mine already deployed.
+
+The legacy internal technology slot `maw` preserves existing unlocks. All
+tower-facing labels, prices, previews and action panels now show Hole.
+Other tower balance, authored waves, campaign routes and ten Free Play circuits
+are unchanged. Installed apps receive this release through the existing update
+panel.
+
+Validation: 18 Hole checks, 13 Free Play checks, 19 Repulsor checks,
+94 engine regression checks, the campaign picker check and 12 PWA checks pass.
+Browser play verified a planted mine, visible vortex, enemy elimination rewards
+and paused cooldown. Historical Hook/Maw/Echo test entry points now run Hole
+coverage.
 
 ## Installable offline app, safe updates and progress transfer (9.60.1)
 
@@ -705,3 +745,4 @@ excluded from keyboard focus. Existing scores, stage access, combat and listener
 are preserved, as are fullscreen and Challenge access. Navigation tests run with
 `node arc-defense/tests/campaign-picker.cjs`. Mobile visual QA was unavailable
 in the 9.37 authoring environment.
+

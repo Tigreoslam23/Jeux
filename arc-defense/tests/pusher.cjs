@@ -10,7 +10,7 @@ function game(){
  function node(){return {value:'',textContent:'',disabled:false,hidden:false,style:{},dataset:{},children:[],classList:{add(){},remove(){},toggle(){},contains(){return false}},getContext:()=>g,appendChild(){},append(){},replaceChildren(){},setAttribute(){},querySelector(){return node()},querySelectorAll(){return []},addEventListener(){},focus(){},click(){}}}
  const get=id=>{if(!nodes.has(id))nodes.set(id,node());return nodes.get(id)};
  for(const [id,value] of Object.entries({level:'2',seed:'20261104',speed:'4',analysisType:'precision',analysisLevel:'2'}))get(id).value=value;
- const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search:''},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220,pusher:180}});
+ const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search:''},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900,pusher:180}});
 
 
  c.arcCalls=arcCalls;
@@ -29,7 +29,7 @@ function game(){
  shots:()=>pusherShots,targets:()=>monsters,defenses:()=>towers,
  point:monsterPosition,pathPoint:posAt,center:ctr,route:()=>way,
  spec:towerSpec,hit:(m)=>applyGeometricHit({m,kind:'heart',x:0,y:0},1),
- hook:canHookCapture,magnet:canMagnetCapture,grapple:canGrapple,
+ hole:canHoleCapture,magnet:canMagnetCapture,grapple:canGrapple,
  blocked:fn=>underTunnel=fn||realTunnel,portals:pairs=>jumpPairs=pairs,
  sell:t=>{cancelPusherForTower(t);towers=towers.filter(v=>v!==t);energy+=108;refreshPusherLimit()},
  energy:v=>energy=v,price:campaignUpgradeCost,
@@ -81,7 +81,7 @@ check('boss recoil remains 30 percent and applies an eight-second guard',()=>{
  for(const key of ['boss','miniBoss']){const s=fixture(),{t,ms}=group(s,1,{[key]:true}),m=ms[0],p=m.progress;s.recoil(m,s.spec(t));assert.equal(m.pushMotion.duration,.75);s.motion(m,.75);assert(Math.abs(p-m.progress-68.4)<1e-8);assert.equal(m.pushGuard,8);assert(!s.recoil(m,s.spec(t)))}
 });
 check('ordinary enemies remain damageable while rewinding and resist repeats for six seconds',()=>{
- const s=fixture(),{t,ms}=group(s,1),m=ms[0];s.recoil(m,s.spec(t));assert(s.hit(m));assert(!s.hook(m));assert(!s.grapple(m));s.motion(m,.75);assert.equal(m.pushGuard,6);assert(!s.recoil(m,s.spec(t)));s.motion(m,6);assert(s.recoil(m,s.spec(t)));
+ const s=fixture(),{t,ms}=group(s,1),m=ms[0];s.recoil(m,s.spec(t));assert(s.hit(m));assert(s.hole(m));assert(!s.grapple(m));s.motion(m,.75);assert.equal(m.pushGuard,6);assert(!s.recoil(m,s.spec(t)));s.motion(m,6);assert(s.recoil(m,s.spec(t)));
 });
 check('dead, bound, grappled and tunnel-covered enemies are excluded from wave selection',()=>{
  for(const extra of [{hp:0},{escaped:true},{magnetId:2},{grapple:{}},{pushGuard:2}]){const s=fixture(),{t}=group(s,1,extra);assert(!s.launch(t))}
@@ -116,5 +116,6 @@ check('open fans cover selected target groups without reducing the five-target c
  for(const m of w.targets){const p=s.point(m),angle=Math.atan2(p.y-w.y,p.x-w.x);assert(w.directions.some(d=>Math.abs(Math.atan2(Math.sin(angle-d),Math.cos(angle-d)))<=Math.PI/3))}
 });
 console.log(checks+' Repulsor arc checks passed');
+
 
 

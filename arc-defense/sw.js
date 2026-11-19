@@ -1,5 +1,5 @@
 'use strict';
-const VERSION='9.60.1';
+const VERSION='9.61.1';
 const BASE=new URL('./',self.location.href);
 const PREFIX='arc-defense:'+BASE.pathname+':';
 const CACHE=PREFIX+VERSION;
@@ -34,3 +34,4 @@ self.addEventListener('message',event=>{
   else{for(const client of clients)client.postMessage({type:'ARC_UPDATE_BLOCKED'});activating=false}
  })());
 });
+
