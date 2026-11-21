@@ -1,5 +1,5 @@
 (()=>{
- 'use strict';const VERSION='9.61.1';let registration=null,deferredInstall=null,offlineReady=false,waiting=null,queued=false,applying=false,reloadPending=false,returnFocus=null,incoming=null,offlineError='';
+ 'use strict';const VERSION='9.62.1';let registration=null,deferredInstall=null,offlineReady=false,waiting=null,queued=false,applying=false,reloadPending=false,returnFocus=null,incoming=null,offlineError='';
  const $=id=>document.getElementById(id),busy=()=>window.arcAppState?.().busy!==false;
  const isInstalled=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
  function tell(text){$('arcAppMessage').textContent=text}
@@ -54,4 +54,5 @@
  window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;if($('arcAppInstall'))render()});window.addEventListener('appinstalled',()=>{deferredInstall=null;render();tell('ARC DEFENSE is installed. Open it from your app launcher.')});
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(boot),{once:true});else requestAnimationFrame(boot);
 })();
+
 

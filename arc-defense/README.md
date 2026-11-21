@@ -1,8 +1,66 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.61.1**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.1**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Chromatic enemies and timed boosts (9.62.1)
+
+Shape still determines the Orb / Trion / Hexion category. A colored coat,
+matching armor color and a distinct symbol identify one independent ability.
+Vulnerable inner arcs and the core remain red. Bosses and established elite
+anchors retain their authored profiles. The original Challenge remains classic.
+
+| Color | Ability |
+| --- | --- |
+| White | 20% faster, 22% less health |
+| Blue | 40% less E-Link damage; other damage unchanged |
+| Orange | 30% more health, 12% slower, 45% less Repulsor recoil |
+| Green | Regenerates 2.5% max HP/s after 3 damage-free seconds; armor never regrows |
+| Red | 30% faster while below half health |
+| Yellow | Every boost lasts 60% longer |
+| Violet | Releases two fragile, unarmored, smaller same-shape offspring on death |
+
+Fission offspring carry no energy reward and cannot divide again. They must be
+cleared before victory, count once as kills, and cannot appear across a portal.
+Hole consumes the entire violet unit without fission. Captured units remain
+protected from other damage, and regeneration cannot exploit Magnetar, Hole or
+tunnels. Green regeneration is capped and cannot resurrect dead units.
+
+Family introduction: White at Stage 01 wave 4; Blue and Orange at Stage 02;
+Green at Stage 03; Red at Stage 04; Yellow at Stage 05; Violet at Stage 06.
+Later stages combine colors in short groups independently of their shape mix.
+Wave announcements list the upcoming colors. Free Play maps 1–4 have uniform
+color convoys; maps 5–10 mix families. Prism Blossom (8) and Aurora Corkscrew
+(10) include all seven. Existing routes, warp locations, primary wave counts,
+boss encounters, budgets, unlocks and prior progress remain intact.
+
+| Pad | Multiplier | Duration | Cycle |
+| --- | --- | --- | --- |
+| Yellow Classic | 2.5x | 1.1 s campaign / 0.8 s Free Play | Always on |
+| Orange Pulse | 2.5x | 1.1 s | 10 s on / 10 s off |
+| Red Hyper | 3.75x | 0.75 s | Always on |
+| Ringed Red Hyper Pulse | 3.75x | 0.75 s | 10 s on / 10 s off |
+
+Campaign introduction: Yellow Stage 03, Orange Stage 04, Red Stage 05,
+intermittent hyperboost Stage 08. Free Play exposes more variants immediately.
+Some pads are synchronized, others have opposite 10-second offsets. Dark
+chevrons indicate inactive pads; a countdown ring shows the switch time.
+Simulation time drives their state and pauses with the run. Phase carries
+between waves, and resets on replay. Movement splits at exact crossings and
+boost expiry, preserving duration and distance at 1x / 4x. Effects refresh,
+never multiply on top of one another. Titan keeps its original boost immunity. The classic Challenge keeps its original 1.8-second yellow boosts.
+
+Open **Field guide · Colors & boosts** in the campaign menu or Options for all
+abilities and counters. Circuit cards list their families before launch.
+The PWA release, shell and progress module are updated together. Older backup
+records remain valid; new Free Play records include bounded offspring counts.
+
+Validation: 24 new evolution checks, 18 Hole checks, 19 Repulsor checks,
+13 Free Play checks, 94 engine regressions, 12 PWA checks and the campaign
+picker check. Browser QA verified the guide, seven-color live convoys, timed
+active/inactive pads, persistent route reveal, pause and 4x play. Full campaign
+balance still benefits from player feedback after these new combinations.
 
 ## Hole replaces Hook (9.61.1)
 
@@ -745,4 +803,5 @@ excluded from keyboard focus. Existing scores, stage access, combat and listener
 are preserved, as are fullscreen and Challenge access. Navigation tests run with
 `node arc-defense/tests/campaign-picker.cjs`. Mobile visual QA was unavailable
 in the 9.37 authoring environment.
+
 

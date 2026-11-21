@@ -6,7 +6,7 @@
  const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
  function valid(key,v){
   if(key==='arc_campaign_v1')return plain(v)&&v.version===1&&Array.isArray(v.unlocked)&&v.unlocked.every(t=>types.includes(t))&&plain(v.cleared)&&plain(v.best)&&Object.entries(v.cleared).every(([id,b])=>integer(+id,1,10)&&b===true)&&Object.entries(v.best).every(([id,b])=>integer(+id,1,10)&&plain(b)&&integer(b.stars,1,3)&&integer(b.lives,1,20)&&integer(b.kills)&&integer(b.energy)&&integer(b.level,1,3));
-  if(key.startsWith('arc_free_v1_'))return plain(v)&&typeof v.won==='boolean'&&integer(v.kills)&&integer(v.lives,0,20)&&integer(v.count,1,100000)&&v.kills<=v.count;
+  if(key.startsWith('arc_free_v1_'))return plain(v)&&typeof v.won==='boolean'&&integer(v.kills)&&integer(v.lives,0,20)&&integer(v.count,1,100000)&&integer(v.offspring??0,0,v.count*2)&&v.kills<=v.count+(v.offspring||0);
   if(key==='arc_defense_v1_best')return plain(v)&&typeof v.won==='boolean'&&integer(v.wave,1,20)&&integer(v.lives,0,20)&&integer(v.kills)&&integer(v.energy)&&integer(+v.level,1,3);
   if(key==='arcAudioV912')return plain(v)&&typeof v.enabled==='boolean'&&Number.isFinite(v.music)&&v.music>=0&&v.music<=1&&Number.isFinite(v.fx)&&v.fx>=0&&v.fx<=1;
   if(key==='arc_arena_theme')return ['contact','rupture'].includes(v);
@@ -31,3 +31,4 @@
  const api={keys,valid,read,parse,merge,write,export:storage=>JSON.stringify({app:'arc-defense',schema:1,createdAt:new Date().toISOString(),data:read(storage)},null,2)};
  if(typeof module==='object'&&module.exports)module.exports=api;else root.ArcProgress=api;
 })(typeof window==='object'?window:globalThis);
+

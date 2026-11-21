@@ -21,8 +21,10 @@ function extract(name){
  }
  throw Error('Unclosed function '+name);
 }
+const evolution=source.slice(source.indexOf('// Chromatic families are independent'),source.indexOf('const FREE_MAPS='));
+function engineContext(initial){const c=vm.createContext(initial);vm.runInContext(evolution,c);return c}
 function context(){
- const ctx=vm.createContext({C:1,monsters:[],boomShots:[],particles:[],way:[{dist:100}],lives:20,escaped:0,updates:0,hits:[],window:{arcAudio:{effect(){}}}});
+ const ctx=engineContext({C:1,monsters:[],boomShots:[],particles:[],way:[{dist:100}],lives:20,escaped:0,updates:0,hits:[],window:{arcAudio:{effect(){}}}});
  ctx.isFreePlay=()=>false;ctx.update=()=>ctx.updates++;ctx.isStageCampaign=()=>false;
  ctx.monsterPosition=m=>({x:m.x,y:m.y,hidden:m.hidden});
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
@@ -247,12 +249,12 @@ test('Titan renderer runs in both phases with its caller-provided portal scale',
  assert.doesNotThrow(()=>c.paintTitan(m,{x:30,y:40},.6));m.phase=2;assert.doesNotThrow(()=>c.paintTitan(m,{x:30,y:40},1));
 });
 test('boss score has low bass and gains an additional musical layer in phase II',()=>{
- function score(mode){const tones=[],drums=[],c=vm.createContext({state:{mode},tone:(...a)=>tones.push(a),drum:(...a)=>drums.push(a),note:n=>440*Math.pow(2,(n-69)/12)});vm.runInContext(extract('scheduleTitan'),c);for(let i=0;i<16;i++)c.scheduleTitan(i,i*.13);return {tones,drums}}
+ function score(mode){const tones=[],drums=[],c=engineContext({state:{mode},tone:(...a)=>tones.push(a),drum:(...a)=>drums.push(a),note:n=>440*Math.pow(2,(n-69)/12)});vm.runInContext(extract('scheduleTitan'),c);for(let i=0;i<16;i++)c.scheduleTitan(i,i*.13);return {tones,drums}}
  const a=score('boss'),b=score('bossPhase2');assert(a.tones.some(x=>x[0]<70));assert(b.tones.length>a.tones.length);assert(b.drums.length>a.drums.length);
 });
 test('boss music scheduling honors mute and pause',()=>{
  for(const state of [{mode:'boss',enabled:false,paused:false},{mode:'bossPhase2',enabled:true,paused:true},{mode:'boss',enabled:true,paused:false}]){
-  let calls=0;const c=vm.createContext({state,ac:{state:'running',currentTime:1},nextTime:1,seq:0,STAGE_STEP:.11,schedule:()=>calls++});vm.runInContext(extract('tick'),c);c.tick();assert.equal(calls>0,state.enabled&&!state.paused);
+  let calls=0;const c=engineContext({state,ac:{state:'running',currentTime:1},nextTime:1,seq:0,STAGE_STEP:.11,schedule:()=>calls++});vm.runInContext(extract('tick'),c);c.tick();assert.equal(calls>0,state.enabled&&!state.paused);
  }
 });
 function campaignContext(raw=null){
@@ -340,7 +342,7 @@ test('Stage 03 route is distinct, continuous and bounded, and Nexus geometry has
 test('boss phase and death rings render without negative radii throughout their lifetime',()=>{
  const render=source.match(/for\(let p of particles\)\{if\(p.effect\)continue;[^\n]+/)[0],radii=[];
  const particles=[{x:0,y:0,r:65,life:.7,blast:true},{x:0,y:0,r:85,life:.8,blast:true},{x:0,y:0,r:100,life:1.46,blast:true},{x:0,y:0,r:18,life:.35}];
- const c=vm.createContext({particles,Math,g:{beginPath(){},arc(x,y,r){assert(Number.isFinite(r)&&r>=0);radii.push(r)},stroke(){}}});for(let i=0;i<40;i++){vm.runInContext(render,c);for(const p of particles)p.life=Math.max(0,p.life-.05)}assert.equal(radii.length,160);assert(radii.some(r=>r>=85));
+ const c=engineContext({particles,Math,g:{beginPath(){},arc(x,y,r){assert(Number.isFinite(r)&&r>=0);radii.push(r)},stroke(){}}});for(let i=0;i<40;i++){vm.runInContext(render,c);for(const p of particles)p.life=Math.max(0,p.life-.05)}assert.equal(radii.length,160);assert(radii.some(r=>r>=85));
 });
 
 function magnetContext(){
@@ -435,6 +437,7 @@ test('Prism reverses rotation at half health without healing or restoring stripp
 test('Rift has its own health profile and 8+6 escorts while Titan remains reduced by 20 percent',()=>{const {c}=campaignContext();c.campaignStageNumber=10;for(const level of [1,2,3]){c.level=level;const m=c.createTitan();assert.equal(m.stageBoss,'rift');assert.equal(m.hp,600*(level===1?.82:level===3?1.18:1));assert.equal(m.moveSpeed,.68)}c.level=2;c.spawnTitan();assert.equal(c.titanEscortQueue.length,8);const m=c.monsters.find(m=>m.boss);m.hp=300;assert(c.updateTitanPhase(m));assert.equal(m.hp,300);assert.equal(m.moveSpeed,.92);assert.equal(c.titanEscortQueue.length,14);assert(!c.updateTitanPhase(m));c.advanceTitanEscorts(8);assert.equal(c.monsters.filter(m=>m.titanEscort).length,14);assert.equal(c.waveSpawned,c.waveTotal);c.campaignStageNumber=5;assert.equal(c.createTitan().hp,560);c.playMode='challenge';assert.equal(c.createTitan().hp,272)});
 test('New Rupture records reload independently without fabricating prior wins',()=>{const {c}=campaignContext();for(const n of [8,9,10]){c.campaignStageNumber=n;c.recordStageOneVictory()}const p=c.readCampaignProgress();for(const n of [8,9,10]){assert(p.cleared[String(n)]);assert(p.best[String(n)])}assert(!p.cleared['5']);assert(!p.cleared['6']);});
 console.log(count+' regression checks passed');
+
 
 
 
