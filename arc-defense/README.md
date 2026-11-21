@@ -1,8 +1,29 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.1**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.2**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Quieter enemy silhouettes (9.62.2)
+
+Ordinary Orbs, Trions and Hexions now show remaining health through the red
+core alone: its visible radius falls smoothly from 4.5 to 1.8 pixels as HP falls.
+Below 25% HP, opacity gently varies between 76% and 100% using simulation time,
+so the cue stops while paused. Regeneration naturally enlarges the core again.
+Smaller fission offspring use the same proportion at their existing scale.
+
+Removed the circular health gauge, segmented family coat, family badge,
+Fury ring, and redundant Freezer / Grapple halos. Armor colors still identify
+families; their abilities and red weak arcs remain intact. Active tower links,
+physical capture effects and dedicated boss bars retain their functional cues.
+Hole captives use the same health core and family armor color.
+
+This is a presentation change: the actual hittable core, armor geometry,
+damage, enemy profiles, movement, boosts and campaign progress are unchanged.
+The field guide describes the new presentation. All inline scripts compile;
+core size, opacity bounds, boss behavior and unchanged collision/combat
+functions were checked. The existing evolution render check uses the new core
+painter.
 
 ## Chromatic enemies and timed boosts (9.62.1)
 

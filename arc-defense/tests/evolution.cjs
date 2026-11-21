@@ -19,7 +19,7 @@ function game(){
  const realDraw=draw,realTunnel=underTunnel;draw=()=>{};
  globalThis.sim={
  families:()=>ENEMY_FAMILIES,setFamily:setEnemyFamily,familySpeed,damage:damageEnemy,regen:advanceEnemyFamily,children:fissionChildren,colors:colorPlan,freeEnemy:createFreeEnemy,stageEnemy:createStageOneEnemy,sequence:stageOneSequence,
- advanceBoostMovement,boostPhase,boostKind,activateBoost,decoratePads:decorateBoostPads,paintPads:paintBoostPads,paintFamily:paintEnemyFamily,guide:evolutionGuideHTML,
+ advanceBoostMovement,boostPhase,boostKind,activateBoost,decoratePads:decorateBoostPads,paintPads:paintBoostPads,paintFamily:paintEnemyCore,guide:evolutionGuideHTML,
  completeArrivals:()=>{waveSpawned=waveTotal=freeMap().count;},
  clock:(v)=>v===undefined?terrainClock:(terrainClock=v),pads:(v)=>v===undefined?boostPads:(boostPads=v),fissionCount:()=>fissionSpawned,
  recoilPoint:pusherDestination,partGeometry:enemyGeometry,freezeResistance,
