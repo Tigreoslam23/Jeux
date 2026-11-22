@@ -1,5 +1,5 @@
 (()=>{
- 'use strict';const VERSION='9.62.6';let registration=null,deferredInstall=null,offlineReady=false,waiting=null,queued=false,applying=false,reloadPending=false,returnFocus=null,incoming=null,offlineError='';
+ 'use strict';const VERSION='9.62.7';let registration=null,deferredInstall=null,offlineReady=false,waiting=null,queued=false,applying=false,reloadPending=false,returnFocus=null,incoming=null,offlineError='';
  const $=id=>document.getElementById(id),busy=()=>window.arcAppState?.().busy!==false;
  const isInstalled=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
  function tell(text){$('arcAppMessage').textContent=text}

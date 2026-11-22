@@ -2,14 +2,14 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
 const start=source.indexOf("<script>(()=>{'use strict';")+8,end=source.indexOf("$('recommend').onclick=",start);
-function game(){
+function game(search=''){
  const nodes=new Map(),saved=new Map();
  const gradient={addColorStop(){}};
  const g=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(t,k)=>t[k]||(()=>{})});
  function node(){return {value:'',textContent:'',disabled:false,hidden:false,style:{},dataset:{},children:[],classList:{add(){},remove(){},toggle(){},contains(){return false}},getContext:()=>g,appendChild(){},append(){},replaceChildren(){},setAttribute(){},querySelector(){return node()},querySelectorAll(){return []},addEventListener(){},focus(){},click(){}}}
  const get=id=>{if(!nodes.has(id))nodes.set(id,node());return nodes.get(id)};
  for(const [id,value] of Object.entries({level:'2',seed:'20261104',speed:'4',analysisType:'precision',analysisLevel:'2'}))get(id).value=value;
- const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search:''},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900}});
+ const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900}});
 
 
 
@@ -22,7 +22,7 @@ function game(){
  advanceBoostMovement,boostPhase,boostKind,activateBoost,decoratePads:decorateBoostPads,paintPads:paintBoostPads,paintFamily:paintEnemyCore,guide:evolutionGuideHTML,
  completeArrivals:()=>{waveSpawned=waveTotal=freeMap().count;},
  clock:(v)=>v===undefined?terrainClock:(terrainClock=v),pads:(v)=>v===undefined?boostPads:(boostPads=v),fissionCount:()=>fissionSpawned,
- recoilPoint:pusherDestination,partGeometry:enemyGeometry,freezeResistance,
+ recoilPoint:pusherDestination,partGeometry:enemyGeometry,coreColor:enemyCoreColor,hitPart:applyGeometricHit,freezeResistance,
  
  mines:()=>holeMines,injectMine:(extra={})=>{const t=towers[0]||{x:4,y:4,type:'maw',lv:1,cool:0};const m={...posAt(400),progress:400,id:1,age:0,opened:false,lastBeep:-1,tower:t,sp:{...towerSpec(t)},...extra};holeMines.push(m);return m},
  paintFields:paintHoleFields,paintCaptives:paintHoleCaptives,scale:holeCaptureScale,
@@ -60,7 +60,7 @@ function game(){
 }
 let checks=0;function check(name,fn){fn();checks++;console.log('PASS '+name)}
 const close=(a,b)=>assert(Math.abs(a-b)<1e-7,`${a} != ${b}`);
-function fixture(){const s=game();s.reset();s.speed(1);s.route([{x:0,y:300},{x:5000,y:300}]);s.setup([],[]);s.step();return s}
+function fixture(search){const s=game(search);s.reset();s.speed(1);s.route([{x:0,y:300},{x:5000,y:300}]);s.setup([],[]);s.step();return s}
 check('seven abilities can decorate every shape without changing its category',()=>{const s=fixture();for(const color of ['white','blue','orange','green','red','yellow','violet'])for(let type=0;type<3;type++){const m=s.enemy(1,100,{type});s.setFamily(m,color);assert.equal(m.type,type);assert.equal(m.family,color);const hp=m.hp;s.setFamily(m,color);assert.equal(m.hp,hp)}});
 check('White is fragile and fast; Orange is tougher, slower and resists recoil',()=>{const s=fixture(),white=s.setFamily(s.enemy(1),'white'),heavy=s.setFamily(s.enemy(2),'orange');close(white.hp,78);close(white.moveSpeed,1.2);close(heavy.hp,130);close(heavy.moveSpeed,.88);const ordinary=s.enemy(3,500);const sp={push:4};close(500-s.recoilPoint(heavy,sp),57*.88*4*.55);close(500-s.recoilPoint(ordinary,sp),57*4)});
 check('Blue takes 40 percent less E-Link damage while other hits retain full power',()=>{const s=fixture(),m=s.setFamily(s.enemy(1),'blue');close(s.damage(m,10,'elink'),6);close(m.hp,94);close(s.damage(m,10,'precision'),10);close(m.hp,84);m.damageQuiet=2;s.hit(m);assert.equal(m.damageQuiet,0)});
@@ -76,6 +76,41 @@ check('pulse clocks preserve phase between waves and freeze on pause at all spee
 check('Violet creates two fragile same-shape offspring with no armor, energy or second division',()=>{const s=fixture();for(let type=0;type<3;type++){const m=s.setFamily(s.enemy(1,100,{type}),'violet');m.hp=0;const kids=s.children(m);assert.equal(kids.length,2);for(const k of kids){assert.equal(k.type,type);assert.equal(k.family,'violet');assert(k.visualScale<1);assert(k.hp<m.maxHp/4);assert.equal(k.armor,0);assert.equal(k.reward,0);assert(k.progress<=m.progress);k.hp=0;assert.equal(s.children(k).length,0)}assert.equal(s.children(m).length,0)}});
 check('fission never places offspring across a warp or resurrects consumed/escaped units',()=>{const s=fixture();s.portals([{at:99,kind:'edge'}]);const m=s.setFamily(s.enemy(1,100),'violet');m.hp=0;assert(s.children(m).every(k=>k.progress>99));for(const extra of [{holeConsumed:true},{escaped:true}]){const v=s.setFamily(s.enemy(2,100,extra),'violet');v.hp=0;assert.equal(s.children(v).length,0)}});
 check('the real death loop awards one parent reward, waits for offspring and counts each kill once',()=>{const s=fixture(),m=s.setFamily(s.enemy(1,100),'violet');s.setup([m],[]);const before=s.state();m.hp=0;s.step();assert.equal(s.monsters().length,2);assert.equal(s.fissionCount(),2);assert.equal(s.state().kills,before.kills+1);assert.equal(s.state().energy,before.energy+20);s.killAll();s.step();assert.equal(s.monsters().length,0);assert.equal(s.state().kills,before.kills+3);assert.equal(s.state().energy,before.energy+20);s.step();assert.equal(s.state().kills,before.kills+3)});
+check('Trion armor follows the drawn curves, and a broken side exposes the core',()=>{
+ const standard=fixture(),c={x:200,y:300},m=standard.enemy(1,200,{type:1,armor:3,plates:[true,true,true]});
+ assert.equal(standard.partGeometry(m,c).length,6);
+ const s=fixture('?trion-armor=arcs');
+ const ray=angle=>({x:c.x+40*Math.cos(angle),y:c.y+40*Math.sin(angle)});
+ const hit=angle=>s.geometry(ray(angle),c,m,c)[0];
+ const side=Math.PI/3;
+ assert.deepEqual(Array.from(s.partGeometry(m,c),p=>p.kind),['armor','armor','armor']);
+ assert.equal(s.coreColor(m),s.families().neutral.color);
+ for(let degree=0;degree<360;degree++)assert.equal(hit(degree*Math.PI/180).kind,'armor');
+ const first=hit(side);
+ assert.equal(first.index,0);
+ assert(s.hitPart(first,1));
+ assert.equal(m.hp,100);
+ assert.equal(m.armor,2);
+ assert.equal(s.coreColor(m),'#ff294d');
+ const gap=s.partGeometry(m,c)[0];
+ assert.equal(gap.kind,'gap');
+ close(Math.hypot(gap.points[11].x-c.x,gap.points[11].y-c.y),2.25);
+ assert.equal(hit(side).kind,'heart');
+ assert.equal(hit(Math.PI).index,1);
+ m.spin=Math.PI/2;
+ assert.equal(hit(side).kind,'armor');
+ const throughGap=hit(side+m.spin);
+ assert.equal(throughGap.kind,'heart');
+ assert(s.hitPart(throughGap,1));
+ close(m.hp,97.6);
+ m.plates.fill(false);
+ m.armor=0;
+ for(let degree=0;degree<360;degree+=10)assert.equal(hit(degree*Math.PI/180).kind,'heart');
+ m.visualScale=.66;
+ assert.equal(hit(side).kind,'heart');
+ const pass=s.geometry({x:c.x-12,y:c.y+5},{x:c.x+12,y:c.y+5},m,c);
+ assert.equal(pass.length,0);
+});
 check('bosses and established elite anchors keep their original profile and no color ability',()=>{const s=fixture();for(const extra of [{boss:true},{miniBoss:true},{trait:'bulwark'}]){const m=s.enemy(1,100,extra);s.setFamily(m,'orange');assert(!m.family);assert.equal(m.hp,100);assert.equal(m.moveSpeed,1)}});
 check('campaigns introduce one family at a time; free circuits include uniform and mixed convoys',()=>{const s=fixture(),first={};for(let n=1;n<=10;n++){s.loadStage(n);for(let w=1;w<=16;w++)for(const c of s.colors(n,w))if(!first[c])first[c]=n}assert.equal(first.white,1);assert.equal(first.blue,2);assert.equal(first.orange,2);assert.equal(first.green,3);assert.equal(first.red,4);assert.equal(first.yellow,5);assert.equal(first.violet,6);s.loadFree(2);assert.equal(new Set(Array.from({length:40},(_,i)=>s.freeEnemy(i).family)).size,1);s.loadFree(10);assert.equal(new Set(Array.from({length:112},(_,i)=>s.freeEnemy(i).family)).size,7)});
 check('campaign pad variants and advanced alternating hyper pulses follow the stage progression',()=>{const s=fixture();const expected={3:['yellow'],4:['yellow','orange'],5:['yellow','red'],6:['yellow','orange','red'],8:['yellow','orange','red','hyperPulse']};for(const [n,kinds] of Object.entries(expected)){s.loadStage(+n);assert.equal(s.pads().map(p=>p.kind).join(),kinds.join())}s.loadFree(8);assert(s.pads().some(p=>p.kind==='hyperPulse'));assert(s.pads().some(p=>p.offset===10))});
