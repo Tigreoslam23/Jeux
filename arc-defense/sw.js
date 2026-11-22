@@ -1,5 +1,5 @@
 'use strict';
-const VERSION='9.62.7';
+const VERSION='9.62.8';
 const BASE=new URL('./',self.location.href);
 const PREFIX='arc-defense:'+BASE.pathname+':';
 const CACHE=PREFIX+VERSION;

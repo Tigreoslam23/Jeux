@@ -4,7 +4,7 @@ const source=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
 const helpers=source.slice(source.indexOf('function campaignOverviewData('),source.indexOf('function openCampaignMap('));
 const openCode=source.slice(source.indexOf('function openCampaignMap('),source.indexOf('function mountCampaignControls('));
 const gate=source.match(/function canPlayStage[^\n]+/)[0],budget=source.match(/function campaignStageBudget[^\n]+/)[0];
-function fixture(progress){
+function fixture(progress,search=''){
  let document;
  class Node{
   constructor(tag='div',id='',cls=''){Object.assign(this,{tagName:tag.toUpperCase(),id,className:cls,children:[],parentElement:null,hidden:false,disabled:false,style:{},dataset:{},attrs:{},textContent:'',scrollTop:99});this.classList={add:c=>this.className+=' '+c,toggle:(c,on)=>this.className=this.className.split(' ').filter(x=>x!==c).concat(on?[c]:[]).join(' ')}}
@@ -31,8 +31,11 @@ function fixture(progress){
  const frames=[],$=id=>document.getElementById(id);
  const prelude="const $=id=>document.getElementById(id);let playing=false,paused=false,campaignMenuWasPaused=false;function activeStage(){return 1}function mountFreePlayPicker(){}\n";
  const tail="\nreturn {mountCampaignPicker,showCampaignPicker,showCampaignStages,campaignOverviewData,openCampaignMap,closeCampaignMap,visibleCampaignButtons,setPlaying(v,p=false){playing=v;paused=p},state:()=>({playing,paused})};";
- const api=new Function('document','campaignProgress','requestAnimationFrame','window',prelude+gate+'\n'+budget+'\n'+helpers+'\n'+openCode+tail)(document,progress,fn=>frames.push(fn),{arcAudio:{pause(){}}});
- return {document,$,api,refs,flush(){while(frames.length)frames.shift()()}};
+ let busy=false,allowSwitch=false,prompted=0;
+ const location={href:'https://example.com/arc-defense/'+search,assign(url){this.assigned=url}};
+ const window={arcAudio:{pause(){}},arcAppState:()=>({busy}),confirm(){prompted++;return allowSwitch}};
+ const api=new Function('document','campaignProgress','requestAnimationFrame','window','location','trionArcArmorTrial',prelude+gate+'\n'+budget+'\n'+helpers+'\n'+openCode+tail)(document,progress,fn=>frames.push(fn),window,location,new URLSearchParams(search).get('trion-armor')==='arcs');
+ return {document,$,api,refs,location,setBusy(v,allow){busy=v;allowSwitch=allow},promptCount:()=>prompted,flush(){while(frames.length)frames.shift()()}};
 }
 const progress={cleared:{'1':true,'2':true},best:{'1':{stars:2},'2':{stars:3}}},before=JSON.stringify(progress),f=fixture(progress);
 f.api.mountCampaignPicker();f.api.openCampaignMap();f.flush();
@@ -56,6 +59,15 @@ for(let n=1;n<=5;n++){progress.cleared[n]=true;progress.best[n]={stars:3}}
 let d=f.api.campaignOverviewData(1);assert.equal(d.stars,15);assert.equal(d.cleared,5);assert.equal(d.next,null);assert.match(d.objective,/All stars earned/);
 for(let n=6;n<=10;n++){progress.cleared[n]=true;progress.best[n]={stars:2}}
 d=f.api.campaignOverviewData(2);assert.equal(d.stars,10);assert.equal(d.cleared,5);assert.equal(d.next,6);assert.match(d.objective,/Improve: Stage 06/);assert.equal(f.api.campaignOverviewData(1).stars,15);
+const trial=f.$('campaignTrionArmor');assert.equal(trial.textContent,'Try Trion arc armor');
+assert.equal(trial.nextElementSibling,f.$('campaignOverview'));
+f.setBusy(true,false);trial.onclick();assert.equal(f.promptCount(),1);assert.equal(f.location.assigned,undefined);
+f.setBusy(true,true);trial.onclick();assert.equal(new URL(f.location.assigned).searchParams.get('trion-armor'),'arcs');
+const active=fixture(progress,'?trion-armor=arcs&mode=challenge');
+active.api.mountCampaignPicker();
+const back=active.$('campaignTrionArmor');assert.equal(back.textContent,'Return to standard armor');
+back.onclick();assert.equal(new URL(active.location.assigned).search,'?mode=challenge');
+assert(source.includes("options.prepend(createTrionArmorButton('optionsTrionArmor'))"));
 assert(source.includes("const buttons=visibleCampaignButtons(map)"));assert(source.includes("map.dataset.campaign!=='overview')showCampaignPicker();else closeCampaignMap()"));
 console.log('PASS campaign picker: two cards, five stages each, separate stars/objectives, stage access, hidden focus filtering, preserved listeners/scores, pause/resume and completion');
 
