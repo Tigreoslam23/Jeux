@@ -1,8 +1,26 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.2**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.3**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Colored interiors and neutral armor (9.62.3)
+
+Regular Orbs, Trions and Hexions now use one uniform family color for their
+inner arcs, silver-gray (#b9c2cf) for all remaining armor plates, and red only
+for their central health core. The color identity remains visible after armor
+is stripped. Standard units use their original cyan as the inner color.
+
+Hole captives use the same palette. Arc-hit highlights follow the family color
+and use a lighter flash; armor-impact particles use neutral gray. The field
+guide and help text explain the new color roles. Boss designs are retained.
+
+The shrinking health core and absence of health/family rings are preserved.
+This changes rendering only: collision geometry, armor removal, damage,
+family abilities, boosts, waves, routes, and existing progress are untouched.
+Validation: inline and PWA script compilation, actual engine initialization
+and mocked-canvas rendering of all three shapes in every family and health
+state; collision and combat functions compared unchanged with 9.62.2.
 
 ## Quieter enemy silhouettes (9.62.2)
 
