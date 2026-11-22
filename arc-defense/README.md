@@ -1,8 +1,29 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.4**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.5**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Monochrome units with armor-state cores (9.62.5)
+
+Regular Orbs, Trions and Hexions have no disc fill. Inner arcs, remaining armor
+plates and the protected core all share one family color. When the last actual
+plate disappears, the core becomes white. White-family units instead switch
+to a red core, preserving an unmistakable change. A partially armored unit
+retains its colored core. Actual plate flags, not a potentially stale counter,
+determine the presentation; existing armor is never mutated by rendering.
+
+The shrinking core and subtle low-health flicker remain independent health
+cues. Fission offspring have no armor and therefore immediately use a white
+core. Magnetar armor stripping changes the core on release. Hole captives use
+the same rule. Boss artwork and health bars keep their existing behavior.
+The field guide explains the new color rule.
+
+Visual-only release: armor removal, hitboxes, damage, abilities, movement,
+boosts, waves and saved progress are unchanged. All scripts compile; actual
+engine initialization and mocked-canvas rendering cover the three shapes,
+eight families, full/partial/absent armor and multiple health states. Core
+colors and the last-plate threshold were checked without state mutation.
 
 ## Family-colored translucent bodies (9.62.4)
 
