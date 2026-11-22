@@ -1,19 +1,20 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.9**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.11**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
 
-## Trion arc armor trial (9.62.9)
+## Trion arc armor trial (9.62.11)
 
 Open [the trial](https://tigreoslam23.github.io/Jeux/arc-defense/?trion-armor=arcs)
 or choose **Try Trion arc armor** from the campaign overview or the Options
 menu. The trial opens directly to a single wave of eight blue Trions with
 three intact arcs each. Place towers, then choose **Release Trions**. Trial
-results leave campaign and Free Play records alone. The three curved sides
-become the Trion’s armor. Each intact arc
-intercepts direct shots and rotates with the enemy. Breaking one arc opens
-that side to the core, pulls back the colored fill and turns the core red.
+results leave campaign and Free Play records alone. A solid blue star and
+a small white center remain visible throughout the fight. Three rotating gray
+arcs shield its boundary. When an arc breaks, that side of the blue body is
+exposed to direct damage. The white center shrinks as the body loses health
+and collapses before bursting when the body reaches zero HP.
 Armor arcs retain the previous one-hit durability. The Boomerang can break
 one arc per pass and keeps flying. E-Link and area damage retain their
 existing effects.

@@ -19,7 +19,7 @@ function game(search=''){
  const realDraw=draw,realTunnel=underTunnel;draw=()=>{};
  globalThis.sim={
  loadFree:id=>{freeMapNumber=id;playMode='free';build();},loadStage:id=>{campaignStageNumber=id;playMode='campaign';build();},
- title:()=>$('endTitle').textContent,config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
+ title:()=>$('endTitle').textContent,deathEffects:()=>particles.filter(p=>p.effect==='vfx91death'),config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
  frame:()=>animate((last||1)+50),data:()=>({waveSpawned,waveTotal,waveNumber,lives,kills,energy,playing,paused,titanEncounter,freePathRevealed,fissionSpawned,boostPads,jumpPairs,way,mode:playMode}),
  killAll:()=>monsters.forEach(m=>m.hp=0),setPaused:v=>paused=v,setSpeed:v=>$('speed').value=String(v),
  reveal:()=>{revealSweepStart=1;last=950;animate(1001)},best:()=>freeBest(freeMapNumber),campaignSave:()=>JSON.stringify(campaignProgress),
@@ -89,6 +89,11 @@ check('the direct Trion trial launches only fully armored blue Trions and leaves
  }
  s.render();
  s.killAll();s.frame();
+ assert.equal(s.deathEffects().length,8);
+ assert(s.deathEffects().every(p=>p.color==='#4f94ff'));
+ assert(s.data().playing);
+ s.render();
+ for(let frame=0;frame<20&&s.data().playing;frame++)s.frame();
  assert.equal(s.title(),'TRION TRIAL COMPLETE');
  assert.equal(s.data().waveNumber,2);
  assert.equal(s.data().playing,false);
