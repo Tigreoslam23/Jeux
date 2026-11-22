@@ -1,8 +1,27 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.3**.
+Standalone HTML/JavaScript tower defense. Current version: **9.62.4**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Family-colored translucent bodies (9.62.4)
+
+Returns regular Orbs, Trions and Hexions to family-colored armor and red inner
+weak arcs, with their existing shrinking red health core. A flat 28%-opacity
+disc in the same family color now fills the entire interior behind the lines.
+There is no additional outline, health ring, badge or decorative halo.
+
+The fill remains when armor is stripped, so family identity is still readable.
+Fission offspring scale the disc with their smaller geometry. Hole captives
+keep the same body fill throughout suction, multiplied by their existing fade.
+Boss presentation and dedicated health bars are unchanged. The field guide
+describes the restored red vulnerable arcs and colored body.
+
+Presentation only: collision geometry, damage, armor, family abilities, boosts,
+waves, routes and saved progress are unchanged. Inline and PWA scripts compile.
+The actual engine initializes and renders all three shapes, eight families,
+three health states and Hole captives with a mocked canvas. Fill opacity,
+radius scaling, boss exclusion and unchanged combat functions were checked.
 
 ## Colored interiors and neutral armor (9.62.3)
 
