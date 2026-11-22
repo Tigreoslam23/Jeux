@@ -22,7 +22,7 @@ function extract(name){
  throw Error('Unclosed function '+name);
 }
 const evolution=source.slice(source.indexOf('// Chromatic families are independent'),source.indexOf('const FREE_MAPS='));
-function engineContext(initial){const c=vm.createContext({trionArcArmorTrial:false,...initial});vm.runInContext(evolution,c);return c}
+function engineContext(initial){const c=vm.createContext(initial);vm.runInContext(evolution,c);return c}
 function context(){
  const ctx=engineContext({C:1,monsters:[],boomShots:[],particles:[],way:[{dist:100}],lives:20,escaped:0,updates:0,hits:[],window:{arcAudio:{effect(){}}}});
  ctx.isFreePlay=()=>false;ctx.update=()=>ctx.updates++;ctx.isStageCampaign=()=>false;
@@ -30,7 +30,7 @@ function context(){
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
  ctx.enemyGeometry=()=>[];
  ctx.applyGeometricHit=(hit,damage)=>{ctx.hits.push({id:hit.m.id,damage});hit.m.hp-=damage;return true};
- for(const name of ['isMagnetProtected','hasTrionArcArmor','segmentClosest','geometricHits','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
+ for(const name of ['isMagnetProtected','hasBodyArmor','segmentClosest','geometricHits','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
  return ctx;
 }
 function enemy(id,x,progress=0){return {id,x,y:0,hp:100,maxHp:100,progress}}

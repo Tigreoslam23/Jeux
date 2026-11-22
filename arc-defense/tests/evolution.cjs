@@ -24,7 +24,7 @@ function game(search=''){
  completeArrivals:()=>{waveSpawned=waveTotal=freeMap().count;},
  clock:(v)=>v===undefined?terrainClock:(terrainClock=v),pads:(v)=>v===undefined?boostPads:(boostPads=v),fissionCount:()=>fissionSpawned,
  recoilPoint:pusherDestination,partGeometry:enemyGeometry,coreColor:enemyCoreColor,partColor:enemyPartColor,hitPart:applyGeometricHit,
- paintTrion:m=>{fills.length=0;g.globalAlpha=1;paintEnemyInterior(m);paintEnemyCore(m);return fills.slice()},freezeResistance,
+ paintEnemy:m=>{fills.length=0;g.globalAlpha=1;paintEnemyInterior(m);paintEnemyCore(m);return fills.slice()},freezeResistance,
  
  mines:()=>holeMines,injectMine:(extra={})=>{const t=towers[0]||{x:4,y:4,type:'maw',lv:1,cool:0};const m={...posAt(400),progress:400,id:1,age:0,opened:false,lastBeep:-1,tower:t,sp:{...towerSpec(t)},...extra};holeMines.push(m);return m},
  paintFields:paintHoleFields,paintCaptives:paintHoleCaptives,scale:holeCaptureScale,
@@ -39,7 +39,7 @@ function game(search=''){
  scenic:buildExoticRoute,featurePads:scenicBoostPads,
 
  reset:()=>{campaignStageNumber=6;unlockCampaignTechnologies(8);build();playing=true;waveNumber=1;paused=false;waveSpawned=0;waveTotal=999;waveDelay=99999;autoWaveCountdown=-1;waveIntroStart=revealSweepStart=0;},
- setup:(ms,ts)=>{monsters=ms;towers=ts;},
+ setup:(ms,ts)=>{monsters=ms;towers=ts;},setMode:mode=>{playMode=mode},
  tower:(lv=1,extra={})=>({x:4,y:4,type:'maw',lv,cool:0,angle:0,...extra}),
  enemy:(id,progress=500,extra={})=>({id,progress,type:2,spin:0,hp:100,maxHp:100,moveSpeed:1,spinSpeed:1,reward:20,armor:6,plates:Array(6).fill(true),...extra}),
  route:points=>{way=[];let d=0;for(let i=0;i<points.length;i++){if(i===0){way.push({...points[i],dist:0});continue}const a=points[i-1],b=points[i],n=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/20),length=Math.hypot(b.x-a.x,b.y-a.y);for(let k=1;k<=n;k++)way.push({x:a.x+(b.x-a.x)*k/n,y:a.y+(b.y-a.y)*k/n,dist:d+length*k/n});d+=length}jumpPairs=[];underTunnel=()=>false;holeSiteCache.clear()},
@@ -79,13 +79,12 @@ check('Violet creates two fragile same-shape offspring with no armor, energy or 
 check('fission never places offspring across a warp or resurrects consumed/escaped units',()=>{const s=fixture();s.portals([{at:99,kind:'edge'}]);const m=s.setFamily(s.enemy(1,100),'violet');m.hp=0;assert(s.children(m).every(k=>k.progress>99));for(const extra of [{holeConsumed:true},{escaped:true}]){const v=s.setFamily(s.enemy(2,100,extra),'violet');v.hp=0;assert.equal(s.children(v).length,0)}});
 check('the real death loop awards one parent reward, waits for offspring and counts each kill once',()=>{const s=fixture(),m=s.setFamily(s.enemy(1,100),'violet');s.setup([m],[]);const before=s.state();m.hp=0;s.step();assert.equal(s.monsters().length,2);assert.equal(s.fissionCount(),2);assert.equal(s.state().kills,before.kills+1);assert.equal(s.state().energy,before.energy+20);s.killAll();s.step();assert.equal(s.monsters().length,0);assert.equal(s.state().kills,before.kills+3);assert.equal(s.state().energy,before.energy+20);s.step();assert.equal(s.state().kills,before.kills+3)});
 check('Trion armor breaks over a solid body with a separate white center',()=>{
- const standard=fixture(),c={x:200,y:300},m=standard.enemy(1,200,{type:1,family:'blue',armor:3,plates:[true,true,true]});
- assert.equal(standard.partGeometry(m,c).length,6);
- const s=fixture('?trion-armor=arcs'),side=Math.PI/3;
+ const s=fixture(),c={x:200,y:300},m=s.enemy(1,200,{type:1,family:'blue',armor:3,plates:[true,true,true]});
+ const side=Math.PI/3;
  const ray=angle=>({x:c.x+40*Math.cos(angle),y:c.y+40*Math.sin(angle)});
  const hit=angle=>s.geometry(ray(angle),c,m,c)[0];
  const full=s.partGeometry(m,c);
- const fills=s.paintTrion(m);
+ const fills=s.paintEnemy(m);
  assert.deepEqual(Array.from(full,p=>p.kind),['armor','armor','armor']);
  assert.equal(s.partColor(m,'armor'),'#b9c2cf');
  assert.equal(s.coreColor(m),'#f5f7ff');
@@ -99,7 +98,7 @@ check('Trion armor breaks over a solid body with a separate white center',()=>{
  const open=s.partGeometry(m,c)[0];
  assert.equal(open.kind,'body');
  assert.deepEqual(open.points,full[0].points);
- assert.deepEqual(s.paintTrion(m),fills);
+ assert.deepEqual(s.paintEnemy(m),fills);
  assert.equal(hit(side).kind,'body');
  assert(!s.geometry(ray(side),c,m,c).some(h=>h.kind==='heart'));
  assert.equal(hit(Math.PI).index,1);
@@ -118,7 +117,7 @@ check('Trion armor breaks over a solid body with a separate white center',()=>{
  m.plates.fill(false);
  m.armor=0;
  for(let degree=0;degree<360;degree+=10)assert.equal(hit(degree*Math.PI/180).kind,'body');
- assert.deepEqual(s.paintTrion(m),fills);
+ assert.deepEqual(s.paintEnemy(m),fills);
  m.visualScale=.66;
  assert.equal(hit(side).kind,'body');
  const pass=s.geometry({x:c.x-30,y:c.y+20},{x:c.x+30,y:c.y+20},m,c);
@@ -131,6 +130,28 @@ check('Trion armor breaks over a solid body with a separate white center',()=>{
  assert.equal(s.monsters().length,0);
  assert.equal(s.state().kills,1);
 });
+check('Orbs and Hexions also expose curved body sides in the standard game modes',()=>{
+ const s=fixture(),c={x:200,y:300};
+ for(const mode of ['campaign','free','challenge']){
+  s.setMode(mode);
+  for(const [type,count] of [[0,4],[2,6]]){
+   const m=s.enemy(2,200,{type,family:'white',armor:count,plates:Array(count).fill(true)});
+   const hits=angle=>s.geometry({x:c.x+40*Math.cos(angle),y:c.y+40*Math.sin(angle)},c,m,c);
+   const armor=s.partGeometry(m,c);
+   assert.equal(armor.length,count);
+   assert(armor.every(part=>part.kind==='armor'));
+   assert(s.coreColor(m)!==s.families().white.color);
+   for(let i=0;i<count;i++)assert.equal(hits((2*i+1)*Math.PI/count)[0].index,i);
+   const angle=Math.PI/count;
+   assert(s.hitPart(hits(angle)[0],1));
+   assert.equal(m.hp,100);
+   assert.equal(hits(angle)[0].kind,'body');
+   assert(hits(angle).every(hit=>hit.kind!=='heart'));
+   assert(s.hitPart(hits(angle)[0],1));
+   assert.equal(m.hp,99);
+  }
+ }
+});
 check('bosses and established elite anchors keep their original profile and no color ability',()=>{const s=fixture();for(const extra of [{boss:true},{miniBoss:true},{trait:'bulwark'}]){const m=s.enemy(1,100,extra);s.setFamily(m,'orange');assert(!m.family);assert.equal(m.hp,100);assert.equal(m.moveSpeed,1)}});
 check('campaigns introduce one family at a time; free circuits include uniform and mixed convoys',()=>{const s=fixture(),first={};for(let n=1;n<=10;n++){s.loadStage(n);for(let w=1;w<=16;w++)for(const c of s.colors(n,w))if(!first[c])first[c]=n}assert.equal(first.white,1);assert.equal(first.blue,2);assert.equal(first.orange,2);assert.equal(first.green,3);assert.equal(first.red,4);assert.equal(first.yellow,5);assert.equal(first.violet,6);s.loadFree(2);assert.equal(new Set(Array.from({length:40},(_,i)=>s.freeEnemy(i).family)).size,1);s.loadFree(10);assert.equal(new Set(Array.from({length:112},(_,i)=>s.freeEnemy(i).family)).size,7)});
 check('campaign pad variants and advanced alternating hyper pulses follow the stage progression',()=>{const s=fixture();const expected={3:['yellow'],4:['yellow','orange'],5:['yellow','red'],6:['yellow','orange','red'],8:['yellow','orange','red','hyperPulse']};for(const [n,kinds] of Object.entries(expected)){s.loadStage(+n);assert.equal(s.pads().map(p=>p.kind).join(),kinds.join())}s.loadFree(8);assert(s.pads().some(p=>p.kind==='hyperPulse'));assert(s.pads().some(p=>p.offset===10))});
@@ -140,5 +161,5 @@ check('old backups and valid fission records round-trip while impossible offspri
 check('boost crossings and expiry give matching distances for 1x and 4x frame sizes',()=>{const run=step=>{const s=fixture(),m=s.enemy(1,0);s.pads([{d:20,kind:'yellow'},{d:100,kind:'orange'},{d:300,kind:'red'},{d:600,kind:'hyperPulse',offset:10}]);for(let i=0;i<Math.round(4/step);i++){s.clock(8+(i+1)*step);s.advanceBoostMovement(m,step,step,100)}return m};const a=run(.05),b=run(.2);close(a.progress,b.progress);close(a.boostLeft,b.boostLeft)});
 check('a pulse crossing samples its exact crossing time, not the end of a 4x frame',()=>{const s=fixture(),m=s.enemy(1,95);s.pads([{d:100,kind:'orange'}]);s.clock(10.1);s.advanceBoostMovement(m,.2,.2,100);assert(m.boostLeft>0);assert(m.progress>115);const n=s.enemy(2,80);s.advanceBoostMovement(n,.2,.2,100);assert(!n.boostLeft)});
 check('Hole consumes Violet without releasing fission offspring in the actual combat loop',()=>{const s=fixture(),t=s.tower(),m=s.setFamily(s.enemy(1,400),'violet');s.setup([m],[t]);s.injectMine({age:3.15});for(let i=0;i<20;i++)s.step();assert(m.holeConsumed);assert.equal(s.fissionCount(),0);assert.equal(s.monsters().length,0);assert.equal(s.state().kills,1)});
-check('a stream cannot finish until its fission offspring are removed and its record retains them',()=>{const s=game();s.loadFree(7);s.launch();s.speed(1);s.completeArrivals();const m=s.setFamily(s.enemy(1,100),'violet');s.setup([m],[]);m.hp=0;s.frame();assert(s.data().playing);assert.equal(s.monsters().length,2);s.killAll();s.frame();assert(!s.data().playing);assert.equal(s.best().offspring,2);assert(progress.valid('arc_free_v1_7',s.best()))});
+check('a stream cannot finish until its fission offspring are removed and its record retains them',()=>{const s=game();s.loadFree(7);s.launch();s.speed(1);s.completeArrivals();const m=s.setFamily(s.enemy(1,100),'violet');s.setup([m],[]);m.hp=0;s.frame();assert(s.data().playing);assert.equal(s.monsters().length,2);s.killAll();s.frame();for(let i=0;i<20&&s.data().playing;i++)s.frame();assert(!s.data().playing);assert.equal(s.best().offspring,2);assert(progress.valid('arc_free_v1_7',s.best()))});
 console.log(checks+' chromatic families and boost checks passed');

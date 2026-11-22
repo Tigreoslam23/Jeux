@@ -65,7 +65,7 @@ f.setBusy(true,false);trial.onclick();assert.equal(f.promptCount(),1);assert.equ
 f.setBusy(true,true);trial.onclick();assert.equal(new URL(f.location.assigned).searchParams.get('trion-armor'),'arcs');
 const active=fixture(progress,'?trion-armor=arcs&mode=challenge');
 active.api.mountCampaignPicker();
-const back=active.$('campaignTrionArmor');assert.equal(back.textContent,'Return to standard armor');
+const back=active.$('campaignTrionArmor');assert.equal(back.textContent,'Return to campaigns');
 back.onclick();assert.equal(new URL(active.location.assigned).search,'?mode=challenge');
 assert(source.includes("options.prepend(createTrionArmorButton('optionsTrionArmor'))"));
 assert(source.includes("const buttons=visibleCampaignButtons(map)"));assert(source.includes("map.dataset.campaign!=='overview')showCampaignPicker();else closeCampaignMap()"));

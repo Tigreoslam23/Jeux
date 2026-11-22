@@ -1,8 +1,17 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.62.11**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.0**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Body armor across all modes (9.63.0)
+
+Orbs, Trions and Hexions now share the trial armor rules in Campaign,
+Challenge and Free Play. Their bodies have four, three and six curved
+sides respectively. Gray armor shields the sides selected by each wave;
+exposed sides take damage and the core collapses when body HP reaches zero.
+Bosses keep their own armor and weak points. The short Trion trial remains
+available from the menu.
 
 ## Trion arc armor trial (9.62.11)
 
