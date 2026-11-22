@@ -2,14 +2,14 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
 const start=source.indexOf("<script>(()=>{'use strict';")+8,end=source.indexOf("$('recommend').onclick=",start);
-function game(){
+function game(search=''){
  const nodes=new Map(),saved=new Map();
  const gradient={addColorStop(){}};
  const g=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(t,k)=>t[k]||(()=>{})});
  function node(){return {value:'',textContent:'',disabled:false,hidden:false,style:{},dataset:{},children:[],classList:{add(){},remove(){},toggle(){},contains(){return false}},getContext:()=>g,appendChild(){},append(){},replaceChildren(){},setAttribute(){},querySelector(){return node()},querySelectorAll(){return []},addEventListener(){},focus(){},click(){}}}
  const get=id=>{if(!nodes.has(id))nodes.set(id,node());return nodes.get(id)};
  for(const [id,value] of Object.entries({level:'2',seed:'20261104',speed:'4',analysisType:'precision',analysisLevel:'2'}))get(id).value=value;
- const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search:''},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900}});
+ const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:900}});
 
 
 
@@ -19,7 +19,7 @@ function game(){
  const realDraw=draw,realTunnel=underTunnel;draw=()=>{};
  globalThis.sim={
  loadFree:id=>{freeMapNumber=id;playMode='free';build();},loadStage:id=>{campaignStageNumber=id;playMode='campaign';build();},
- config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
+ title:()=>$('endTitle').textContent,config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
  frame:()=>animate((last||1)+50),data:()=>({waveSpawned,waveTotal,waveNumber,lives,kills,energy,playing,paused,titanEncounter,freePathRevealed,fissionSpawned,boostPads,jumpPairs,way,mode:playMode}),
  killAll:()=>monsters.forEach(m=>m.hp=0),setPaused:v=>paused=v,setSpeed:v=>$('speed').value=String(v),
  reveal:()=>{revealSweepStart=1;last=950;animate(1001)},best:()=>freeBest(freeMapNumber),campaignSave:()=>JSON.stringify(campaignProgress),
@@ -71,6 +71,30 @@ check('campaign terrain introduces boost, edge warp and black holes progressivel
 check('new circuit effects render without changing combat and obey the shared simulation clock',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);s.launch();s.reveal();for(let i=0;i<20;i++)s.frame();const before=JSON.stringify(s.data());s.fx();s.render();assert.equal(JSON.stringify(s.data()),before);s.setPaused(true);const pausedState=JSON.stringify(s.data());for(let i=0;i<10;i++)s.frame();assert.equal(JSON.stringify(s.data()),pausedState)}});
 check('all ten menu launches validate their identifiers',()=>{const s=game();for(let id=1;id<=10;id++)assert(s.start(id));for(const id of [0,11,6.5,NaN])assert.equal(s.start(id),false)});
 check('every new circuit contains substantial continuous turning and distinct geometry',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);const way=s.path();let turning=0;for(let i=2;i<way.length;i++){const a=way[i-2],b=way[i-1],c=way[i];if(c.dist-b.dist<.05||b.dist-a.dist<.05)continue;const u=Math.atan2(b.y-a.y,b.x-a.x),v=Math.atan2(c.y-b.y,c.x-b.x);turning+=Math.abs(Math.atan2(Math.sin(v-u),Math.cos(v-u)))}assert(turning>Math.PI*4,'loop turns '+id+': '+turning)}});
+check('the direct Trion trial launches only fully armored blue Trions and leaves records alone',()=>{
+ const s=game('?trion-armor=arcs');s.rebuild();
+ const campaign=s.campaignSave();
+ assert.equal(s.data().mode,'trion-trial');
+ assert.equal(s.data().energy,600);
+ assert.equal(s.liveText(),'▶ Release Trions');
+ s.launch();
+ for(let frame=0;frame<400&&s.data().waveSpawned<8;frame++)s.frame();
+ assert.equal(s.data().waveTotal,8);
+ assert.equal(s.data().waveSpawned,8);
+ assert.equal(s.data().titanEncounter,'idle');
+ assert.equal(s.monsters().length,8);
+ for(const m of s.monsters()){
+  assert.equal(m.type,1);assert.equal(m.family,'blue');
+  assert.equal(m.plates.length,3);assert(m.plates.every(Boolean));
+ }
+ s.render();
+ s.killAll();s.frame();
+ assert.equal(s.title(),'TRION TRIAL COMPLETE');
+ assert.equal(s.data().waveNumber,2);
+ assert.equal(s.data().playing,false);
+ assert.equal(s.best(),null);assert.equal(s.campaignSave(),campaign);
+ s.rebuild();assert.equal(s.liveText(),'▶ Release Trions');
+});
 console.log(checks+' Free Play checks passed');
 
 
