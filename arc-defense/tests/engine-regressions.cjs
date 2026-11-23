@@ -379,15 +379,35 @@ test('Magnetar adds one armored target per level and ignores unarmored and guard
  assert(c.beginMagneticPair(tower));assert.equal(c.magneticPairs[0].ids.length,1);
  c.advanceMagnetar(1);assert.equal(c.monsters[1].armor,6);assert(!c.beginMagneticPair(tower));
 });
-test('Magnetar draws a visible loop around each captured target',()=>{
- const {c,tower}=magnetContext();tower.lv=5;
- const sample=c.monsters[0],loops=[];
- c.monsters=Array.from({length:6},(_,i)=>({...sample,id:i+1,x:40+i,progress:100+i}));
- c.g=new Proxy({ellipse:(x,y)=>loops.push([x,y])},{get:(target,key)=>target[key]||(()=>{})});
- vm.runInContext(extract('paintMagneticPairs'),c);
- assert(c.beginMagneticPair(tower));c.advanceMagnetar(.5);c.paintMagneticPairs();
- assert.equal(loops.length,6);
- assert.deepEqual(loops.map(([x])=>x).sort((a,b)=>a-b),[40,41,42,43,44,45]);
+test('Magnetar weaves a single strand around consecutive targets and animates its reveal',()=>{
+ for(let lv=1;lv<=5;lv++){
+  const {c,tower}=magnetContext();tower.lv=lv;
+  const sample=c.monsters[0],paths=[],dashes=[];
+  c.monsters=Array.from({length:lv+1},(_,i)=>({...sample,id:i+1,x:20+i*25,progress:100+i}));
+  c.g=new Proxy({
+   moveTo(x,y){paths.push({start:[x,y],curves:[]})},
+   bezierCurveTo(...curve){paths.at(-1).curves.push(curve)},
+   setLineDash(pattern){dashes.push(pattern)}
+  },{get:(target,key)=>target[key]||(()=>{})});
+  vm.runInContext(extract('paintMagneticPairs'),c);
+  assert(c.beginMagneticPair(tower));c.advanceMagnetar(.25);c.paintMagneticPairs();
+  assert.equal(paths.length,2);
+  assert.equal(dashes.length,1);
+  const ribbon=paths[1],count=lv+1;
+  assert.equal(ribbon.curves.length,4*count);
+  for(let i=0;i<count;i++){
+   const x=20+i*25;
+   const outward=ribbon.curves[2*i],inward=ribbon.curves[2*(2*count-1-i)];
+   assert.equal(outward[4],x);
+   assert.equal(inward[4],x);
+   assert.equal(Math.sign(outward[5]),i%2?-1:1);
+   assert.equal(inward[5],-outward[5]);
+   if(i<lv)assert.deepEqual(ribbon.curves[2*i+1].slice(4),[x+12.5,0]);
+  }
+  assert.deepEqual(ribbon.curves.at(-1).slice(4),ribbon.start);
+  dashes.length=0;c.advanceMagnetar(.5);c.paintMagneticPairs();
+  assert.equal(dashes.length,0);
+ }
 });
 test('projectiles already in flight and electric beams cannot damage bound enemies',()=>{
  const {c,tower}=magnetContext();c.beginMagneticPair(tower);for(const m of c.monsters){assert.equal(c.geometricHits({x:0,y:0},{x:100,y:0},m,{x:m.x,y:0}).length,0);assert.equal(c.applyGeometricHit({m,kind:'heart',x:0,y:0},100),false);assert.equal(c.canGrapple(m),false)}

@@ -100,6 +100,20 @@ check('all three projectile towers aim along the real line to a grappled target'
   assert(Math.abs(target.y-300)>10);
  }
 });
+check('level 3 Magnetar binds and strips four armored monsters in the real wave loop',()=>{
+ const s=game();s.loadFree(1);s.launch();s.setSpeed(1);
+ s.route([{x:0,y:330},{x:5000,y:330}]);
+ const tower=s.tower(3,{type:'area'});
+ const targets=Array.from({length:5},(_,i)=>s.enemy(i+1,300+i*15));
+ s.setup(targets.slice(),[tower]);
+ s.frame();
+ const captured=targets.filter(m=>m.magnetId);
+ assert.equal(captured.length,4);
+ for(let frame=0;frame<19;frame++)s.frame();
+ assert(captured.every(m=>m.armor===0&&m.hp===100&&!m.magnetId));
+ assert.equal(targets.filter(m=>m.armor===6).length,1);
+ assert.equal(tower.cool,2);
+});
 check('the real loop completes every full stream once and saves only separate circuit records',()=>{const s=game(),campaign=s.campaignSave();for(let id=1;id<=10;id++){s.loadFree(id);s.launch();s.setSpeed(4);let frames=0;while(s.data().playing&&frames++<2500){s.killAll();s.frame()}assert(!s.data().playing,'finished '+id);const a=s.data();assert.equal(a.waveSpawned,s.config().count);assert.equal(a.kills,s.config().count+a.fissionSpawned);assert.equal(a.lives,20);assert.equal(a.titanEncounter,'idle');assert(s.best().won);assert.equal(s.campaignSave(),campaign)}});
 check('campaign terrain introduces boost, edge warp and black holes progressively',()=>{const s=game();for(let n=1;n<=10;n++){s.loadStage(n);const a=s.data();assert.equal(a.mode,'campaign');assert.equal(a.boostPads.length,[0,0,1,2,2,3,3,4,4,5][n-1]);assert.equal(a.jumpPairs.some(j=>j.kind==='edge'),[5,8,10].includes(n));assert.equal(a.jumpPairs.some(j=>j.kind==='wormhole'),[7,9,10].includes(n));assert(s.free().length>=12)}});
 

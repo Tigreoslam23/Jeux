@@ -1,14 +1,16 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.2**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.3**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
 
 ## Magnetar armor stripping (9.63.2)
 
 Magnetar strips armor after one second and recharges for two seconds. Levels
-1–5 have two to six loops. Each loop binds one armored target and strips its
-plates without reducing HP.
+1–5 bind up to two to six armored targets respectively. The two outer lobes
+form an infinity at level 1. A continuous animated strand crosses between
+consecutive targets and bends around each one, adding an inner loop per extra target.
+Each loop strips its target’s plates without reducing HP.
 
 ## Scout and Grapple targeting (9.63.1)
 
