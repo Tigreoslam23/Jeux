@@ -152,14 +152,14 @@ check('the direct Trion trial launches only fully armored blue Trions and leaves
  assert.equal(s.best(),null);assert.equal(s.campaignSave(),campaign);
  s.rebuild();assert.equal(s.liveText(),'▶ Release Trions');
 });
-check('every campaign and Free Play circuit has a red return arc within a continuous path section',()=>{
+check('every campaign and Free Play circuit has a red shortcut toward the core within a continuous path section',()=>{
  const s=game();
  for(const load of [s.loadStage,s.loadFree]){
   for(let id=1;id<=10;id++){
    load(id);const link=s.routeLink(),data=s.data();
    assert(link,'missing Link on '+data.mode+' '+id);
-   assert(link.exit<link.entry);
-   assert(data.jumpPairs.every(p=>p.at<link.exit||p.at>link.entry));
+   assert(link.entry<link.exit);
+   assert(data.jumpPairs.every(p=>p.at<link.entry||p.at>link.exit));
    assert.deepEqual(link.a,s.pathPoint(link.entry));
    assert.deepEqual(link.b,s.pathPoint(link.exit));
    assert(link.length>Math.hypot(link.b.x-link.a.x,link.b.y-link.a.y));
@@ -213,11 +213,14 @@ check('Link closes after five seconds, lets travelers finish and resets its capa
  assert(late.routeLinkTransit&&s.linkOpening(s.clock())===-1);
  const closed=s.enemy(3,link.entry-1);s.setup([late,closed],[]);s.frame();
  assert(!closed.routeLinkTransit&&closed.progress>link.entry);
+ assert.equal(late.progress,link.entry);
  for(let i=0;i<100&&late.routeLinkTransit;i++)s.frame();
  assert(!late.routeLinkTransit&&!s.protected(late));
- assert(Math.abs(late.progress-link.exit)<=57*.05);
- assert.equal(s.directDamage(late,1),1);
+ assert(late.progress>=link.exit&&late.progress<=link.exit+57*.05);
+ const landedProgress=late.progress;
  assert.equal(late.eLinkPreviousProgress,link.exit);
+ s.frame();assert(late.progress>landedProgress);
+ assert.equal(s.directDamage(late,1),1);
  late.progress=link.entry-1;
  s.setClock(first+45);
  const next=s.enemy(4,link.entry-1);s.setup([late,next],[]);s.frame();
