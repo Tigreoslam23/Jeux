@@ -1,8 +1,15 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.3**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.4**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Maw returns (9.63.4)
+
+Maw replaces Hole. The 220-energy tower swallows one enemy at a time.
+Each level multiplies absorption and digestion speed by 1.30, so the time
+from capture to elimination is 6.80, 5.23, 4.02, 3.09 or 2.38 seconds.
+Bosses use the old crush-and-release behavior and lose 12% of maximum HP.
 
 ## Magnetar armor stripping (9.63.2)
 
