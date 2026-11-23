@@ -20,9 +20,10 @@ function game(search=''){
  globalThis.sim={
  loadFree:id=>{freeMapNumber=id;playMode='free';build();},loadStage:id=>{campaignStageNumber=id;playMode='campaign';build();},
  title:()=>$('endTitle').textContent,deathEffects:()=>particles.filter(p=>p.effect==='vfx91death'),config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
- frame:()=>animate((last||1)+50),data:()=>({waveSpawned,waveTotal,waveNumber,lives,kills,energy,playing,paused,titanEncounter,freePathRevealed,fissionSpawned,boostPads,jumpPairs,way,mode:playMode}),
+ frame:()=>animate((last||1)+50),data:()=>({waveSpawned,waveTotal,waveNumber,lives,kills,energy,playing,paused,titanEncounter,scoutActive,scoutProgress,scoutIntroProgress,fissionSpawned,boostPads,jumpPairs,way,mode:playMode}),
  killAll:()=>monsters.forEach(m=>m.hp=0),setPaused:v=>paused=v,setSpeed:v=>$('speed').value=String(v),
- reveal:()=>{revealSweepStart=1;last=950;animate(1001)},best:()=>freeBest(freeMapNumber),campaignSave:()=>JSON.stringify(campaignProgress),
+ reveal:(age=1000)=>{revealSweepStart=1;last=age-49;animate(age+1)},exploration:discoveredPercent,
+ revealByMonsters:()=>traceVisits.fill(TRACE_REQUIRED),shots:()=>shots,best:()=>freeBest(freeMapNumber),campaignSave:()=>JSON.stringify(campaignProgress),
  fx:paintLoopCircuitEffects,start:startFreeMap,rows:()=>nodes.get('endSummary')?.children,render:()=>{draw=realDraw;try{draw()}finally{draw=()=>{}}},
  scenic:buildExoticRoute,featurePads:scenicBoostPads,
 
@@ -64,7 +65,41 @@ check('identical regular convoys retain one type and constant movement speed',()
 check('spawn accumulation emits the correct number at 1x and 4x without discarding debt',()=>{const s=game();for(const speed of [1,4]){s.loadFree(5);s.launch();s.setSpeed(speed);for(let i=0;i<100;i++)s.frame();assert.equal(s.data().waveSpawned,Math.floor(5*speed/s.config().gap+1e-7));assert(s.liveText().includes(s.data().waveSpawned+' / '+s.config().count))}});
 check('regular streams preserve physical spawn spacing at 1x and 4x',()=>{const s=game();for(const speed of [1,4]){s.loadFree(2);s.launch();s.setSpeed(speed);for(let i=0;i<70;i++)s.frame();const ms=s.monsters(),a=ms.at(-2),b=ms.at(-1);assert(Math.abs(a.progress-b.progress-57*s.config().speed*s.config().gap)<1e-6)}});
 check('pause freezes stream release and all monster progress',()=>{const s=game();s.loadFree(1);s.launch();for(let i=0;i<50;i++)s.frame();const before=s.data().waveSpawned,progress=s.monsters().map(m=>m.progress);s.setPaused(true);for(let i=0;i<50;i++)s.frame();assert.equal(s.data().waveSpawned,before);assert.deepEqual(s.monsters().map(m=>m.progress),progress)});
-check('route reveal latches permanently and lights every turbo strip',()=>{const s=game();s.loadFree(1);s.launch();s.reveal();assert(s.data().freePathRevealed);assert(s.data().boostPads.every(p=>p.discovered));for(let i=0;i<50;i++)s.frame();assert(s.data().freePathRevealed);s.render();s.loadFree(2);assert(!s.data().freePathRevealed)});
+check('the fast Scout preview leaves exploration for the slow Scout and the stream',()=>{
+ const s=game();s.loadFree(1);s.setSpeed(1);s.launch();
+ s.reveal(1500);
+ assert.equal(s.data().scoutIntroProgress,s.path().at(-1).dist);
+ assert.equal(s.exploration(),0);
+ assert(s.data().boostPads.every(p=>!p.discovered));
+ s.reveal(1700);assert.equal(s.data().scoutIntroProgress,0);
+ for(let i=0;i<20;i++)s.frame();
+ assert(Math.abs(s.data().scoutProgress-57*.35)<1e-6);
+ assert(s.exploration()>0&&s.exploration()<10);
+ assert(!s.monsters().some(m=>m.scout));
+ const before=s.data().scoutProgress;
+ s.setPaused(true);s.frame();assert.equal(s.data().scoutProgress,before);
+ s.setPaused(false);s.revealByMonsters();s.frame();
+ assert.equal(s.exploration(),100);
+ assert(!s.data().scoutActive);
+ assert.equal(s.deathEffects().filter(p=>p.color==='#78fff1').length,1);
+ s.frame();assert.equal(s.deathEffects().filter(p=>p.color==='#78fff1').length,1);
+ s.render();s.loadFree(2);assert.equal(s.exploration(),0);
+});
+check('all three projectile towers aim along the real line to a grappled target',()=>{
+ for(const type of ['precision','rapid','pierce']){
+  const s=game();s.loadFree(1);s.launch();s.setSpeed(1);
+  s.route([{x:0,y:300},{x:5000,y:300}]);
+  const tower=s.tower(1,{x:4,y:4,type});
+  const grapple=s.tower(1,{x:4,y:3,type:'grapple'});
+  const m=s.enemy(1,260,{grapple:{tower:grapple,progress:260,age:.5,travel:.1,hold:3,returnTime:.5}});
+  s.setup([m],[tower]);s.frame();
+  const hit=s.shots()[0],center=s.center(tower),target=s.point(m);
+  assert(hit,type);
+  const angle=Math.atan2(target.y-center.y,target.x-center.x);
+  assert(Math.abs(Math.atan2(hit.vy,hit.vx)-angle)<1e-8,type);
+  assert(Math.abs(target.y-300)>10);
+ }
+});
 check('the real loop completes every full stream once and saves only separate circuit records',()=>{const s=game(),campaign=s.campaignSave();for(let id=1;id<=10;id++){s.loadFree(id);s.launch();s.setSpeed(4);let frames=0;while(s.data().playing&&frames++<2500){s.killAll();s.frame()}assert(!s.data().playing,'finished '+id);const a=s.data();assert.equal(a.waveSpawned,s.config().count);assert.equal(a.kills,s.config().count+a.fissionSpawned);assert.equal(a.lives,20);assert.equal(a.titanEncounter,'idle');assert(s.best().won);assert.equal(s.campaignSave(),campaign)}});
 check('campaign terrain introduces boost, edge warp and black holes progressively',()=>{const s=game();for(let n=1;n<=10;n++){s.loadStage(n);const a=s.data();assert.equal(a.mode,'campaign');assert.equal(a.boostPads.length,[0,0,1,2,2,3,3,4,4,5][n-1]);assert.equal(a.jumpPairs.some(j=>j.kind==='edge'),[5,8,10].includes(n));assert.equal(a.jumpPairs.some(j=>j.kind==='wormhole'),[7,9,10].includes(n));assert(s.free().length>=12)}});
 

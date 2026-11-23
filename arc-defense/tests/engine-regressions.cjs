@@ -30,7 +30,7 @@ function context(){
  ctx.posAt=p=>({x:p,y:0});ctx.ctr=t=>({x:t.x,y:t.y});ctx.underTunnel=p=>!!p.hidden;
  ctx.enemyGeometry=()=>[];
  ctx.applyGeometricHit=(hit,damage)=>{ctx.hits.push({id:hit.m.id,damage});hit.m.hp-=damage;return true};
- for(const name of ['isMagnetProtected','hasBodyArmor','segmentClosest','geometricHits','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
+ for(const name of ['isMagnetProtected','hasBodyArmor','segmentClosest','geometricHits','distanceToTarget','sortTargets','boomPoint','boomSegments','launchBoomSalve','advanceBoomerangs','resolveEscapes'])vm.runInContext(extract(name),ctx);
  return ctx;
 }
 function enemy(id,x,progress=0){return {id,x,y:0,hp:100,maxHp:100,progress}}

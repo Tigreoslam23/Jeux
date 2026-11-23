@@ -1,8 +1,16 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.0**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.1**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Scout and Grapple targeting (9.63.1)
+
+The Scout shows the route in the opening preview and returns at 0.35 cells
+per second. Its live trail counts toward exploration, alongside monster
+passages. Towers and enemy effects ignore the Scout. It bursts when the
+route is fully explored by the monsters or when it reaches the exit.
+Precision, Rapid and Ricochet use the actual location of grappled enemies.
 
 ## Body armor across all modes (9.63.0)
 
