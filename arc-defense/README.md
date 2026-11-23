@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.4**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.5**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Route Link (9.63.5)
+
+The red arc connects two points on the same uninterrupted section of the route. It opens when the first enemy reaches the entry, stays open for five seconds of active play, and reopens after a forty-second cooldown. Up to five enemies can enter per opening. Each enemy may enter once per circuit and returns to an earlier point at 150% of its normal speed. Towers cannot target, damage, slow or displace enemies on the arc. Enemies already on the link finish crossing after it closes.
 
 ## Maw returns (9.63.4)
 

@@ -44,7 +44,10 @@ function game(search=''){
  drop:dropTower,free:()=>{const cells=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(freeConstructionCell(x,y))cells.push({x,y});return cells},
  upgrade:t=>{const p=campaignUpgradeCost(t);if(energy<p)return false;energy-=p;t.lv++;return true},
  elinks:advanceELinks,geometry:geometricHits,boomerang:launchBoomSalve,rebuild:build,
- escapes:resolveEscapes
+ escapes:resolveEscapes,
+ routeLink:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
+ setClock:t=>{terrainClock=t},directDamage:damageEnemy,
+ suppressSpawns:()=>{waveDelay=99999}
  };
  })();`;
  vm.runInContext(source.slice(start,end)+exports,c,{timeout:10000});return c.sim;
@@ -148,6 +151,79 @@ check('the direct Trion trial launches only fully armored blue Trions and leaves
  assert.equal(s.data().playing,false);
  assert.equal(s.best(),null);assert.equal(s.campaignSave(),campaign);
  s.rebuild();assert.equal(s.liveText(),'▶ Release Trions');
+});
+check('every campaign and Free Play circuit has a red return arc within a continuous path section',()=>{
+ const s=game();
+ for(const load of [s.loadStage,s.loadFree]){
+  for(let id=1;id<=10;id++){
+   load(id);const link=s.routeLink(),data=s.data();
+   assert(link,'missing Link on '+data.mode+' '+id);
+   assert(link.exit<link.entry);
+   assert(data.jumpPairs.every(p=>p.at<link.exit||p.at>link.entry));
+   assert.deepEqual(link.a,s.pathPoint(link.entry));
+   assert.deepEqual(link.b,s.pathPoint(link.exit));
+   assert(link.length>Math.hypot(link.b.x-link.a.x,link.b.y-link.a.y));
+  }
+ }
+ for(const search of ['?mode=challenge','?trion-armor=arcs']){
+  const variant=game(search);variant.rebuild();assert(variant.routeLink(),search);
+ }
+});
+check('five monsters take the red arc at 150% speed and ignore the whole tower arsenal',()=>{
+ const s=game();s.loadFree(1);s.setSpeed(1);s.launch();s.suppressSpawns();
+ const link=s.routeLink();
+ const targets=Array.from({length:6},(_,i)=>s.enemy(i+1,link.entry-1));
+ s.setup(targets,[]);
+ s.frame();
+ assert.equal(link.used,5);
+ assert(Math.abs(link.firstOpenedAt-1/57)<1e-8);
+ assert(targets.slice(0,5).every(m=>m.routeLinkTransit&&s.protected(m)));
+ assert(!targets[5].routeLinkTransit&&targets[5].progress>link.entry);
+ const m=targets[0],d=m.routeLinkTransit.distance;
+ const towerTypes=['precision','rapid','pierce','area','freeze','boom','grapple','maw','pusher','elink'];
+ const towers=towerTypes.map(type=>s.tower(5,{type,end:{x:7,y:4}}));
+ s.setup([m],towers);
+ s.frame();
+ assert(Math.abs(m.routeLinkTransit.distance-d-57*1.5*.05)<1e-8);
+ assert.equal(s.directDamage(m,100,'elink'),0);
+ assert.equal(s.hit(m),false);
+ assert.equal(s.geometry(link.a,link.b,m,s.point(m)).length,0);
+ assert(!s.can(m)&&!s.grapple(m)&&!s.magnet(m)&&!s.push(m));
+ assert.equal(m.hp,100);
+ assert.equal(m.armor,6);
+ assert(!m.frozen);
+ assert.equal(s.shots().length,0);
+ s.render();
+ const before=m.routeLinkTransit.distance;
+ s.setPaused(true);s.frame();
+ assert.equal(m.routeLinkTransit.distance,before);
+ s.setPaused(false);
+});
+check('Link closes after five seconds, lets travelers finish and resets its capacity after forty seconds',()=>{
+ const s=game();s.loadFree(1);s.setSpeed(1);s.launch();s.suppressSpawns();
+ const link=s.routeLink(),m=s.enemy(1,link.entry-1);
+ s.setup([m],[]);s.frame();
+ const first=link.firstOpenedAt;
+ assert.equal(s.linkOpening(first+4.99),0);
+ assert.equal(s.linkOpening(first+5),-1);
+ assert.equal(s.linkOpening(first+44.99),-1);
+ assert.equal(s.linkOpening(first+45),1);
+ s.setClock(first+4.96);
+ const late=s.enemy(2,link.entry-1);s.setup([late],[]);s.frame();
+ assert(late.routeLinkTransit&&s.linkOpening(s.clock())===-1);
+ const closed=s.enemy(3,link.entry-1);s.setup([late,closed],[]);s.frame();
+ assert(!closed.routeLinkTransit&&closed.progress>link.entry);
+ for(let i=0;i<100&&late.routeLinkTransit;i++)s.frame();
+ assert(!late.routeLinkTransit&&!s.protected(late));
+ assert(Math.abs(late.progress-link.exit)<=57*.05);
+ assert.equal(s.directDamage(late,1),1);
+ assert.equal(late.eLinkPreviousProgress,link.exit);
+ late.progress=link.entry-1;
+ s.setClock(first+45);
+ const next=s.enemy(4,link.entry-1);s.setup([late,next],[]);s.frame();
+ assert(late.progress>link.entry&&!late.routeLinkTransit);
+ assert(next.routeLinkTransit);assert.equal(link.used,1);
+ s.rebuild();assert.equal(s.routeLink().firstOpenedAt,null);
 });
 console.log(checks+' Free Play checks passed');
 

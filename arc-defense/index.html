@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.63.4</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.63.5</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -847,7 +847,7 @@ body.stage-campaign #towerDock button.tech-locked::before{content:attr(data-unlo
 @media(max-width:420px){.campaign-map-panel{padding:15px}.campaign-map-intro{font-size:11px}.campaign-stage{gap:8px;padding:9px}.campaign-stage-number{width:29px;height:29px;font-size:11px}.campaign-stage strong{font-size:10px}.campaign-stage small{font-size:9px}.campaign-stage button{font-size:10px;padding:5px;max-width:80px}.campaign-map-panel h2{font-size:27px}}
 </style>
 <meta name="theme-color" content="#071020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ARC DEFENSE"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png"><style id="evolution-guide-style">.evolution-guide{margin:14px 0;padding:12px;border:1px solid #456782;border-radius:15px;background:#0b1b2d;color:#c2dcea;font:14px/1.5 system-ui}.evolution-guide a{color:#8cdeff}.evolution-guide summary{cursor:pointer;color:#e8f8ff;font-weight:700;font-size:16px}.evolution-guide p{margin:10px 0}.evolution-guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.evolution-guide-card{padding:10px;border:1px solid #355168;border-radius:12px;background:#102337}.evolution-guide-card strong,.evolution-guide-card span{display:block}.evolution-guide-card strong{margin-bottom:4px}.wave-palette{max-width:94%;margin:6px auto;color:#e1d6ff;font:700 clamp(10px,2.8vw,15px)/1.4 system-ui;letter-spacing:.02em}.evolution-map-colors{font:13px/1.5 system-ui!important;margin:8px 0!important}#evolutionOptionsGuide .evolution-guide-grid{grid-template-columns:1fr}#evolutionOptionsGuide{max-height:55dvh;overflow:auto}</style></head>
-<body><header><h1>ARC DEFENSE · VERSION 9.63.4</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
+<body><header><h1>ARC DEFENSE · VERSION 9.63.5</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. A red Route Link sends up to five enemies back along the route. They travel 50% faster and are immune to towers until they exit. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
 <script>(()=>{'use strict';
 const cv=document.getElementById('board'),g=cv.getContext('2d'),$=id=>document.getElementById(id);
 const portraitBoard=document.getElementById('portraitBoard'),pg=portraitBoard.getContext('2d');
@@ -855,7 +855,7 @@ function presentBoard(){pg.setTransform(1,0,0,1,0,0);pg.clearRect(0,0,675,1120);
 function boardPointer(e){const r=portraitBoard.getBoundingClientRect(),sx=(e.clientX-r.left)*675/r.width,sy=(e.clientY-r.top)*1120/r.height;return {x:sy,y:675-sx}}
 
 const CORE_LIVES=20;
-const W=16,H=9,C=57,OX=104,OY=74,key=(x,y)=>x+','+y;
+const W=16,H=9,C=57,OX=104,OY=74,BOARD_WIDTH=1120,BOARD_HEIGHT=675,key=(x,y)=>x+','+y;
 const CAMPAIGN_STORAGE_KEY='arc_campaign_v1';
 const CAMPAIGN_BASE_TECH=['precision','rapid','pierce','grapple','maw','pusher'];
 const CAMPAIGN_TECH_WAVES={freeze:2,elink:4,area:6,boom:6};
@@ -1050,7 +1050,7 @@ function boomSegments(b,from,to){
  if(end>.5){const begin=Math.max(.5,start);parts.push({from:boomPoint(b,begin),to:boomPoint(b,end),leg:1})}
  return parts;
 }
-function isMagnetProtected(m){return !!(m.magnetId||m.maw)}
+function isMagnetProtected(m){return !!(m.magnetId||m.maw||m.routeLinkTransit)}
 
 
 
@@ -1621,6 +1621,7 @@ lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.
   if(best!==undefined)chosen.push(best);
  }
  boostPads=decorateBoostPads((isStageCampaign()||isFreePlay())?scenicBoostPads():chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0})));
+ routeLink=buildRouteLink();
  update();draw();}
 // Technologies available selon la découverte permanente du parcours.
 const TECH_THRESHOLDS={pusher:0,maw:0,precision:0,rapid:0,pierce:0,freeze:25,area:50,elink:25,boom:75};
@@ -1694,6 +1695,7 @@ function rounded(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
 function posAt(d){if(!way.length)return pt(0,0);if(d<=0)return way[0];if(d>=way.at(-1).dist)return way.at(-1);let lo=0,hi=way.length-1;while(hi-lo>1){let mid=(lo+hi)>>1;if(way[mid].dist<d)lo=mid;else hi=mid;}let a=way[lo],b=way[hi],t=(d-a.dist)/(b.dist-a.dist||1);return pt(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t)}
 // A captured monster has a separate physical position while its path progress is frozen.
 function monsterPosition(m){
+ if(m.routeLinkTransit)return routeLinkPoint(m.routeLinkTransit.distance);
  if(m.mawDeathPosition)return m.mawDeathPosition;
  if(m.maw){const a=m.maw,from=posAt(a.progress),to=ctr(a.tower),q=Math.min(1,a.age/a.absorb),u=q*q*(3-2*q);return {x:from.x+(to.x-from.x)*u,y:from.y+(to.y-from.y)*u}}
  if(!m.grapple)return posAt(m.progress);
@@ -2044,7 +2046,9 @@ function advanceELinks(dt){
     if(!underTunnel(point)&&segmentClosest(a,b,point,point).dist<=(m.boss?TITAN_RADIUS:m.miniBoss?34:ENEMY_R*(m.visualScale||1))+sp.width*C)contact++;
    }
    if(!contact)continue;
-   damageEnemy(m,sp.damage*dt*contact/samples,'elink');m.hitFlash92=Math.max(m.hitFlash92||0,.10);m.hitKick92=1;active++;
+   const contactDt=Math.min(dt,m.eLinkActiveDt??dt);
+   if(contactDt<=0)continue;
+   damageEnemy(m,sp.damage*contactDt*contact/samples,'elink');m.hitFlash92=Math.max(m.hitFlash92||0,.10);m.hitKick92=1;active++;
   }
   t.linkActive=active;
   if(active){t.linkSpark=(t.linkSpark||0)+dt;if(t.linkSpark>=.18){t.linkSpark=0;window.arcAudio?.effect('shot','elink')}}
@@ -2416,7 +2420,7 @@ for(const pair of jumpPairs){
 drawWormholeTransitArcs(performance.now()/1000);
 for(let i of tunnels){let p=path[i],a=path[i-1],b=path[i+1],c=ctr(p),horizontal=a.y===b.y;g.save();g.translate(c.x,c.y);if(!horizontal)g.rotate(Math.PI/2);g.fillStyle='#53348d';g.strokeStyle='#c89cff';g.lineWidth=3;rounded(-C*.43,-C*.32,C*.86,C*.64,12);g.fill();g.stroke();for(let k=-1;k<=1;k++){g.beginPath();g.moveTo(k*13,-C*.32);g.lineTo(k*13,C*.32);g.stroke()}g.restore()}
 // Show only the active cryogenic links, never a permanent full-screen field.
-for(let t of towers){if(t.type!=='freeze')continue;let tc=ctr(t),sp=towerSpec(t),affected=t.freezeTargets||[];for(let id of affected){let m=monsters.find(m=>m.id===id&&m.hp>0);if(!m)continue;let mc=monsterPosition(m);if(underTunnel(mc))continue;g.save();g.strokeStyle='rgba(129,233,255,.34)';g.lineWidth=1.4;g.setLineDash([3,6]);g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(mc.x,mc.y);g.stroke();g.setLineDash([]);g.restore()}}
+for(let t of towers){if(t.type!=='freeze')continue;let tc=ctr(t),sp=towerSpec(t),affected=t.freezeTargets||[];for(let id of affected){let m=monsters.find(m=>m.id===id&&m.hp>0&&!m.routeLinkTransit);if(!m)continue;let mc=monsterPosition(m);if(underTunnel(mc))continue;g.save();g.strokeStyle='rgba(129,233,255,.34)';g.lineWidth=1.4;g.setLineDash([3,6]);g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(mc.x,mc.y);g.stroke();g.setLineDash([]);g.restore()}}
 for(let t of towers){
  if(t.type==='elink'){drawELink(t);continue}
  if(t.type!=='freeze'&&t.type!=='elink'&&t.type!=='boom'&&t.type!=='maw'){
@@ -2483,7 +2487,8 @@ for(const p of particles){if(!p.effect?.startsWith('vfx91'))continue;
 }
 for(let p of particles){if(p.effect)continue;const duration=p.duration??(p.duration=Math.max(.35,p.life)),q=Math.max(0,Math.min(1,p.life/duration)),radius=Math.max(0,p.r*(1-q)+(p.blast?0:3));g.globalAlpha=q;g.beginPath();g.arc(p.x,p.y,radius,0,Math.PI*2);g.strokeStyle=p.color;g.lineWidth=p.blast?3:2;g.stroke();g.globalAlpha=1}
 paintBoostPads();
-for(const m of monsters){if(m.hp<=0||!m.boostLeft)continue;if(jumpPairs.some(pair=>Math.abs(m.progress-pair.at)<95))continue;const c=monsterPosition(m);const back=posAt(Math.max(0,m.progress-95));g.save();const trail=g.createLinearGradient(back.x,back.y,c.x,c.y);trail.addColorStop(0,'rgba(40,224,255,0)');trail.addColorStop(1,m.boostColor||'#8cffff');g.strokeStyle=trail;g.lineWidth=7;g.shadowColor='#4ffbff';g.shadowBlur=18;g.beginPath();g.moveTo(back.x,back.y);g.lineTo(c.x,c.y);g.stroke();g.restore()}
+paintRouteLink();
+for(const m of monsters){if(m.hp<=0||!m.boostLeft||m.routeLinkTransit)continue;if(jumpPairs.some(pair=>Math.abs(m.progress-pair.at)<95))continue;const c=monsterPosition(m);const back=posAt(Math.max(0,m.progress-95));g.save();const trail=g.createLinearGradient(back.x,back.y,c.x,c.y);trail.addColorStop(0,'rgba(40,224,255,0)');trail.addColorStop(1,m.boostColor||'#8cffff');g.strokeStyle=trail;g.lineWidth=7;g.shadowColor='#4ffbff';g.shadowBlur=18;g.beginPath();g.moveTo(back.x,back.y);g.lineTo(c.x,c.y);g.stroke();g.restore()}
 // Physical grappling cable, reel head and capture halo.
 for(let m of monsters){if(!m.grapple||m.hp<=0)continue;let c=monsterPosition(m),tc=ctr(m.grapple.tower),a=m.grapple;
  g.save();g.lineCap='round';g.strokeStyle='rgba(255,205,121,.28)';g.lineWidth=7;g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(c.x,c.y);g.stroke();
@@ -2616,6 +2621,107 @@ const CAMPAIGN_COLOR_PLANS=[
 ];
 const FREE_COLOR_PLANS=['white','blue','yellow','orange','white blue green','red green yellow','violet white','white blue orange green red yellow violet','blue orange green','white blue orange green red yellow violet'];
 let terrainClock=0,fissionSpawned=0;
+const ROUTE_LINK_OPEN=5,ROUTE_LINK_WAIT=40,ROUTE_LINK_CAPACITY=5,ROUTE_LINK_SPEED=1.5;
+let routeLink=null;
+
+function buildRouteLink(){
+ const total=way.at(-1)?.dist||0;
+ const sections=[0,...jumpPairs.map(pair=>pair.at),total];
+ let best=null,bestScore=Infinity;
+ // Keep both mouths on the same uninterrupted section and away from gates.
+ for(let section=1;section<sections.length;section++){
+  const start=sections[section-1]+C*1.35,end=sections[section]-C*1.35;
+  for(let entry=start+C*3.5;entry<=end;entry+=C*.4){
+   const a=posAt(entry);
+   if(underTunnel(a)||boostPads.some(p=>Math.abs(p.d-entry)<C*.55))continue;
+   for(let span=C*3.5;span<=C*6&&entry-span>=start;span+=C*.5){
+    const exit=entry-span,b=posAt(exit),chord=Math.hypot(b.x-a.x,b.y-a.y);
+    if(chord<C*2||underTunnel(b)||boostPads.some(p=>Math.abs(p.d-exit)<C*.55))continue;
+    const score=Math.abs(entry-total*.46)+Math.abs(chord-C*3)+Math.abs(span-C*4)*.65;
+    if(score>=bestScore)continue;
+    const mid=posAt((entry+exit)/2),x=(a.x+b.x)/2,y=(a.y+b.y)/2;
+    const nx=-(b.y-a.y)/chord,ny=(b.x-a.x)/chord,bow=Math.min(C*2,chord*.48);
+    const direction=(mid.x-x)*nx+(mid.y-y)*ny>0?-1:1;
+    let control=pt(x+nx*bow*direction,y+ny*bow*direction);
+    const onBoard=p=>p.x>25&&p.x<BOARD_WIDTH-25&&p.y>25&&p.y<BOARD_HEIGHT-25;
+    if(!onBoard(control))control=pt(x-nx*bow*direction,y-ny*bow*direction);
+    if(!onBoard(control)||!onBoard(a)||!onBoard(b))continue;
+    best={entry,exit,a,b,control};
+    bestScore=score;
+   }
+  }
+ }
+ if(!best)return null;
+ // Sample arc length so the boost is a physical speed, including around the bend.
+ const {a,b,control}=best,points=[{...a,dist:0}];
+ for(let i=1;i<=48;i++){
+  const t=i/48,q=1-t,prev=points.at(-1);
+  const x=q*q*a.x+2*q*t*control.x+t*t*b.x,y=q*q*a.y+2*q*t*control.y+t*t*b.y;
+  points.push({x,y,dist:prev.dist+Math.hypot(x-prev.x,y-prev.y)});
+ }
+ return {...best,points,length:points.at(-1).dist,firstOpenedAt:null,opening:-1,used:0};
+}
+function routeLinkPoint(distance){
+ const points=routeLink.points;
+ let lo=0,hi=points.length-1;
+ while(hi-lo>1){const mid=(lo+hi)>>1;if(points[mid].dist<distance)lo=mid;else hi=mid}
+ const a=points[lo],b=points[hi],u=(distance-a.dist)/(b.dist-a.dist);
+ return pt(a.x+(b.x-a.x)*u,a.y+(b.y-a.y)*u);
+}
+function routeLinkOpening(time){
+ if(!routeLink||routeLink.firstOpenedAt===null||time<routeLink.firstOpenedAt)return -1;
+ const period=ROUTE_LINK_OPEN+ROUTE_LINK_WAIT,age=time-routeLink.firstOpenedAt;
+ return age%period<ROUTE_LINK_OPEN?Math.floor(age/period):-1;
+}
+function enterRouteLink(m,time){
+ const link=routeLink;
+ if(link.firstOpenedAt===null||time<link.firstOpenedAt)link.firstOpenedAt=time;
+ const opening=routeLinkOpening(time);
+ if(opening<0)return false;
+ if(link.opening!==opening){link.opening=opening;link.used=0}
+ if(link.used>=ROUTE_LINK_CAPACITY)return false;
+ link.used++;
+ m.usedRouteLink=true;
+ m.routeLinkTransit={distance:0};
+ m.frozen=false;
+ return true;
+}
+function advanceRouteLinkTransit(m,dt,baseSpeed){
+ const transit=m.routeLinkTransit,speed=baseSpeed*ROUTE_LINK_SPEED;
+ if(speed<=0)return 0;
+ const duration=Math.min(dt,(routeLink.length-transit.distance)/speed);
+ transit.distance+=duration*speed;
+ m.boostLeft=Math.max(0,(m.boostLeft||0)-duration);
+ if(transit.distance<routeLink.length-1e-7)return 0;
+ delete m.routeLinkTransit;
+ m.progress=routeLink.exit;
+ // Resuming combat must not generate an E-Link damage sweep across the detour.
+ m.eLinkPrevious=routeLink.b;
+ m.eLinkPreviousProgress=m.progress;
+ return dt-duration;
+}
+function paintRouteLink(){
+ if(!routeLink||!firstWaveStarted)return;
+ const opening=routeLinkOpening(terrainClock),open=opening>=0;
+ if(!open&&!monsters.some(m=>m.routeLinkTransit))return;
+ const {a,b,control,length,used}=routeLink;
+ const accepts=open&&(opening!==routeLink.opening||used<ROUTE_LINK_CAPACITY);
+ g.save();
+ g.lineCap='round';g.lineJoin='round';g.shadowColor='#ff334d';g.shadowBlur=14;
+ g.strokeStyle=accepts?'#ff5268':'#aa4657';g.lineWidth=2.8;
+ g.beginPath();g.moveTo(a.x,a.y);g.quadraticCurveTo(control.x,control.y,b.x,b.y);g.stroke();
+ g.shadowBlur=5;g.lineWidth=2;g.strokeStyle=accepts?'#ffb1a7':'#e38989';
+ for(let i=0;i<3;i++){
+  const d=(.16+i*.26+(terrainClock*.75)% .26)*length,j=routeLinkPoint(d),next=routeLinkPoint(d+4);
+  g.save();g.translate(j.x,j.y);g.rotate(Math.atan2(next.y-j.y,next.x-j.x));
+  g.beginPath();g.moveTo(-4,-4);g.lineTo(1,0);g.lineTo(-4,4);g.stroke();g.restore();
+ }
+ g.shadowBlur=14;g.fillStyle=accepts?'#ff354d':'#a34b58';
+ for(const [p,r] of [[a,6.5],[b,4.8]]){
+  g.beginPath();g.arc(p.x,p.y,r,0,TAU);g.fill();g.stroke();
+ }
+ g.restore();
+}
 function familyOf(m){return ENEMY_FAMILIES[m.family]||ENEMY_FAMILIES.neutral}
 function colorPlan(stage,w){const rows=CAMPAIGN_COLOR_PLANS[stage-1]||CAMPAIGN_COLOR_PLANS[0];return rows[Math.min(rows.length-1,Math.max(0,w-1))].split(' ')}
 function colorForIndex(colors,index,block=4){return colors[Math.floor(index/block)%colors.length]}
@@ -2658,15 +2764,21 @@ function activateBoost(m,pad,time=terrainClock){
 }
 // Split a movement step at pad crossings and boost expiry. A 4x frame must not
 // shorten a hyperboost or miss a pulse transition compared with 1x play.
-function advanceBoostMovement(m,movementDt,dt,baseSpeed,blocked=false){
+function advanceBoostMovement(m,movementDt,dt,baseSpeed,blocked=false,linkSpeed=0){
  if(blocked||m.hp<=0||baseSpeed<=0){m.boostLeft=Math.max(0,(m.boostLeft||0)-dt);return}
  let remaining=movementDt,time=terrainClock-movementDt;
  const ahead=boostPads.filter(p=>p.d>m.progress+1e-7).sort((a,b)=>a.d-b.d);let index=0,steps=0;
  while(remaining>1e-9&&steps++<ahead.length*2+8){
   const pad=ahead[index],mult=m.boostLeft>1e-9?(m.boostMult||BOOST_MULT):1,speed=baseSpeed*mult;
   const padTime=pad?Math.max(0,(pad.d-m.progress)/speed):Infinity,expiry=m.boostLeft>1e-9?m.boostLeft:Infinity;
-  const step=Math.min(remaining,padTime,expiry);
+  const entry=linkSpeed>0&&!m.usedRouteLink&&!isMagnetProtected(m)&&!m.escaped&&routeLink?.entry;
+  const entryTime=entry&&m.progress<entry?(entry-m.progress)/speed:Infinity;
+  const step=Math.min(remaining,padTime,expiry,entryTime);
   m.progress+=speed*step;time+=step;remaining-=step;m.boostLeft=Math.max(0,(m.boostLeft||0)-step);
+  if(entryTime<=step){
+   m.progress=entry;
+   if(enterRouteLink(m,time)){advanceRouteLinkTransit(m,remaining,linkSpeed);return}
+  }
   if(pad&&padTime<=step+1e-9){m.progress=pad.d;pad.discovered=true;activateBoost(m,pad,time);index++}
  }
 }
@@ -3472,13 +3584,19 @@ for(let t of towers){if(t.type!=='grapple')continue;const sp=towerSpec(t),tc=ctr
   if(candidates.length)t.cool=sp.rate;
  }
 }
-for(let m of monsters){advanceEnemyFamily(m,dt);m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,(m.hitFlash92||0)-dt);m.behaviorClock92=(m.behaviorClock92||0)+dt;const oldProgress=m.progress;m.eLinkPrevious=monsterPosition(m);m.eLinkPreviousProgress=m.progress;
+for(let m of monsters){advanceEnemyFamily(m,dt);m.frozen=freezeFactors.has(m.id);m.hitFlash92=Math.max(0,(m.hitFlash92||0)-dt);m.behaviorClock92=(m.behaviorClock92||0)+dt;let oldProgress=m.progress;m.eLinkPrevious=monsterPosition(m);m.eLinkPreviousProgress=m.progress;m.eLinkActiveDt=dt;
  if(m.grapple){m.grapple.age+=dt;const a=m.grapple;if(a.age>=a.travel+a.hold+a.returnTime)releaseGrapple(m);}
 
  const cadence92=isFreePlay()?1:m.type===0?1+0.035*Math.sin(m.behaviorClock92*2.4+m.id*.7):m.type===1?1+0.055*Math.sin(m.behaviorClock92*3.1+m.id*.43):1+0.018*Math.sin(m.behaviorClock92*1.5+m.id);
  const pushed=advancePusherMotion(m,dt);
- const movementDt=m.spawnAge===undefined?dt:Math.min(dt,m.spawnAge);delete m.spawnAge;
- advanceBoostMovement(m,movementDt,dt,C*(m.moveSpeed??1.55)*cadence92*(freezeFactors.get(m.id)??1)*familySpeed(m),!!(m.grapple||m.maw||pushed));
+ let movementDt=m.spawnAge===undefined?dt:Math.min(dt,m.spawnAge);delete m.spawnAge;
+ const baseSpeed=C*(m.moveSpeed??1.55)*cadence92*familySpeed(m);
+ if(m.routeLinkTransit){
+  movementDt=advanceRouteLinkTransit(m,movementDt,baseSpeed);
+  m.eLinkActiveDt=movementDt;
+  oldProgress=m.progress;
+ }
+ if(!m.routeLinkTransit)advanceBoostMovement(m,movementDt,dt,baseSpeed*(freezeFactors.get(m.id)??1),!!(m.grapple||m.maw||pushed),baseSpeed);
  // Count each crossing once per monster, including accelerated movement.
  // The high-water mark prevents Repulsor backtracking from granting duplicate exploration.
  if(traceVisits.length){
