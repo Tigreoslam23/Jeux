@@ -349,33 +349,74 @@ function magnetContext(){
  const {c}=titanContext();Object.assign(c,{C:57,magneticPairs:[],magnetSerial:0,towers:[],way:[{dist:10000}]});
  const raw=source.match(/const areaSpecs=(\[null,.*?\]);/)[1];vm.runInContext('var areaSpecs='+raw,c);
  c.towerSpec=t=>c.areaSpecs[t.lv];c.ctr=t=>({x:t.x*57,y:t.y*57});
- for(const name of ['canMagnetCapture','beginMagneticPair','endMagneticPair','cancelMagnetarForTower','prepareMagnetar','advanceMagnetar','advanceELinks'])vm.runInContext(extract(name),c);
+ for(const name of ['distanceToTarget','canMagnetCapture','beginMagneticPair','endMagneticPair','cancelMagnetarForTower','prepareMagnetar','advanceMagnetar','advanceELinks'])vm.runInContext(extract(name),c);
  c.monsters=[{...enemy(1,40,100),type:2,armor:6,plates:Array(6).fill(true),plateHp:Array(6).fill(4)},{...enemy(2,80,110),type:2,armor:6,plates:Array(6).fill(true),plateHp:Array(6).fill(4)}];
  const tower={type:'area',x:0,y:0,lv:1,cool:0};c.towers=[tower];return {c,tower};
 }
-test('Magnetar draws for 1 second then compresses for 4 seconds before a single release',()=>{
- const {c,tower}=magnetContext();assert(c.beginMagneticPair(tower));assert.equal(c.magneticPairs.length,1);assert(c.monsters.every(c.isMagnetProtected));
- c.advanceMagnetar(.99);c.advanceMagnetar(4);assert(c.monsters.every(m=>m.hp===100&&m.armor===6));
- c.advanceMagnetar(.01);assert.equal(c.magneticPairs.length,0);assert(c.monsters.every(m=>m.hp===75&&m.armor===0&&m.plates.every(p=>!p)&&m.plateHp.every(p=>p===0)));assert(c.monsters.every(m=>!c.isMagnetProtected(m)));c.advanceMagnetar(10);assert(c.monsters.every(m=>m.hp===75));
+test('Magnetar removes armor after 1 second while preserving current HP',()=>{
+ const {c,tower}=magnetContext();
+ c.monsters[0].hp=60;c.monsters[1].hp=20;
+ assert(c.beginMagneticPair(tower));assert(c.monsters.every(c.isMagnetProtected));
+ c.advanceMagnetar(.99);assert(c.monsters.every(m=>m.armor===6));
+ c.advanceMagnetar(.01);
+ assert.equal(c.magneticPairs.length,0);assert.equal(tower.cool,2);
+ assert.deepEqual(c.monsters.map(m=>m.hp),[60,20]);
+ assert(c.monsters.every(m=>m.armor===0&&m.plates.every(p=>!p)&&m.plateHp.every(p=>p===0)&&!c.isMagnetProtected(m)));
 });
-test('every Magnetar level reduces compression by 25 percent while keeping formation fixed',()=>{
- for(let lv=1;lv<=5;lv++){const {c,tower}=magnetContext();tower.lv=lv;assert.equal(c.areaSpecs[lv].compression,4*.75**(lv-1));assert(c.beginMagneticPair(tower));c.advanceMagnetar(1+c.areaSpecs[lv].compression-.001);assert.equal(c.monsters[0].hp,100);c.advanceMagnetar(.001);assert.equal(c.monsters[0].hp,75)}
+test('Magnetar adds one armored target per level and ignores unarmored and guarded targets',()=>{
+ for(let lv=1;lv<=5;lv++){
+  const {c,tower}=magnetContext();tower.lv=lv;
+  const sample=c.monsters[0];
+  c.monsters=Array.from({length:8},(_,i)=>({...sample,id:i+1,progress:100+i,x:40+i,plates:Array(6).fill(true)}));
+  c.monsters[6].plates.fill(false);c.monsters[7].grapple={};
+  assert(c.beginMagneticPair(tower));
+  assert.equal(c.magneticPairs[0].ids.length,lv+1);
+  assert.equal(c.beginMagneticPair(tower),false);
+  c.advanceMagnetar(1);
+  assert.equal(c.monsters.filter(m=>m.armor===0).length,lv+1);
+ }
+ const {c,tower}=magnetContext();c.monsters[1].grapple={};
+ assert(c.beginMagneticPair(tower));assert.equal(c.magneticPairs[0].ids.length,1);
+ c.advanceMagnetar(1);assert.equal(c.monsters[1].armor,6);assert(!c.beginMagneticPair(tower));
 });
-test('Magnetar needs exactly two available targets and does not steal grappled or bound enemies',()=>{
- const {c,tower}=magnetContext();c.monsters[1].grapple={};assert.equal(c.beginMagneticPair(tower),false);delete c.monsters[1].grapple;assert(c.beginMagneticPair(tower));assert.equal(c.beginMagneticPair({...tower}),false);assert.equal(c.beginMagneticPair(tower),false);
-});
-test('Magnetar damage uses maximum HP and can finish an enemy already below 25 percent',()=>{
- const {c,tower}=magnetContext();c.monsters[0].hp=60;c.monsters[1].hp=20;c.beginMagneticPair(tower);c.advanceMagnetar(5);assert.equal(c.monsters[0].hp,35);assert.equal(c.monsters[1].hp,0);
+test('Magnetar draws a visible loop around each captured target',()=>{
+ const {c,tower}=magnetContext();tower.lv=5;
+ const sample=c.monsters[0],loops=[];
+ c.monsters=Array.from({length:6},(_,i)=>({...sample,id:i+1,x:40+i,progress:100+i}));
+ c.g=new Proxy({ellipse:(x,y)=>loops.push([x,y])},{get:(target,key)=>target[key]||(()=>{})});
+ vm.runInContext(extract('paintMagneticPairs'),c);
+ assert(c.beginMagneticPair(tower));c.advanceMagnetar(.5);c.paintMagneticPairs();
+ assert.equal(loops.length,6);
+ assert.deepEqual(loops.map(([x])=>x).sort((a,b)=>a-b),[40,41,42,43,44,45]);
 });
 test('projectiles already in flight and electric beams cannot damage bound enemies',()=>{
  const {c,tower}=magnetContext();c.beginMagneticPair(tower);for(const m of c.monsters){assert.equal(c.geometricHits({x:0,y:0},{x:100,y:0},m,{x:m.x,y:0}).length,0);assert.equal(c.applyGeometricHit({m,kind:'heart',x:0,y:0},100),false);assert.equal(c.canGrapple(m),false)}
  const link={type:'elink',x:0,y:0,end:{x:2,y:0},lv:1};c.towers.push(link);const base=c.towerSpec;c.towerSpec=t=>t.type==='elink'?{damage:100,width:1}:base(t);c.advanceELinks(.5);assert(c.monsters.every(m=>m.hp===100&&m.armor===6));
 });
-test('sale, escape, missing partner and tunnels cancel the pair without damage or stranded protection',()=>{
- for(const reason of ['sale','escape','missing','tunnel']){const {c,tower}=magnetContext();c.beginMagneticPair(tower);if(reason==='sale')c.cancelMagnetarForTower(tower);else{if(reason==='escape')c.monsters[0].progress=10000;if(reason==='missing')c.monsters.shift();if(reason==='tunnel')c.underTunnel=()=>true;c.advanceMagnetar(5)}assert.equal(c.magneticPairs.length,0);assert(c.monsters.every(m=>m.hp===100&&!c.isMagnetProtected(m)&&m.armor===6));}
+test('a lost target releases independently and selling the tower cancels all loops',()=>{
+ for(const reason of ['sale','escape','missing','tunnel']){
+  const {c,tower}=magnetContext(),[lost,remaining]=c.monsters;
+  assert(c.beginMagneticPair(tower));
+  if(reason==='sale')c.cancelMagnetarForTower(tower);
+  if(reason==='escape')lost.progress=10000;
+  if(reason==='missing')c.monsters.shift();
+  if(reason==='tunnel')c.underTunnel=p=>p.x===lost.x;
+  c.advanceMagnetar(1);
+  assert.equal(c.magneticPairs.length,0);
+  assert.equal(remaining.armor,reason==='sale'?6:0);
+  assert.equal(lost.armor,6);
+  assert(c.monsters.every(m=>m.hp===100&&!c.isMagnetProtected(m)));
+ }
 });
-test('upgrades apply to the next pair and cooldown starts only after release',()=>{
- const {c,tower}=magnetContext();c.beginMagneticPair(tower);tower.lv=5;c.prepareMagnetar(2);assert.equal(c.magneticPairs.length,1);c.advanceMagnetar(4);assert.equal(c.monsters[0].hp,100);c.advanceMagnetar(1);assert.equal(tower.cool,2);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,0);c.prepareMagnetar(1);assert.equal(c.magneticPairs.length,1);assert.equal(c.magneticPairs[0].compression,1.265625);
+test('the next activation waits two seconds and uses the upgraded capacity',()=>{
+ const {c,tower}=magnetContext(),sample=c.monsters[0];
+ for(let i=3;i<=8;i++)c.monsters.push({...sample,id:i,x:20+i,plates:Array(6).fill(true)});
+ assert(c.beginMagneticPair(tower));tower.lv=5;
+ assert.equal(c.magneticPairs[0].ids.length,2);
+ c.advanceMagnetar(1);assert.equal(tower.cool,2);
+ c.prepareMagnetar(1.99);assert.equal(c.magneticPairs.length,0);
+ c.prepareMagnetar(.011);assert.equal(c.magneticPairs[0].ids.length,6);
+ assert.equal(c.magneticPairs[0].duration,1);
 });
 test('Stage 04 ends with two elite Hexions and both Gemini guardians within its 428 enemies',()=>{
  const {c}=campaignContext();c.campaignStageNumber=4;let total=0,elites=0,bosses=0;
@@ -393,8 +434,8 @@ test('Gemini survivor enters last stand once, without restoring HP or stripped a
 test('Gemini pending partner does not look defeated and the spawn gap preserves wave totals',()=>{
  const {c}=campaignContext();c.campaignStageNumber=4;const a=c.createGemini(0);a.hp=0;assert.equal(c.geminiStatus().hp,220);assert.equal(c.geminiStatus().pending,1);assert.equal(c.nextCampaignSpawnDelay(12,39),2.2);assert.equal(c.nextCampaignSpawnDelay(12,38),.46);assert.equal(c.nextCampaignSpawnDelay(11,39),.40);
 });
-test('Magnetar binds both Gemini guardians and removes their durable plates and a quarter of maximum HP',()=>{
- const {c,tower}=magnetContext();const {c:factory}=campaignContext();const a=factory.createGemini(0),b=factory.createGemini(1);Object.assign(a,{x:40,y:0,progress:100});Object.assign(b,{x:80,y:0,progress:110});c.monsters=[a,b];assert(c.beginMagneticPair(tower));c.advanceMagnetar(5);assert.equal(a.hp,165);assert.equal(b.hp,165);assert(a.plateHp.every(p=>p===0));assert(b.plates.every(p=>!p));assert.equal(a.armor,0);assert.equal(b.armor,0);
+test('Magnetar binds both Gemini guardians and removes their durable plates without damaging them',()=>{
+ const {c,tower}=magnetContext();const {c:factory}=campaignContext();const a=factory.createGemini(0),b=factory.createGemini(1);Object.assign(a,{x:40,y:0,progress:100});Object.assign(b,{x:80,y:0,progress:110});c.monsters=[a,b];assert(c.beginMagneticPair(tower));c.advanceMagnetar(1);assert.equal(a.hp,220);assert.equal(b.hp,220);assert(a.plateHp.every(p=>p===0));assert(b.plates.every(p=>!p));assert.equal(a.armor,0);assert.equal(b.armor,0);
 });
 test('Either Gemini guardian escaping defeats the core exactly once',()=>{
  for(const twin of [0,1]){const c=context();c.monsters=[{...enemy(1,0,100),miniBoss:true,stageBoss:'gemini',twin}];c.resolveEscapes();assert.equal(c.lives,0);assert.equal(c.escaped,1);c.resolveEscapes();assert.equal(c.escaped,1)}
