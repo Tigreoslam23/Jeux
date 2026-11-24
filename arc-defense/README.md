@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.6**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.7**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Stage terrain refinements (9.63.7)
+
+Stage 02's red Route Link crosses between the first two vertical lanes in the portrait view. It admits up to five enemies during a three-second opening, followed by the usual forty-second cooldown. Stage 09 and Free Play's fourth circuit separate the two nearest black-hole mouths so their halos no longer overlap.
 
 ## Route Link (9.63.6)
 

@@ -4,12 +4,12 @@ const source=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
 const start=source.indexOf("<script>(()=>{'use strict';")+8,end=source.indexOf("$('recommend').onclick=",start);
 function game(search=''){
  const nodes=new Map(),saved=new Map();
- const gradient={addColorStop(){}};
- const g=new Proxy({createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(t,k)=>t[k]||(()=>{})});
+ const gradient={addColorStop(){}},strokes=[];
+ const g=new Proxy({stroke(){strokes.push(this.strokeStyle)},createLinearGradient:()=>gradient,createRadialGradient:()=>gradient},{get:(t,k)=>t[k]||(()=>{})});
  function node(){return {value:'',textContent:'',disabled:false,hidden:false,style:{},dataset:{},children:[],classList:{add(){},remove(){},toggle(){},contains(){return false}},getContext:()=>g,appendChild(){},append(){},replaceChildren(){},setAttribute(){},querySelector(){return node()},querySelectorAll(){return []},addEventListener(){},focus(){},click(){}}}
  const get=id=>{if(!nodes.has(id))nodes.set(id,node());return nodes.get(id)};
  for(const [id,value] of Object.entries({level:'2',seed:'20261104',speed:'4',analysisType:'precision',analysisLevel:'2'}))get(id).value=value;
- const c=vm.createContext({console,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220}});
+ const c=vm.createContext({console,strokes,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220}});
 
 
 
@@ -47,7 +47,8 @@ function game(search=''){
  escapes:resolveEscapes,
  routeLink:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
  setClock:t=>{terrainClock=t},directDamage:damageEnemy,
- suppressSpawns:()=>{waveDelay=99999}
+ suppressSpawns:()=>{waveDelay=99999},
+ paintLink:()=>{strokes.length=0;paintRouteLink();return strokes.slice()}
  };
  })();`;
  vm.runInContext(source.slice(start,end)+exports,c,{timeout:10000});return c.sim;
@@ -227,6 +228,44 @@ check('Link closes after five seconds, lets travelers finish and resets its capa
  assert(late.progress>link.entry&&!late.routeLinkTransit);
  assert(next.routeLinkTransit);assert.equal(link.used,1);
  s.rebuild();assert.equal(s.routeLink().firstOpenedAt,null);
+});
+check('Stage 02 connects the first two portrait lanes and only displays the red arc for three seconds',()=>{
+ const s=game();s.loadStage(2);s.setSpeed(1);s.launch();s.suppressSpawns();
+ const link=s.routeLink();
+ assert.equal(link.a.y,100);
+ assert.equal(link.b.y,245);
+ assert(Math.abs(link.b.x-link.a.x)<9);
+ assert(link.exit-link.entry>4*link.length);
+ assert.equal(link.openDuration,3);
+ assert.equal(s.paintLink().length,0);
+ const group=Array.from({length:6},(_,i)=>s.enemy(i+1,link.entry-1));
+ s.setup(group,[]);s.frame();
+ assert.equal(group.filter(m=>m.routeLinkTransit).length,5);
+ assert(s.paintLink().includes('#aa4657'));
+ const first=link.firstOpenedAt;
+ assert.equal(s.linkOpening(first+2.99),0);
+ assert.equal(s.linkOpening(first+3.01),-1);
+ assert.equal(s.linkOpening(first+42.99),-1);
+ assert.equal(s.linkOpening(first+43.01),1);
+ s.setClock(first+3.01);
+ assert.equal(s.paintLink().length,0);
+ assert(group.slice(0,5).every(m=>m.routeLinkTransit&&s.protected(m)));
+ s.setClock(first+43.01);
+ assert(s.paintLink().includes('#ff5268'));
+ s.loadStage(1);assert.equal(s.routeLink().openDuration,5);
+});
+check('Stage 09 and Free Play 04 separate every black-hole mouth by at least two halo radii',()=>{
+ const s=game();
+ for(const [load,id,expected] of [[s.loadStage,9,2],[s.loadFree,4,3]]){
+  load(id);
+  const wormholes=s.data().jumpPairs.filter(p=>p.kind==='wormhole');
+  assert.equal(wormholes.length,expected);
+  const mouths=wormholes.flatMap(({from,to})=>[from,to]);
+  for(const [i,a] of mouths.entries()){
+   for(const b of mouths.slice(i+1))assert(Math.hypot(a.x-b.x,a.y-b.y)>=130);
+  }
+  s.render();
+ }
 });
 console.log(checks+' Free Play checks passed');
 
