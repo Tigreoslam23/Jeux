@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.7**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.8**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## First Contact shortcuts (9.63.8)
+
+Stage 01 introduces a short red Link. Stage 02 keeps its three-second crossing between the first two vertical lanes. Stages 03–05 alternate between two downstream shortcuts, one available per opening. The longer routes can bypass more of a defense, but admission is capped at five enemies per opening and each enemy can use at most one shortcut. Stages 03–04 open for four seconds, and Stage 05 opens for three. The forty-second cooldown begins when the Link closes.
 
 ## Stage terrain refinements (9.63.7)
 

@@ -45,7 +45,7 @@ function game(search=''){
  upgrade:t=>{const p=campaignUpgradeCost(t);if(energy<p)return false;energy-=p;t.lv++;return true},
  elinks:advanceELinks,geometry:geometricHits,boomerang:launchBoomSalve,rebuild:build,
  escapes:resolveEscapes,
- routeLink:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
+ routeLink:()=>routeLink.links[0],linkCycle:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
  setClock:t=>{terrainClock=t},directDamage:damageEnemy,
  suppressSpawns:()=>{waveDelay=99999},
  paintLink:()=>{strokes.length=0;paintRouteLink();return strokes.slice()}
@@ -176,8 +176,8 @@ check('five monsters take the red arc at 150% speed and ignore the whole tower a
  const targets=Array.from({length:6},(_,i)=>s.enemy(i+1,link.entry-1));
  s.setup(targets,[]);
  s.frame();
- assert.equal(link.used,5);
- assert(Math.abs(link.firstOpenedAt-1/57)<1e-8);
+ assert.equal(s.linkCycle().used,5);
+ assert(Math.abs(s.linkCycle().firstOpenedAt-1/57)<1e-8);
  assert(targets.slice(0,5).every(m=>m.routeLinkTransit&&s.protected(m)));
  assert(!targets[5].routeLinkTransit&&targets[5].progress>link.entry);
  const m=targets[0],d=m.routeLinkTransit.distance;
@@ -204,7 +204,7 @@ check('Link closes after five seconds, lets travelers finish and resets its capa
  const s=game();s.loadFree(1);s.setSpeed(1);s.launch();s.suppressSpawns();
  const link=s.routeLink(),m=s.enemy(1,link.entry-1);
  s.setup([m],[]);s.frame();
- const first=link.firstOpenedAt;
+ const first=s.linkCycle().firstOpenedAt;
  assert.equal(s.linkOpening(first+4.99),0);
  assert.equal(s.linkOpening(first+5),-1);
  assert.equal(s.linkOpening(first+44.99),-1);
@@ -226,8 +226,8 @@ check('Link closes after five seconds, lets travelers finish and resets its capa
  s.setClock(first+45);
  const next=s.enemy(4,link.entry-1);s.setup([late,next],[]);s.frame();
  assert(late.progress>link.entry&&!late.routeLinkTransit);
- assert(next.routeLinkTransit);assert.equal(link.used,1);
- s.rebuild();assert.equal(s.routeLink().firstOpenedAt,null);
+ assert(next.routeLinkTransit);assert.equal(s.linkCycle().used,1);
+ s.rebuild();assert.equal(s.linkCycle().firstOpenedAt,null);
 });
 check('Stage 02 connects the first two portrait lanes and only displays the red arc for three seconds',()=>{
  const s=game();s.loadStage(2);s.setSpeed(1);s.launch();s.suppressSpawns();
@@ -236,13 +236,13 @@ check('Stage 02 connects the first two portrait lanes and only displays the red 
  assert.equal(link.b.y,245);
  assert(Math.abs(link.b.x-link.a.x)<9);
  assert(link.exit-link.entry>4*link.length);
- assert.equal(link.openDuration,3);
+ assert.equal(s.linkCycle().openDuration,3);
  assert.equal(s.paintLink().length,0);
  const group=Array.from({length:6},(_,i)=>s.enemy(i+1,link.entry-1));
  s.setup(group,[]);s.frame();
  assert.equal(group.filter(m=>m.routeLinkTransit).length,5);
  assert(s.paintLink().includes('#aa4657'));
- const first=link.firstOpenedAt;
+ const first=s.linkCycle().firstOpenedAt;
  assert.equal(s.linkOpening(first+2.99),0);
  assert.equal(s.linkOpening(first+3.01),-1);
  assert.equal(s.linkOpening(first+42.99),-1);
@@ -252,7 +252,7 @@ check('Stage 02 connects the first two portrait lanes and only displays the red 
  assert(group.slice(0,5).every(m=>m.routeLinkTransit&&s.protected(m)));
  s.setClock(first+43.01);
  assert(s.paintLink().includes('#ff5268'));
- s.loadStage(1);assert.equal(s.routeLink().openDuration,5);
+ s.loadStage(1);assert.equal(s.linkCycle().openDuration,5);
 });
 check('Stage 09 and Free Play 04 separate every black-hole mouth by at least two halo radii',()=>{
  const s=game();
@@ -266,6 +266,48 @@ check('Stage 09 and Free Play 04 separate every black-hole mouth by at least two
   }
   s.render();
  }
+});
+check('First Contact introduces one arc before alternating two shortcuts on stages 03–05',()=>{
+ const s=game();
+ for(const [id,count,duration] of [[1,1,5],[2,1,3],[3,2,4],[4,2,4],[5,2,3],[6,1,5]]){
+  s.loadStage(id);const cycle=s.linkCycle();
+  assert.equal(cycle.links.length,count,'stage '+id);
+  assert.equal(cycle.openDuration,duration);
+  for(const link of cycle.links){
+   assert(link.entry<link.exit&&link.exit<s.path().at(-1).dist);
+   assert(s.data().jumpPairs.every(p=>p.at<link.entry||p.at>link.exit));
+   if(id>=2&&id<=5)assert(link.exit-link.entry>link.length);
+   assert(s.data().boostPads.every(p=>Math.abs(p.d-link.entry)>30&&Math.abs(p.d-link.exit)>30));
+  }
+ }
+ s.loadStage(5);
+ const [before,after]=s.linkCycle().links,warp=s.data().jumpPairs[0];
+ assert(before.exit<warp.at&&warp.at<after.entry);
+});
+check('the next opening moves to the other arc and leaves earlier travelers on their original route',()=>{
+ const s=game();s.loadStage(4);s.setSpeed(1);s.launch();s.suppressSpawns();
+ const cycle=s.linkCycle(),[first,second]=cycle.links;
+ const traveler=s.enemy(1,first.entry-1);
+ const premature=s.enemy(2,second.entry-1);
+ s.setup([traveler,premature],[]);s.frame();
+ assert.equal(traveler.routeLinkTransit.link,first);
+ assert(!premature.routeLinkTransit&&premature.progress>second.entry);
+ const t=cycle.firstOpenedAt,period=cycle.openDuration+40;
+ s.setClock(t+period+.01);
+ const group=Array.from({length:6},(_,i)=>s.enemy(i+3,second.entry-1));
+ const originalAnchor=s.enemy(9,first.entry-1);
+ s.setup([traveler,originalAnchor,...group],[]);s.frame();
+ assert(!originalAnchor.routeLinkTransit&&originalAnchor.progress>first.entry);
+ assert(group.slice(0,5).every(m=>m.routeLinkTransit?.link===second&&s.protected(m)));
+ assert(!group[5].routeLinkTransit);
+ assert.equal(traveler.routeLinkTransit.link,first);
+ s.setup([traveler],[]);
+ for(let i=0;i<120&&traveler.routeLinkTransit;i++)s.frame();
+ assert(!traveler.routeLinkTransit);
+ assert(traveler.progress>=first.exit&&traveler.progress<first.exit+5);
+ const repeat=s.enemy(10,first.entry-1);
+ s.setClock(t+period*2+.01);s.setup([repeat],[]);s.frame();
+ assert.equal(repeat.routeLinkTransit.link,first);
 });
 console.log(checks+' Free Play checks passed');
 
