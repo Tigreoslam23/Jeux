@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.9**.
+Standalone HTML/JavaScript tower defense. Current version: **9.64.0**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Circular tower controls (9.64.0)
+
+Tower selection and action buttons are circular, with a color shared by the selected tower type, its upgrade panel and the targeting and specialization actions. The dock backgrounds are transparent. The two-step E-Link placement uses the same circular controls.
 
 ## Border construction, surge waves and full armor (9.63.9)
 
