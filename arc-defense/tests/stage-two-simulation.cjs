@@ -42,6 +42,6 @@ for(let i=0;i<40000;i++){
 }
 state=sim.state();console.log(JSON.stringify(state));
 assert(state.done,'A legal sample defense can finish Stage 02');
-assert.equal(state.kills+20-state.lives,231);
+assert.equal(state.kills+20-state.lives,259);
 assert(saved.has('arc_campaign_v1'));assert.equal(saved.has('arc_defense_v1_best'),false);
 console.log('PASS real Stage 02 loop: ten waves, Bastion finish, earned budget and isolated progress');

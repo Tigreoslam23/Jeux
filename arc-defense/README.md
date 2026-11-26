@@ -1,8 +1,14 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.63.8**.
+Standalone HTML/JavaScript tower defense. Current version: **9.63.9**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Border construction, surge waves and full armor (9.63.9)
+
+The build grid spans 18 × 11 cells. Both campaigns and all ten Free Play circuits leave room between the lanes and the edge where the geometry allows. Construction checks the continuous path, skips teleport gaps and still leaves clearance around the actual portal mouths.
+
+One wave in each campaign stage is a surge with double the enemies and closer spawn spacing. Challenge uses wave 10 of 20. Every enemy starts with all its armor segments (four for Orbs, three for Trions, six for Hexions), including Violet offspring. Stage 01's introductory waves space out their arrivals to give a starter defense time to break the additional plates.
 
 ## First Contact shortcuts (9.63.8)
 
@@ -93,7 +99,7 @@ retains its colored core. Actual plate flags, not a potentially stale counter,
 determine the presentation; existing armor is never mutated by rendering.
 
 The shrinking core and subtle low-health flicker remain independent health
-cues. Fission offspring have no armor and therefore immediately use a white
+cues. Fission offspring now hatch fully armored, with a white
 core. Magnetar armor stripping changes the core on release. Hole captives use
 the same rule. Boss artwork and health bars keep their existing behavior.
 The field guide explains the new color rule.
@@ -177,7 +183,7 @@ anchors retain their authored profiles. The original Challenge remains classic.
 | Green | Regenerates 2.5% max HP/s after 3 damage-free seconds; armor never regrows |
 | Red | 30% faster while below half health |
 | Yellow | Every boost lasts 60% longer |
-| Violet | Releases two fragile, unarmored, smaller same-shape offspring on death |
+| Violet | Releases two fragile, armored, smaller same-shape offspring on death |
 
 Fission offspring carry no energy reward and cannot divide again. They must be
 cleared before victory, count once as kills, and cannot appear across a portal.

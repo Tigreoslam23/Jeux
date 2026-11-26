@@ -9,7 +9,7 @@ function game(search=''){
  function node(){return {value:'',textContent:'',disabled:false,hidden:false,style:{},dataset:{},children:[],classList:{add(){},remove(){},toggle(){},contains(){return false}},getContext:()=>g,appendChild(){},append(){},replaceChildren(){},setAttribute(){},querySelector(){return node()},querySelectorAll(){return []},addEventListener(){},focus(){},click(){}}}
  const get=id=>{if(!nodes.has(id))nodes.set(id,node());return nodes.get(id)};
  for(const [id,value] of Object.entries({level:'2',seed:'20261104',speed:'4',analysisType:'precision',analysisLevel:'2'}))get(id).value=value;
- const c=vm.createContext({console,strokes,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220}});
+ const c=vm.createContext({console,strokes,Math,Set,Map,Uint16Array,URLSearchParams,location:{search},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},document:{getElementById:get,createElement:node,querySelector:()=>node(),body:node(),addEventListener(){}},performance:{now:()=>1},window:{__arcLabManual:true,arcAudio:{mode(){},pause(){},effect(){}},matchMedia:()=>({matches:false})},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame(){},arcWaveLocked:()=>false,syncDock:()=>{},towerPrices:{precision:80,rapid:90,pierce:125,elink:200,area:180,freeze:135,boom:175,grapple:155,maw:220}});
 
 
 
@@ -19,7 +19,7 @@ function game(search=''){
  const realDraw=draw,realTunnel=underTunnel;draw=()=>{};
  globalThis.sim={
  loadFree:id=>{freeMapNumber=id;playMode='free';build();},loadStage:id=>{campaignStageNumber=id;playMode='campaign';build();},
- title:()=>$('endTitle').textContent,deathEffects:()=>particles.filter(p=>p.effect==='vfx91death'),config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:()=>{launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
+ title:()=>$('endTitle').textContent,deathEffects:()=>particles.filter(p=>p.effect==='vfx91death'),config:()=>freeMap(),liveText:()=>$('wave').textContent,launch:(wave=1)=>{waveNumber=wave;launchWave(true);waveIntroStart=revealSweepStart=0;last=1;},
  frame:()=>animate((last||1)+50),data:()=>({waveSpawned,waveTotal,waveNumber,lives,kills,energy,playing,paused,titanEncounter,scoutActive,scoutProgress,scoutIntroProgress,fissionSpawned,boostPads,jumpPairs,way,mode:playMode}),
  killAll:()=>monsters.forEach(m=>m.hp=0),setPaused:v=>paused=v,setSpeed:v=>$('speed').value=String(v),
  reveal:(age=1000)=>{revealSweepStart=1;last=age-49;animate(age+1)},exploration:discoveredPercent,
@@ -41,14 +41,17 @@ function game(search=''){
  state:()=>({playing,paused,energy,kills,lives,escaped}),status:mawStatus,
  draw:()=>{draw=realDraw;try{draw()}finally{draw=()=>{}}},drawTower:paintMaw,drawTransfers:paintMawCaptives,
  energy:v=>energy=v,budget:()=>energy,available:()=>technologyAvailable('maw'),tech:()=>campaignProgress.unlocked,
- drop:dropTower,free:()=>{const cells=[];for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(freeConstructionCell(x,y))cells.push({x,y});return cells},
+ drop:dropTower,free:()=>{const cells=[];for(let y=GRID_MIN;y<=GRID_MAX_Y;y++)for(let x=GRID_MIN;x<=GRID_MAX_X;x++)if(freeConstructionCell(x,y))cells.push({x,y});return cells},
  upgrade:t=>{const p=campaignUpgradeCost(t);if(energy<p)return false;energy-=p;t.lv++;return true},
  elinks:advanceELinks,geometry:geometricHits,boomerang:launchBoomSalve,rebuild:build,
  escapes:resolveEscapes,
  routeLink:()=>routeLink.links[0],linkCycle:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
  setClock:t=>{terrainClock=t},directDamage:damageEnemy,
  suppressSpawns:()=>{waveDelay=99999},
- paintLink:()=>{strokes.length=0;paintRouteLink();return strokes.slice()}
+ paintLink:()=>{strokes.length=0;paintRouteLink();return strokes.slice()},
+ composition:waveComposition,waveSpecs:campaignWaveSpecs,freeEnemy:createFreeEnemy,stageEnemy:createStageOneEnemy,
+ routeClearance:(c)=>Math.min(...way.map((p,i)=>segmentClosest(i&&p.dist-way[i-1].dist>=.05?way[i-1]:p,p,c,c).dist)),
+ snap:snapConstruction,validEnd:validELinkEnd,occupied:(x,y)=>occupied.has(key(x,y))
  };
  })();`;
  vm.runInContext(source.slice(start,end)+exports,c,{timeout:10000});return c.sim;
@@ -308,6 +311,60 @@ check('the next opening moves to the other arc and leaves earlier travelers on t
  const repeat=s.enemy(10,first.entry-1);
  s.setClock(t+period*2+.01);s.setup([repeat],[]);s.frame();
  assert.equal(repeat.routeLinkTransit.link,first);
+});
+check('all twenty boards allow safe construction along both portrait sides and at the top and bottom',()=>{
+ const s=game();
+ for(const load of [s.loadStage,s.loadFree]){
+  for(let id=1;id<=10;id++){
+   load(id);
+   const cells=s.free();
+   for(const edge of [c=>c.y===-1,c=>c.y===9,c=>c.x===-1,c=>c.x===16]){
+    const row=cells.filter(edge);
+    assert(row.length>=4,'too little border space on '+s.data().mode+' '+id);
+    for(const cell of row){
+     const center=s.center(cell);
+     assert(s.routeClearance(center)>=57*.61-1e-7);
+     assert.deepEqual(s.snap(center.x,center.y),cell);
+    }
+   }
+   const candidates=cells.filter(c=>c.y===-1);
+   const a=candidates.find(a=>candidates.some(b=>s.validEnd(a,b)));
+   assert(a);
+   const {x,y}=s.center(a);assert(s.drop(x,y,'precision'));
+   assert(!s.free().some(c=>c.x===a.x&&c.y===a.y));
+  }
+ }
+ s.loadFree(1);
+ const side=s.free().filter(c=>c.y===9);
+ const a=side.find(a=>side.some(b=>s.validEnd(a,b)));
+ const b=side.find(b=>s.validEnd(a,b));
+ for(const cell of [a,b]){
+  const {x,y}=s.center(cell);
+  assert(s.drop(x,y,'elink'));
+ }
+ assert.equal(s.towers().length,1);
+ assert.equal(s.towers()[0].y,9);
+ assert.equal(s.towers()[0].end.y,9);
+});
+check('each campaign stage has a double-strength surge and monsters hatch fully armored in every mode',()=>{
+ const s=game(),surges=[[7,52],[9,56],[10,88],[11,92],[10,92],[10,88],[13,106],[10,94],[14,100],[10,94]];
+ const full=m=>{assert.equal(m.armor,[4,3,6][m.type]);assert.equal(m.plates.length,m.armor);assert(m.plates.every(Boolean))};
+ for(const [stage,[wave,count]] of surges.entries()){
+  s.loadStage(stage+1);
+  const waves=s.waveSpecs(),spec=waves[wave-1];
+  assert(spec.surge&&waves.filter(w=>w.surge).length===1);
+  assert.equal(s.composition(wave).total,count);
+  for(let i=0;i<count;i++)full(s.stageEnemy(wave,i));
+  full(s.stageEnemy(1,0));
+ }
+ for(let id=1;id<=10;id++){
+  s.loadFree(id);
+  for(let i=0;i<s.config().count;i+=19)full(s.freeEnemy(i));
+ }
+ const c=game('?mode=challenge');c.rebuild();c.launch(10);
+ assert.equal(c.data().waveTotal,52);
+ for(let i=0;i<40;i++)c.frame();
+ assert(c.monsters().length>0);c.monsters().forEach(full);
 });
 console.log(checks+' Free Play checks passed');
 
