@@ -44,7 +44,7 @@ function game(search=''){
  drop:dropTower,free:()=>{const cells=[];for(let y=GRID_MIN;y<=GRID_MAX_Y;y++)for(let x=GRID_MIN;x<=GRID_MAX_X;x++)if(freeConstructionCell(x,y))cells.push({x,y});return cells},
  upgrade:t=>{const p=campaignUpgradeCost(t);if(energy<p)return false;energy-=p;t.lv++;return true},
  elinks:advanceELinks,geometry:geometricHits,boomerang:launchBoomSalve,rebuild:build,
- escapes:resolveEscapes,
+ escapes:resolveEscapes,shards:()=>particles.filter(p=>p.effect==='asteroidFragment'),advanceBoomerangs,canMawCapture,canGrapple,canMagnetCapture,canPusherTarget,
  routeLink:()=>routeLink.links[0],linkCycle:()=>routeLink,linkOpening:routeLinkOpening,pathPoint:posAt,clock:()=>terrainClock,
  setClock:t=>{terrainClock=t},directDamage:damageEnemy,
  suppressSpawns:()=>{waveDelay=99999},
@@ -343,6 +343,59 @@ check('each campaign stage has a double-strength surge and monsters hatch fully 
  assert.equal(c.data().waveTotal,52);
  for(let i=0;i<40;i++)c.frame();
  assert(c.monsters().length>0);c.monsters().forEach(full);
+});
+check('wave 7 adds two distinct rotating asteroids without replacing any of the 52 enemies',()=>{
+ const s=game();
+ s.loadStage(1);s.setSpeed(1);s.launch(7);
+ for(let i=0;i<70;i++)s.frame();
+ const [slow,fast]=s.monsters().filter(m=>m.asteroid);
+ assert(slow&&fast&&slow.progress>fast.progress&&slow.moveSpeed<fast.moveSpeed);
+ assert(slow.spin>0&&fast.spin<0);
+ assert.equal(s.data().waveTotal,52);
+ for(const rock of [slow,fast]){
+  assert.equal(s.canMawCapture(rock),false);assert.equal(s.canGrapple(rock),false);
+  assert.equal(s.canMagnetCapture(rock),false);assert.equal(s.canPusherTarget(rock),false);
+ }
+ s.render();
+ const before=s.data();
+ slow.progress=s.path().at(-1).dist;s.frame();
+ assert.equal(s.data().lives,before.lives);
+ assert(!s.monsters().includes(slow));
+ s.directDamage(fast,100);s.frame();
+ assert.equal(s.shards().length,fast.asteroid.length);
+ assert.equal(s.data().kills,before.kills);assert.equal(s.data().energy,before.energy);
+ s.render();
+ for(const wave of [6,8]){s.loadStage(1);s.launch(wave);for(let i=0;i<70;i++)s.frame();assert(!s.monsters().some(m=>m.asteroid))}
+});
+check('direct fire aims at rock regardless of target mode, while Boomerang and E-Link can hit both',()=>{
+ const s=game();s.loadStage(1);s.setSpeed(1);s.launch(7);
+ for(let i=0;i<12;i++)s.frame();
+ const t={x:4,y:4,type:'precision',lv:1,angle:0,cool:0};
+ const center=s.center(t),p=offset=>({x:center.x+offset,y:center.y});
+ s.route([p(0),p(1000)]);s.suppressSpawns();s.blocked(()=>false);
+ const rock=s.monsters().find(m=>m.asteroid);
+ rock.progress=87;rock.moveSpeed=0;
+ const enemy=s.stageEnemy(7,0);
+ Object.assign(enemy,{progress:138,moveSpeed:0,hp:100,maxHp:100});
+ for(const mode of ['first','strong','near']){
+  t.targetMode=mode;t.cool=0;
+  s.setup([enemy,rock],[t]);
+  s.frame();
+  assert.equal(t.asteroidTarget,rock.id);
+  assert(rock.targetFlash>0||rock.hp<rock.maxHp);
+ }
+ assert(rock.hp<rock.maxHp);
+ assert.equal(enemy.hp,100);
+ const boom={...t,type:'boom',cool:0};
+ assert(s.boomerang(boom,center,s.spec(boom)));
+ const armor=enemy.armor,rockHp=rock.hp;
+ s.advanceBoomerangs(.55);
+ assert(rock.hp<rockHp);assert(enemy.armor<armor||enemy.hp<100);
+ Object.assign(rock,{hp:10,eLinkPreviousProgress:undefined,eLinkPrevious:undefined});
+ Object.assign(enemy,{hp:100,eLinkPreviousProgress:undefined,eLinkPrevious:undefined});
+ s.setup([enemy,rock],[{...t,type:'elink',end:{x:7,y:4}}]);
+ s.elinks(.2);
+ assert(rock.hp<10);assert(enemy.hp<100);
 });
 console.log(checks+' Free Play checks passed');
 

@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.64.2**.
+Standalone HTML/JavaScript tower defense. Current version: **9.64.3**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Asteroid cover (9.64.3)
+
+Stage 01 wave 7 mixes a slow, heavy asteroid and a faster, lighter one into its existing surge. Dark, rotating rocks attract direct fire. E-Link still damages overlapping enemies, and the Boomerang can fly through the rocks. Destroyed rocks scatter fragments. They do not affect core integrity, enemy kills or energy.
 
 ## Settings cleanup and portrait fullscreen (9.64.2)
 
