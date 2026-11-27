@@ -1,8 +1,12 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.64.1**.
+Standalone HTML/JavaScript tower defense. Current version: **9.64.2**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Settings cleanup and portrait fullscreen (9.64.2)
+
+The standalone Titan and Trion test stages have been retired. The campaign bosses, 20-wave Challenge and Free Play remain available. On phones in portrait orientation, the board fits between the controls and tower dock, and the settings scroll independently.
 
 ## Circular tap and focus feedback (9.64.1)
 
@@ -59,16 +63,11 @@ Orbs, Trions and Hexions now share the trial armor rules in Campaign,
 Challenge and Free Play. Their bodies have four, three and six curved
 sides respectively. Gray armor shields the sides selected by each wave;
 exposed sides take damage and the core collapses when body HP reaches zero.
-Bosses keep their own armor and weak points. The short Trion trial remains
-available from the menu.
+Bosses keep their own armor and weak points.
 
-## Trion arc armor trial (9.62.11)
+## Trion arc armor design (9.62.11)
 
-Open [the trial](https://tigreoslam23.github.io/Jeux/arc-defense/?trion-armor=arcs)
-or choose **Try Trion arc armor** from the campaign overview or the Options
-menu. The trial opens directly to a single wave of eight blue Trions with
-three intact arcs each. Place towers, then choose **Release Trions**. Trial
-results leave campaign and Free Play records alone. A solid blue star and
+A solid blue star and
 a small white center remain visible throughout the fight. Three rotating gray
 arcs shield its boundary. When an arc breaks, that side of the blue body is
 exposed to direct damage. The white center shrinks as the body loses health
@@ -863,7 +862,7 @@ can result in fewer reinforcements; spawned enemy counters remain exact.
 
 Queued reinforcements and remaining enemies block victory even after Titan
 dies. Titan escaping defeats the core. Retry clears all queued arrivals.
-The original Challenge and Boss Test retain their prior Titan profiles and
+The original Challenge retains its prior Titan profile and
 never receive the campaign escorts.
 
 The Stage 04 victory offers **Next · Stage 05**. Finishing Stage 05 shows
@@ -882,11 +881,6 @@ Titan arrives after the last enemies of wave 20. At half HP its six plates
 spread and movement/rotation accelerate. It resists 78% of freezing strength,
 cannot be grappled, and ignores speed boosts. Existing music/effects volume,
 mute and pause controls apply.
-
-**Options → Boss Test** restores a Challenge map with 3,500 energy and all
-technologies. Build, then Release Boss. Load sample defense uses the normal
-tower prices and upgrade costs. Retry Boss and Return to Campaign preserve
-mode semantics. Boss Test never changes campaign or Challenge records.
 
 ## Verification
 
@@ -960,7 +954,7 @@ progression rules and all combat values remain unchanged.
 ## Titan health reduction (9.35)
 
 Titan core HP is reduced by 20% in every mode and difficulty. Campaign Stage 05
-Intermediate: 700 → 560 HP. Challenge / Boss Test: 240/340/440 → 192/272/352 HP.
+Intermediate: 700 → 560 HP. Challenge: 240/340/440 → 192/272/352 HP.
 Armor, movement, resistances, reinforcements and two-phase behavior are unchanged.
 Rupture stages remain freely accessible, with existing progress preserved.
 

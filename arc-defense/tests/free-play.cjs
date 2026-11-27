@@ -127,34 +127,12 @@ check('campaign terrain introduces boost, edge warp and black holes progressivel
 check('new circuit effects render without changing combat and obey the shared simulation clock',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);s.launch();s.reveal();for(let i=0;i<20;i++)s.frame();const before=JSON.stringify(s.data());s.fx();s.render();assert.equal(JSON.stringify(s.data()),before);s.setPaused(true);const pausedState=JSON.stringify(s.data());for(let i=0;i<10;i++)s.frame();assert.equal(JSON.stringify(s.data()),pausedState)}});
 check('all ten menu launches validate their identifiers',()=>{const s=game();for(let id=1;id<=10;id++)assert(s.start(id));for(const id of [0,11,6.5,NaN])assert.equal(s.start(id),false)});
 check('every new circuit contains substantial continuous turning and distinct geometry',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);const way=s.path();let turning=0;for(let i=2;i<way.length;i++){const a=way[i-2],b=way[i-1],c=way[i];if(c.dist-b.dist<.05||b.dist-a.dist<.05)continue;const u=Math.atan2(b.y-a.y,b.x-a.x),v=Math.atan2(c.y-b.y,c.x-b.x);turning+=Math.abs(Math.atan2(Math.sin(v-u),Math.cos(v-u)))}assert(turning>Math.PI*4,'loop turns '+id+': '+turning)}});
-check('the direct Trion trial launches only fully armored blue Trions and leaves records alone',()=>{
- const s=game('?trion-armor=arcs');s.rebuild();
- const campaign=s.campaignSave();
- assert.equal(s.data().mode,'trion-trial');
- assert.equal(s.data().energy,600);
- assert.equal(s.liveText(),'▶ Release Trions');
- s.launch();
- for(let frame=0;frame<400&&s.data().waveSpawned<8;frame++)s.frame();
- assert.equal(s.data().waveTotal,8);
- assert.equal(s.data().waveSpawned,8);
- assert.equal(s.data().titanEncounter,'idle');
- assert.equal(s.monsters().length,8);
- for(const m of s.monsters()){
-  assert.equal(m.type,1);assert.equal(m.family,'blue');
-  assert.equal(m.plates.length,3);assert(m.plates.every(Boolean));
- }
- s.render();
- s.killAll();s.frame();
- assert.equal(s.deathEffects().length,8);
- assert(s.deathEffects().every(p=>p.color==='#4f94ff'));
- assert(s.data().playing);
- s.render();
- for(let frame=0;frame<20&&s.data().playing;frame++)s.frame();
- assert.equal(s.title(),'TRION TRIAL COMPLETE');
- assert.equal(s.data().waveNumber,2);
- assert.equal(s.data().playing,false);
- assert.equal(s.best(),null);assert.equal(s.campaignSave(),campaign);
- s.rebuild();assert.equal(s.liveText(),'▶ Release Trions');
+check('a former Trion trial link opens the regular game mode',()=>{
+ const campaign=game('?trion-armor=arcs');campaign.rebuild();
+ assert.equal(campaign.data().mode,'campaign');
+ assert.equal(campaign.data().energy,340);
+ const challenge=game('?trion-armor=arcs&mode=challenge');challenge.rebuild();
+ assert.equal(challenge.data().mode,'challenge');
 });
 check('every campaign and Free Play circuit has a red shortcut toward the core within a continuous path section',()=>{
  const s=game();

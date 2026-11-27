@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.64.1</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.64.2</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -823,15 +823,15 @@ main{padding:3px 5px calc(77px + env(safe-area-inset-bottom))!important;gap:3px!
 
 <style id="arc922-titan">
 #titanHUD{position:absolute;z-index:44;top:8px;left:8px;right:8px;padding:7px 10px;border:1px solid #8cdeef88;border-radius:9px;background:#0a1827ed;pointer-events:none;color:#ecfbff;font:11px system-ui;box-shadow:0 0 18px #3aa5cb25}
-#titanHUD[hidden],#titanBanner[hidden],#titanOptions button[hidden]{display:none!important}
+#titanHUD[hidden],#titanBanner[hidden]{display:none!important}
 #titanHUD>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:8px}
 #titanHUD strong{font-size:11px;letter-spacing:.12em}#titanHUD small{font-size:10px;color:#b8d8df}
 .titan-health-track{height:5px;background:#203443;border-radius:4px;overflow:hidden;margin-top:5px}.titan-health-fill{height:100%;width:100%;background:linear-gradient(90deg,#398da8,#9bf5ff);transition:width .12s linear}
 #titanHUD.phase-two{border-color:#ff9878}#titanHUD.phase-two .titan-health-fill{background:linear-gradient(90deg,#d74b58,#ffbb76)}
 #titanBanner{position:absolute;z-index:62;inset:38% 5% auto;padding:20px 8px;text-align:center;border-block:1px solid #ffc79b;background:linear-gradient(90deg,#1e1820dc,#472a37f5,#1e1820dc);color:#ffdbc1;pointer-events:none;font-family:system-ui;box-shadow:0 0 50px #f4786844}
 #titanBanner span,#titanBanner strong,#titanBanner small{display:block}#titanBanner span{font-size:11px;letter-spacing:.25em}#titanBanner strong{font-size:clamp(28px,6vw,48px);letter-spacing:.25em;margin:5px 0}#titanBanner small{font-size:11px;letter-spacing:.16em}
-#titanOptions{padding:10px;border:1px solid #5d8999;border-radius:9px;background:#0d2534;margin-bottom:8px}#titanOptions>strong{font-size:12px;color:#a8f0f1}#titanOptions p{font-size:11px;line-height:1.55;margin:6px 0;color:#b7cbd9}#titanOptions button{display:block;width:100%;padding:9px 5px;margin:5px 0;white-space:normal;font-size:11px;min-height:36px}
-#arc917Settings .arc917-options{max-height:calc(100dvh - 120px);overflow-y:auto}
+
+
 @media(max-width:699px){#titanHUD{top:5px;left:5px;right:5px;padding:5px 7px}#titanHUD strong{font-size:9px}#titanHUD small{font-size:8px}}
 </style>
 
@@ -847,7 +847,7 @@ body.stage-campaign #towerDock button.tech-locked::before{content:attr(data-unlo
 @media(max-width:420px){.campaign-map-panel{padding:15px}.campaign-map-intro{font-size:11px}.campaign-stage{gap:8px;padding:9px}.campaign-stage-number{width:29px;height:29px;font-size:11px}.campaign-stage strong{font-size:10px}.campaign-stage small{font-size:9px}.campaign-stage button{font-size:10px;padding:5px;max-width:80px}.campaign-map-panel h2{font-size:27px}}
 </style>
 <meta name="theme-color" content="#071020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ARC DEFENSE"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png"><style id="evolution-guide-style">.evolution-guide{margin:14px 0;padding:12px;border:1px solid #456782;border-radius:15px;background:#0b1b2d;color:#c2dcea;font:14px/1.5 system-ui}.evolution-guide a{color:#8cdeff}.evolution-guide summary{cursor:pointer;color:#e8f8ff;font-weight:700;font-size:16px}.evolution-guide p{margin:10px 0}.evolution-guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.evolution-guide-card{padding:10px;border:1px solid #355168;border-radius:12px;background:#102337}.evolution-guide-card strong,.evolution-guide-card span{display:block}.evolution-guide-card strong{margin-bottom:4px}.wave-palette{max-width:94%;margin:6px auto;color:#e1d6ff;font:700 clamp(10px,2.8vw,15px)/1.4 system-ui;letter-spacing:.02em}.evolution-map-colors{font:13px/1.5 system-ui!important;margin:8px 0!important}#evolutionOptionsGuide .evolution-guide-grid{grid-template-columns:1fr}#evolutionOptionsGuide{max-height:55dvh;overflow:auto}</style></head>
-<body><header><h1>ARC DEFENSE · VERSION 9.64.1</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. A red Route Link sends up to five enemies farther along the route toward the core. They travel 50% faster and are immune to towers until they exit. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
+<body><header><h1>ARC DEFENSE · VERSION 9.64.2</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. A red Route Link sends up to five enemies farther along the route toward the core. They travel 50% faster and are immune to towers until they exit. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
 <script>(()=>{'use strict';
 const cv=document.getElementById('board'),g=cv.getContext('2d'),$=id=>document.getElementById(id);
 const portraitBoard=document.getElementById('portraitBoard'),pg=portraitBoard.getContext('2d');
@@ -1013,12 +1013,11 @@ const STAGE_TEN_WAVES=[
  {"name":"Fracture surge 15","counts":[25,16,13],"hp":[7.08,9.92,26.3],"speed":[1.382,1.282,1.034],"gap":0.414,"reward":[8,12,20]},
  {"name":"RIFT \u00b7 Heart of Rupture","counts":[12,16,18],"hp":[7.3,10.2,27.25],"speed":[1.395,1.295,1.045],"gap":0.405,"reward":[8,12,20]}
 ];
-const trionArcArmorTrial=new URLSearchParams(location.search).get('trion-armor')==='arcs';
-let playMode=trionArcArmorTrial?'trion-trial':new URLSearchParams(location.search).get('mode')==='challenge'?'challenge':'campaign',bossReturnMode='campaign';
+let playMode=new URLSearchParams(location.search).get('mode')==='challenge'?'challenge':'campaign';
 let campaignProgress=readCampaignProgress(),campaignMenuWasPaused=false;
 let campaignStageNumber=1;
-const TITAN_RADIUS=43,TITAN_TEST_ENERGY=3500;
-let titanBossTest=false,titanEncounter='idle',titanCountdown=0,titanAftermath=0,titanFightTime=0,titanPhaseReached=1,titanMaxHp=0,titanRemainingHp=0;
+const TITAN_RADIUS=43;
+let titanEncounter='idle',titanCountdown=0,titanAftermath=0,titanMaxHp=0,titanRemainingHp=0;
 let titanEscortQueue=[],titanLastProgress=0;
 let eLinkPending=null;
 let magneticPairs=[],magnetSerial=0,geminiTwins=[];
@@ -1458,7 +1457,7 @@ const pt=(x,y)=>({x,y});
 let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];
 const SCOUT_SPEED=.35, SCOUT_INTRO_DURATION=1500;
 let scoutActive=false,scoutProgress=0,scoutIntroProgress=0;
-const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){terrainClock=0;fissionSpawned=0;titanBossTest=false;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;scoutActive=false;scoutProgress=scoutIntroProgress=0;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
+const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){terrainClock=0;fissionSpawned=0;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;scoutActive=false;scoutProgress=scoutIntroProgress=0;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
 for(let i=0;i<rows.length;i++){let y=rows[i],start=direction===1?left:right,end=direction===1?right:left;if(i===0){for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}else{let old=rows[i-1];for(let yy=old+1;yy<y;yy++)path.push({x:start,y:yy});for(let x=start;;x+=direction){path.push({x,y});if(x===end)break;}}direction*=-1;}
 occupied=new Set(path.map(p=>key(p.x,p.y)));turns=[];way=[];
 // A turn is a true 2x2 reserved footprint. Its centerline enters junction 2,
@@ -1579,7 +1578,7 @@ for(let si=0;si<routeSegments.length;si++){
   rebuilt.push(exit);jumpPairs.push({from:last,to:exit,at:start,kind:si===0?'wormhole':'edge'});
  }
 }
-way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()||isFreePlay()){const scenic=isTrionTrial()?buildScenicCampaign(1):isFreePlay()?buildExoticRoute(freeMapNumber):buildScenicCampaign(activeStage());way=scenic.way;jumpPairs=scenic.jumps;proceduralVariant=isFreePlay()?freeMapNumber:activeStage()}
+way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()||isFreePlay()){const scenic=isFreePlay()?buildExoticRoute(freeMapNumber):buildScenicCampaign(activeStage());way=scenic.way;jumpPairs=scenic.jumps;proceduralVariant=isFreePlay()?freeMapNumber:activeStage()}
 // Reserve the physical route and portal mouths. Discontinuities have no collision segment.
 occupied=new Set();
 for(let i=0;i<way.length;i++){
@@ -2886,13 +2885,10 @@ function paintEnemyCore(m,baseRadius=4.5){
  g.save();g.fillStyle=enemyCoreColor(m);g.globalAlpha*=appearance.alpha;g.beginPath();g.arc(0,0,appearance.radius,0,TAU);g.fill();g.restore();
 }
 function colorWaveLabel(w){
- const colors=isTrionTrial()?[TRION_TRIAL.family]:isFreePlay()?(FREE_COLOR_PLANS[freeMapNumber-1]||'neutral').split(' '):isStageCampaign()?colorPlan(activeStage(),w):[];
+ const colors=isFreePlay()?(FREE_COLOR_PLANS[freeMapNumber-1]||'neutral').split(' '):isStageCampaign()?colorPlan(activeStage(),w):[];
  return colors.filter(c=>c!=='neutral').map(c=>ENEMY_FAMILIES[c].name.split(' · ')[0]).join(' / ');
 }
-function evolutionGuideHTML(){return '<summary>Field guide · Colors &amp; boosts</summary><p>'+ (trionArcArmorTrial
- ? 'The Trion has three gray armor arcs around a solid blue body and a small white center. When an arc breaks, shots can damage the blue body from that side. At zero health, the white center collapses and bursts. <a href="./" target="_blank" rel="noopener">Open standard Arc Defense</a> in a new game.'
- : 'Orbs have four armor arcs, Trions three, and Hexions six. The gray arcs shield a solid, colored body. Shots can damage the body wherever an arc is missing. The center shrinks with health and bursts when the body runs out of HP. <a href="?trion-armor=arcs" target="_blank" rel="noopener">Try Trion arc armor</a> in a new game.')
- + ' Core size shows remaining health. Bosses have their own armor and health bars.</p><div class="evolution-guide-grid">'+Object.entries(ENEMY_FAMILIES).filter(([k])=>k!=='neutral').map(([k,f])=>'<div class="evolution-guide-card"><strong style="color:'+f.color+'">'+f.icon+' '+f.name+'</strong><span>'+f.description+'</span></div>').join('')+'</div><p><b style="color:#ffd53d">Yellow: ×2.5</b> · Classic.<br><b style="color:#ff9a42">Orange: ×2.5</b> · 10 s ON / 10 s OFF.<br><b style="color:#ff5375">Red: ×3.75</b> · Short hyperboost. Ring = intermittent hyperboost on advanced circuits.</p><p>Pulse rings count down. Dark chevrons are inactive. Cycles follow game speed and freeze on pause. Some pulse pads alternate with each other.</p>'}
+function evolutionGuideHTML(){return '<summary>Field guide · Colors &amp; boosts</summary><p>Orbs have four armor arcs, Trions three, and Hexions six. The gray arcs shield a solid, colored body. Shots can damage the body wherever an arc is missing. The center shrinks with health and bursts when the body runs out of HP. Core size shows remaining health. Bosses have their own armor and health bars.</p><div class="evolution-guide-grid">'+Object.entries(ENEMY_FAMILIES).filter(([k])=>k!=='neutral').map(([k,f])=>'<div class="evolution-guide-card"><strong style="color:'+f.color+'">'+f.icon+' '+f.name+'</strong><span>'+f.description+'</span></div>').join('')+'</div><p><b style="color:#ffd53d">Yellow: ×2.5</b> · Classic.<br><b style="color:#ff9a42">Orange: ×2.5</b> · 10 s ON / 10 s OFF.<br><b style="color:#ff5375">Red: ×3.75</b> · Short hyperboost. Ring = intermittent hyperboost on advanced circuits.</p><p>Pulse rings count down. Dark chevrons are inactive. Cycles follow game speed and freeze on pause. Some pulse pads alternate with each other.</p>'}
 function mountEvolutionGuide(){
  const panel=document.querySelector('#campaignMap .campaign-map-panel'),options=document.querySelector('#arc917Settings .arc917-options');
  for(const [parent,id] of [[panel,'evolutionMenuGuide'],[options,'evolutionOptionsGuide']]){if(!parent||document.getElementById(id))continue;const guide=document.createElement('details');guide.id=id;guide.className='evolution-guide';guide.innerHTML=evolutionGuideHTML();parent.append(guide)}
@@ -2910,10 +2906,8 @@ const FREE_MAPS=[
  {name:'Orbital Cascade',tag:'09 · FOUR WORLDS IN MOTION',color:'#a2ff92',count:900,gap:.32,type:2,hp:4.6,speed:1.35,budget:3100,boosts:10,description:'Complete four elliptical orbits linked by black holes. Tiny satellites trace each planetary core.'},
  {name:'Aurora Corkscrew',tag:'10 · RIDE THE LIGHT',color:'#ae9fff',count:1000,gap:.27,type:-1,hp:4,speed:1.55,budget:3400,boosts:14,description:'Five rolling loops ride an aurora ribbon. A thousand enemies. Four comets. A luminous finale.'}
 ];
-const TRION_TRIAL={name:'Trion armor trial',color:'#4f94ff',count:8,gap:1.5,type:1,hp:3.3,speed:.8,budget:600,boosts:0,family:'blue'};
-function isTrionTrial(){return playMode==='trion-trial'}
-function isFreePlay(){return (playMode==='free'||isTrionTrial())&&!titanBossTest}
-function freeMap(){return isTrionTrial()?TRION_TRIAL:FREE_MAPS[freeMapNumber-1]||FREE_MAPS[0]}
+function isFreePlay(){return playMode==='free'}
+function freeMap(){return FREE_MAPS[freeMapNumber-1]||FREE_MAPS[0]}
 // Rounded polylines preserve the authored composition without spline overshoot.
 // Every physical sample is <= 9 px apart; a jump is exactly .01 route units.
 // Reserve one tower-width strip along the portrait sides while easing into the original route.
@@ -3011,20 +3005,20 @@ function scenicBoostPads(){
  return chosen.sort((a,b)=>a-b).map((d,id)=>({id,d,discovered:false,flash:0,duration:isFreePlay()?.8:1.1}));
 }
 function freeStreamButtonText(){
- if(!firstWaveStarted)return isTrionTrial()?'▶ Release Trions':'▶ RELEASE STREAM';
- return (isTrionTrial()?'Trions ':'∞ ')+waveSpawned+' / '+freeMap().count;
+ if(!firstWaveStarted)return '▶ RELEASE STREAM';
+ return '∞ '+waveSpawned+' / '+freeMap().count;
 }
 function refreshFreeStreamHUD(){if(!isFreePlay())return;const text=freeStreamButtonText();if($('wave').textContent!==text)$('wave').textContent=text;const label=$('freeRunLabel');if(label)label.textContent=freeMap().name+' · '+waveSpawned+' / '+freeMap().count;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0).length}
 function freeEnemyType(i){return freeMap().type>=0?freeMap().type:Math.floor(i/80)%3}
-function createFreeEnemy(i){const cfg=freeMap(),type=freeEnemyType(i),difficulty=level===1?.82:level===3?1.18:1,hp=cfg.hp*(type===2?1.15:1)*difficulty;return setEnemyFamily({id:++monsterSerial,type,trait:'normal',progress:0,spin:i*.3,hp,maxHp:hp,moveSpeed:cfg.speed,spinSpeed:enemyProfiles[type].spin,reward:3,...fullArmor(type)},cfg.family||colorForIndex(FREE_COLOR_PLANS[freeMapNumber-1].split(' '),i,16))}
+function createFreeEnemy(i){const cfg=freeMap(),type=freeEnemyType(i),difficulty=level===1?.82:level===3?1.18:1,hp=cfg.hp*(type===2?1.15:1)*difficulty;return setEnemyFamily({id:++monsterSerial,type,trait:'normal',progress:0,spin:i*.3,hp,maxHp:hp,moveSpeed:cfg.speed,spinSpeed:enemyProfiles[type].spin,reward:3,...fullArmor(type)},colorForIndex(FREE_COLOR_PLANS[freeMapNumber-1].split(' '),i,16))}
 function startFreeMap(id){if(!Number.isInteger(id)||id<1||id>FREE_MAPS.length)return false;closeCampaignMap();freeMapNumber=id;playMode='free';clearEnd();build();$('arc60Close')?.click();if($('arc917Settings'))$('arc917Settings').open=false;update();draw();return true}
 function freeBest(id){try{return JSON.parse(localStorage.getItem('arc_free_v1_'+id)||'null')}catch(e){return null}}
 function endFreePlay(won){
- const cfg=freeMap(),trial=isTrionTrial(),result={won,kills,lives,count:cfg.count,offspring:fissionSpawned},old=trial?null:freeBest(freeMapNumber);let saved=false;
- try{if(!trial&&(!old||Number(won)>Number(old.won)||(won===old.won&&(kills>old.kills||(kills===old.kills&&lives>old.lives))))){localStorage.setItem('arc_free_v1_'+freeMapNumber,JSON.stringify(result));saved=true}}catch(e){}
- window.arcAudio?.mode(won?'victory':'defeat');$('endScreen').classList.add('show');$('endTitle').textContent=trial?'TRION TRIAL COMPLETE':won?'CIRCUIT COMPLETE':'CIRCUIT LOST';$('endDescription').textContent=trial?kills+' of '+cfg.count+' Trions eliminated.':cfg.name+' · '+(won?'The entire stream has passed your defense.':'The convoy broke through. Rebuild and try a different corner.');
+ const cfg=freeMap(),result={won,kills,lives,count:cfg.count,offspring:fissionSpawned},old=freeBest(freeMapNumber);let saved=false;
+ try{if(!old||Number(won)>Number(old.won)||(won===old.won&&(kills>old.kills||(kills===old.kills&&lives>old.lives)))){localStorage.setItem('arc_free_v1_'+freeMapNumber,JSON.stringify(result));saved=true}}catch(e){}
+ window.arcAudio?.mode(won?'victory':'defeat');$('endScreen').classList.add('show');$('endTitle').textContent=won?'CIRCUIT COMPLETE':'CIRCUIT LOST';$('endDescription').textContent=cfg.name+' · '+(won?'The entire stream has passed your defense.':'The convoy broke through. Rebuild and try a different corner.');
  const summary=$('endSummary');summary.replaceChildren();for(const [label,value] of [['Enemies released',waveSpawned+' / '+cfg.count+(fissionSpawned?' + '+fissionSpawned+' offspring':'')],['Enemies eliminated',kills],['Core integrity',lives+' / '+CORE_LIVES],['Energy left',energy+' ⚡'],['Active defenses',towers.length],['Circuit features',boostPads.length+' boosts · '+jumpPairs.length+' portals']]){const item=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;item.append(dt,dd);summary.append(item)}
- $('endRecord').hidden=!saved;$('endRecord').textContent='✦ NEW CIRCUIT RECORD';$('endTip').textContent=trial?'Try a different tower placement to hit the exposed blue body.':'Free Play records are independent of campaign stars. Every circuit is always open.';$('endRestart').textContent=trial?'↺ Retry trial':'↺ Retry circuit';$('endNew').textContent=trial?'Return to campaigns':'Choose another circuit';requestAnimationFrame(()=>$('endRestart').focus({preventScroll:true}));
+ $('endRecord').hidden=!saved;$('endRecord').textContent='✦ NEW CIRCUIT RECORD';$('endTip').textContent='Free Play records are independent of campaign stars. Every circuit is always open.';$('endRestart').textContent='↺ Retry circuit';$('endNew').textContent='Choose another circuit';requestAnimationFrame(()=>$('endRestart').focus({preventScroll:true}));
 }
 function routeMiniature(id){const c=buildExoticRoute(id),cfg=FREE_MAPS[id-1];let d='';for(let i=0;i<c.way.length;i++){const p=c.way[i];d+=(i===0||p.dist-c.way[i-1].dist<.05?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)}return '<svg class="free-mini" viewBox="0 0 675 1120" aria-hidden="true"><g transform="translate(675,0) rotate(90)"><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" opacity=".18"/><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="4" stroke-linecap="round"/>'+c.jumps.map(j=>[j.from,j.to].map(p=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="20" fill="#080c20" stroke="'+cfg.color+'" stroke-width="5"/>').join('')).join('')+'</g></svg>'}
 function openFreeMaps(){const map=$('campaignMap');if(!map)return;map.dataset.campaign='free';$('campaignOverview').hidden=true;$('campaignBack').hidden=false;$('campaignStageProgress').hidden=true;for(const n of [1,2])$('campaignStages'+n).hidden=true;$('freeMaps').hidden=false;$('campaignMapTitle').textContent='Take the wild route';$('campaignPickerIntro').textContent='FREE PLAY · TEN OPEN CIRCUITS · ALL TOWERS UNLOCKED';map.querySelector('.campaign-map-panel').scrollTop=0;for(let n=1;n<=FREE_MAPS.length;n++){const b=freeBest(n);$('freeRecord'+n).textContent=b?(b.won?'✓ Circuit secured':'Best: '+b.kills+' eliminated'):'No record yet · Make your first run'}requestAnimationFrame(()=>$('freePlay1').focus({preventScroll:true}))}
@@ -3054,7 +3048,7 @@ function paintExoticArena(){
  g.restore();
 }
 
-function isStageCampaign(){return playMode==='campaign'&&!titanBossTest}
+function isStageCampaign(){return playMode==='campaign'}
 function activeStage(){return [1,2,3,4,5,6,7,8,9,10].includes(campaignStageNumber)?campaignStageNumber:1}
 function campaignWaveSpecs(){return [STAGE_ONE_WAVES,STAGE_TWO_WAVES,STAGE_THREE_WAVES,STAGE_FOUR_WAVES,STAGE_FIVE_WAVES,STAGE_SIX_WAVES,STAGE_SEVEN_WAVES,STAGE_EIGHT_WAVES,STAGE_NINE_WAVES,STAGE_TEN_WAVES][activeStage()-1]}
 function campaignStageName(){return ['The Relay','Armor Front','Swarm Signal','Crosscurrent','Titan Protocol','Fracture Relay','Copper March','Prism Convergence','Energy Divide','Rift Heart'][activeStage()-1]}
@@ -3294,19 +3288,6 @@ function showCampaignStages(id){
  map.querySelector('.campaign-map-panel').scrollTop=0;
  requestAnimationFrame(()=>visibleCampaignButtons($('campaignStages'+id))[0]?.focus({preventScroll:true}));
 }
-function createTrionArmorButton(id){
- const button=document.createElement('button');button.id=id;button.type='button';
- button.textContent=trionArcArmorTrial?'Return to campaigns':'Try Trion arc armor';
- button.onclick=switchTrionArmor;
- return button;
-}
-function switchTrionArmor(){
- if(window.arcAppState?.().busy&&!window.confirm('Switching game modes starts a new defense. Continue?'))return;
- const url=new URL(location.href);
- if(trionArcArmorTrial)url.searchParams.delete('trion-armor');
- else url.searchParams.set('trion-armor','arcs');
- location.assign(url.href);
-}
 function mountCampaignPicker(){
  const map=$('campaignMap'),panel=map?.querySelector('.campaign-map-panel');if(!panel)return;
  const headings=[...panel.querySelectorAll('.campaign-section-title')],routes=[...panel.querySelectorAll('.campaign-route')];
@@ -3322,7 +3303,6 @@ function mountCampaignPicker(){
   overview.append(card);
  }
  const classic=$('campaignClassic');panel.insertBefore(overview,classic);
- panel.insertBefore(createTrionArmorButton('campaignTrionArmor'),overview);
  const progress=document.createElement('p');progress.id='campaignStageProgress';progress.hidden=true;panel.insertBefore(progress,classic);
  for(const id of [1,2]){
   const group=document.createElement('section');group.id='campaignStages'+id;group.hidden=true;headings[id-1].id='campaignHeading'+id;group.setAttribute('aria-labelledby',headings[id-1].id);
@@ -3350,21 +3330,20 @@ function mountCampaignControls(){
  const map=document.createElement('section');map.id='campaignMap';map.hidden=true;map.setAttribute('role','dialog');map.setAttribute('aria-modal','true');map.setAttribute('aria-labelledby','campaignMapTitle');
  map.innerHTML='<div class="campaign-map-panel"><div class="campaign-map-head"><span>ARC DEFENSE · CAMPAIGNS</span><button id="campaignFullscreen" type="button" aria-label="Enter full screen" aria-pressed="false">⛶ Full screen</button><button id="campaignClose" aria-label="Close campaign map" type="button">✕</button></div><h2 id="campaignMapTitle">Choose your stage</h2><p id="campaignCompletion" class="campaign-map-intro" hidden></p><p class="campaign-map-intro">A new route. A fresh defense. One stage at a time.</p><h3 class="campaign-section-title">CAMPAIGN 01 · FIRST CONTACT</h3><div class="campaign-route"><article class="campaign-stage available"><span class="campaign-stage-number">01</span><div><strong>THE RELAY</strong><small>8 waves · Winding route · Elite vanguard</small><p id="campaignStageResult"></p></div><button id="campaignPlay" type="button">Play Stage 01</button></article><article id="campaignStage2" class="campaign-stage planned"><span class="campaign-stage-number">02</span><div><strong>ARMOR FRONT</strong><small>10 waves · Hairpins · Bastion mini-boss</small><p id="campaignStage2Result"></p></div><button id="campaignPlay2" type="button" disabled>Play Stage 02</button></article><article id="campaignStage3" class="campaign-stage planned"><span class="campaign-stage-number">03</span><div><strong>SWARM SIGNAL</strong><small>12 waves · Yellow boost · Green regenerators · Nexus</small><p id="campaignStage3Result"></p></div><button id="campaignPlay3" type="button" disabled>Play Stage 03</button></article><article id="campaignStage4" class="campaign-stage planned"><span class="campaign-stage-number">04</span><div><strong>CROSSCURRENT</strong><small>12 waves · Orange pulse boost · Red fury · Gemini</small><p id="campaignStage4Result"></p></div><button id="campaignPlay4" type="button" disabled>Play Stage 04</button></article><article id="campaignStage5" class="campaign-stage planned"><span class="campaign-stage-number">05</span><div><strong>TITAN PROTOCOL</strong><small>15 waves · Red hyperboost · Charged units · Edge warp · TITAN</small><p id="campaignStage5Result"></p></div><button id="campaignPlay5" type="button" disabled>Play Stage 05</button></article></div><h3 class="campaign-section-title rupture-title">CAMPAIGN 02 · RUPTURE</h3><p id="campaignCompletion2" class="campaign-map-intro"></p><p class="campaign-map-intro">Five stages: split formations, armored convoys, Prism, energy management and the Rift finale.</p><div class="campaign-route"><article id="campaignStage6" class="campaign-stage planned"><span class="campaign-stage-number">06</span><div><strong>FRACTURE RELAY</strong><small>12 waves · Mixed boosts · Violet fission · Elite assault</small><p id="campaignStage6Result"></p></div><button id="campaignPlay6" type="button" disabled>Play Stage 06</button></article><article id="campaignStage7" class="campaign-stage planned"><span class="campaign-stage-number">07</span><div><strong>COPPER MARCH</strong><small>14 waves · First black hole · Anvil</small><p id="campaignStage7Result"></p></div><button id="campaignPlay7" type="button" disabled>Play Stage 07</button></article><article id="campaignStage8" class="campaign-stage planned"><span class="campaign-stage-number">08</span><div><strong>PRISM CONVERGENCE</strong><small>14 waves · Twin warps · Prism boss</small><p id="campaignStage8Result"></p></div><button id="campaignPlay8" type="button" disabled>Play Stage 08</button></article><article id="campaignStage9" class="campaign-stage planned"><span class="campaign-stage-number">09</span><div><strong>ENERGY DIVIDE</strong><small>15 waves · Twin black holes · Elite assault</small><p id="campaignStage9Result"></p></div><button id="campaignPlay9" type="button" disabled>Play Stage 09</button></article><article id="campaignStage10" class="campaign-stage planned"><span class="campaign-stage-number">10</span><div><strong>RIFT HEART</strong><small>16 waves · Warps + black holes · Rift finale</small><p id="campaignStage10Result"></p></div><button id="campaignPlay10" type="button" disabled>Play Stage 10</button></article></div><button id="campaignClassic" type="button">Play the original 20-wave Challenge</button><p class="campaign-map-foot">Rupture is open: play Stages 06–10 freely. Each stage has its own score. Secure all five to complete Campaign 02.<br>Campaign technologies and stage results stay on this device.</p></div>';
  document.body.append(map);$('campaignPlay8').onclick=()=>startCampaignStage(8);$('campaignPlay9').onclick=()=>startCampaignStage(9);$('campaignPlay10').onclick=()=>startCampaignStage(10);$('campaignPlay7').onclick=()=>startCampaignStage(7);$('campaignPlay6').onclick=()=>startCampaignStage(6);$('campaignPlay5').onclick=()=>startCampaignStage(5);$('campaignPlay4').onclick=()=>startCampaignStage(4);$('campaignPlay3').onclick=()=>startCampaignStage(3);$('campaignPlay2').onclick=()=>startCampaignStage(2);$('campaignOpen').onclick=openCampaignMap;$('campaignRestart').onclick=$('campaignPlay').onclick=startStageOne;$('classicChallenge').onclick=$('campaignClassic').onclick=startClassicChallenge;$('campaignClose').onclick=closeCampaignMap;
- $('campaignDifficulty').value=$('level').value;$('campaignDifficulty').onchange=()=>{$('level').value=$('campaignDifficulty').value;if(titanBossTest)prepareTitanTest();else if(isStageCampaign())startCampaignStage(activeStage());else{clearEnd();build()}};
+ $('campaignDifficulty').value=$('level').value;$('campaignDifficulty').onchange=()=>{$('level').value=$('campaignDifficulty').value;if(isStageCampaign())startCampaignStage(activeStage());else{clearEnd();build()}};
  document.addEventListener('keydown',e=>{if(document.getElementById('arcAppDialog')?.hidden===false)return;if(map.hidden)return;
  if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();if(map.dataset.campaign&&map.dataset.campaign!=='overview')showCampaignPicker();else closeCampaignMap()}
  else if(e.key==='Tab'){const buttons=visibleCampaignButtons(map),at=buttons.indexOf(document.activeElement);if(!buttons.length)return;e.preventDefault();buttons[(at+(e.shiftKey?-1:1)+buttons.length)%buttons.length].focus()}
  else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();e.stopImmediatePropagation();if(map.contains(e.target)&&e.target.tagName==='BUTTON')e.target.click()}
  },{capture:true});
  mountCampaignPicker();mountEvolutionGuide();
- options.prepend(createTrionArmorButton('optionsTrionArmor'));
  if(isStageCampaign())openCampaignMap();
 }
 document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(mountCampaignControls),{once:true});
 
 function isCampaignFinale(){return isStageCampaign()&&(activeStage()===5||activeStage()===10)}
 function titanHitPoints(){return isCampaignFinale()?(activeStage()===10?600:560)*(level===1?.82:level===3?1.18:1):level===1?192:level===3?352:272}
-function resetTitanEncounter(){titanEscortQueue=[];titanLastProgress=0;titanEncounter='idle';titanCountdown=0;titanAftermath=0;titanFightTime=0;titanPhaseReached=1;titanMaxHp=0;titanRemainingHp=0}
+function resetTitanEncounter(){titanEscortQueue=[];titanLastProgress=0;titanEncounter='idle';titanCountdown=0;titanAftermath=0;titanMaxHp=0;titanRemainingHp=0}
 function titanBlocksCompletion(){return titanEscortQueue.length>0||['pending','warning','active'].includes(titanEncounter)||(titanEncounter==='defeated'&&titanAftermath>0)}
 function beginTitanWarning(){
  titanEncounter='warning';titanCountdown=2.4;titanMaxHp=titanHitPoints();titanRemainingHp=titanMaxHp;eLinkPending=null;placing=false;placementHover=null;boomHover=null;modeButtons();
@@ -3397,19 +3376,19 @@ function advanceTitanEscorts(dt){
 function stepTitanEncounter(dt){
  if(titanEncounter==='pending'&&waveSpawned>=waveTotal&&!monsters.some(m=>m.hp>0))beginTitanWarning();
  else if(titanEncounter==='warning'){titanCountdown=Math.max(0,titanCountdown-dt);if(titanCountdown<=0)spawnTitan()}
- else if(titanEncounter==='active'){titanFightTime+=dt;const m=monsters.find(m=>m.boss&&m.hp>0);if(m){titanRemainingHp=m.hp;titanLastProgress=m.progress;updateTitanPhase(m)}}
+ else if(titanEncounter==='active'){const m=monsters.find(m=>m.boss&&m.hp>0);if(m){titanRemainingHp=m.hp;titanLastProgress=m.progress;updateTitanPhase(m)}}
  else if(titanEncounter==='defeated')titanAftermath=Math.max(0,titanAftermath-dt);
  advanceTitanEscorts(dt);
 }
 function updateTitanPhase(m){
  if(!m.boss||m.phase!==1||m.hp<=0||m.hp>m.maxHp*.5)return false;
  m.phase=2;m.spinSpeed=m.campaignTitan?1.1:.86;m.moveSpeed=m.stageBoss==='rift'?.92:m.campaignTitan?.98:.72;m.plates=Array(6).fill(true);m.plateHp=Array(6).fill(m.campaignTitan?4:2);m.armor=6;if(m.campaignTitan)queueTitanEscorts(m.stageBoss==='rift'?6:4);
- titanPhaseReached=2;window.arcAudio?.mode('bossPhase2');const c=monsterPosition(m);
+ window.arcAudio?.mode('bossPhase2');const c=monsterPosition(m);
  particles.push({x:c.x,y:c.y,r:85,life:.8,color:'#ff725b',blast:true});$('waveReport').textContent=(m.stageBoss==='rift'?'⚠ RIFT':'⚠ TITAN')+' · PHASE II · Armor opened, rotation accelerated';return true;
 }
 function finishTitan(m){
  if(titanEncounter==='defeated')return;
- titanEncounter='defeated';titanAftermath=2.2;titanRemainingHp=0;titanPhaseReached=m.phase;const c=monsterPosition(m);
+ titanEncounter='defeated';titanAftermath=2.2;titanRemainingHp=0;const c=monsterPosition(m);
  for(let i=0;i<4;i++)particles.push({x:c.x,y:c.y,r:45+i*25,life:.8+i*.22,color:i%2?'#ff7865':'#91ffff',blast:true});
  window.arcAudio?.mode('bossDefeated');$('waveReport').textContent=(m.stageBoss==='rift'?'RIFT':'TITAN')+' DESTROYED · Core secured';
 }
@@ -3485,70 +3464,25 @@ function paintTitan(m,c,scale=1){
  if(phase){g.globalAlpha=.8;for(let k=0;k<6;k++){const a=-m.spin+k*TAU/6;g.beginPath();g.moveTo(Math.cos(a)*61,Math.sin(a)*61);g.lineTo(Math.cos(a+.055)*70,Math.sin(a+.055)*70);g.stroke()}}
  g.restore();
 }
-function prepareTitanTest(){
- if(!titanBossTest)bossReturnMode=playMode;playMode='challenge';clearEnd();build();titanBossTest=true;document.body.dataset.gameMode='boss-test';waveNumber=CAMPAIGN_WAVES;energy=TITAN_TEST_ENERGY;traceVisits.fill(TRACE_REQUIRED);lastTechPercent=100;
- window.arcAudio?.pause(false);$('arc60Close')?.click();$('waveReport').textContent='BOSS TEST · All towers unlocked · Build your defense, then Release Boss. Device records are not changed.';
- const menu=$('arc917Settings');if(menu)menu.open=false;update();draw();
-}
-function releaseTitanTest(){
- if(!titanBossTest||firstWaveStarted||playing||lives<=0)return false;
- firstWaveStarted=true;playing=true;paused=false;autoWaveCountdown=-1;waveSpawned=0;waveTotal=0;elapsed=0;spawn=0;monsters=[];shots=[];boomShots=[];
- window.arcAudio?.unlock();window.arcAudio?.pause(false);beginTitanWarning();update();return true;
-}
-function returnFromTitanTest(){playMode=bossReturnMode;clearEnd();build();$('arc60Close')?.click();const menu=$('arc917Settings');if(menu)menu.open=false;update();draw()}
-function loadTitanSample(){
- if(!titanBossTest||firstWaveStarted)return;
- towers=[];energy=TITAN_TEST_ENERGY;selected=null;eLinkPending=null;placing=false;modeButtons();
- const samples=visiblePathSamples();
- for(const [type,lv] of [['precision',5],['rapid',4],['freeze',3],['boom',4],['area',3]]){
-  let best=null,score=-1;
-  for(let y=GRID_MIN;y<=GRID_MAX_Y;y++)for(let x=GRID_MIN;x<=GRID_MAX_X;x++){
-   if(!freeConstructionCell(x,y))continue;
-   const coverage=coverageMask(x,y,type,lv,samples).filter(Boolean).length;
-   const spacing=towers.some(t=>Math.hypot(t.x-x,t.y-y)<1.9)?.65:1;
-   if(coverage*spacing>score){score=coverage*spacing;best={x,y}}
-  }
-  if(!best)continue;const t={...best,type,lv:1,cool:0,angle:0};let price=towerPrices[type];
-  for(let i=1;i<lv;i++){price+=campaignUpgradeCost(t);t.lv++}
-  if(energy<price)continue;if(type==='boom')t.boomAngle=fixedBoomAngle(t);towers.push(t);energy-=price;
- }
- $('arc60Close')?.click();const menu=$('arc917Settings');if(menu)menu.open=false;update();draw();
-}
-function endTitanTest(won){
- window.arcAudio?.mode(won?'victory':'defeat');const overlay=$('endScreen');overlay.classList.add('show');
- $('endTitle').textContent=won?'TITAN DEFEATED':'TITAN ESCAPED';
- $('endDescription').textContent='Boss Test · Your campaign record has not changed.';$('endRecord').hidden=true;
- const summary=$('endSummary');summary.replaceChildren();
- for(const [label,value] of [['Boss HP left',Math.max(0,Math.ceil(titanRemainingHp))],['Phase reached',titanPhaseReached===2?'II':'I'],['Fight time',Math.round(titanFightTime)+' s'],['Energy left',energy+' ⚡'],['Active towers',towers.length]]){
-  const item=document.createElement('div'),term=document.createElement('dt'),data=document.createElement('dd');term.textContent=label;data.textContent=String(value);item.append(term,data);summary.append(item);
- }
- $('endTip').textContent='Retry Boss restores 3500 energy on this map. Try a different placement or tower combination.';
- $('endRestart').textContent='↺ Retry Boss';$('endNew').textContent='Return to Campaign';requestAnimationFrame(()=>$('endRestart').focus({preventScroll:true}));
-}
 function updateTitanHUD(){
  const hud=$('titanHUD'),banner=$('titanBanner');if(!hud||!banner)return;
  const setText=(node,value)=>{if(node.textContent!==value)node.textContent=value};
- const gemini=geminiStatus(),bastion=monsters.find(m=>m.miniBoss&&m.hp>0),preparing=titanBossTest&&!firstWaveStarted,visible=!!bastion||!!(gemini&&gemini.hp>0)||preparing||['warning','active','defeated'].includes(titanEncounter);
+ const gemini=geminiStatus(),bastion=monsters.find(m=>m.miniBoss&&m.hp>0),visible=!!bastion||!!(gemini&&gemini.hp>0)||['warning','active','defeated'].includes(titanEncounter);
  hud.hidden=!visible;banner.hidden=titanEncounter!=='warning';
  setText(banner.querySelector('strong'),isStageCampaign()&&activeStage()===10?'RIFT':'TITAN');
  if(titanEncounter==='warning')setText(banner.querySelector('small'),'ARRIVING IN '+Math.max(1,Math.ceil(titanCountdown)));
  const boss=bastion||monsters.find(m=>m.boss&&m.hp>0),hp=gemini?gemini.hp:boss?boss.hp:titanRemainingHp,maxHp=gemini?gemini.maxHp:bastion?bastion.maxHp:titanMaxHp;
- setText(hud.querySelector('strong'),gemini?'GEMINI · '+(gemini.frenzy?'LAST STAND':'TWIN CORE'):bastion?(bastion.stageBoss==='prism'?'PRISM · '+(bastion.phase===2?'REVERSE PULSE':'SHATTERED CORE'):bastion.stageBoss==='anvil'?'ANVIL · '+(bastion.phase===2?'IRON MARCH':'COPPER GUARDIAN'):bastion.stageBoss==='nexus'?'NEXUS · '+(bastion.phase===2?'OVERDRIVE':'SWARM CORE'):'BASTION · ARMORED GUARDIAN'):preparing?'BOSS TEST · PREPARE':titanEncounter==='defeated'?(isStageCampaign()&&activeStage()===10?'RIFT DESTROYED':'TITAN DESTROYED'):(isStageCampaign()&&activeStage()===10?'RIFT':'TITAN')+' · PHASE '+(boss?.phase===2?'II':'I'));
- setText(hud.querySelector('small'),gemini?(gemini.alive+gemini.pending)+' / 2 guardians · '+Math.max(0,Math.ceil(hp))+' / '+Math.ceil(maxHp)+' HP':preparing?'Build your defense, then Release Boss':titanEncounter==='warning'?'Heavy signature approaching':Math.max(0,Math.ceil(hp))+' / '+maxHp+' HP'+(bastion?.grappleGuard>0?' · Grapple '+Math.ceil(bastion.grappleGuard)+'s':''));
- hud.querySelector('.titan-health-fill').style.width=preparing?'100%':(100*Math.max(0,hp)/Math.max(1,maxHp))+'%';hud.classList.toggle('phase-two',gemini?gemini.frenzy:boss?.phase===2);
- if(titanBossTest){setText($('wave'),!firstWaveStarted?'▶ Release Boss':playing?'⚡ TITAN':'Boss Test');$('wave').disabled=firstWaveStarted||playing||lives<=0}
- const prepare=$('titanPrepare');if(prepare)prepare.hidden=titanBossTest;
- const retry=$('titanRetry'),exit=$('titanExit'),sample=$('titanSample');if(retry)retry.hidden=!titanBossTest;if(exit)exit.hidden=!titanBossTest;if(sample)sample.hidden=!preparing;
+ setText(hud.querySelector('strong'),gemini?'GEMINI · '+(gemini.frenzy?'LAST STAND':'TWIN CORE'):bastion?(bastion.stageBoss==='prism'?'PRISM · '+(bastion.phase===2?'REVERSE PULSE':'SHATTERED CORE'):bastion.stageBoss==='anvil'?'ANVIL · '+(bastion.phase===2?'IRON MARCH':'COPPER GUARDIAN'):bastion.stageBoss==='nexus'?'NEXUS · '+(bastion.phase===2?'OVERDRIVE':'SWARM CORE'):'BASTION · ARMORED GUARDIAN'):titanEncounter==='defeated'?(isStageCampaign()&&activeStage()===10?'RIFT DESTROYED':'TITAN DESTROYED'):(isStageCampaign()&&activeStage()===10?'RIFT':'TITAN')+' · PHASE '+(boss?.phase===2?'II':'I'));
+ setText(hud.querySelector('small'),gemini?(gemini.alive+gemini.pending)+' / 2 guardians · '+Math.max(0,Math.ceil(hp))+' / '+Math.ceil(maxHp)+' HP':titanEncounter==='warning'?'Heavy signature approaching':Math.max(0,Math.ceil(hp))+' / '+maxHp+' HP'+(bastion?.grappleGuard>0?' · Grapple '+Math.ceil(bastion.grappleGuard)+'s':''));
+ hud.querySelector('.titan-health-fill').style.width=(100*Math.max(0,hp)/Math.max(1,maxHp))+'%';hud.classList.toggle('phase-two',gemini?gemini.frenzy:boss?.phase===2);
 }
-function mountTitanControls(){
- const frame=document.querySelector('.battle-frame'),options=document.querySelector('#arc917Settings .arc917-options');if(!frame||!options)return;
+function mountTitanHUD(){
+ const frame=document.querySelector('.battle-frame');if(!frame)return;
  const hud=document.createElement('section');hud.id='titanHUD';hud.hidden=true;hud.setAttribute('aria-label','Boss status');hud.innerHTML='<div><strong>TITAN</strong><small></small></div><div class="titan-health-track"><div class="titan-health-fill"></div></div>';frame.append(hud);
  const banner=document.createElement('div');banner.id='titanBanner';banner.hidden=true;banner.setAttribute('role','status');banner.innerHTML='<span>FINAL BOSS</span><strong>TITAN</strong><small>APPROACHING</small>';frame.append(banner);
- const controls=document.createElement('section');controls.id='titanOptions';controls.innerHTML='<strong>⚡ TITAN · BOSS TEST</strong><p>3500 energy · All towers unlocked<br>Prepare your defense, then Release Boss.<br>Heavy: resists freezing and cannot be grappled.<br>Test results do not change campaign records.</p><button id="titanPrepare" type="button">Boss Test</button><button id="titanSample" type="button" hidden>Load sample defense</button><button id="titanRetry" type="button" hidden>Retry Boss</button><button id="titanExit" type="button" hidden>Return to Campaign</button>';options.prepend(controls);
- $('titanPrepare').onclick=prepareTitanTest;$('titanSample').onclick=loadTitanSample;$('titanRetry').onclick=prepareTitanTest;$('titanExit').onclick=returnFromTitanTest;
  updateTitanHUD();
 }
-document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(mountTitanControls),{once:true});
+document.addEventListener('DOMContentLoaded',()=>requestAnimationFrame(mountTitanHUD),{once:true});
 
 function waveKind(i,w){if(isFreePlay())return freeEnemyType(i);if(isStageCampaign())return stageOneSequence(w)[i]??0;if(w===1)return i%4===3?1:0;if(w===2)return i%5===4?1:0;if(w===3)return i%11===10?2:i%3===2?1:0;if(w===4)return i===4||i===9||i===14?2:(i===2||i===5||i===7||i===11||i===13)?1:0;if(w===5)return [5,10,15].includes(i)?2:[1,3,6,8,11,13,14].includes(i)?1:0;if(w===6||w===8)return i%7===0?2:i%4===0?0:1;if(w===7||w===9)return i%3===0?2:i%3===1?1:0;if(w===10)return i%4===0?2:i%4===1?1:0;return (i*7+w*3)%10 < Math.min(6,2+w)?2:(i+w)%2}
 
@@ -3567,7 +3501,6 @@ function tacticalTrait(w,i,type){
 function updateCampaignHUD(){let n=Math.min(waveNumber,CAMPAIGN_WAVES),comp=waveComposition(n);$('campaignStage').textContent=`🌊 Wave ${n} / ${CAMPAIGN_WAVES}`;$('campaignBar').style.width=`${Math.min(100,((waveNumber-1)+(playing?Math.min(1,waveSpawned/Math.max(1,waveTotal)):0))/CAMPAIGN_WAVES*100)}%`;$('campaignEnemies').textContent=`${waveTheme(n)} · ${comp.counts[0]} Orbs · ${comp.counts[1]} Trions · ${comp.counts[2]} Hexions`;}
 function endCampaign(won){
  scoutActive=false;
- if(typeof titanBossTest!=='undefined'&&titanBossTest){endTitanTest(won);return}
  if(typeof playMode!=='undefined'&&isFreePlay()){endFreePlay(won);return}
  if(typeof playMode!=='undefined'&&isStageCampaign()){endStageOne(won);return}
  window.arcAudio?.mode(won?'victory':'defeat');
@@ -3749,7 +3682,7 @@ updateGeminiEncounter();for(const m of monsters){if(m.boss&&m.hp>0)updateTitanPh
 window.arcAppState=()=>({busy:(!firstWaveStarted&&towers.length>0)||(firstWaveStarted&&lives>0&&waveNumber<=CAMPAIGN_WAVES),paused,mode:playMode});
 window.arcAppPrepareUpdate=()=>{if(window.arcAppState().busy)return false;window.arcAppUpdating=true;return true};
 window.arcAppCancelUpdate=()=>{window.arcAppUpdating=false};
-$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Hide analysis':'🗺️ Analyze placements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Theoretical coverage of the selected tower (excluding tunnels) : ${high} high-coverage cells (≥55 %), ${medium} medium-coverage cells (35–54 %). These percentages measure the path length within range, not the probability of victory.`:'📍 Analysis off: enable the placement map to compare tower coverage.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='elink'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('pusherMode').onclick=()=>{if(!technologyFeedback('pusher'))return;placing=!(placing&&placingType==='pusher');placingType='pusher';modeButtons()};$('mawMode').onclick=()=>{placing=!(placing&&placingType==='maw');placingType='maw';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('elinkMode').onclick=()=>{placing=!!eLinkPending||!(placing&&placingType==='elink');placingType='elink';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{if(isStageCampaign()){startCampaignStage(activeStage());return}$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(window.arcAppUpdating)return;if(titanBossTest){releaseTitanTest();return}if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;placing=false;placementHover=null;boomHover=null;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');modeButtons();renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Resume':'⏸ Pause';update()};$('reset').onclick=()=>{if(titanBossTest){prepareTitanTest();return}clearEnd();build();$('waveReport').textContent='📊 Game restarted: towers, energy, score, lives and waves reset on the same map.'};portraitBoard.addEventListener('pointermove',e=>{
+$('recommend').onclick=recommendTowers;$('analysisType').onchange=$('analysisLevel').onchange=()=>{refreshPlacementScores();draw()};$('heatmap').onclick=()=>{showPlacementHeatmap=!showPlacementHeatmap;$('heatmap').textContent=showPlacementHeatmap?'🗺️ Hide analysis':'🗺️ Analyze placements';const scores=placementScores.map(a=>a.score);const high=scores.filter(a=>a>=.55).length;const medium=scores.filter(a=>a>=.35&&a<.55).length;$('placementReport').textContent=showPlacementHeatmap?`📍 Theoretical coverage of the selected tower (excluding tunnels) : ${high} high-coverage cells (≥55 %), ${medium} medium-coverage cells (35–54 %). These percentages measure the path length within range, not the probability of victory.`:'📍 Analysis off: enable the placement map to compare tower coverage.';draw()};$('rotateBoom').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.type!=='boom')return;t.boomAngle=(t.boomAngle+Math.PI/2)%(Math.PI*2);draw();};$('upgrade').onclick=()=>{let t=selected&&towerAtCell(selected.x,selected.y);if(!t||t.lv>=5)return;let price=campaignUpgradeCost(t);if(energy<price)return;energy-=price;t.lv++;t.cool=Math.min(t.cool||0,towerSpec(t).rate);let c=ctr(t);for(let j=0;j<3;j++)particles.push({x:c.x,y:c.y,r:10+j*10,life:.35,color:t.type==='rapid'?'#ffb45d':t.type==='pierce'?'#78ff9c':t.type==='freeze'?'#8cefff':t.type==='boom'?'#ffd46d':t.type==='elink'?'#c990ff':t.type==='area'?'#ff8bc9':'#86ffff'});update();draw()};$('freezeMode').onclick=()=>{placing=!(placing&&placingType==='freeze');placingType='freeze';modeButtons()};$('grappleMode').onclick=()=>{placing=!(placing&&placingType==='grapple');placingType='grapple';modeButtons()};$('boomMode').onclick=()=>{placing=!(placing&&placingType==='boom');placingType='boom';modeButtons()};$('towerMode').onclick=()=>{placing=!(placing&&placingType==='precision');placingType='precision';modeButtons()};$('pusherMode').onclick=()=>{if(!technologyFeedback('pusher'))return;placing=!(placing&&placingType==='pusher');placingType='pusher';modeButtons()};$('mawMode').onclick=()=>{placing=!(placing&&placingType==='maw');placingType='maw';modeButtons()};$('areaMode').onclick=()=>{placing=!(placing&&placingType==='area');placingType='area';modeButtons()};$('elinkMode').onclick=()=>{placing=!!eLinkPending||!(placing&&placingType==='elink');placingType='elink';modeButtons()};$('pierceMode').onclick=()=>{placing=!(placing&&placingType==='pierce');placingType='pierce';modeButtons()};$('rapidMode').onclick=()=>{placing=!(placing&&placingType==='rapid');placingType='rapid';modeButtons()};$('new').onclick=()=>{if(isStageCampaign()){startCampaignStage(activeStage());return}$('seed').value=(Math.random()*2147483647|0);build()};$('seedbtn').onclick=build;$('level').onchange=build;$('wave').onclick=()=>{if(window.arcAppUpdating)return;if(firstWaveStarted||playing||autoWaveCountdown>=0||lives<=0)return;firstWaveStarted=true;placing=false;placementHover=null;boomHover=null;autoWaveCountdown=AUTO_WAVE_SECONDS;autoWaveLastShown=-1;window.arcAudio?.mode('alert');modeButtons();renderWaveCountdown();update();};$('pause').onclick=()=>{paused=!paused;window.arcAudio?.pause(paused);$('pause').textContent=paused?'▶ Resume':'⏸ Pause';update()};$('reset').onclick=()=>{clearEnd();build();$('waveReport').textContent='📊 Game restarted: towers, energy, score, lives and waves reset on the same map.'};portraitBoard.addEventListener('pointermove',e=>{
  if(!placing||arcWaveLocked())return;
  let {x,y}=boardPointer(e),gx=Math.floor((x-OX)/C),gy=Math.floor((y-OY)/C);
  placementHover={x,y};
@@ -3774,19 +3707,15 @@ portraitBoard.addEventListener('click',e=>{
  updateUpgrade();draw();
 })// Les commandes de fin de campagne doivent rester dans la portée du moteur.
 $('endRestart').addEventListener('click',()=>{
-  if(isTrionTrial()){clearEnd();build();return}
   if(isFreePlay()){startFreeMap(freeMapNumber);return}
   if(isStageCampaign()){startCampaignStage(activeStage());return}
-  if(titanBossTest){prepareTitanTest();return}
   clearEnd();
   build();
   $('waveReport').textContent='📊 New game on the same map: towers, energy, score, lives and waves reset.';
 });
 $('endNew').addEventListener('click',()=>{
-  if(isTrionTrial()){switchTrionArmor();return}
   if(isFreePlay()){clearEnd();openCampaignMap();openFreeMaps();return}
   if(isStageCampaign()){if(lives>0&&waveNumber>CAMPAIGN_WAVES&&canPlayStage(activeStage()+1)){startCampaignStage(activeStage()+1);return}clearEnd();openCampaignMap();return}
-  if(titanBossTest){returnFromTitanTest();return}
   clearEnd();
   $('seed').value=Math.floor(Math.random()*2147483646)+1;
   build();
@@ -4276,7 +4205,7 @@ main>.key,main>#arc10Stats{display:none!important}
 (()=>{
  const hud=document.querySelector('main>.campaign-hud');if(!hud)return;
  const top=document.createElement('div');top.className='arc76-wave-top';
- const name=document.createElement('div');name.className='arc76-wave-name';name.textContent=document.body.dataset.gameMode==='trion-trial'?'TRION TRIAL':document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
+ const name=document.createElement('div');name.className='arc76-wave-name';name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
  const detail=document.createElement('div');detail.className='arc76-wave-detail';detail.textContent='NEXT WAVE';
  top.append(name,detail);
  const description=document.createElement('div');description.className='arc76-wave-description';
@@ -4288,7 +4217,7 @@ main>.key,main>#arc10Stats{display:none!important}
  function refresh(){
   const waveText=campaignStage?.textContent||'Wave 1 / 20';
   const nums=waveText.match(/(\d+)\s*\/\s*(\d+)/);const w=nums?nums[1]:'1',total=nums?nums[2]:'20';
-  name.textContent=document.body.dataset.gameMode==='trion-trial'?'TRION TRIAL':document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='boss-test'?'BOSS TEST':document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
+  name.textContent=document.body.dataset.gameMode==='campaign'?'STAGE '+(document.body.dataset.campaignStage||'01'):document.body.dataset.gameMode==='free'?'FREE PLAY '+(document.body.dataset.freeMap||'1').padStart(2,'0'):'CHALLENGE';
   name.title=`${name.textContent} · Wave ${String(w).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
   const countdown=document.getElementById('waveCountdownBanner');const inProgress=(document.getElementById('wave')?.textContent||'').includes('Wave');
   detail.textContent=document.body.dataset.gameMode==='free'?'CONTINUOUS STREAM':inProgress?'IN PROGRESS':countdown?.classList.contains('visible')?'STARTING SOON':'NEXT WAVE';
@@ -4848,7 +4777,10 @@ main>#arc80Stage.arc917-layout{display:grid!important;grid-template-columns:132p
 #arc917Settings{position:relative;z-index:71}
 #arc917Settings>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:center;min-height:40px;padding:6px;border:1px solid #416785;border-radius:10px;background:#10263d;color:#dcf8ff;font:600 12px system-ui}
 #arc917Settings>summary::-webkit-details-marker{display:none}
-#arc917Settings .arc917-options{display:flex;flex-direction:column;gap:6px;padding:8px;margin-top:5px;background:#0b2032;border:1px solid #416785;border-radius:12px}
+#arc917Settings .arc917-options{display:flex;flex-direction:column;gap:6px;padding:8px;margin-top:5px;background:#0b2032;border:1px solid #416785;border-radius:12px;
+ max-height:calc(var(--arc-options-height,100dvh - 120px) - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;
+}
+#arc917Settings .arc917-options>*{flex:none}
 #arc80Stage.arc917-layout #gameToolbar{display:flex!important;flex-direction:column!important;position:relative!important;inset:auto!important;transform:none!important;width:100%!important;max-width:none!important;margin:0!important;padding:0!important;gap:5px!important}
 #arc80Stage.arc917-layout #gameToolbar button{width:100%!important;min-height:40px!important;white-space:normal!important;font-size:12px!important}
 #arc80Stage.arc917-layout #arcGraphicsControl{display:block!important;position:relative!important;inset:auto!important;width:100%!important;max-width:none!important;margin:0!important;padding:6px!important;box-sizing:border-box!important}
@@ -4857,8 +4789,18 @@ main>#arc80Stage.arc917-layout{display:grid!important;grid-template-columns:132p
 #arc80Stage.arc917-layout #pathDiscovery{display:flex!important;flex-wrap:wrap!important;position:relative!important;grid-area:auto!important;width:100%!important;min-width:0!important;margin:0!important;padding:6px!important;gap:4px!important;font-size:9px!important;box-sizing:border-box!important}
 #arc80Stage.arc917-layout #pathDiscovery .discovery-next{font-size:9px!important;min-width:0!important}
 @media(max-width:699px) and (orientation:portrait){
- body>main{padding:4px 3px calc(4px + env(safe-area-inset-bottom))!important;gap:0!important}
- main>#arc80Stage.arc917-layout{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto auto auto auto!important;gap:4px!important;width:100%!important;max-width:none!important;align-items:start!important}
+ body>main{
+  --arc-safe-top:max(4px,env(safe-area-inset-top));
+  --arc-safe-bottom:max(4px,env(safe-area-inset-bottom));
+  --arc-safe-left:max(3px,env(safe-area-inset-left));
+  --arc-safe-right:max(3px,env(safe-area-inset-right));
+  padding:var(--arc-safe-top) var(--arc-safe-right) var(--arc-safe-bottom) var(--arc-safe-left)!important;
+  gap:0!important;
+ }
+ main>#arc80Stage.arc917-layout{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto auto minmax(0,1fr) auto auto!important;gap:4px!important;width:100%!important;max-width:none!important;align-items:start!important;
+  height:calc(var(--arc-viewport-height,100dvh) - var(--arc-safe-top) - var(--arc-safe-bottom))!important;
+  flex:none!important;
+ }
  #arc80Stage.arc917-layout>.arc917-side{display:contents!important}
  #arc917Status{grid-area:1/1/2/2!important;grid-template-columns:40px minmax(0,1fr) 72px;gap:4px;min-height:40px}
  #arc80Stage.arc917-layout .campaign-hud{height:40px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:4px!important;padding:4px 6px!important}
@@ -4877,7 +4819,11 @@ main>#arc80Stage.arc917-layout{display:grid!important;grid-template-columns:132p
  #arc917Settings>summary{font-size:0;height:40px;padding:0}
  #arc917Settings>summary:before{content:'⚙';font-size:21px}
  #arc917Settings .arc917-options{position:absolute;right:0;top:100%;width:min(240px,calc(100vw - 12px));box-shadow:0 10px 28px #000b}
- #arc80Stage.arc917-layout>.battle-frame{grid-area:3/1/4/2!important;width:min(100%,calc((100dvh - 188px - env(safe-area-inset-bottom)) * 675 / 1120))!important;max-width:100%!important}
+ #arc80Stage.arc917-layout>.battle-frame{grid-area:3/1/4/2!important;width:auto!important;max-width:100%!important;
+  height:min(100%,calc((100vw - var(--arc-safe-left) - var(--arc-safe-right)) * 1120 / 675))!important;
+  align-self:center!important;
+ }
+ #arc80Stage.arc917-layout #portraitBoard{height:100%!important}
  #arc80Stage.arc917-layout>.arc917-towers{grid-area:4/1/5/2!important}
  #arc80Stage.arc917-layout #towerDock.tower-dock{grid-template-columns:repeat(8,minmax(0,1fr))!important;grid-template-rows:auto!important;gap:2px!important;padding:2px!important;border-radius:10px!important}
  #arc80Stage.arc917-layout #towerDock.tower-dock button,#arc80Stage.arc917-layout #towerDock.tower-dock button:nth-child(n){height:54px!important;min-height:54px!important;padding:2px 0!important;font-size:clamp(7px,2.05vw,10px)!important;gap:1px!important;border-radius:7px!important}
@@ -4926,6 +4872,23 @@ main>#arc80Stage.arc917-layout{display:grid!important;grid-template-columns:132p
   // Migrate any empty wrappers from pre-9.17 layouts; all gameplay nodes keep their listeners.
   for(const rail of stage.querySelectorAll('.arc96-left,.arc96-right'))if(!rail.children.length)rail.remove();
   const energyLabel=stage.querySelector('.arc76-stat:first-child .arc76-stat-label');if(energyLabel)energyLabel.textContent='ENERGY';
+  const viewport=window.visualViewport,root=document.documentElement;
+  function updateMenuHeight(){
+   if(!settings.open)return;
+   const bottom=(viewport?.offsetTop||0)+(viewport?.height||window.innerHeight);
+   options.style.setProperty('--arc-options-height',Math.max(0,bottom-options.getBoundingClientRect().top-8)+'px');
+  }
+  function fitViewport(){
+   if(viewport?.scale===1)root.style.setProperty('--arc-viewport-height',viewport.height+'px');
+   else root.style.removeProperty('--arc-viewport-height');
+   updateMenuHeight();
+  }
+  settings.addEventListener('toggle',updateMenuHeight);
+  viewport?.addEventListener('resize',fitViewport);
+  viewport?.addEventListener('scroll',updateMenuHeight);
+  window.addEventListener('resize',fitViewport);
+  document.addEventListener('fullscreenchange',fitViewport);
+  fitViewport();
   document.addEventListener('pointerdown',event=>{if(!settings.contains(event.target))settings.open=false},{passive:true});
   document.addEventListener('keydown',event=>{if(event.key==='Escape')settings.open=false});
  }
@@ -5026,10 +4989,12 @@ document.addEventListener('keydown',event=>{
 #arcFullscreenNotice{position:fixed;z-index:50000;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));max-width:480px;margin:auto;padding:12px 14px;border:1px solid #71d9e2;border-radius:12px;background:#102c41;color:#e8f7ff;font:13px/1.45 system-ui;box-shadow:0 6px 24px #000a;pointer-events:none}
 #arcFullscreenNotice[hidden]{display:none!important}
 html:fullscreen{background:#040a14;overflow:auto}
+@media(max-width:699px) and (orientation:portrait){
+ html:fullscreen,html:fullscreen body{overflow:hidden!important}
+}
 html:fullscreen body>main{padding-top:max(4px,env(safe-area-inset-top))!important;padding-left:max(3px,env(safe-area-inset-left))!important;padding-right:max(3px,env(safe-area-inset-right))!important}
 html:fullscreen #campaignMap{padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
 html:fullscreen .campaign-map-panel{max-height:calc(100dvh - max(14px,env(safe-area-inset-top)) - max(14px,env(safe-area-inset-bottom)))}
-@media(max-width:699px) and (orientation:portrait){html:fullscreen #arc80Stage.arc917-layout>.battle-frame{width:min(100%,calc((100dvh - 188px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 675 / 1120))!important}}
 </style>
 <script id="arc929-fullscreen">
 (()=>{
@@ -5055,7 +5020,11 @@ html:fullscreen .campaign-map-panel{max-height:calc(100dvh - max(14px,env(safe-a
   function add(parent,id,before){if(!parent)return;const button=document.createElement('button');button.type='button';button.id=id;button.addEventListener('click',toggle);parent.insertBefore(button,before||null)}
   document.addEventListener('click',event=>{if(event.target.closest('#campaignFullscreen'))toggle()});
   const options=document.querySelector('#arc917Settings .arc917-options');add(options,'arcFullscreen',options?.firstChild);
-  document.addEventListener('fullscreenchange',sync);window.addEventListener('pageshow',sync);sync();
+  document.addEventListener('fullscreenchange',()=>{
+   if(document.fullscreenElement&&window.matchMedia('(max-width:699px) and (orientation:portrait)').matches)window.scrollTo(0,0);
+   sync();
+  });
+  window.addEventListener('pageshow',sync);sync();
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
@@ -5107,10 +5076,10 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
 #campaignMap.campaign-picker[data-campaign="overview"]{background:radial-gradient(ellipse at 50% 10%,#193447ed,#040a14fa 70%)}
 #campaignMap.campaign-picker[data-campaign="1"]{background:radial-gradient(ellipse at 50% 10%,#174b60ed,#040c18fa 70%)}
 #campaignMap.campaign-picker[data-campaign="2"]{background:radial-gradient(ellipse at 50% 10%,#743b63ed,#281530fa 70%)}
-#campaignMap.campaign-picker:not([data-campaign="overview"]) #campaignTrionArmor{display:none}
-#campaignTrionArmor,#optionsTrionArmor{min-height:44px;color:#cff7ff;background:#153d53;border-color:#6cbdd2}
-#campaignTrionArmor{width:100%;margin-top:5px}
-#campaignTrionArmor:hover,#optionsTrionArmor:hover{background:#205773}
+
+
+
+
 #campaignOverview{display:grid;gap:13px;margin:18px 0 0}
 #campaignMap.campaign-picker .campaign-choice{--campaign-color:#91ebef;display:grid;grid-template-columns:48px minmax(0,1fr) 16px;align-items:start;gap:13px;width:100%;min-height:166px;margin:0;padding:17px;text-align:left;white-space:normal;border:1px solid #69d6de;border-radius:16px;background:radial-gradient(ellipse at 0 0,#286d8155,transparent 65%),linear-gradient(135deg,#123e51,#0b2235);color:#e5faff;box-shadow:inset 0 1px #dbffff22;font:12px/1.4 system-ui;cursor:pointer}
 #campaignMap.campaign-picker .campaign-choice-2{--campaign-color:#ffd0a3;border-color:#d49b76;background:radial-gradient(ellipse at 0 0,#d2915745,transparent 65%),linear-gradient(135deg,#58324e,#2c1c3d);color:#fff0e3}
@@ -5163,8 +5132,6 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
 @media(max-width:699px) and (orientation:portrait){
  #arc80Stage.arc917-layout #towerDock.tower-dock{grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-template-rows:repeat(2,44px)!important;gap:3px!important}
  #arc80Stage.arc917-layout #towerDock.tower-dock button,#arc80Stage.arc917-layout #towerDock.tower-dock button:nth-child(n){height:44px!important;min-height:44px!important;font-size:9px!important}
- #arc80Stage.arc917-layout>.battle-frame{width:min(100%,calc((100dvh - 225px - env(safe-area-inset-bottom)) * 675 / 1120))!important}
- body.arc-fullscreen #arc80Stage.arc917-layout>.battle-frame{width:min(100%,calc((100dvh - 225px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 675 / 1120))!important}
  #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending{grid-template-columns:minmax(0,1fr) 44px!important;grid-template-rows:repeat(2,44px)!important}
  #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower="elinkMode"],#arc80Stage.arc917-layout #towerDock.elink-pending #eLinkCancel{grid-row:1/3!important;height:91px!important;min-height:91px!important}
 }
@@ -5277,8 +5244,8 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
 
 @media(max-width:699px) and (orientation:portrait){
  #arc80Stage.arc917-layout>.arc917-towers{
-  --dock-button-size:clamp(49px,14.5vw,60px);
-  --action-size:clamp(44px,13vw,56px);
+  --dock-button-size:clamp(44px,min(14.5vw,8dvh),60px);
+  --action-size:clamp(40px,min(13vw,7.5dvh),56px);
   --target-size:var(--action-size);
  }
  #arc80Stage.arc917-layout #towerDock.tower-dock{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important}
@@ -5289,13 +5256,6 @@ body[data-arena-theme="rupture"] .campaign-map-head{color:#ffca96}
  }
  #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending button[data-tower="elinkMode"],
  #arc80Stage.arc917-layout #towerDock.tower-dock.elink-pending #eLinkCancel{grid-row:1/3!important;align-self:center!important}
- /* Reserve room for both rows without covering the playable canvas. */
- #arc80Stage.arc917-layout>.battle-frame{
-  width:min(100%,calc((100dvh - 246px - env(safe-area-inset-bottom)) * 675 / 1120))!important;
- }
- body.arc-fullscreen #arc80Stage.arc917-layout>.battle-frame{
-  width:min(100%,calc((100dvh - 246px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 675 / 1120))!important;
- }
  #arc80Stage.arc917-layout #arc60Actions{
   grid-template-columns:minmax(0,1fr) var(--action-size)!important;
   grid-template-rows:auto minmax(0,1fr)!important;

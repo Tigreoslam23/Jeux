@@ -180,7 +180,7 @@ test('E-Link specialization modifies shared DPS or contact width',()=>{
 function titanContext(){
  const c=context(),nodes=new Map(),modes=[];c.holeSiteCache=new Map();
  c.$=id=>{if(!nodes.has(id))nodes.set(id,{textContent:'',disabled:false,classList:{toggle(){},add(){},remove(){}},focus(){}});return nodes.get(id)};
- Object.assign(c,{level:2,monsterSerial:0,TITAN_RADIUS:43,titanEscortQueue:[],titanLastProgress:0,titanEncounter:'idle',titanCountdown:0,titanAftermath:0,titanFightTime:0,titanPhaseReached:1,titanMaxHp:0,titanRemainingHp:0,eLinkPending:null,placing:false,placementHover:null,boomHover:null,waveSpawned:10,waveTotal:10,TAU:Math.PI*2,ENEMY_R:18});
+ Object.assign(c,{level:2,monsterSerial:0,TITAN_RADIUS:43,titanEscortQueue:[],titanLastProgress:0,titanEncounter:'idle',titanCountdown:0,titanAftermath:0,titanMaxHp:0,titanRemainingHp:0,eLinkPending:null,placing:false,placementHover:null,boomHover:null,waveSpawned:10,waveTotal:10,TAU:Math.PI*2,ENEMY_R:18});
  c.window.arcAudio.mode=m=>modes.push(m);c.modeButtons=()=>{};c.spawnVfx91=()=>{};c.monsterPosition=m=>({x:m.x||0,y:m.y||0});
  for(const name of ['isCampaignFinale','titanHitPoints','queueTitanEscorts','advanceTitanEscorts','resetTitanEncounter','titanBlocksCompletion','beginTitanWarning','createTitan','spawnTitan','stepTitanEncounter','updateTitanPhase','finishTitan','titanGeometry','armorCount','fullArmor','ensureArmor','enemyGeometry','applyGeometricHit','freezeResistance','canGrapple'])vm.runInContext(extract(name),c);
  return {c,nodes,modes};
@@ -227,22 +227,13 @@ test('Titan resists freezing and grappling while ordinary enemies retain their r
 });
 test('boss death blocks premature victory through the explosion and clears after it',()=>{
  const {c,modes}=titanContext(),m=c.createTitan();m.hp=0;m.phase=2;c.finishTitan(m);
- assert.equal(c.titanEncounter,'defeated');assert(c.titanBlocksCompletion());assert.equal(c.titanPhaseReached,2);assert.equal(modes.at(-1),'bossDefeated');
+ assert.equal(c.titanEncounter,'defeated');assert(c.titanBlocksCompletion());assert.equal(modes.at(-1),'bossDefeated');
  const count=c.particles.length;c.finishTitan(m);assert.equal(c.particles.length,count);
  c.stepTitanEncounter(1);assert(c.titanBlocksCompletion());c.stepTitanEncounter(2);assert.equal(c.titanBlocksCompletion(),false);
 });
 test('Titan escape is counted once and defeats the core instead of granting victory',()=>{
  const {c}=titanContext(),m=c.createTitan();vm.runInContext(extract('resolveEscapes'),c);m.progress=100;c.monsters=[m];assert.equal(c.resolveEscapes(),1);assert.equal(c.lives,0);assert.equal(c.titanEncounter,'escaped');assert.equal(c.titanRemainingHp,272);
  c.resolveEscapes();assert.equal(c.escaped,1);
-});
-test('boss test results never read or overwrite campaign records',()=>{
- for(const won of [true,false]){const {c,saved}=resultContext({won:true,wave:20,lives:19,kills:700});let called=null;c.titanBossTest=true;c.endTitanTest=value=>called=value;
-  const before=saved.get('arc_defense_v1_best');c.endCampaign(won);assert.equal(called,won);assert.equal(saved.get('arc_defense_v1_best'),before);
- }
-});
-test('Boss Test shows its own retry and return actions',()=>{
- const {c,nodes}=resultContext();Object.assign(c,{titanRemainingHp:0,titanPhaseReached:2,titanFightTime:42.2});vm.runInContext(extract('endTitanTest'),c);c.endTitanTest(true);
- assert.equal(nodes.get('endTitle').textContent,'TITAN DEFEATED');assert.equal(nodes.get('endRestart').textContent,'↺ Retry Boss');assert.equal(nodes.get('endNew').textContent,'Return to Campaign');assert.equal(nodes.get('endRecord').hidden,true);
 });
 test('Titan renderer runs in both phases with its caller-provided portal scale',()=>{
  const {c}=titanContext(),m=c.createTitan();c.g=new Proxy({},{get:(target,key)=>target[key]||(()=>{})});c.performance={now:()=>1000};vm.runInContext(extract('paintTitan'),c);
@@ -259,7 +250,7 @@ test('boss music scheduling honors mute and pause',()=>{
 });
 function campaignContext(raw=null){
  const {c,nodes}=titanContext(),saved=new Map(raw?[['arc_campaign_v1',JSON.stringify(raw)]]:[]);
- Object.assign(c,{geminiTwins:[],campaignStageNumber:1,playMode:'campaign',titanBossTest:false,CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
+ Object.assign(c,{geminiTwins:[],campaignStageNumber:1,playMode:'campaign',CAMPAIGN_STORAGE_KEY:'arc_campaign_v1',CAMPAIGN_BASE_TECH:['precision','rapid','pierce','grapple'],CAMPAIGN_TECH_WAVES:{freeze:2,elink:4,area:6,boom:6},TECH_NAMES:{freeze:'FREEZER',elink:'E-LINK',area:'PULSE',boom:'BOOMERANG'},localStorage:{getItem:k=>saved.get(k)||null,setItem:(k,v)=>saved.set(k,v)},techBanner:{textContent:'',classList:{add(){},remove(){}}},techBannerTimer:0,setTimeout:()=>0,clearTimeout(){},level:2,kills:157,energy:200,enemyProfiles:[{spin:1.3},{spin:2.3},{spin:1.05}]});
  const waves=source.match(/const STAGE_ONE_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_ONE_WAVES='+waves,c);
  const waves2=source.match(/const STAGE_TWO_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_TWO_WAVES='+waves2,c);
  const wavesEIGHT=source.match(/const STAGE_EIGHT_WAVES=(\[[\s\S]*?\n\]);/)[1];vm.runInContext('var STAGE_EIGHT_WAVES='+wavesEIGHT,c);
@@ -299,8 +290,8 @@ test('campaign progress rejects unknown technologies and invalid records',()=>{
 test('blocked storage preserves session progress and reports no false save',()=>{
  const {c}=campaignContext();c.localStorage.setItem=()=>{throw Error('Storage unavailable')};c.lives=18;const result=c.recordStageOneVictory();assert.equal(result.saved,false);assert.equal(c.campaignProgress.best['1'].stars,2);
 });
-test('campaign and Boss Test use separate technology rules',()=>{
- const {c}=campaignContext();assert(c.isStageCampaign());c.titanBossTest=true;assert.equal(c.isStageCampaign(),false);c.titanBossTest=false;c.playMode='challenge';assert.equal(c.isStageCampaign(),false);
+test('campaign and Challenge use separate technology rules',()=>{
+ const {c}=campaignContext();assert(c.isStageCampaign());c.playMode='challenge';assert.equal(c.isStageCampaign(),false);
 });
 test('Stage 02 is locked until Stage 01 is cleared, and unlock survives reload',()=>{
  const {c}=campaignContext();assert.equal(c.canPlayStage(2),false);c.lives=18;c.recordStageOneVictory();assert.equal(c.canPlayStage(2),true);c.campaignProgress=c.readCampaignProgress();assert(c.canPlayStage(2));assert.equal(c.canPlayStage(3),false);
@@ -471,7 +462,7 @@ test('Stage 05 requires Stage 04, saves its own stars and completes the five-sta
  const {c}=campaignContext();assert(!c.canPlayStage(5));for(let n=1;n<=5;n++){c.campaignStageNumber=n;c.lives=21-n;c.recordStageOneVictory();if(n<5)assert(c.canPlayStage(n+1));}const p=c.readCampaignProgress();assert(p.cleared['5']);assert.equal(p.best['5'].lives,16);assert.equal(p.best['4'].lives,17);assert.equal(Object.keys(p.cleared).length,5);assert(c.canPlayStage(6));
 });
 test('campaign Titan uses 560 HP, stronger plates and movement while Challenge and Boss Test retain their profiles',()=>{
- const {c}=campaignContext();c.campaignStageNumber=5;for(const level of [1,2,3]){c.level=level;const m=c.createTitan();assert(m.campaignTitan);assert.equal(m.hp,560*(level===1?.82:level===3?1.18:1));assert.equal(m.plateHp[0],6);assert.equal(m.moveSpeed,.72)}c.playMode='challenge';c.level=2;assert.equal(c.createTitan().hp,272);assert.equal(c.createTitan().moveSpeed,.55);c.playMode='campaign';c.titanBossTest=true;assert.equal(c.createTitan().hp,272);
+ const {c}=campaignContext();c.campaignStageNumber=5;for(const level of [1,2,3]){c.level=level;const m=c.createTitan();assert(m.campaignTitan);assert.equal(m.hp,560*(level===1?.82:level===3?1.18:1));assert.equal(m.plateHp[0],6);assert.equal(m.moveSpeed,.72)}c.playMode='challenge';c.level=2;assert.equal(c.createTitan().hp,272);assert.equal(c.createTitan().moveSpeed,.55);
 });
 test('campaign Titan queues six escorts at arrival and four only once at phase II, with exact counters',()=>{
  const {c}=campaignContext();c.campaignStageNumber=5;c.waveTotal=c.waveSpawned=36;c.spawnTitan();assert.equal(c.waveTotal,37);assert.equal(c.waveSpawned,37);assert.equal(c.titanEscortQueue.length,6);c.advanceTitanEscorts(5);assert.equal(c.titanEscortQueue.length,0);assert.equal(c.monsters.filter(m=>m.titanEscort).length,6);assert.equal(c.waveTotal,43);const m=c.monsters.find(m=>m.boss);m.progress=900;m.hp=280;assert(c.updateTitanPhase(m));assert.equal(m.hp,280);assert.equal(m.moveSpeed,.98);assert.equal(c.titanEscortQueue.length,4);assert.equal(c.updateTitanPhase(m),false);c.advanceTitanEscorts(4);assert.equal(c.monsters.filter(m=>m.titanEscort).length,10);assert.equal(c.waveTotal,47);assert.equal(c.waveSpawned,47);assert(c.monsters.filter(m=>m.titanEscort).slice(-4).every(m=>m.progress>=800&&m.progress<=900));assert(c.monsters.filter(m=>m.titanEscort).every(m=>m.progress>=0&&m.progress<=900));
