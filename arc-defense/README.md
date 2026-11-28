@@ -1,8 +1,16 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.64.3**.
+Standalone HTML/JavaScript tower defense. Current version: **9.64.4**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Asteroid formations (9.64.4)
+
+Asteroids join one wave in each campaign stage, with two per wave through Stage 06 and three per wave in Stages 07–10. The countdown announces asteroid cover.
+
+| Stage | 01 | 02 | 03 | 04 | 05 | 06 | 07 | 08 | 09 | 10 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Wave | 7 | 9 | 8 | 11 | 14 | 8 | 12 | 10 | 13 | 15 |
 
 ## Asteroid cover (9.64.3)
 

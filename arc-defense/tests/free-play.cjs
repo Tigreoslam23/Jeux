@@ -367,6 +367,26 @@ check('wave 7 adds two distinct rotating asteroids without replacing any of the 
  s.render();
  for(const wave of [6,8]){s.loadStage(1);s.launch(wave);for(let i=0;i<70;i++)s.frame();assert(!s.monsters().some(m=>m.asteroid))}
 });
+check('every campaign stage spawns its own rock formation without carrying it into the final wave',()=>{
+ const s=game(),waves=[7,9,8,11,14,8,12,10,13,15];
+ for(const [index,wave] of waves.entries()){
+  const stage=index+1;
+  s.loadStage(stage);s.setSpeed(4);s.launch(wave);
+  const stages=s.waveSpecs(),spec=stages[wave-1],lastArrival=spec.asteroids.at(-1).at;
+  assert.equal(stages.filter(w=>w.asteroids).length,1);
+  assert.equal(s.data().waveTotal,spec.counts.reduce((sum,n)=>sum+n,0));
+  for(let time=0;time<lastArrival+.2;time+=.2)s.frame();
+  const rocks=s.monsters().filter(m=>m.asteroid);
+  assert.equal(rocks.length,stage>=7?3:2,'stage '+stage);
+  assert.equal(new Set(rocks.map(m=>m.moveSpeed)).size,rocks.length);
+  assert(rocks.every(m=>m.asteroid.length>=7&&m.progress>0));
+  s.loadStage(stage);s.launch(stages.length);
+  for(let i=0;i<70;i++)s.frame();
+  assert(!s.monsters().some(m=>m.asteroid),'stage '+stage+' final wave');
+ }
+ s.loadFree(1);s.launch();for(let i=0;i<70;i++)s.frame();
+ assert(!s.monsters().some(m=>m.asteroid));
+});
 check('direct fire aims at rock regardless of target mode, while Boomerang and E-Link can hit both',()=>{
  const s=game();s.loadStage(1);s.setSpeed(1);s.launch(7);
  for(let i=0;i<12;i++)s.frame();
