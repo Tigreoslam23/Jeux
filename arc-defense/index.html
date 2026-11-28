@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.64.4</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>ARC DEFENSE · 9.65.0</title>
 <style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#071020;color:#eaf7ff;font:15px system-ui,Arial}header,main{max-width:1200px;margin:auto;padding:12px 16px}h1{margin:0;color:#8cdeff;font-size:clamp(22px,4vw,32px)}small,.hint{color:#aac4d5}.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0}button,select,input{font:inherit;color:#e9faff;background:#15314c;border:1px solid #497c9d;border-radius:9px;padding:9px 12px}button{cursor:pointer}button:hover{background:#285674}input{width:125px}canvas{width:100%;height:auto;display:block;background:#091527;border:1px solid #36536d;border-radius:13px;touch-action:manipulation}.info{padding:12px;background:#10263c;border-radius:10px;margin:12px 0;line-height:1.6}.key{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0;font-size:13px}.hint{line-height:1.6}.upgrade{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px;background:#10263c;border:1px solid #315977;border-radius:12px;margin:12px 0}.upgrade button:disabled{opacity:.4;cursor:not-allowed}.upgrade strong{color:#8defff}
 /* One-time path discovery ribbon: independent from NEXT WAVE. */
 #pathRevealBanner{position:absolute;z-index:48;top:42%;left:50%;width:min(96%,630px);box-sizing:border-box;transform:translate(-155%,-50%) skewX(-12deg);padding:13px 10px;text-align:center;pointer-events:none;opacity:0;color:#ffe89a;background:linear-gradient(100deg,rgba(30,22,58,.92),rgba(105,63,143,.93),rgba(30,22,58,.92));border-top:1px solid rgba(255,215,90,.7);border-bottom:1px solid rgba(255,215,90,.7);box-shadow:0 0 30px rgba(151,77,231,.4);font:italic 900 clamp(16px,3vw,32px)/1.2 system-ui,sans-serif;letter-spacing:.13em;text-shadow:0 0 13px rgba(255,214,77,.6)}
@@ -847,7 +847,7 @@ body.stage-campaign #towerDock button.tech-locked::before{content:attr(data-unlo
 @media(max-width:420px){.campaign-map-panel{padding:15px}.campaign-map-intro{font-size:11px}.campaign-stage{gap:8px;padding:9px}.campaign-stage-number{width:29px;height:29px;font-size:11px}.campaign-stage strong{font-size:10px}.campaign-stage small{font-size:9px}.campaign-stage button{font-size:10px;padding:5px;max-width:80px}.campaign-map-panel h2{font-size:27px}}
 </style>
 <meta name="theme-color" content="#071020"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="ARC DEFENSE"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon-192.png"><link rel="icon" href="./icon-192.png"><style id="evolution-guide-style">.evolution-guide{margin:14px 0;padding:12px;border:1px solid #456782;border-radius:15px;background:#0b1b2d;color:#c2dcea;font:14px/1.5 system-ui}.evolution-guide a{color:#8cdeff}.evolution-guide summary{cursor:pointer;color:#e8f8ff;font-weight:700;font-size:16px}.evolution-guide p{margin:10px 0}.evolution-guide-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px}.evolution-guide-card{padding:10px;border:1px solid #355168;border-radius:12px;background:#102337}.evolution-guide-card strong,.evolution-guide-card span{display:block}.evolution-guide-card strong{margin-bottom:4px}.wave-palette{max-width:94%;margin:6px auto;color:#e1d6ff;font:700 clamp(10px,2.8vw,15px)/1.4 system-ui;letter-spacing:.02em}.evolution-map-colors{font:13px/1.5 system-ui!important;margin:8px 0!important}#evolutionOptionsGuide .evolution-guide-grid{grid-template-columns:1fr}#evolutionOptionsGuide{max-height:55dvh;overflow:auto}</style></head>
-<body><header><h1>ARC DEFENSE · VERSION 9.64.4</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. A red Route Link sends up to five enemies farther along the route toward the core. They travel 50% faster and are immune to towers until they exit. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
+<body><header><h1>ARC DEFENSE · VERSION 9.65.0</h1><small>Campaign 01 · First Contact · Campaign 02 · Rupture · Stages 06–10 now playable</small></header><main><div class="controls"><button id="towerMode">🎯 Precision (80 ⚡)</button><button id="rapidMode">🟠 Rapid (90 ⚡)</button><button id="pierceMode">🟢 Ricochet (125 ⚡)</button><button id="elinkMode">🟣 E-Link (200 ⚡)</button><button id="areaMode">🧲 Magnetar (180 ⚡)</button><button id="freezeMode">❄️ Freezer (135 ⚡)</button><button id="boomMode">🪃 Boomerang (175 ⚡)</button><button id="grappleMode">🪝 Grapple (155 ⚡)</button><button id="mawMode">◉ Maw (220 ⚡)</button><button id="pusherMode">≫ Repulsor (0/2 · 180 ⚡)</button><button id="recommend">🧭 Compare coverage</button><button id="heatmap">🗺️ Analyze placements</button><label>Tower analysis <select id="analysisType"><option value="precision">🎯 Cyan</option><option value="rapid">🟠 Rapid</option><option value="pierce">🟢 Ricochet</option><option value="area">🧲 Magnetar</option><option value="freeze">❄️ Freezer</option><option value="boom">🪃 Boomerang</option><option value="grapple">🪝 Grapple</option><option value="maw">◉ Maw</option><option value="pusher">≫ Repulsor</option></select></label><label>Analysis level <select id="analysisLevel"><option value="1">Lvl 1</option><option value="2" selected>Lvl 2</option><option value="3">Lvl 3</option><option value="4">Lvl 4</option><option value="5">Lvl 5</option></select></label><button id="new">⟳ Replay stage</button><button id="wave">▶ Wave 1</button><button id="pause">⏸ Pause</button><button id="reset">↺ Restart</button><label>Lvl <select id="level"><option value="1">1 — beginner</option><option value="2" selected>2 — intermediate</option><option value="3">3 — advanced</option></select></label><label>Speed <select id="speed"><option value=".5">×0.5</option><option value="1" selected>×1</option><option value="2">×2</option><option value="4">×4</option></select></label><label>Seed <input id="seed" type="number" value="20261104"></label><button id="seedbtn">↻ Regenerate</button></div><div class="info" style="border:1px solid #426c82">🧠 <strong>Tactical challenges :</strong> from wave 6 onward, some enemies move faster, resist freezing or gain stronger armor. Difficulty rises gradually across 20 waves. Read the challenge before each wave and adapt your defenses. Intermediate difficulty is selected by default.</div><details class="advanced"><summary>📖 How to play</summary><p>Build towers on free cells, start a wave, then upgrade your towers with the energy you earn. Protect the core through 20 waves. Each new map has a different seed. Select a built tower to upgrade it. Wormholes transport enemies. A red Route Link sends up to five enemies farther along the route toward the core. They travel 50% faster and are immune to towers until they exit. Freezer slows movement; E-Link slows rotation. Towers reach their maximum level at Lvl 5.</p></details><div id="bestRecord" class="info" aria-live="polite"></div><div class="campaign-hud"><strong id="campaignStage">🌊 Wave 1 / 20</strong><div class="campaign-progress"><div id="campaignBar"></div></div><span id="campaignEnemies">Next wave : 12 units</span><span class="campaign-tip">Goal: protect the core through wave 20</span></div><div id="pathDiscovery" class="path-discovery" aria-label="Path exploration"><span>⌁ PATH EXPLORED</span><div class="discovery-meter"><div class="discovery-fill" id="discoveryFill"></div></div><strong id="discoveryPercent">0 %</strong><span id="discoveryNext" class="discovery-next" aria-live="polite">❄ Freezer at 25%</span></div><div id="towerDock" class="tower-dock" aria-label="Choose a tower"><button type="button" data-tower="towerMode" aria-label="Select Precision"><span class="tower-glyph">◈</span><span>Precision</span><span class="tower-price">80 ⚡</span></button><button type="button" data-tower="rapidMode" aria-label="Select Rapid"><span class="tower-glyph">✦</span><span>Rapid</span><span class="tower-price">90 ⚡</span></button><button type="button" data-tower="pierceMode" aria-label="Select Ricochet"><span class="tower-glyph"><svg viewBox="0 0 54 42" width="34" height="28" aria-hidden="true"><path d="M5 34 Q27 -5 50 32" fill="none" stroke="#68ffab" stroke-width="1.6" stroke-dasharray="3 3"/><ellipse cx="10" cy="27" rx="8" ry="6" fill="#54e8a0"/><ellipse cx="27" cy="11" rx="6" ry="4.5" fill="#65f6b1"/><ellipse cx="44" cy="24" rx="4" ry="3" fill="#a1ffd0"/></svg></span><span>Ricochet</span><span class="tower-price">125 ⚡</span></button><button type="button" data-tower="elinkMode" aria-label="Select E-Link"><span class="tower-glyph">⚡</span><span>E-Link</span><span class="tower-price">200 ⚡</span></button><button type="button" data-tower="areaMode" aria-label="Select Magnetar"><span class="tower-glyph">∞</span><span>Magnetar</span><span class="tower-price">180 ⚡</span></button><button type="button" data-tower="freezeMode" aria-label="Select Freezer"><span class="tower-glyph">❄</span><span>Freezer</span><span class="tower-price">135 ⚡</span></button><button type="button" data-tower="boomMode" aria-label="Select Boomerang"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M8 7 L32 21 L8 35 L17 21 Z" fill="#14393c" stroke="#55e5cb" stroke-width="2.7" stroke-linejoin="round"/></svg></span><span>Boomerang</span><span class="tower-price">175 ⚡</span></button><button type="button" data-tower="grappleMode" aria-label="Select Grapple"><span class="tower-glyph"><svg viewBox="0 0 42 42" width="28" height="28" aria-hidden="true"><path d="M21 4 L21 20" stroke="#ffd58c" stroke-width="3" stroke-linecap="round"/><path d="M21 20 L21 33 M21 23 C14 32 8 30 6 24 M21 23 C28 32 34 30 36 24" fill="none" stroke="#ffd58c" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24 L4 28 M36 24 L38 28 M21 33 L17 29 M21 33 L25 29" fill="none" stroke="#fff1bd" stroke-width="2.4" stroke-linecap="round"/></svg></span><span>Grapple</span><span class="tower-price">155 ⚡</span></button><button type="button" data-tower="mawMode" aria-label="Select Maw: swallows one enemy, 220 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="3" y="4" width="36" height="34" rx="10" fill="#301b25" stroke="#ff998b" stroke-width="2"/><path d="M8 12h26v7l-4-4-5 5-4-5-5 5-4-5-4 4zm0 18h26v-7l-4 4-5-5-4 5-5-5-4 5-4-4z" fill="#f2c6bb"/></svg></span><span>Maw</span><span class="tower-price">220 ⚡</span></button><button type="button" data-tower="pusherMode" aria-label="Select Repulsor: repulsive arcs push up to five enemies backwards, maximum two towers, 180 energy"><span class="tower-glyph"><svg viewBox="0 0 42 42" aria-hidden="true"><rect x="5" y="7" width="32" height="29" rx="7" fill="#25313d" stroke="#f0f7ff" stroke-width="2"/><path d="M10 13Q21 2 32 13M14 19Q21 12 28 19M18 25Q21 22 24 25" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="21" cy="30" r="2.4" fill="#fff"/></svg></span><span>Repulsor 0/2</span><span class="tower-price">180 ⚡</span></button></div><div id="gameActions" class="game-actions"></div><div id="gameToolbar" class="game-toolbar"></div><div class="battle-frame"><canvas id="portraitBoard" width="675" height="1120" aria-label="Interactive portrait game board"></canvas><canvas id="board" width="1120" height="675" aria-hidden="true"></canvas></div><div class="key"><span>🟧 Path</span><span>🟩 Buildable</span><span>🌀 Wormhole</span><span>🔴 Enemy core</span><span>🎯 Precision cyan</span><span>🟠 Rapid orange</span><span>🟢 Magnetic Ricochet</span><span>🟣 Purple E-Link</span><span>💗 Magnetar · armor stripping</span><span>❄️ Evolving Freezer</span><span>🪃 Boomerang</span><span>🪝 Grapple : temporary capture</span><span>◉ Maw : swallows one enemy</span><span>≫ Repulsor : repulsive arcs · 5 targets · 2 max</span><span>⚡ Energy : <b id="energy">340</b></span><span>🏆 Kills : <b id="kills">0</b></span><span>◈ Core : <b id="lives">20</b></span><span>🌊 Wave : <b id="waveNum">1</b></span><span>👾 Remaining : <b id="remaining">0</b></span></div><div class="upgrade"><strong id="towerTitle">🎯 Select a tower</strong><span id="towerStats">Tower stats will appear here.</span><button id="upgrade" disabled>⬆ Upgrade</button><button id="rotateBoom" style="display:none">↻ Rotate Boomerang +90°</button></div><div id="info" class="info" aria-live="polite"></div><details class="advanced"><summary>🔬 Laboratory and analysis (optional)</summary><div id="placementReport" class="info" aria-live="polite">📍 Analysis off: enable the placement map to compare tower coverage.</div><div id="recommendReport" class="info" aria-live="polite">🧭 Compare tower families on the current map, accounting for occupied cells and your energy.</div><div id="strategyReport" class="info" aria-live="polite">🔬 Select a free cell to compare its coverage with your existing towers.</div><section id="labResults" class="info">Earlier laboratory trials were exploratory. The full 20-wave campaign still needs complete validation.</section><div id="waveReport" class="info" aria-live="polite" style="border:1px solid #426c82;border-radius:10px;padding:10px 14px;margin-top:8px;color:#e6f8ff">📊 Report: start a wave to see enemies eliminated and escaped.</div><p class="hint">Choose a tower, then a free cell. Select a built tower to inspect its range and upgrade it up to Lvl 5. Ricochet chains nearby enemies with green magnetic bounces, starting at five bounces and gaining one per upgrade without hitting the same enemy twice. Freezer slows up to 3, 5, 7, 9 or 11 enemies without affecting rotation. Its pylons, reinforcements and core evolve with each level. Cyan links only appear toward affected enemies outside tunnels. Armor hits do not consume a boomerang pass, and tunnels also protect enemies from rotation elinkion. Restart resets the game. Boomerang sends one projectile in a straight line through enemies, then returns along the same axis. Each enemy can be damaged once outbound and once on return. Its aim is locked for the whole flight. Inner arc and core damage rules still apply; enemies in tunnels remain protected. Higher levels increase range, speed and damage. Magnetar binds up to 2 armored enemies at level 1 and adds one target per level. Each violet loop removes its target’s armor after 1 second without reducing HP. The tower recharges for 2 seconds. Bound enemies keep moving and are protected from other towers. Teleportation preserves enemy progress and has visual entrance and exit effects. Placement analysis shows the share of the discovered path within theoretical range; it does not predict eliminations. The strategy panel also compares combined coverage with existing towers. Early waves introduce Orbs, Trions and Hexions. Completing waves grants bonus energy. E-Link slows enemy rotation without slowing movement or dealing damage. Projectiles aim at the enemy core without leading the target and can miss. Every cell belongs to either the path or a construction area. The path is generated from a seed; tunnels follow their segment direction. <strong>Turns v0.8:</strong> the detour follows an oriented curve without a U-turn. Modules remain experimental and their footprints may be refined.</p></details></main><div id="dragGhost" class="drag-ghost" aria-hidden="true"></div><div id="towerContext" class="tower-context" role="dialog" aria-label="Tower actions"><h3 id="contextTitle">Tower</h3><p id="contextStats"></p><div class="context-buttons"><button id="contextUpgrade">⬆<br>Upgrade</button><button id="contextSell">◇<br>Sell</button><button id="contextCancel">✕<br>Close</button><button id="contextTarget" title="Change target priority">🎯<br>Target</button></div><div style="text-align:center;margin-top:10px"><button id="contextRotate" style="display:none">↻ Rotate Boomerang</button></div></div><div class="end-screen" id="endScreen" role="dialog" aria-modal="true" aria-labelledby="endTitle" aria-describedby="endDescription"><div class="end-panel"><h2 id="endTitle">Campaign complete</h2><p id="endDescription"></p><p id="endRecord" hidden></p><dl id="endSummary" aria-label="Run summary"></dl><p id="endTip"></p><div class="end-actions"><button id="endRestart">↺ Retry this map</button><button id="endNew">⟳ New map</button></div></div></div>
 <script>(()=>{'use strict';
 const cv=document.getElementById('board'),g=cv.getContext('2d'),$=id=>document.getElementById(id);
 const portraitBoard=document.getElementById('portraitBoard'),pg=portraitBoard.getContext('2d');
@@ -1076,7 +1076,11 @@ function distanceToTarget(m,origin){
  const point=monsterPosition(m);
  return Math.hypot(point.x-origin.x,point.y-origin.y);
 }
-function sortTargets(arr,t,tc){const mode=t.targetMode||'first';return arr.sort((a,b)=>mode==='near'?distanceToTarget(a,tc)-distanceToTarget(b,tc):mode==='strong'?(b.maxHp-a.maxHp)||(b.progress-a.progress):b.progress-a.progress)}
+function sortTargets(arr,t,tc){
+ const mode=t.targetMode||'first';
+ const byExit=(a,b)=>(a.route?.way.at(-1).dist||0)-(b.route?.way.at(-1).dist||0)+b.progress-a.progress;
+ return arr.sort((a,b)=>mode==='near'?distanceToTarget(a,tc)-distanceToTarget(b,tc):mode==='strong'?(b.maxHp-a.maxHp)||byExit(a,b):byExit(a,b));
+}
 function boomPoint(b,u){
  const phase=Math.max(0,Math.min(1,u));
  const distance=b.range*(phase<=.5?phase*2:(1-phase)*2);
@@ -1095,7 +1099,7 @@ function isMagnetProtected(m){return !!(m.magnetId||m.maw||m.routeLinkTransit)}
 
 const mawSpecs=[null,...[0,1,2,3,4].map(i=>({range:2.5+i*.2,rate:12-i*.5,velocity:0,damage:0,absorb:.8/1.3**i,digestion:6/1.3**i,bossDigestion:2.4/1.3**i,cost:[0,120,170,235,310][i]}))];
 // Maw owns one captive; shared protection excludes it from every other weapon.
-function canMawCapture(m){return !m.asteroid&&m.hp>0&&!m.escaped&&!m.grapple&&!m.pushMotion&&!m.pusherPending&&!isMagnetProtected(m)&&!(m.mawGuard>0)&&m.progress<(way.at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m))}
+function canMawCapture(m){return !m.asteroid&&m.hp>0&&!m.escaped&&!m.grapple&&!m.pushMotion&&!m.pusherPending&&!isMagnetProtected(m)&&!(m.mawGuard>0)&&m.progress<((m.route?.way??way).at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m))}
 function beginMawCapture(t){
  if(t.mawTarget!==undefined)return false;
  const sp=towerSpec(t),tc=ctr(t),targets=sortTargets(monsters.filter(m=>canMawCapture(m)&&Math.hypot(monsterPosition(m).x-tc.x,monsterPosition(m).y-tc.y)<=sp.range*C),t,tc);
@@ -1230,12 +1234,12 @@ function pusherDestination(m,sp){
  const from=m.progress,boss=!!(m.boss||m.miniBoss),distance=C*(m.moveSpeed??1.55)*sp.push*(boss?.3:m.family==='orange'?.55:1);
  let to=Math.max(0,from-distance);
  // Never reverse through a discontinuous portal or push a target beneath a tunnel.
- for(const pair of jumpPairs){if(pair.at<from&&pair.at>=to)to=Math.min(from,Math.max(to,pair.at+(pair.kind==='edge'?55:35)))}
- for(let d=from;d>to;d-=4){if(underTunnel(posAt(d))){to=Math.min(from,d+4);break}}
- if(underTunnel(posAt(to)))to=Math.min(from,to+4);
+ for(const pair of m.route?.jumps??jumpPairs){if(pair.at<from&&pair.at>=to)to=Math.min(from,Math.max(to,pair.at+(pair.kind==='edge'?55:35)))}
+ for(let d=from;d>to;d-=4){if(underTunnel(posAt(d,m.route?.way))){to=Math.min(from,d+4);break}}
+ if(underTunnel(posAt(to,m.route?.way)))to=Math.min(from,to+4);
  return Math.max(0,Math.min(from,to));
 }
-function canPusherTarget(m){return !m.asteroid&&m.hp>0&&!m.escaped&&!m.grapple&&!isMagnetProtected(m)&&!m.pushMotion&&!m.pusherPending&&!(m.pushGuard>0)&&m.progress>1&&m.progress<(way.at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m))}
+function canPusherTarget(m){return !m.asteroid&&m.hp>0&&!m.escaped&&!m.grapple&&!isMagnetProtected(m)&&!m.pushMotion&&!m.pusherPending&&!(m.pushGuard>0)&&m.progress>1&&m.progress<((m.route?.way??way).at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m))}
 function pusherArcDirections(targets,origin){
  const directions=[];
  for(const m of targets){const c=monsterPosition(m),angle=Math.atan2(c.y-origin.y,c.x-origin.x);
@@ -1316,10 +1320,10 @@ function paintPusherEffects(){
  for(const m of monsters){
   const a=m.pushMotion;if(!a||m.hp<=0)continue;const c=monsterPosition(m);
   g.globalAlpha=.62;g.strokeStyle='#effaff';g.lineWidth=3;g.setLineDash([5,6]);g.beginPath();
-  for(let i=0;i<=14;i++){const p=posAt(m.progress+(a.from-m.progress)*i/14);i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y)}g.stroke();g.setLineDash([]);
+  for(let i=0;i<=14;i++){const p=posAt(m.progress+(a.from-m.progress)*i/14,m.route?.way);i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y)}g.stroke();g.setLineDash([]);
   g.globalAlpha=.9;g.lineWidth=2.8;
   // Two backward chevrons follow the path tangent, making direction readable.
-  const ahead=posAt(Math.min(a.from,m.progress+12)),angle=Math.atan2(c.y-ahead.y,c.x-ahead.x);
+  const ahead=posAt(Math.min(a.from,m.progress+12),m.route?.way),angle=Math.atan2(c.y-ahead.y,c.x-ahead.x);
   g.save();g.translate(c.x,c.y);g.rotate(angle);for(let i=0;i<2;i++){const x=32+i*9;g.beginPath();g.moveTo(x-6,-6);g.lineTo(x,0);g.lineTo(x-6,6);g.stroke()}g.restore();
  }
  g.restore();
@@ -1367,7 +1371,7 @@ function advanceMagnetar(dt){
   pair.ids=pair.ids.filter(id=>{
    const m=monsters.find(enemy=>enemy.id===id);
    if(!m||m.magnetId!==pair.id)return false;
-   if(m.hp>0&&!m.escaped&&m.progress<(way.at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m)))return true;
+   if(m.hp>0&&!m.escaped&&m.progress<((m.route?.way??way).at(-1)?.dist??Infinity)&&!underTunnel(monsterPosition(m)))return true;
    delete m.magnetId;
    return false;
   });
@@ -1492,7 +1496,7 @@ function modeButtons(){refreshPusherLimit();$('mawMode').textContent=placing&&pl
 function rng(s){let a=s|0;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
 const ctr=p=>({x:OX+(p.x+.5)*C,y:OY+(p.y+.5)*C});
 const pt=(x,y)=>({x,y});
-let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];
+let autoWaveCountdown=-1,autoWaveLastShown=-1,firstWaveStarted=false;const AUTO_WAVE_SECONDS=4;let boostPads=[];let jumpPairs=[];let confluenceRoutes=[];let proceduralVariant=1;const TRACE_STEP=12,TRACE_REQUIRED=5;let traceVisits=[];
 const SCOUT_SPEED=.35, SCOUT_INTRO_DURATION=1500;
 let scoutActive=false,scoutProgress=0,scoutIntroProgress=0;
 const BOOST_DURATION=1.8,BOOST_MULT=2.5;function build(){terrainClock=0;fissionSpawned=0;CAMPAIGN_WAVES=isFreePlay()?1:isStageCampaign()?campaignWaveSpecs().length:20;scoutActive=false;scoutProgress=scoutIntroProgress=0;document.body.dataset.gameMode=playMode;const arenaTheme=isStageCampaign()&&activeStage()>=6?'rupture':'contact';document.body.dataset.arenaTheme=arenaTheme;window.arcSetArenaTheme?.(arenaTheme);document.body.dataset.freeMap=isFreePlay()?String(freeMapNumber):'';document.body.dataset.campaignStage=String(activeStage()).padStart(2,'0');document.body.classList.toggle('stage-campaign',isStageCampaign());resetTitanEncounter();geminiTwins=[];magneticPairs=[];pusherShots=[];eLinkPending=null;window.arcAudio?.pause(false);window.arcAudio?.mode('ambient');autoWaveCountdown=-1;autoWaveLastShown=-1;firstWaveStarted=false;waveIntroStart=0;revealSweepStart=0;document.getElementById('pathRevealBanner')?.classList.remove('active');boostPads=[];traceVisits=[];level=+$('level').value;seed=+$('seed').value||1;let r=rng(seed),lanes=level+1,rows=lanes===2?[2,6]:lanes===3?[1,4,7]:[1,3,5,7];let left=1+Math.floor(r()*2),right=14-Math.floor(r()*2);path=[];let direction=r()<.5?1:-1;
@@ -1595,7 +1599,7 @@ const routeSegments=routeHalfTemplates[templateIndex].map((half,si)=>{
 if(routeSegments.some(points=>points.some((p,i)=>Math.abs(p[0]+points[points.length-1-i][0]-2*centerX)>1e-6||
  Math.abs(p[1]+points[points.length-1-i][1]-2*centerY)>1e-6)))
  throw new Error('Invalid path point symmetry');
-jumpPairs=[];
+jumpPairs=[];confluenceRoutes=[];
 const rebuilt=[];
 const cat=(p0,p1,p2,p3,t)=>{let t2=t*t,t3=t2*t;return pt(.5*((2*p1[0])+(-p0[0]+p2[0])*t+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*t2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*t3),.5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3))};
 let totalDistance=0;
@@ -1616,17 +1620,19 @@ for(let si=0;si<routeSegments.length;si++){
   rebuilt.push(exit);jumpPairs.push({from:last,to:exit,at:start,kind:si===0?'wormhole':'edge'});
  }
 }
-way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()||isFreePlay()){const scenic=isFreePlay()?buildExoticRoute(freeMapNumber):buildScenicCampaign(activeStage());way=scenic.way;jumpPairs=scenic.jumps;proceduralVariant=isFreePlay()?freeMapNumber:activeStage()}
+way=isStageCampaign()?[buildStageOneRoute,buildStageTwoRoute,buildStageThreeRoute,buildStageFourRoute,buildStageFiveRoute,buildStageSixRoute,buildStageSevenRoute,buildStageEightRoute,buildStageNineRoute,buildStageTenRoute][activeStage()-1]():rebuilt;if(isStageCampaign()||isFreePlay()){const scenic=isFreePlay()?buildExoticRoute(freeMapNumber):buildScenicCampaign(activeStage());way=scenic.way;jumpPairs=scenic.jumps;confluenceRoutes=scenic.routes||[];proceduralVariant=isFreePlay()?freeMapNumber:activeStage()}
 // Reserve the physical route and portal mouths. Discontinuities have no collision segment.
 occupied=new Set();
-for(let i=0;i<way.length;i++){
- const b=way[i],a=way[i-1]&&b.dist-way[i-1].dist>=.05?way[i-1]:b;
- const x0=Math.floor((Math.min(a.x,b.x)-OX)/C)-1,x1=Math.floor((Math.max(a.x,b.x)-OX)/C)+1;
- const y0=Math.floor((Math.min(a.y,b.y)-OY)/C)-1,y1=Math.floor((Math.max(a.y,b.y)-OY)/C)+1;
- for(let y=Math.max(GRID_MIN,y0);y<=Math.min(GRID_MAX_Y,y1);y++){
-  for(let x=Math.max(GRID_MIN,x0);x<=Math.min(GRID_MAX_X,x1);x++){
-   const center=ctr({x,y});
-   if(segmentClosest(a,b,center,center).dist<C*.61)occupied.add(key(x,y));
+for(const routePoints of confluenceRoutes.length?confluenceRoutes.map(route=>route.way):[way]){
+ for(let i=0;i<routePoints.length;i++){
+  const b=routePoints[i],previous=routePoints[i-1],a=previous&&b.dist-previous.dist>=.05?previous:b;
+  const x0=Math.floor((Math.min(a.x,b.x)-OX)/C)-1,x1=Math.floor((Math.max(a.x,b.x)-OX)/C)+1;
+  const y0=Math.floor((Math.min(a.y,b.y)-OY)/C)-1,y1=Math.floor((Math.max(a.y,b.y)-OY)/C)+1;
+  for(let y=Math.max(GRID_MIN,y0);y<=Math.min(GRID_MAX_Y,y1);y++){
+   for(let x=Math.max(GRID_MIN,x0);x<=Math.min(GRID_MAX_X,x1);x++){
+    const center=ctr({x,y});
+    if(segmentClosest(a,b,center,center).dist<C*.61)occupied.add(key(x,y));
+   }
   }
  }
 }
@@ -1662,8 +1668,13 @@ lastTechPercent=0;traceVisits=new Uint16Array(Math.max(1,Math.ceil((way.at(-1)?.
    .sort((a,b)=>Math.abs(a-target)-Math.abs(b-target))[0];
   if(best!==undefined)chosen.push(best);
  }
- boostPads=decorateBoostPads((isStageCampaign()||isFreePlay())?scenicBoostPads():chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0})));
- routeLink=buildRouteLink();
+ const pads=confluenceRoutes.length?
+  confluenceRoutes.map((route,id)=>({route,d:route.boostDistance,id,discovered:true})):
+  isStageCampaign()||isFreePlay()?scenicBoostPads():
+  chosen.sort((a,b)=>a-b).map((d,i)=>({id:i,d,discovered:false,flash:0}));
+ boostPads=decorateBoostPads(pads);
+ if(confluenceRoutes.length)traceVisits.fill(TRACE_REQUIRED);
+ routeLink=confluenceRoutes.length?null:buildRouteLink();
  update();draw();}
 // Technologies available selon la découverte permanente du parcours.
 const TECH_THRESHOLDS={pusher:0,maw:0,precision:0,rapid:0,pierce:0,freeze:25,area:50,elink:25,boom:75};
@@ -1724,7 +1735,7 @@ function resolveEscapes(){
  const finish=way.at(-1)?.dist;if(!Number.isFinite(finish))return 0;
  let count=0;
  monsters=monsters.filter(m=>{
-  if(m.hp>0&&m.progress>=finish){if(m.asteroid)return false;if(!m.escaped){m.escaped=true;count++;if(m.miniBoss)lives=0;if(m.boss){titanEncounter='escaped';titanRemainingHp=m.hp;lives=0}}return false}
+  if(m.hp>0&&m.progress>=(m.route?.way.at(-1).dist??finish)){if(m.asteroid)return false;if(!m.escaped){m.escaped=true;count++;if(m.miniBoss)lives=0;if(m.boss){titanEncounter='escaped';titanRemainingHp=m.hp;lives=0}}return false}
   return true;
  });
  if(count){escaped+=count;lives=Math.max(0,lives-count);update()}
@@ -1734,14 +1745,24 @@ function resolveEscapes(){
 function update(){
 $('lives').textContent=lives;updateCampaignHUD();const freeHUD=$('freeRunLabel');if(freeHUD){freeHUD.hidden=!isFreePlay();if(isFreePlay())freeHUD.textContent=freeMap().name+' · '+(firstWaveStarted?waveSpawned+' / '+freeMap().count:freeMap().count+' enemies · '+boostPads.length+' boosts')} $('waveNum').textContent=waveNumber;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0&&!m.asteroid).length;$('wave').textContent=!firstWaveStarted?'▶ START':playing?'🌊 Wave '+waveNumber+' / '+CAMPAIGN_WAVES:'🌊 AUTO';$('wave').disabled=firstWaveStarted||playing||lives<=0||waveNumber>CAMPAIGN_WAVES;if(isFreePlay())$('wave').textContent=freeStreamButtonText();updateUpgrade();$('energy').textContent=energy;$('kills').textContent=kills;let p=occupied.size;$('info').textContent=`Board : ${W+2} × ${H+2} = ${GRID_SIZE} cells · Reserved path : ${p} cells · Construction : ${GRID_SIZE-p} cells · BOOST : ${boostPads.length} · Path : ${proceduralVariant} · 2×2 turns : ${turns.length} · Wormholes : 1 · Edge warp : 1 · Seed : ${seed} · Wave ${waveNumber}${waveNumber===1?" (test : 12 units)":waveNumber===2?" (test : 16 units)":waveNumber===3?" (test : 22 units)":waveNumber===5?" (mixed : 6 Orbs + 7 Trions + 3 Hexions)":""} · Base ${lives}/${CORE_LIVES} · ${playing?(paused?'PAUSE':'WAVE IN PROGRESS'):'READY'}`;}
 function rounded(x,y,w,h,r){g.beginPath();g.roundRect(x,y,w,h,r)}
-function posAt(d){if(!way.length)return pt(0,0);if(d<=0)return way[0];if(d>=way.at(-1).dist)return way.at(-1);let lo=0,hi=way.length-1;while(hi-lo>1){let mid=(lo+hi)>>1;if(way[mid].dist<d)lo=mid;else hi=mid;}let a=way[lo],b=way[hi],t=(d-a.dist)/(b.dist-a.dist||1);return pt(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t)}
+function posAt(d,points=way){
+ if(!points.length)return pt(0,0);
+ if(d<=0)return points[0];
+ if(d>=points.at(-1).dist)return points.at(-1);
+ let lo=0,hi=points.length-1;
+ while(hi-lo>1){const mid=(lo+hi)>>1;if(points[mid].dist<d)lo=mid;else hi=mid}
+ const a=points[lo],b=points[hi],t=(d-a.dist)/(b.dist-a.dist||1);
+ // The .01 interval between portal mouths represents a jump, never movement across the board.
+ if(b.dist-a.dist<.05&&Math.hypot(b.x-a.x,b.y-a.y)>9)return d<=a.dist?a:b;
+ return pt(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t);
+}
 // A captured monster has a separate physical position while its path progress is frozen.
 function monsterPosition(m){
  if(m.routeLinkTransit)return routeLinkPoint(m.routeLinkTransit.link,m.routeLinkTransit.distance);
  if(m.mawDeathPosition)return m.mawDeathPosition;
- if(m.maw){const a=m.maw,from=posAt(a.progress),to=ctr(a.tower),q=Math.min(1,a.age/a.absorb),u=q*q*(3-2*q);return {x:from.x+(to.x-from.x)*u,y:from.y+(to.y-from.y)*u}}
- if(!m.grapple)return posAt(m.progress);
- const a=m.grapple,tc=ctr(a.tower),origin=posAt(a.progress);
+ if(m.maw){const a=m.maw,from=posAt(a.progress,m.route?.way),to=ctr(a.tower),q=Math.min(1,a.age/a.absorb),u=q*q*(3-2*q);return {x:from.x+(to.x-from.x)*u,y:from.y+(to.y-from.y)*u}}
+ if(!m.grapple)return posAt(m.progress,m.route?.way);
+ const a=m.grapple,tc=ctr(a.tower),origin=posAt(a.progress,m.route?.way);
  const dx=origin.x-tc.x,dy=origin.y-tc.y,dist=Math.hypot(dx,dy)||1;
  const destination={x:tc.x+dx/dist*43,y:tc.y+dy/dist*43};
  const total=a.travel+a.hold+a.returnTime;
@@ -1898,7 +1919,7 @@ function turretBearing(t,now){
 // geometry and its corner-only chassis remain untouched.
 function supportPresence(t){
  const c=ctr(t),r=towerSpec(t).range*C;
- return monsters.some(m=>m.hp>0&&m.progress<way.at(-1).dist&&
+ return monsters.some(m=>m.hp>0&&m.progress<(m.route?.way??way).at(-1).dist&&
    !underTunnel(monsterPosition(m))&&Math.hypot(monsterPosition(m).x-c.x,monsterPosition(m).y-c.y)<=r);
 }
 function paintSupportActivity(t,now){
@@ -1970,7 +1991,15 @@ if(lv>=4){g.strokeStyle='#a3ffff';g.lineWidth=2;g.beginPath();g.arc(0,0,24,-Math
 if(lv>=5){g.strokeStyle='#d8ffff';g.lineWidth=2;for(let a=0;a<4;a++){let q=a*Math.PI/2+performance.now()/1800;g.beginPath();g.arc(Math.cos(q)*27,Math.sin(q)*27,3,0,Math.PI*2);g.stroke()}}
 g.rotate(t.angle||0);g.fillStyle='#79f7ff';g.fillRect(-5-lv*.4,-20-lv*2,10+lv*.8,22+lv*2);if(lv>=3){g.fillStyle='#3ec6e4';g.fillRect(-10,-18,4,20);g.fillRect(6,-18,4,20)}g.fillStyle='#d3ffff';g.fillRect(-3,-23-lv*2,6,9);g.restore()}
 function analysisRange(type,lv){return specList(type)[lv].range*C}
-function visiblePathSamples(){if(!way.length)return [];const end=way.at(-1).dist,step=Math.max(5,C*.13),samples=[];for(let d=0;d<=end;d+=step){const p=posAt(d);if(!underTunnel(p))samples.push(p)}return samples}
+function visiblePathSamples(){
+ const step=Math.max(5,C*.13),samples=[];
+ const paths=confluenceRoutes.length?confluenceRoutes.map(route=>route.way):[way];
+ for(const [index,points] of paths.entries()){
+  const end=index?confluenceRoutes[index].mergeDistance:points.at(-1)?.dist;
+  for(let d=0;d<=end;d+=step){const p=posAt(d,points);if(!underTunnel(p))samples.push(p)}
+ }
+ return samples;
+}
 function coverageMask(x,y,type,lv,samples){const c=ctr({x,y}),r=analysisRange(type,lv);return samples.map(p=>Math.hypot(p.x-c.x,p.y-c.y)<=r)}
 function placementCoverage(x,y,lv=2,type='precision'){const samples=visiblePathSamples();if(!samples.length)return 0;return coverageMask(x,y,type,lv,samples).filter(Boolean).length/samples.length}
 function refreshPlacementScores(){const type=$('analysisType').value,lv=+$('analysisLevel').value;const samples=visiblePathSamples();placementScores=[];for(let y=GRID_MIN;y<=GRID_MAX_Y;y++)for(let x=GRID_MIN;x<=GRID_MAX_X;x++)if(!occupied.has(key(x,y))){const mask=coverageMask(x,y,type,lv,samples);placementScores.push({x,y,score:samples.length?mask.filter(Boolean).length/samples.length:0})}}
@@ -2085,7 +2114,7 @@ function advanceELinks(dt){
    for(let i=1;i<=samples;i++){
     const u=i/samples;
     const point=m.grapple?{x:previous.x+(current.x-previous.x)*u,y:previous.y+(current.y-previous.y)*u}:
-      Number.isFinite(m.eLinkPreviousProgress)?posAt(m.eLinkPreviousProgress+(m.progress-m.eLinkPreviousProgress)*u):current;
+      Number.isFinite(m.eLinkPreviousProgress)?posAt(m.eLinkPreviousProgress+(m.progress-m.eLinkPreviousProgress)*u,m.route?.way):current;
     if(!underTunnel(point)&&segmentClosest(a,b,point,point).dist<=(m.asteroid?32:m.boss?TITAN_RADIUS:m.miniBoss?34:ENEMY_R*(m.visualScale||1))+sp.width*C)contact++;
    }
    if(!contact)continue;
@@ -2379,7 +2408,7 @@ function drawWormholeTransitArcs(time){
  for(const pair of jumpPairs){
   if(pair.kind!=='wormhole')continue;
   for(const m of monsters){
-   if(m.hp<=0)continue;
+   if(m.hp<=0||m.route&&!m.route.jumps.includes(pair))continue;
    const d=m.progress, span=38;
    let phase, center, entering;
    if(d>=pair.at-span && d<=pair.at){
@@ -2414,13 +2443,13 @@ function drawWormholeTransitArcs(time){
 }
 // Spatial compression at both portal types. Each monster retains its own progress.
 // The edge Warp has a distinct, stronger zoom with easing (no screen-wide zoom).
-function portalScaleAt(progress){
+function portalScaleAt(progress,pairs=jumpPairs){
  // Wormholes: restore the exact, simple linear monster scaling from version 3.5.
  // No extra flash, halo burst, distortion, streaks or particles at teleportation.
  // Edge Warps retain their separate, previously approved behavior.
  let scale=1;
  const smooth=t=>{t=Math.max(0,Math.min(1,t));return t*t*(3-2*t)};
- for(const pair of jumpPairs){
+ for(const pair of pairs){
   const edge=pair.kind==='edge';
   const approach=edge?55:35, departure=edge?55:35;
   const minScale=edge?.045:.08;
@@ -2531,7 +2560,7 @@ for(const p of particles){if(!p.effect?.startsWith('vfx91'))continue;
 for(let p of particles){if(p.effect)continue;const duration=p.duration??(p.duration=Math.max(.35,p.life)),q=Math.max(0,Math.min(1,p.life/duration)),radius=Math.max(0,p.r*(1-q)+(p.blast?0:3));g.globalAlpha=q;g.beginPath();g.arc(p.x,p.y,radius,0,Math.PI*2);g.strokeStyle=p.color;g.lineWidth=p.blast?3:2;g.stroke();g.globalAlpha=1}
 paintBoostPads();
 paintRouteLink();
-for(const m of monsters){if(m.hp<=0||!m.boostLeft||m.routeLinkTransit)continue;if(jumpPairs.some(pair=>Math.abs(m.progress-pair.at)<95))continue;const c=monsterPosition(m);const back=posAt(Math.max(0,m.progress-95));g.save();const trail=g.createLinearGradient(back.x,back.y,c.x,c.y);trail.addColorStop(0,'rgba(40,224,255,0)');trail.addColorStop(1,m.boostColor||'#8cffff');g.strokeStyle=trail;g.lineWidth=7;g.shadowColor='#4ffbff';g.shadowBlur=18;g.beginPath();g.moveTo(back.x,back.y);g.lineTo(c.x,c.y);g.stroke();g.restore()}
+for(const m of monsters){if(m.hp<=0||!m.boostLeft||m.routeLinkTransit)continue;if((m.route?.jumps??jumpPairs).some(pair=>Math.abs(m.progress-pair.at)<95))continue;const c=monsterPosition(m);const back=posAt(Math.max(0,m.progress-95),m.route?.way);g.save();const trail=g.createLinearGradient(back.x,back.y,c.x,c.y);trail.addColorStop(0,'rgba(40,224,255,0)');trail.addColorStop(1,m.boostColor||'#8cffff');g.strokeStyle=trail;g.lineWidth=7;g.shadowColor='#4ffbff';g.shadowBlur=18;g.beginPath();g.moveTo(back.x,back.y);g.lineTo(c.x,c.y);g.stroke();g.restore()}
 // Physical grappling cable, reel head and capture halo.
 for(let m of monsters){if(!m.grapple||m.hp<=0)continue;let c=monsterPosition(m),tc=ctr(m.grapple.tower),a=m.grapple;
  g.save();g.lineCap='round';g.strokeStyle='rgba(255,205,121,.28)';g.lineWidth=7;g.beginPath();g.moveTo(tc.x,tc.y);g.lineTo(c.x,c.y);g.stroke();
@@ -2543,8 +2572,8 @@ for(const m of monsters){
  const center=monsterPosition(m);if(!underTunnel(center))paintAsteroid(m,center);
 }
 paintAsteroidFragments();
-for(let m of monsters){if(m.maw||m.asteroid)continue;let c=monsterPosition(m),covered=underTunnel(c);if(covered)continue;if(m.stageBoss==='prism'){paintPrism(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='anvil'){paintAnvil(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='gemini'){paintGemini(m,c,portalScaleAt(m.progress));continue;}if(m.stageBoss==='nexus'){paintNexus(m,c,portalScaleAt(m.progress));continue;}if(m.miniBoss){paintBastion(m,c,portalScaleAt(m.progress));continue;}if(m.boss){paintTitan(m,c,portalScaleAt(m.progress));continue;}
-g.save();g.translate(c.x,c.y);const recoil92=(m.hitFlash92||0)/.23;g.scale(portalScaleAt(m.progress)*(1+.055*recoil92),portalScaleAt(m.progress)*(1+.055*recoil92));if(recoil92>0&&!hasBodyArmor(m)){g.save();g.globalAlpha=.32*recoil92;g.strokeStyle=m.hitKick92<.5?'#74d8ff':'#ff9aaa';g.lineWidth=2;g.beginPath();g.arc(0,0,ENEMY_R+5+8*(1-recoil92),0,TAU);g.stroke();g.restore()}let parts=enemyGeometry(m,{x:0,y:0}); // local geometry, with the same rotation used by collisions
+for(let m of monsters){if(m.maw||m.asteroid)continue;let c=monsterPosition(m),covered=underTunnel(c);if(covered)continue;if(m.stageBoss==='prism'){paintPrism(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}if(m.stageBoss==='anvil'){paintAnvil(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}if(m.stageBoss==='gemini'){paintGemini(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}if(m.stageBoss==='nexus'){paintNexus(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}if(m.miniBoss){paintBastion(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}if(m.boss){paintTitan(m,c,portalScaleAt(m.progress,m.route?.jumps));continue;}
+g.save();g.translate(c.x,c.y);const recoil92=(m.hitFlash92||0)/.23;g.scale(portalScaleAt(m.progress,m.route?.jumps)*(1+.055*recoil92),portalScaleAt(m.progress,m.route?.jumps)*(1+.055*recoil92));if(recoil92>0&&!hasBodyArmor(m)){g.save();g.globalAlpha=.32*recoil92;g.strokeStyle=m.hitKick92<.5?'#74d8ff':'#ff9aaa';g.lineWidth=2;g.beginPath();g.arc(0,0,ENEMY_R+5+8*(1-recoil92),0,TAU);g.stroke();g.restore()}let parts=enemyGeometry(m,{x:0,y:0}); // local geometry, with the same rotation used by collisions
 paintEnemyInterior(m,parts);
 for(let part of parts){if(part.kind==='body')continue;g.strokeStyle=enemyPartColor(m,part.kind);g.lineWidth=part.kind==='armor'?(hasBodyArmor(m)?3:4):2.5;g.beginPath();part.points.forEach((p,i)=>i?g.lineTo(p.x,p.y):g.moveTo(p.x,p.y));g.stroke()}
 paintEnemyCore(m);
@@ -2624,6 +2653,7 @@ function asteroidOutline(m,center){
 }
 function paintAsteroid(m,center){
  g.save();g.translate(center.x,center.y);g.rotate(m.spin);g.lineJoin='round';
+ if(m.route?.jumps.length){const scale=portalScaleAt(m.progress,m.route.jumps);g.scale(scale,scale)}
  g.beginPath();m.asteroid.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();
  g.fillStyle='#161c2b';g.fill();
  g.strokeStyle=m.targetFlash>0?'#f0fcff':m.hitFlash92>0?'#ffd6a0':'#91b9d1';
@@ -2724,7 +2754,7 @@ const CAMPAIGN_COLOR_PLANS=[
  ['orange blue','green','white yellow','red violet','orange green','blue yellow violet','white blue orange green red yellow violet'],
  ['white blue orange','green red yellow','violet','blue violet','orange red','green yellow','white blue orange green red yellow violet']
 ];
-const FREE_COLOR_PLANS=['white','blue','yellow','orange','white blue green','red green yellow','violet white','white blue orange green red yellow violet','blue orange green','white blue orange green red yellow violet'];
+const FREE_COLOR_PLANS=['white','blue','yellow','orange','white blue green','red green yellow','violet white','white blue orange green red yellow violet','blue orange green','white blue orange green red yellow violet','white blue','orange green white','blue yellow violet','white green red orange','white blue orange green red yellow violet'];
 let terrainClock=0,fissionSpawned=0;
 const ROUTE_LINK_OPEN=5,ROUTE_LINK_WAIT=40,ROUTE_LINK_CAPACITY=5,ROUTE_LINK_SPEED=1.5;
 let routeLink=null;
@@ -2798,15 +2828,15 @@ function routeLinkPoint(link,distance){
  const a=points[lo],b=points[hi],u=(distance-a.dist)/(b.dist-a.dist);
  return pt(a.x+(b.x-a.x)*u,a.y+(b.y-a.y)*u);
 }
-function routeLinkOpening(time){
- if(!routeLink||routeLink.firstOpenedAt===null||time<routeLink.firstOpenedAt)return -1;
- const period=routeLink.openDuration+ROUTE_LINK_WAIT,age=time-routeLink.firstOpenedAt;
- return age%period<routeLink.openDuration?Math.floor(age/period):-1;
+function routeLinkOpening(time,cycle=routeLink){
+ if(!cycle||cycle.firstOpenedAt===null||time<cycle.firstOpenedAt)return -1;
+ const period=cycle.openDuration+ROUTE_LINK_WAIT,age=time-cycle.firstOpenedAt;
+ return age%period<cycle.openDuration?Math.floor(age/period):-1;
 }
 function enterRouteLink(m,link,time){
- const cycle=routeLink;
+ const cycle=m.route?.linkCycle??routeLink;
  if(link===cycle.links[0]&&(cycle.firstOpenedAt===null||time<cycle.firstOpenedAt))cycle.firstOpenedAt=time;
- const opening=routeLinkOpening(time);
+ const opening=routeLinkOpening(time,cycle);
  if(opening<0||cycle.links[opening%cycle.links.length]!==link)return false;
  if(cycle.opening!==opening){cycle.opening=opening;cycle.used=0}
  if(cycle.used>=ROUTE_LINK_CAPACITY)return false;
@@ -2831,13 +2861,17 @@ function advanceRouteLinkTransit(m,dt,baseSpeed){
  return dt-duration;
 }
 function paintRouteLink(){
- if(!routeLink||!firstWaveStarted)return;
- const opening=routeLinkOpening(terrainClock);
- const active=opening<0?null:routeLink.links[opening%routeLink.links.length];
- if(active)paintRouteLinkArc(active,opening!==routeLink.opening||routeLink.used<ROUTE_LINK_CAPACITY);
- if(!routeLink.showAfterClosing)return;
- for(const link of routeLink.links){
-  if(link!==active&&monsters.some(m=>m.routeLinkTransit?.link===link))paintRouteLinkArc(link,false);
+ if(!firstWaveStarted)return;
+ const cycles=confluenceRoutes.length?confluenceRoutes.map(route=>route.linkCycle):[routeLink];
+ for(const cycle of cycles){
+  if(!cycle)continue;
+  const opening=routeLinkOpening(terrainClock,cycle);
+  const active=opening<0?null:cycle.links[opening%cycle.links.length];
+  if(active)paintRouteLinkArc(active,opening!==cycle.opening||cycle.used<ROUTE_LINK_CAPACITY);
+  if(!cycle.showAfterClosing)continue;
+  for(const link of cycle.links){
+   if(link!==active&&monsters.some(m=>m.routeLinkTransit?.link===link))paintRouteLinkArc(link,false);
+  }
  }
 }
 function paintRouteLinkArc(link,accepts){
@@ -2881,10 +2915,10 @@ function advanceEnemyFamily(m,dt){
 }
 function fissionChildren(m){
  if(m.family!=='violet'||m.offspring||m.fissionDone||m.mawConsumed||m.escaped||m.hp>0)return [];
- m.fissionDone=true;const total=way.at(-1)?.dist||Infinity;
+ m.fissionDone=true;const total=(m.route?.way??way).at(-1)?.dist||Infinity;
  // Same section and exact route position: never spawn across a warp or beyond the exit.
- const lower=Math.max(0,...jumpPairs.filter(p=>p.at<m.progress).map(p=>p.at+.001));
- return [0,1].map((_,i)=>{let progress=Math.max(lower,Math.min(total-.001,m.progress)-i*12);if(underTunnel(posAt(progress)))progress=m.progress;const hp=Math.max(.35,m.maxHp*.22);return {id:++monsterSerial,type:m.type,family:'violet',offspring:true,visualScale:.66,trait:'normal',progress,spin:m.spin+i*Math.PI,hp,maxHp:hp,moveSpeed:(m.moveSpeed||1)*1.15,spinSpeed:m.spinSpeed,reward:0,...fullArmor(m.type),damageQuiet:0,spawnAge:0}});
+ const lower=Math.max(0,...(m.route?.jumps??jumpPairs).filter(p=>p.at<m.progress).map(p=>p.at+.001));
+ return [0,1].map((_,i)=>{let progress=Math.max(lower,Math.min(total-.001,m.progress)-i*12);if(underTunnel(posAt(progress,m.route?.way)))progress=m.progress;const hp=Math.max(.35,m.maxHp*.22);return {id:++monsterSerial,type:m.type,family:'violet',offspring:true,route:m.route,visualScale:.66,trait:'normal',progress,spin:m.spin+i*Math.PI,hp,maxHp:hp,moveSpeed:(m.moveSpeed||1)*1.15,spinSpeed:m.spinSpeed,reward:0,...fullArmor(m.type),damageQuiet:0,spawnAge:0}});
 }
 const BOOST_KINDS={
  yellow:{name:'Classic',color:'#ffd53d',mult:2.5,duration:1.1,cyclic:false},
@@ -2903,13 +2937,14 @@ function activateBoost(m,pad,time=terrainClock){
 function advanceBoostMovement(m,movementDt,dt,baseSpeed,blocked=false,linkSpeed=0){
  if(blocked||m.hp<=0||baseSpeed<=0){m.boostLeft=Math.max(0,(m.boostLeft||0)-dt);return}
  let remaining=movementDt,time=terrainClock-movementDt;
- const ahead=boostPads.filter(p=>p.d>m.progress+1e-7).sort((a,b)=>a.d-b.d);let index=0,steps=0;
+ const ahead=boostPads.filter(p=>p.route===m.route&&p.d>m.progress+1e-7).sort((a,b)=>a.d-b.d);let index=0,steps=0;
  while(remaining>1e-9&&steps++<ahead.length*2+8){
   const pad=ahead[index],mult=m.boostLeft>1e-9?(m.boostMult||BOOST_MULT):1,speed=baseSpeed*mult;
   const padTime=pad?Math.max(0,(pad.d-m.progress)/speed):Infinity,expiry=m.boostLeft>1e-9?m.boostLeft:Infinity;
   let link=null;
-  if(linkSpeed>0&&routeLink&&!m.usedRouteLink&&!isMagnetProtected(m)&&!m.escaped){
-   for(const candidate of routeLink.links){
+  const cycle=m.route?.linkCycle??routeLink;
+  if(linkSpeed>0&&cycle&&!m.usedRouteLink&&!isMagnetProtected(m)&&!m.escaped){
+   for(const candidate of cycle.links){
     if(candidate.entry>m.progress&&(!link||candidate.entry<link.entry))link=candidate;
    }
   }
@@ -2940,7 +2975,7 @@ function decorateBoostPads(pads){
 }
 function paintBoostPads(){
  for(const pad of boostPads){if(!pad.discovered&&!(revealSweepStart>0&&pad.d<=scoutIntroProgress))continue;
-  const c=posAt(pad.d),before=posAt(Math.max(0,pad.d-7)),after=posAt(pad.d+7),angle=Math.atan2(after.y-before.y,after.x-before.x),sp=boostKind(pad),phase=boostPhase(pad),pulse=.5+.5*Math.sin(terrainClock*7-pad.id*.7),fresh=terrainClock-(pad.flashClock??-100)<.5;
+  const points=pad.route?.way,c=posAt(pad.d,points),before=posAt(pad.d-7,points),after=posAt(pad.d+7,points),angle=Math.atan2(after.y-before.y,after.x-before.x),sp=boostKind(pad),phase=boostPhase(pad),pulse=.5+.5*Math.sin(terrainClock*7-pad.id*.7),fresh=terrainClock-(pad.flashClock??-100)<.5;
   g.save();g.translate(c.x,c.y);g.rotate(angle);g.globalAlpha=phase.active?.8+.2*pulse:.45;g.strokeStyle=phase.active?(fresh?'#fff9df':sp.color):'#715747';g.lineWidth=phase.active?3.5+1.2*pulse:2;g.lineCap='round';g.shadowColor=sp.color;g.shadowBlur=phase.active?10+12*pulse:0;
   const count=sp.mult>3?5:3;for(let k=0;k<count;k++){const x=(k-(count-1)/2)*10;g.beginPath();g.moveTo(x-5,-10);g.lineTo(x+5,0);g.lineTo(x-5,10);g.stroke()}
   if(sp.cyclic){g.shadowBlur=0;g.lineWidth=2.4;g.strokeStyle=phase.active?sp.color:'#ffc89c';g.beginPath();g.arc(0,0,30,-Math.PI/2,-Math.PI/2+TAU*phase.remaining/10);g.stroke();g.rotate(-angle-Math.PI/2);g.fillStyle=phase.active?'#fff6e7':'#b59d8b';g.font='bold 11px system-ui';g.textAlign='center';g.fillText(phase.active?'ON '+Math.ceil(phase.remaining):'OFF '+Math.ceil(phase.remaining),0,-35)}
@@ -3000,7 +3035,12 @@ const FREE_MAPS=[
  {name:'Infinity Rush',tag:'07 · CROSS THE INFINITE',color:'#83f5ff',count:720,gap:.32,type:1,hp:3.7,speed:1.5,budget:2700,boosts:9,description:'A giant figure eight, three sweeping lobes and a charged central crossing. Hold the intersection.'},
  {name:'Prism Blossom',tag:'08 · FOUR PETALS, ONE CORE',color:'#ff88d7',count:840,gap:.30,type:-1,hp:3.8,speed:1.45,budget:2900,boosts:10,description:'Four real petal loops bloom around one crossing, then a black hole launches the outer victory lap.'},
  {name:'Orbital Cascade',tag:'09 · FOUR WORLDS IN MOTION',color:'#a2ff92',count:900,gap:.32,type:2,hp:4.6,speed:1.35,budget:3100,boosts:10,description:'Complete four elliptical orbits linked by black holes. Tiny satellites trace each planetary core.'},
- {name:'Aurora Corkscrew',tag:'10 · RIDE THE LIGHT',color:'#ae9fff',count:1000,gap:.27,type:-1,hp:4,speed:1.55,budget:3400,boosts:14,description:'Five rolling loops ride an aurora ribbon. A thousand enemies. Four comets. A luminous finale.'}
+ {name:'Aurora Corkscrew',tag:'10 · RIDE THE LIGHT',color:'#ae9fff',count:1000,gap:.27,type:-1,hp:4,speed:1.55,budget:3400,boosts:14,description:'Five rolling loops ride an aurora ribbon. A thousand enemies. Four comets. A luminous finale.'},
+ {name:'Twin Tides',tag:'11 · CONFLUENCE',color:'#69edff',count:420,gap:.82,type:-1,hp:4.0,speed:1.38,budget:3600,boosts:2,lanes:2,layout:0,rocks:16,description:'Two sweeping curls feed one exit. A long interval between departures leaves room for the asteroid escorts.'},
+ {name:'Velvet Switchbacks',tag:'12 · CONFLUENCE',color:'#f49be9',count:440,gap:.80,type:-1,hp:4.2,speed:1.39,budget:3750,boosts:2,lanes:2,layout:1,rocks:20,description:'Two folded ribbons send alternating convoys through their own red Links.'},
+ {name:'Trident Nebula',tag:'13 · CONFLUENCE',color:'#ffd782',count:460,gap:.78,type:-1,hp:4.3,speed:1.43,budget:3900,boosts:3,lanes:3,layout:2,rocks:24,wormhole:0,description:'Three separate curls converge on the core. A wormhole cuts the final approach on one branch.'},
+ {name:'Aurora Delta',tag:'14 · CONFLUENCE',color:'#9dffc7',count:480,gap:.76,type:-1,hp:4.5,speed:1.45,budget:4050,boosts:3,lanes:3,layout:3,rocks:28,description:'Three luminous ribbons, open loops and asteroid escorts converge into one final straight.'},
+ {name:'Blackwater Convergence',tag:'15 · CONFLUENCE',color:'#bca9ff',count:500,gap:.74,type:-1,hp:4.6,speed:1.48,budget:4250,boosts:3,lanes:3,layout:4,rocks:30,wormhole:2,description:'Thirty asteroids escort three continuous convoys to one exit. Take advantage of gaps between arrivals.'}
 ];
 function isFreePlay(){return playMode==='free'}
 function freeMap(){return FREE_MAPS[freeMapNumber-1]||FREE_MAPS[0]}
@@ -3079,7 +3119,42 @@ function paintLoopCircuitEffects(foreground=false){
  g.restore();
 }
 
-function buildExoticRoute(id){const config=exoticSections(id);return scenicRoute(config.sections,config.kinds)}
+const CONFLUENCE_LOOPS=[
+ [[0,.5],[.14,.10],[.55,.08],[.67,.37],[.55,.61],[.29,.60],[.25,.88],[.75,.92],[.88,.68],[1,.5]],
+ [[0,.5],[.15,.84],[.43,.92],[.55,.65],[.48,.38],[.22,.42],[.24,.12],[.74,.09],[.90,.37],[1,.5]],
+ [[0,.5],[.13,.14],[.39,.09],[.47,.44],[.37,.72],[.20,.63],[.19,.89],[.63,.92],[.74,.71],[.81,.20],[.94,.18],[1,.5]],
+ [[0,.5],[.10,.19],[.63,.16],[.70,.44],[.61,.68],[.37,.54],[.31,.84],[.77,.90],[.91,.66],[1,.5]],
+ [[0,.5],[.13,.11],[.76,.09],[.83,.36],[.71,.56],[.45,.52],[.35,.74],[.50,.91],[.86,.89],[1,.5]]
+];
+function buildConfluenceRoute(cfg){
+ const bands=cfg.lanes===2?[[100,290],[385,570]]:[[94,226],[272,403],[449,575]];
+ const colors=['#69edff','#f49be9','#ffd782'],merge=[954,337.5];
+ const exit=scenicRoute([[merge,[1112,337.5]]]).way;
+ const routes=bands.map(([low,high],index)=>{
+  const center=(low+high)/2,mirror=index%2===1;
+  const layout=CONFLUENCE_LOOPS[(cfg.layout+index*(cfg.lanes===2?2:1))%CONFLUENCE_LOOPS.length];
+  const loop=layout.map(([x,y])=>[145+600*x,low+(high-low)*(mirror?1-y:y)]);
+  const approach=[[850,center],[875,center],[915,center+(337.5-center)*.66],merge];
+  const wormhole=cfg.wormhole===index;
+  const start=[[8,center],...loop,[750,center]];
+  const lane=scenicRoute(wormhole?[start,approach]:[[...start,...approach]]);
+  const mergeDistance=lane.way.at(-1).dist;
+  const loopDistance=wormhole?lane.jumps[0].at:lane.way.find(point=>point.x>=749).dist;
+  const entry=loopDistance*.26,landing=loopDistance*.51;
+  const a=posAt(entry,lane.way),b=posAt(landing,lane.way);
+  const control=pt((a.x+b.x)/2,Math.max(low+10,Math.min(high-10,(a.y+b.y)/2+(mirror?-38:38))));
+  const link=sampleRouteLink({entry,exit:landing,a,b,control});
+  const linkCycle={links:[link],openDuration:ROUTE_LINK_OPEN,showAfterClosing:true,firstOpenedAt:null,opening:-1,used:0};
+  return {...lane,way:lane.way.concat(exit.slice(1).map(point=>({...point,dist:point.dist+mergeDistance}))),
+   color:colors[index],mergeDistance,boostDistance:loopDistance*.72,linkCycle};
+ });
+ return {way:routes[0].way,jumps:routes.flatMap(route=>route.jumps),routes};
+}
+function buildExoticRoute(id){
+ const cfg=FREE_MAPS[id-1];
+ if(cfg?.lanes)return buildConfluenceRoute(cfg);
+ const config=exoticSections(id);return scenicRoute(config.sections,config.kinds);
+}
 function buildScenicCampaign(stage){
  if(stage===1)return scenicRoute([[[8,170],[180,170],[250,90],[390,90],[450,300],[610,300],[680,120],[850,120],[930,450],[1112,450]]]);
  if(stage===2)return scenicRoute([[[8,100],[930,100],[930,245],[180,245],[180,420],[920,420],[920,580],[1112,580]]]);
@@ -3101,12 +3176,24 @@ function scenicBoostPads(){
  return chosen.sort((a,b)=>a-b).map((d,id)=>({id,d,discovered:false,flash:0,duration:isFreePlay()?.8:1.1}));
 }
 function freeStreamButtonText(){
- if(!firstWaveStarted)return '▶ RELEASE STREAM';
+ if(!firstWaveStarted)return freeMap().lanes?'▶ START STREAM':'▶ RELEASE STREAM';
  return '∞ '+waveSpawned+' / '+freeMap().count;
 }
-function refreshFreeStreamHUD(){if(!isFreePlay())return;const text=freeStreamButtonText();if($('wave').textContent!==text)$('wave').textContent=text;const label=$('freeRunLabel');if(label)label.textContent=freeMap().name+' · '+waveSpawned+' / '+freeMap().count;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0).length}
+function refreshFreeStreamHUD(){if(!isFreePlay())return;const text=freeStreamButtonText();if($('wave').textContent!==text)$('wave').textContent=text;const label=$('freeRunLabel');if(label)label.textContent=freeMap().name+' · '+waveSpawned+' / '+freeMap().count;$('remaining').textContent=Math.max(0,waveTotal-waveSpawned)+monsters.filter(m=>m.hp>0&&!m.asteroid).length}
 function freeEnemyType(i){return freeMap().type>=0?freeMap().type:Math.floor(i/80)%3}
-function createFreeEnemy(i){const cfg=freeMap(),type=freeEnemyType(i),difficulty=level===1?.82:level===3?1.18:1,hp=cfg.hp*(type===2?1.15:1)*difficulty;return setEnemyFamily({id:++monsterSerial,type,trait:'normal',progress:0,spin:i*.3,hp,maxHp:hp,moveSpeed:cfg.speed,spinSpeed:enemyProfiles[type].spin,reward:3,...fullArmor(type)},colorForIndex(FREE_COLOR_PLANS[freeMapNumber-1].split(' '),i,16))}
+function createFreeEnemy(i){const cfg=freeMap(),type=freeEnemyType(i),difficulty=level===1?.82:level===3?1.18:1,hp=cfg.hp*(type===2?1.15:1)*difficulty;return setEnemyFamily({id:++monsterSerial,type,trait:'normal',progress:0,spin:i*.3,hp,maxHp:hp,moveSpeed:cfg.speed,spinSpeed:enemyProfiles[type].spin,route:cfg.lanes?confluenceRoutes[i%cfg.lanes]:undefined,reward:3,...fullArmor(type)},colorForIndex(FREE_COLOR_PLANS[freeMapNumber-1].split(' '),i,16))}
+function freeAsteroidSchedule(cfg){
+ if(!cfg.rocks)return [];
+ return Array.from({length:cfg.rocks},(_,index)=>{
+  const heavy=index%3===0;
+  return {
+   at:(index+1)*cfg.count*cfg.gap/(cfg.rocks+1),
+   hp:heavy?15:8+index%3,speed:cfg.speed*(heavy?.86:1.12+(index%3)*.06),
+   spin:heavy?.49:index%2?-.83:.72,shape:heavy?'heavy':'light',
+   route:confluenceRoutes[index%confluenceRoutes.length]
+  };
+ });
+}
 function startFreeMap(id){if(!Number.isInteger(id)||id<1||id>FREE_MAPS.length)return false;closeCampaignMap();freeMapNumber=id;playMode='free';clearEnd();build();$('arc60Close')?.click();if($('arc917Settings'))$('arc917Settings').open=false;update();draw();return true}
 function freeBest(id){try{return JSON.parse(localStorage.getItem('arc_free_v1_'+id)||'null')}catch(e){return null}}
 function endFreePlay(won){
@@ -3116,19 +3203,50 @@ function endFreePlay(won){
  const summary=$('endSummary');summary.replaceChildren();for(const [label,value] of [['Enemies released',waveSpawned+' / '+cfg.count+(fissionSpawned?' + '+fissionSpawned+' offspring':'')],['Enemies eliminated',kills],['Core integrity',lives+' / '+CORE_LIVES],['Energy left',energy+' ⚡'],['Active defenses',towers.length],['Circuit features',boostPads.length+' boosts · '+jumpPairs.length+' portals']]){const item=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;item.append(dt,dd);summary.append(item)}
  $('endRecord').hidden=!saved;$('endRecord').textContent='✦ NEW CIRCUIT RECORD';$('endTip').textContent='Free Play records are independent of campaign stars. Every circuit is always open.';$('endRestart').textContent='↺ Retry circuit';$('endNew').textContent='Choose another circuit';requestAnimationFrame(()=>$('endRestart').focus({preventScroll:true}));
 }
-function routeMiniature(id){const c=buildExoticRoute(id),cfg=FREE_MAPS[id-1];let d='';for(let i=0;i<c.way.length;i++){const p=c.way[i];d+=(i===0||p.dist-c.way[i-1].dist<.05?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)}return '<svg class="free-mini" viewBox="0 0 675 1120" aria-hidden="true"><g transform="translate(675,0) rotate(90)"><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" opacity=".18"/><path d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="4" stroke-linecap="round"/>'+c.jumps.map(j=>[j.from,j.to].map(p=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="20" fill="#080c20" stroke="'+cfg.color+'" stroke-width="5"/>').join('')).join('')+'</g></svg>'}
-function openFreeMaps(){const map=$('campaignMap');if(!map)return;map.dataset.campaign='free';$('campaignOverview').hidden=true;$('campaignBack').hidden=false;$('campaignStageProgress').hidden=true;for(const n of [1,2])$('campaignStages'+n).hidden=true;$('freeMaps').hidden=false;$('campaignMapTitle').textContent='Take the wild route';$('campaignPickerIntro').textContent='FREE PLAY · TEN OPEN CIRCUITS · ALL TOWERS UNLOCKED';map.querySelector('.campaign-map-panel').scrollTop=0;for(let n=1;n<=FREE_MAPS.length;n++){const b=freeBest(n);$('freeRecord'+n).textContent=b?(b.won?'✓ Circuit secured':'Best: '+b.kills+' eliminated'):'No record yet · Make your first run'}requestAnimationFrame(()=>$('freePlay1').focus({preventScroll:true}))}
+function routeMiniature(id){
+ const circuit=buildExoticRoute(id),color=FREE_MAPS[id-1].color;
+ const routes=circuit.routes||[{way:circuit.way,color}];
+ const paths=routes.map((route,index)=>{
+  const points=index?route.way.filter(p=>p.dist<=route.mergeDistance):route.way;
+  const d=points.map((p,i)=>(!i||p.dist-points[i-1].dist<.05?'M':'L')+p.x.toFixed(1)+','+p.y.toFixed(1)).join('');
+  return '<path d="'+d+'" fill="none" stroke="'+route.color+'" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" opacity=".18"/><path d="'+d+'" fill="none" stroke="'+route.color+'" stroke-width="4" stroke-linecap="round"/>';
+ }).join('');
+ const portals=circuit.jumps.flatMap(j=>[j.from,j.to]).map(p=>'<circle cx="'+p.x+'" cy="'+p.y+'" r="20" fill="#080c20" stroke="'+color+'" stroke-width="5"/>').join('');
+ return '<svg class="free-mini" viewBox="0 0 675 1120" aria-hidden="true"><g transform="translate(675,0) rotate(90)">'+paths+portals+'</g></svg>';
+}
+function openFreeMaps(){const map=$('campaignMap');if(!map)return;map.dataset.campaign='free';$('campaignOverview').hidden=true;$('campaignBack').hidden=false;$('campaignStageProgress').hidden=true;for(const n of [1,2])$('campaignStages'+n).hidden=true;$('freeMaps').hidden=false;$('campaignMapTitle').textContent='Take the wild route';$('campaignPickerIntro').textContent='FREE PLAY · 15 OPEN CIRCUITS · ALL TOWERS UNLOCKED';map.querySelector('.campaign-map-panel').scrollTop=0;for(let n=1;n<=FREE_MAPS.length;n++){const b=freeBest(n);$('freeRecord'+n).textContent=b?(b.won?'✓ Circuit secured':'Best: '+b.kills+' eliminated'):'No record yet · Make your first run'}requestAnimationFrame(()=>$('freePlay1').focus({preventScroll:true}))}
 function mountFreePlayPicker(panel,overview,classic){
- const card=document.createElement('button');card.type='button';card.id='freeChoose';card.className='campaign-choice free-choice';card.setAttribute('aria-label','Open Free Play');card.innerHTML='<span class="free-infinity" aria-hidden="true">∞</span><span class="campaign-choice-copy"><span class="campaign-kicker">FREE PLAY · 10 EXOTIC CIRCUITS</span><strong class="campaign-choice-title">Take the wild route</strong><span class="campaign-description">Spirals. Figure eights. Petal loops. Cosmic circuits.</span><span class="campaign-choice-next">320–1000 enemies · Continuous streams</span></span><span class="campaign-chevron" aria-hidden="true">›</span>';card.onclick=openFreeMaps;overview.append(card);
- const section=document.createElement('section');section.id='freeMaps';section.hidden=true;section.setAttribute('aria-label','Free Play circuits');section.innerHTML='<div class="free-manifesto"><span>NO LOCKS. NO WAITING BETWEEN WAVES.</span><p>Build your dream defense, reveal the whole circuit, then unleash a continuous stream. The path stays lit.</p></div><div class="free-map-grid">'+FREE_MAPS.map((cfg,i)=>(i===5?'<div class="free-volume"><small>VOLUME 02 · LOOP WORLDS</small><strong>Lose yourself in the curves.</strong><span>Five new circuits · 600–1000 enemies · Light in motion</span></div>':'')+'<article class="free-map-card" style="--circuit:'+cfg.color+'"><div class="free-art">'+routeMiniature(i+1)+'<span>'+String(i+1).padStart(2,'0')+'</span></div><div class="free-card-copy"><small>'+cfg.tag+'</small><h3>'+cfg.name+'</h3><p>'+cfg.description+'</p><div class="free-chips"><span>'+cfg.count+' enemies</span><span>'+cfg.boosts+' boosts</span><span>'+cfg.budget+' ⚡</span></div><p class="evolution-map-colors">'+FREE_COLOR_PLANS[i].split(' ').map(c=>'<span style="color:'+ENEMY_FAMILIES[c].color+'">'+ENEMY_FAMILIES[c].icon+' '+ENEMY_FAMILIES[c].name+'</span>').join(' · ')+'</p><p class="free-record" id="freeRecord'+(i+1)+'"></p><button type="button" id="freePlay'+(i+1)+'">Play '+cfg.name+' <span aria-hidden="true">&gt;</span></button></div></article>').join('')+'</div>';panel.insertBefore(section,classic);for(let i=1;i<=FREE_MAPS.length;i++)$('freePlay'+i).onclick=()=>startFreeMap(i);
+ const card=document.createElement('button');card.type='button';card.id='freeChoose';card.className='campaign-choice free-choice';card.setAttribute('aria-label','Open Free Play');card.innerHTML='<span class="free-infinity" aria-hidden="true">∞</span><span class="campaign-choice-copy"><span class="campaign-kicker">FREE PLAY · 15 EXOTIC CIRCUITS</span><strong class="campaign-choice-title">Take the wild route</strong><span class="campaign-description">Spirals, open loops and converging routes.</span><span class="campaign-choice-next">320–1000 enemies · Continuous streams</span></span><span class="campaign-chevron" aria-hidden="true">›</span>';card.onclick=openFreeMaps;overview.append(card);
+ const section=document.createElement('section');section.id='freeMaps';section.hidden=true;section.setAttribute('aria-label','Free Play circuits');section.innerHTML='<div class="free-manifesto"><span>NO LOCKS. NO WAITING BETWEEN WAVES.</span><p>Build your dream defense, reveal the whole circuit, then unleash a continuous stream. The path stays lit.</p></div><div class="free-map-grid">'+FREE_MAPS.map((cfg,i)=>(i===5?'<div class="free-volume"><small>VOLUME 02 · LOOP WORLDS</small><strong>Lose yourself in the curves.</strong><span>Five new circuits · 600–1000 enemies · Light in motion</span></div>':i===10?'<div class="free-volume"><small>VOLUME 03 · CONFLUENCE</small><strong>Many entrances, one exit.</strong><span>Spaced streams · Red Links · Asteroid escorts</span></div>':'')+'<article class="free-map-card" style="--circuit:'+cfg.color+'"><div class="free-art">'+routeMiniature(i+1)+'<span>'+String(i+1).padStart(2,'0')+'</span></div><div class="free-card-copy"><small>'+cfg.tag+'</small><h3>'+cfg.name+'</h3><p>'+cfg.description+'</p><div class="free-chips"><span>'+cfg.count+' enemies</span><span>'+cfg.boosts+' boosts</span>'+(cfg.lanes?'<span>'+cfg.lanes+' entrances</span><span>'+cfg.rocks+' asteroids</span>':'')+'<span>'+cfg.budget+' ⚡</span></div><p class="evolution-map-colors">'+FREE_COLOR_PLANS[i].split(' ').map(c=>'<span style="color:'+ENEMY_FAMILIES[c].color+'">'+ENEMY_FAMILIES[c].icon+' '+ENEMY_FAMILIES[c].name+'</span>').join(' · ')+'</p><p class="free-record" id="freeRecord'+(i+1)+'"></p><button type="button" id="freePlay'+(i+1)+'">Play '+cfg.name+' <span aria-hidden="true">&gt;</span></button></div></article>').join('')+'</div>';panel.insertBefore(section,classic);for(let i=1;i<=FREE_MAPS.length;i++)$('freePlay'+i).onclick=()=>startFreeMap(i);
  const label=document.createElement('div');label.id='freeRunLabel';label.hidden=true;label.setAttribute('role','status');document.querySelector('.battle-frame').append(label);
- const button=document.createElement('button');button.type='button';button.id='freeOpen';button.textContent='∞ Free Play · 10 exotic circuits';button.onclick=()=>{openCampaignMap();openFreeMaps()};$('campaignOptions')?.append(button);
+ const button=document.createElement('button');button.type='button';button.id='freeOpen';button.textContent='∞ Free Play · 15 exotic circuits';button.onclick=()=>{openCampaignMap();openFreeMaps()};$('campaignOptions')?.append(button);
+}
+function paintConfluenceRoad(points,color,limit=Infinity,jumps=[]){
+ g.lineCap='round';g.lineJoin='round';g.beginPath();
+ for(let i=0;i<points.length&&points[i].dist<=limit;i++){
+  const p=points[i];if(!i||p.dist-points[i-1].dist<.05)g.moveTo(p.x,p.y);else g.lineTo(p.x,p.y);
+ }
+ g.strokeStyle=color+'37';g.lineWidth=25;g.stroke();
+ g.strokeStyle='#071023';g.lineWidth=18;g.stroke();
+ g.strokeStyle=color+'b0';g.lineWidth=1.75;g.setLineDash([10,15]);g.stroke();g.setLineDash([]);
+ for(let d=points[0].dist+65;d<Math.min(limit,points.at(-1).dist)-25;d+=100){
+  if(jumps.some(jump=>Math.abs(d-jump.at)<35))continue;
+  const p=posAt(d,points),ahead=posAt(d+6,points);
+  g.save();g.translate(p.x,p.y);g.rotate(Math.atan2(ahead.y-p.y,ahead.x-p.x));
+  g.strokeStyle=color;g.beginPath();g.moveTo(-5,-4);g.lineTo(2,0);g.lineTo(-5,4);g.stroke();g.restore();
+ }
 }
 function paintExoticArena(){
  const cfg=freeMap(),color=cfg.color,total=way.at(-1).dist;
  g.save();const haze=g.createRadialGradient(560,337,30,560,337,650);haze.addColorStop(0,color+'14');haze.addColorStop(1,'#030817');g.fillStyle=haze;g.fillRect(0,0,1120,675);
  // Restrained circuit dressing stays behind enemies and never reserves build cells.
  g.strokeStyle=color+'18';g.lineWidth=1;for(let x=40;x<1120;x+=80){g.beginPath();g.moveTo(x,20);g.lineTo(x,655);g.stroke()}for(let y=35;y<675;y+=80){g.beginPath();g.moveTo(20,y);g.lineTo(1100,y);g.stroke()}
+ if(confluenceRoutes.length){
+  for(const route of confluenceRoutes)paintConfluenceRoad(route.way,route.color,route.mergeDistance,route.jumps);
+  const main=confluenceRoutes[0];
+  paintConfluenceRoad(main.way.filter(p=>p.dist>=main.mergeDistance),'#ffe3a0');
+  g.restore();return;
+ }
  paintLoopCircuitEffects();
  g.globalAlpha=firstWaveStarted?1:.32;g.lineCap='round';g.lineJoin='round';g.beginPath();
  way.forEach((p,i)=>{
@@ -3202,7 +3320,7 @@ function createStageOneEnemy(w,index){
 function spawnWaveAsteroids(){
  while(asteroidSpawned<waveAsteroids.length&&elapsed+1e-9>=waveAsteroids[asteroidSpawned].at){
   const spec=waveAsteroids[asteroidSpawned++],hp=spec.hp*(level===1?.82:level===3?1.18:1);
-  monsters.push({id:++monsterSerial,asteroid:ASTEROID_SHAPES[spec.shape],hp,maxHp:hp,progress:0,spin:0,
+  monsters.push({id:++monsterSerial,asteroid:ASTEROID_SHAPES[spec.shape],route:spec.route,hp,maxHp:hp,progress:0,spin:0,
    moveSpeed:spec.speed,spinSpeed:spec.spin,spawnAge:Math.max(0,elapsed-spec.at)});
  }
 }
@@ -3634,16 +3752,19 @@ document.querySelector('.battle-frame').appendChild(waveBanner);
 const pathRevealBanner=document.createElement('div');pathRevealBanner.id='pathRevealBanner';pathRevealBanner.textContent='REVEALING THE PATH';document.querySelector('.battle-frame').appendChild(pathRevealBanner);
 let waveBannerExitTimer=null;
 function renderWaveCountdown(){
- const spec=isStageCampaign()?campaignWaveSpecs()[waveNumber-1]:null,colors=colorWaveLabel(waveNumber);
- waveBanner.querySelector('.wave-palette').textContent=spec?.asteroids?.length?
+ const free=isFreePlay(),spec=free?freeMap():isStageCampaign()?campaignWaveSpecs()[waveNumber-1]:null,colors=colorWaveLabel(waveNumber);
+ waveBanner.querySelector('.wave-palette').textContent=(spec?.asteroids?.length||spec?.rocks)?
   (colors?colors+' · ':'')+'ASTEROID COVER':colors||'Standard units';
- waveBanner.querySelector('.wave-main').textContent=isFreePlay()?'STREAM INCOMING':(spec?.surge||(!isStageCampaign()&&waveNumber===10))?'SURGE INCOMING':'NEXT WAVE';const active=autoWaveCountdown>=0&&!playing&&lives>0&&waveNumber<=CAMPAIGN_WAVES;
+ waveBanner.querySelector('.wave-main').textContent=free?'STREAM INCOMING':(spec?.surge||(!spec&&waveNumber===10))?'SURGE INCOMING':'NEXT WAVE';const active=autoWaveCountdown>=0&&!playing&&lives>0&&waveNumber<=CAMPAIGN_WAVES;
  if(active){if(waveBannerExitTimer){clearTimeout(waveBannerExitTimer);waveBannerExitTimer=null}waveBanner.classList.remove('exiting');waveBanner.classList.add('visible');const sec=Math.max(1,Math.ceil(autoWaveCountdown));if(sec!==autoWaveLastShown){if(autoWaveLastShown===-1)window.arcAudio?.mode('alert');waveBanner.querySelector('.wave-number').textContent=String(waveNumber).padStart(2,'0');waveBanner.querySelector('.wave-sec').textContent=`IN ${sec} S`;autoWaveLastShown=sec}waveBanner.classList.toggle('is-paused',paused);}
  else if(waveBanner.classList.contains('visible')){waveBanner.classList.remove('visible');waveBanner.classList.add('exiting');waveBannerExitTimer=setTimeout(()=>{waveBanner.classList.remove('exiting');waveBannerExitTimer=null},300)}
 }
-function launchWave(isAuto=false){if(window.arcAppUpdating)return;fissionSpawned=0;eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=!isFreePlay()&&(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();waveAsteroids=(isStageCampaign()?campaignWaveSpecs()[waveNumber-1].asteroids:null)||[];
+function launchWave(isAuto=false){if(window.arcAppUpdating)return;fissionSpawned=0;eLinkPending=null;placing=false;modeButtons();if(playing||lives<=0||waveNumber>CAMPAIGN_WAVES||(!isAuto&&firstWaveStarted))return;firstWaveStarted=true;autoWaveCountdown=-1;renderWaveCountdown();resetTitanEncounter();titanEncounter=!isFreePlay()&&(!isStageCampaign()||isCampaignFinale())&&waveNumber===CAMPAIGN_WAVES?'pending':'idle';waveStartKills=kills;waveStartEscaped=escaped;waveStartDiscovery=discoveredPercent();waveAsteroids=isFreePlay()?freeAsteroidSchedule(freeMap()):(isStageCampaign()?campaignWaveSpecs()[waveNumber-1].asteroids:null)||[];
  asteroidSpawned=0;
- $('waveReport').textContent=waveAsteroids.length?'⚠ ASTEROID COVER · Rocks attract direct fire. E-Link and Boomerang can still reach the formation.':`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isFreePlay()?freeMap().count:isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isFreePlay()?freeMap().gap:isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:waveNumber===10?.95:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');waveIntroStart=waveNumber===1?performance.now():0;revealSweepStart=0;if(waveNumber===1)scoutActive=true;pathRevealBanner.classList.toggle('active',waveNumber===1);$('pause').textContent='⏸ Pause';update()}
+ $('waveReport').textContent=waveAsteroids.length?'⚠ ASTEROID COVER · Rocks attract direct fire. E-Link and Boomerang can still reach the formation.':`📊 Wave ${waveNumber} in progress: results at the end of the wave.`;monsters=[];shots=[];boomShots=[];pusherShots=[];elapsed=0;spawn=0;waveSpawned=0;waveFinished=false;waveTotal=isFreePlay()?freeMap().count:isStageCampaign()?waveComposition(waveNumber).total:waveNumber===1?12:waveNumber===2?16:waveNumber===3?22:waveNumber===4?15:waveNumber===5?16:waveComposition(waveNumber).total;waveDelay=isFreePlay()?freeMap().gap:isStageCampaign()?campaignWaveSpecs()[waveNumber-1].gap:waveNumber===1?.85:waveNumber===2?.85:waveNumber===3?.9:waveNumber===4?1.05:waveNumber===5?1.05:waveNumber===10?.95:Math.max(1.0,1.13-(waveNumber-5)*.007);playing=true;paused=false;window.arcAudio?.mode('stage');
+ const showReveal=waveNumber===1&&!(isFreePlay()&&freeMap().lanes);
+ waveIntroStart=showReveal?performance.now():0;revealSweepStart=0;if(showReveal)scoutActive=true;
+ pathRevealBanner.classList.toggle('active',showReveal);$('pause').textContent='⏸ Pause';update()}
 let waveAsteroids=[],asteroidSpawned=0;
 let arcFrameStamp=0;
 function animate(ts){if(window.matchMedia('(max-width:699px)').matches&&arcFrameStamp&&ts-arcFrameStamp<31){if(!window.__arcLabManual)requestAnimationFrame(animate);return}arcFrameStamp=ts;if(!last)last=ts;let dt=Math.min(.05,(ts-last)/1000);last=ts;if(autoWaveCountdown>=0&&!paused&&!playing&&lives>0){autoWaveCountdown=Math.max(0,autoWaveCountdown-dt);renderWaveCountdown();if(autoWaveCountdown<=0)launchWave(true)}if(waveIntroStart>0){
@@ -3710,7 +3831,7 @@ for(let m of monsters){
  if(!m.routeLinkTransit)advanceBoostMovement(m,movementDt,dt,baseSpeed*(freezeFactors.get(m.id)??1),!!(m.grapple||m.maw||pushed),baseSpeed);
  // Count each crossing once per monster, including accelerated movement.
  // The high-water mark prevents Repulsor backtracking from granting duplicate exploration.
- if(traceVisits.length){
+ if(traceVisits.length&&!m.route){
   const first=Math.max(0,Math.floor(oldProgress/TRACE_STEP));
   const last=Math.min(traceVisits.length-1,Math.floor(m.progress/TRACE_STEP));
   const previousSection=m.lastTraceSection??-1;
@@ -3719,7 +3840,7 @@ for(let m of monsters){
   }
   m.lastTraceSection=Math.max(previousSection,last);
  }
- for(const pair of jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}
+ for(const pair of m.route?.jumps??jumpPairs){if(oldProgress<pair.at&&m.progress>=pair.at)window.arcAudio?.effect(pair.kind==='wormhole'?'wormhole':'warp')}
 const spinRhythm92=m.type===0?1+0.13*Math.sin(m.behaviorClock92*2+m.id):m.type===1?1+0.23*Math.sin(m.behaviorClock92*3.5+m.id*.6):1+0.07*Math.sin(m.behaviorClock92*1.4+m.id);m.spin+=dt*(m.spinSpeed??1.4)*spinRhythm92;}// Exit crossings are final: remove them before towers can shoot or capture them.
 advanceScout(dt);
 advanceMaw(dt);
@@ -4009,8 +4130,9 @@ const engineDraw=draw;draw=function(){engineDraw();
   g.restore();
  }
   presentBoard();
-  drawPortraitGate(way[0],false,performance.now()/1000);
-  drawPortraitGate(way.at(-1),true,performance.now()/1000);
+  const gateTime=performance.now()/1000;
+  for(const route of confluenceRoutes.length?confluenceRoutes.map(track=>track.way):[way])drawPortraitGate(route[0],false,gateTime);
+  drawPortraitGate(way.at(-1),true,gateTime);
 };
 const originalAnimate=animate;
 animate=function(ts){try{originalAnimate(ts)}catch(err){console.error('ARC DEFENSE frame:',err);$('waveReport').textContent='Rendering error: '+err.message;requestAnimationFrame(animate)}};

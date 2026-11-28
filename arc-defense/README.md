@@ -1,8 +1,20 @@
 # ARC DEFENSE
 
-Standalone HTML/JavaScript tower defense. Current version: **9.64.4**.
+Standalone HTML/JavaScript tower defense. Current version: **9.65.0**.
 
 Play / install: https://tigreoslam23.github.io/Jeux/arc-defense/
+
+## Free Play Volume 03 — Confluence (9.65.0)
+
+Circuits 11–15 alternate arrivals between two or three colored entrances. Rounded open loops stay separate until they merge into the final straight. The entire board is visible at the start. Each branch has a red Route Link and a boost pad, and Trident Nebula and Blackwater Convergence have a wormhole. The streams have no breaks between groups.
+
+| Circuit | Entrances | Enemies | Asteroids | Enemy launch interval |
+| --- | ---: | ---: | ---: | ---: |
+| 11 · Twin Tides | 2 | 420 | 16 | 0.82 s |
+| 12 · Velvet Switchbacks | 2 | 440 | 20 | 0.80 s |
+| 13 · Trident Nebula | 3 | 460 | 24 | 0.78 s |
+| 14 · Aurora Delta | 3 | 480 | 28 | 0.76 s |
+| 15 · Blackwater Convergence | 3 | 500 | 30 | 0.74 s |
 
 ## Asteroid formations (9.64.4)
 

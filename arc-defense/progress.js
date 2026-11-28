@@ -1,7 +1,7 @@
 (function(root){
  'use strict';
  const types=['pusher','maw','precision','rapid','pierce','freeze','area','elink','boom','grapple'];
- const keys=['arc_campaign_v1','arc_defense_v1_best',...Array.from({length:10},(_,i)=>'arc_free_v1_'+(i+1)),'arcAudioV912','arc_arena_theme','arc-graphics-quality'];
+ const keys=['arc_campaign_v1','arc_defense_v1_best',...Array.from({length:15},(_,i)=>'arc_free_v1_'+(i+1)),'arcAudioV912','arc_arena_theme','arc-graphics-quality'];
  const integer=(v,min=0,max=10000000)=>Number.isInteger(v)&&v>=min&&v<=max;
  const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
  function valid(key,v){

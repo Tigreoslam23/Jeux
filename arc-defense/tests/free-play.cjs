@@ -25,7 +25,7 @@ function game(search=''){
  reveal:(age=1000)=>{revealSweepStart=1;last=age-49;animate(age+1)},exploration:discoveredPercent,
  revealByMonsters:()=>traceVisits.fill(TRACE_REQUIRED),shots:()=>shots,best:()=>freeBest(freeMapNumber),campaignSave:()=>JSON.stringify(campaignProgress),
  fx:paintLoopCircuitEffects,start:startFreeMap,rows:()=>nodes.get('endSummary')?.children,render:()=>{draw=realDraw;try{draw()}finally{draw=()=>{}}},
- scenic:buildExoticRoute,featurePads:scenicBoostPads,
+ scenic:buildExoticRoute,featurePads:scenicBoostPads,lanes:()=>confluenceRoutes,rocksReleased:()=>asteroidSpawned,
 
  reset:()=>{campaignStageNumber=6;unlockCampaignTechnologies(8);build();playing=true;waveNumber=1;paused=false;waveSpawned=0;waveTotal=999;waveDelay=99999;autoWaveCountdown=-1;waveIntroStart=revealSweepStart=0;},
  setup:(ms,ts)=>{monsters=ms;towers=ts;},
@@ -125,7 +125,7 @@ check('the real loop completes every full stream once and saves only separate ci
 check('campaign terrain introduces boost, edge warp and black holes progressively',()=>{const s=game();for(let n=1;n<=10;n++){s.loadStage(n);const a=s.data();assert.equal(a.mode,'campaign');assert.equal(a.boostPads.length,[0,0,1,2,2,3,3,4,4,5][n-1]);assert.equal(a.jumpPairs.some(j=>j.kind==='edge'),[5,8,10].includes(n));assert.equal(a.jumpPairs.some(j=>j.kind==='wormhole'),[7,9,10].includes(n));assert(s.free().length>=12)}});
 
 check('new circuit effects render without changing combat and obey the shared simulation clock',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);s.launch();s.reveal();for(let i=0;i<20;i++)s.frame();const before=JSON.stringify(s.data());s.fx();s.render();assert.equal(JSON.stringify(s.data()),before);s.setPaused(true);const pausedState=JSON.stringify(s.data());for(let i=0;i<10;i++)s.frame();assert.equal(JSON.stringify(s.data()),pausedState)}});
-check('all ten menu launches validate their identifiers',()=>{const s=game();for(let id=1;id<=10;id++)assert(s.start(id));for(const id of [0,11,6.5,NaN])assert.equal(s.start(id),false)});
+check('all fifteen menu launches validate their identifiers',()=>{const s=game();for(let id=1;id<=15;id++)assert(s.start(id));for(const id of [0,16,6.5,NaN])assert.equal(s.start(id),false)});
 check('every new circuit contains substantial continuous turning and distinct geometry',()=>{const s=game();for(let id=6;id<=10;id++){s.loadFree(id);const way=s.path();let turning=0;for(let i=2;i<way.length;i++){const a=way[i-2],b=way[i-1],c=way[i];if(c.dist-b.dist<.05||b.dist-a.dist<.05)continue;const u=Math.atan2(b.y-a.y,b.x-a.x),v=Math.atan2(c.y-b.y,c.x-b.x);turning+=Math.abs(Math.atan2(Math.sin(v-u),Math.cos(v-u)))}assert(turning>Math.PI*4,'loop turns '+id+': '+turning)}});
 check('a former Trion trial link opens the regular game mode',()=>{
  const campaign=game('?trion-armor=arcs');campaign.rebuild();
@@ -416,6 +416,68 @@ check('direct fire aims at rock regardless of target mode, while Boomerang and E
  s.setup([enemy,rock],[{...t,type:'elink',end:{x:7,y:4}}]);
  s.elinks(.2);
  assert(rock.hp<10);assert(enemy.hp<100);
+});
+check('Confluence entrances and open loops stay separate until the shared finish',()=>{
+ const s=game();
+ const side=(a,b,p)=>(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);
+ const opposite=(a,b)=>a>1e-7&&b< -1e-7||b>1e-7&&a< -1e-7;
+ const crosses=([a,b],[c,d])=>opposite(side(a,b,c),side(a,b,d))&&opposite(side(c,d,a),side(c,d,b));
+ for(let id=11;id<=15;id++){
+  s.loadFree(id);const {lanes,boosts,rocks,gap}=s.config(),routes=s.lanes();
+  assert.equal(routes.length,lanes);
+  assert.equal(new Set(routes.map(route=>route.way[0].y)).size,lanes);
+  assert.equal(s.data().boostPads.length,boosts);
+  assert(s.free().length>=20&&rocks>=16&&gap>.42);
+  assert.equal(s.exploration(),100);
+  const finish=routes[0].way.at(-1),segments=[];
+  for(const [index,route] of routes.entries()){
+   assert.equal(route.way.at(-1).x,finish.x);assert.equal(route.way.at(-1).y,finish.y);
+   const points=route.way.filter(p=>p.dist<=route.mergeDistance);
+   const pairs=points.slice(1).flatMap((p,i)=>p.dist-points[i].dist>=.05?[[points[i],p]]:[]);
+   assert(pairs.some(([a,b])=>a.x>b.x+.1),'each branch doubles back');
+   assert(pairs.every((pair,i)=>pairs.slice(i+2).every(other=>!crosses(pair,other))),'branch crosses itself '+id+' / '+index);
+   assert(pairs.every(pair=>segments.every(other=>!crosses(pair,other))),'branches cross '+id+' / '+index);
+   segments.push(...pairs);
+   const link=route.linkCycle.links[0];assert(link.exit>link.entry&&link.exit<route.mergeDistance&&link.length<link.exit-link.entry);
+   assert(route.jumps.every(j=>j.at>link.exit));
+  }
+ }
+});
+check('all five multi-entry streams alternate branches, launch all rocks and record a completed run',()=>{
+ const s=game();
+ for(let id=11;id<=15;id++){
+  s.loadFree(id);const cfg=s.config(),routes=s.lanes();s.setSpeed(4);s.launch();
+  for(let i=0;i<40;i++)s.frame();
+  const enemies=s.monsters().filter(m=>!m.asteroid);
+  assert(enemies.length>routes.length);
+  for(let i=0;i<enemies.length;i++)assert.equal(enemies[i].route,routes[i%routes.length]);
+  s.setPaused(true);const before=enemies.map(m=>m.progress);
+  for(let i=0;i<8;i++)s.frame();
+  assert.deepEqual(enemies.map(m=>m.progress),before);
+  s.setPaused(false);
+  let frames=0;
+  while(s.data().playing&&frames++<2600){s.killAll();s.frame()}
+  assert(!s.data().playing&&s.best().won,'completed '+id);
+  assert.equal(s.rocksReleased(),cfg.rocks);
+  assert.equal(s.data().waveSpawned,cfg.count);assert.equal(s.data().lives,20);
+ }
+});
+check('every entry has an independent active Link and escapes at its own finish distance',()=>{
+ const s=game();s.loadFree(15);s.setSpeed(1);s.launch();s.suppressSpawns();
+ const routes=s.lanes(),enemies=routes.map((route,index)=>{
+  const enemy=s.freeEnemy(index);
+  enemy.progress=route.linkCycle.links[0].entry-.5;
+  return enemy;
+ });
+ s.setup(enemies,[]);s.frame();
+ for(const [index,enemy] of enemies.entries()){
+  assert.equal(enemy.routeLinkTransit.link,routes[index].linkCycle.links[0]);
+  assert.equal(routes[index].linkCycle.used,1);
+ }
+ s.render();
+ for(const enemy of enemies){delete enemy.routeLinkTransit;enemy.progress=enemy.route.way.at(-1).dist}
+ assert.equal(s.escapes(),routes.length);
+ assert.equal(s.state().lives,20-routes.length);
 });
 console.log(checks+' Free Play checks passed');
 
